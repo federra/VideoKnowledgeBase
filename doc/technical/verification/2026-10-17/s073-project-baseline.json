@@ -1,0 +1,13 @@
+{
+  "revision": "0014_inputs",
+  "new_paid_calls": 0,
+  "ai_queue_started": false,
+  "input_sets": 0,
+  "analysis_runs": 0,
+  "analysis_reports": 0,
+  "quality_evaluations": 0,
+  "prediction_drafts": 0,
+  "predictions": 0,
+  "enabled_sources": 0,
+  "active_research_run_grants": 0
+}

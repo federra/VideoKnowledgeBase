@@ -1,0 +1,71 @@
+FF.....F                                                                 [100%]
+=================================== FAILURES ===================================
+_ test_default_search_uses_exact_relevance_request_preserves_provider_order_and_units _
+
+    def test_default_search_uses_exact_relevance_request_preserves_provider_order_and_units():
+        from app.connectors.redfox import RedFox
+        calls=[]
+        def transport(request):
+            calls.append(request)
+            assert request.url.path=='/story/api/dyData/searchArticle'
+            assert json.loads(request.content)=={'keyword':'漫剧','offset':0,'sortType':'_0'}
+            return httpx.Response(200,json=payload())
+>       result=RedFox(lambda:'offline',transport=httpx.MockTransport(transport)).fetch(CAP,{'keyword':'漫剧','offset':0,'sortType':'_0'},maximum=10)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_redfox_default.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <app.connectors.redfox.RedFox object at 0x10b6b3b00>
+capability = 'douyin.keyword.default'
+request = {'keyword': '漫剧', 'offset': 0, 'sortType': '_0'}, maximum = 10
+
+    def fetch(self, capability, request, *, maximum=None):
+        if capability not in CAPABILITIES:
+>           raise AdapterError("UNSUPPORTED_SOURCE")
+E           app.connectors.redfox.AdapterError: UNSUPPORTED_SOURCE
+
+app/connectors/redfox.py:244: AdapterError
+_ test_default_search_filters_author_only_and_nonvideo_without_changing_relative_order _
+
+    def test_default_search_filters_author_only_and_nonvideo_without_changing_relative_order():
+        from app.connectors.redfox import normalize
+        body=payload()
+        body['data']['list'][0]['content']='其他作品'
+        body['data']['list'][0]['title']='其他作品'
+        body['data']['list'][0]['accountName']='漫剧作者'
+        body['data']['list'][1]['workType']='图文'
+>       result=normalize(CAP,body,maximum=10)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_redfox_default.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+capability = 'douyin.keyword.default'
+payload = {'code': 2000, 'data': {'list': [{'workId': '100', 'title': '其他作品', 'content': '其他作品', 'workType': '视频', ...}, {'workI...: '漫剧正片4', 'workType': '视频', ...}, {'workId': '105', 'title': '漫剧5', 'content': '漫剧正片5', 'workType': '视频', ...}, ...]}}
+maximum = 10, target = None
+
+    def normalize(capability, payload, *, maximum=1, target=None):
+        if capability not in CAPABILITIES:
+>           raise AdapterError("UNSUPPORTED_SOURCE")
+E           app.connectors.redfox.AdapterError: UNSUPPORTED_SOURCE
+
+app/connectors/redfox.py:125: AdapterError
+_ test_missing_views_uses_only_verified_default_batch_and_keeps_original_positions _
+
+    def test_missing_views_uses_only_verified_default_batch_and_keeps_original_positions():
+        from app.intelligence.ranking import keyword_board
+        candidates=[item('old','漫剧热榜',None,likes='999999')]
+        default=[item('second','漫剧二',None,likes='999'),item('first','漫剧一',None,likes='0')]
+        default[0]['entry']['position']=1
+        default[1]['entry']['position']=0
+>       result=keyword_board(candidates+default,default_rows=default)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: keyword_board() got an unexpected keyword argument 'default_rows'
+
+tests/test_keyword_ranking.py:95: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_redfox_default.py::test_default_search_uses_exact_relevance_request_preserves_provider_order_and_units
+FAILED tests/test_redfox_default.py::test_default_search_filters_author_only_and_nonvideo_without_changing_relative_order
+FAILED tests/test_keyword_ranking.py::test_missing_views_uses_only_verified_default_batch_and_keeps_original_positions
+3 failed, 5 passed in 0.21s

@@ -1,0 +1,80 @@
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+_______ test_evidence_counts_multilabel_denominator_and_top_unknown_last _______
+
+    def test_evidence_counts_multilabel_denominator_and_top_unknown_last():
+>       from app.ai.feedback import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.feedback'
+
+backend/tests/test_feedback_policy.py:27: ModuleNotFoundError
+________________ test_invalid_model_evidence_rejected[foreign] _________________
+
+mutation = 'foreign'
+
+    @pytest.mark.parametrize('mutation',['foreign','duplicate','unsupported','fake_count'])
+    def test_invalid_model_evidence_rejected(mutation):
+>       from app.ai.feedback import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.feedback'
+
+backend/tests/test_feedback_policy.py:36: ModuleNotFoundError
+_______________ test_invalid_model_evidence_rejected[duplicate] ________________
+
+mutation = 'duplicate'
+
+    @pytest.mark.parametrize('mutation',['foreign','duplicate','unsupported','fake_count'])
+    def test_invalid_model_evidence_rejected(mutation):
+>       from app.ai.feedback import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.feedback'
+
+backend/tests/test_feedback_policy.py:36: ModuleNotFoundError
+______________ test_invalid_model_evidence_rejected[unsupported] _______________
+
+mutation = 'unsupported'
+
+    @pytest.mark.parametrize('mutation',['foreign','duplicate','unsupported','fake_count'])
+    def test_invalid_model_evidence_rejected(mutation):
+>       from app.ai.feedback import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.feedback'
+
+backend/tests/test_feedback_policy.py:36: ModuleNotFoundError
+_______________ test_invalid_model_evidence_rejected[fake_count] _______________
+
+mutation = 'fake_count'
+
+    @pytest.mark.parametrize('mutation',['foreign','duplicate','unsupported','fake_count'])
+    def test_invalid_model_evidence_rejected(mutation):
+>       from app.ai.feedback import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.feedback'
+
+backend/tests/test_feedback_policy.py:36: ModuleNotFoundError
+____________ test_freeze_is_stable_independent_and_raw_text_is_data ____________
+
+    def test_freeze_is_stable_independent_and_raw_text_is_data():
+>       from app.ai.feedback import freeze_input
+E       ModuleNotFoundError: No module named 'app.ai.feedback'
+
+backend/tests/test_feedback_policy.py:46: ModuleNotFoundError
+__________ test_duplicate_platform_id_and_wrong_capture_day_rejected ___________
+
+    def test_duplicate_platform_id_and_wrong_capture_day_rejected():
+>       from app.ai.feedback import FeedbackInput
+E       ModuleNotFoundError: No module named 'app.ai.feedback'
+
+backend/tests/test_feedback_policy.py:55: ModuleNotFoundError
+____________ test_insufficient_never_returns_claims_or_percentages _____________
+
+    def test_insufficient_never_returns_claims_or_percentages():
+>       from app.ai.feedback import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.feedback'
+
+backend/tests/test_feedback_policy.py:63: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/test_feedback_policy.py::test_evidence_counts_multilabel_denominator_and_top_unknown_last
+FAILED backend/tests/test_feedback_policy.py::test_invalid_model_evidence_rejected[foreign]
+FAILED backend/tests/test_feedback_policy.py::test_invalid_model_evidence_rejected[duplicate]
+FAILED backend/tests/test_feedback_policy.py::test_invalid_model_evidence_rejected[unsupported]
+FAILED backend/tests/test_feedback_policy.py::test_invalid_model_evidence_rejected[fake_count]
+FAILED backend/tests/test_feedback_policy.py::test_freeze_is_stable_independent_and_raw_text_is_data
+FAILED backend/tests/test_feedback_policy.py::test_duplicate_platform_id_and_wrong_capture_day_rejected
+FAILED backend/tests/test_feedback_policy.py::test_insufficient_never_returns_claims_or_percentages
+8 failed in 0.07s

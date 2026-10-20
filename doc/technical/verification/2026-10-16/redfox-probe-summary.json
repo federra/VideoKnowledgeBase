@@ -1,0 +1,41 @@
+{
+  "endpoint": "https://redfox.hk/story/api/dyData/searchUser",
+  "request": {
+    "keyword": "漫剧",
+    "offset": 0,
+    "sortType": "_0"
+  },
+  "max_requests": 1,
+  "automatic_retries": 0,
+  "automatic_pagination": false,
+  "started_at": "2026-10-16T04:36:53.249520+00:00",
+  "status": "success",
+  "http_status": 200,
+  "account_count": 20,
+  "provider_code": 2000,
+  "has_more": 1,
+  "can_analyze_video": false,
+  "sample_fields": [
+    "accountId",
+    "accountType",
+    "age",
+    "avatarUrl",
+    "awemeCount",
+    "awemeCountThirty",
+    "city",
+    "country",
+    "crawlTime",
+    "followerCount",
+    "gender",
+    "ipLocation",
+    "lastCreateTime",
+    "nickname",
+    "province",
+    "redfoxIndex",
+    "signature",
+    "totalFavorited",
+    "uid",
+    "verifyInfo"
+  ],
+  "completed_at": "2026-10-16T04:36:53.888790+00:00"
+}

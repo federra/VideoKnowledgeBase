@@ -1,0 +1,94 @@
+FFFFFFFFF                                                                [100%]
+=================================== FAILURES ===================================
+______________ test_six_research_definitions_versioned_and_frozen ______________
+
+    def test_six_research_definitions_versioned_and_frozen():
+>       from app.ai.research import DEFINITIONS, freeze_input, inspect_output, system_prompt
+E       ModuleNotFoundError: No module named 'app.ai.research'
+
+backend/tests/test_research_policy.py:24: ModuleNotFoundError
+__________ test_research_rejects_invented_evidence_and_scope[unknown] __________
+
+case = 'unknown'
+
+    @pytest.mark.parametrize("case",["unknown","quote","duplicate","full","empty","extra"])
+    def test_research_rejects_invented_evidence_and_scope(case):
+>       from app.ai.research import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.research'
+
+backend/tests/test_research_policy.py:37: ModuleNotFoundError
+___________ test_research_rejects_invented_evidence_and_scope[quote] ___________
+
+case = 'quote'
+
+    @pytest.mark.parametrize("case",["unknown","quote","duplicate","full","empty","extra"])
+    def test_research_rejects_invented_evidence_and_scope(case):
+>       from app.ai.research import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.research'
+
+backend/tests/test_research_policy.py:37: ModuleNotFoundError
+_________ test_research_rejects_invented_evidence_and_scope[duplicate] _________
+
+case = 'duplicate'
+
+    @pytest.mark.parametrize("case",["unknown","quote","duplicate","full","empty","extra"])
+    def test_research_rejects_invented_evidence_and_scope(case):
+>       from app.ai.research import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.research'
+
+backend/tests/test_research_policy.py:37: ModuleNotFoundError
+___________ test_research_rejects_invented_evidence_and_scope[full] ____________
+
+case = 'full'
+
+    @pytest.mark.parametrize("case",["unknown","quote","duplicate","full","empty","extra"])
+    def test_research_rejects_invented_evidence_and_scope(case):
+>       from app.ai.research import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.research'
+
+backend/tests/test_research_policy.py:37: ModuleNotFoundError
+___________ test_research_rejects_invented_evidence_and_scope[empty] ___________
+
+case = 'empty'
+
+    @pytest.mark.parametrize("case",["unknown","quote","duplicate","full","empty","extra"])
+    def test_research_rejects_invented_evidence_and_scope(case):
+>       from app.ai.research import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.research'
+
+backend/tests/test_research_policy.py:37: ModuleNotFoundError
+___________ test_research_rejects_invented_evidence_and_scope[extra] ___________
+
+case = 'extra'
+
+    @pytest.mark.parametrize("case",["unknown","quote","duplicate","full","empty","extra"])
+    def test_research_rejects_invented_evidence_and_scope(case):
+>       from app.ai.research import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.research'
+
+backend/tests/test_research_policy.py:37: ModuleNotFoundError
+________ test_research_grade_prediction_and_review_do_not_bypass_gates _________
+
+    def test_research_grade_prediction_and_review_do_not_bypass_gates():
+>       from app.ai.research import inspect_output
+E       ModuleNotFoundError: No module named 'app.ai.research'
+
+backend/tests/test_research_policy.py:49: ModuleNotFoundError
+________ test_research_input_rejects_blank_duplicate_and_fake_versions _________
+
+    def test_research_input_rejects_blank_duplicate_and_fake_versions():
+>       from app.ai.research import ResearchInput
+E       ModuleNotFoundError: No module named 'app.ai.research'
+
+backend/tests/test_research_policy.py:69: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/test_research_policy.py::test_six_research_definitions_versioned_and_frozen
+FAILED backend/tests/test_research_policy.py::test_research_rejects_invented_evidence_and_scope[unknown]
+FAILED backend/tests/test_research_policy.py::test_research_rejects_invented_evidence_and_scope[quote]
+FAILED backend/tests/test_research_policy.py::test_research_rejects_invented_evidence_and_scope[duplicate]
+FAILED backend/tests/test_research_policy.py::test_research_rejects_invented_evidence_and_scope[full]
+FAILED backend/tests/test_research_policy.py::test_research_rejects_invented_evidence_and_scope[empty]
+FAILED backend/tests/test_research_policy.py::test_research_rejects_invented_evidence_and_scope[extra]
+FAILED backend/tests/test_research_policy.py::test_research_grade_prediction_and_review_do_not_bypass_gates
+FAILED backend/tests/test_research_policy.py::test_research_input_rejects_blank_duplicate_and_fake_versions
+9 failed in 0.08s

@@ -1,0 +1,86 @@
+......FFF                                                                [100%]
+=================================== FAILURES ===================================
+____ test_qidian_keeps_bounded_received_evidence_on_read_failures[oversize] ____
+
+mode = 'oversize'
+
+    @pytest.mark.parametrize('mode', ['oversize', 'decode', 'interrupted'])
+    def test_qidian_keeps_bounded_received_evidence_on_read_failures(mode):
+        import base64
+        from app.connectors.qidian_mobile import QidianMobile
+    
+        class Partial(httpx.SyncByteStream):
+            def __iter__(self):
+                yield b'challenge-prefix'
+                raise httpx.ReadError('connection interrupted')
+    
+        response = httpx.Response(403, content=b'challenge-prefix' + b'x' * (3 * 1024 * 1024)) if mode == 'oversize' else httpx.Response(200, content=b'challenge-prefix\xff') if mode == 'decode' else httpx.Response(200, stream=Partial())
+        reply = QidianMobile(httpx.Client(transport=httpx.MockTransport(lambda r: response))).fetch('novel.qidian.board', board(), maximum=30)
+        assert reply.error and reply.batch is None
+        if mode == 'decode':
+            assert '[invalid UTF-8; base64 body]' in reply.raw_text
+            assert base64.b64encode(b'challenge-prefix\xff').decode() in reply.raw_text
+        else:
+>           assert reply.raw_text.startswith('challenge-prefix')
+E           AssertionError: assert False
+E            +  where False = <built-in method startswith of str object at 0x109a0edb0>('challenge-prefix')
+E            +    where <built-in method startswith of str object at 0x109a0edb0> = '[empty response]'.startswith
+E            +      where '[empty response]' = Reply(http_status=403, provider_code=None, outcome='invalid_shape', raw_text='[empty response]', captured_at=datetime.datetime(2026, 10, 20, 4, 53, 8, 875173, tzinfo=datetime.timezone.utc), batch=None, error='SOURCE_UNAVAILABLE').raw_text
+
+tests/test_qidian_mobile.py:146: AssertionError
+_____ test_qidian_keeps_bounded_received_evidence_on_read_failures[decode] _____
+
+mode = 'decode'
+
+    @pytest.mark.parametrize('mode', ['oversize', 'decode', 'interrupted'])
+    def test_qidian_keeps_bounded_received_evidence_on_read_failures(mode):
+        import base64
+        from app.connectors.qidian_mobile import QidianMobile
+    
+        class Partial(httpx.SyncByteStream):
+            def __iter__(self):
+                yield b'challenge-prefix'
+                raise httpx.ReadError('connection interrupted')
+    
+        response = httpx.Response(403, content=b'challenge-prefix' + b'x' * (3 * 1024 * 1024)) if mode == 'oversize' else httpx.Response(200, content=b'challenge-prefix\xff') if mode == 'decode' else httpx.Response(200, stream=Partial())
+        reply = QidianMobile(httpx.Client(transport=httpx.MockTransport(lambda r: response))).fetch('novel.qidian.board', board(), maximum=30)
+        assert reply.error and reply.batch is None
+        if mode == 'decode':
+>           assert '[invalid UTF-8; base64 body]' in reply.raw_text
+E           AssertionError: assert '[invalid UTF-8; base64 body]' in '[empty response]'
+E            +  where '[empty response]' = Reply(http_status=200, provider_code=None, outcome='invalid_shape', raw_text='[empty response]', captured_at=datetime.datetime(2026, 10, 20, 4, 53, 8, 890805, tzinfo=datetime.timezone.utc), batch=None, error='SOURCE_UNAVAILABLE').raw_text
+
+tests/test_qidian_mobile.py:143: AssertionError
+__ test_qidian_keeps_bounded_received_evidence_on_read_failures[interrupted] ___
+
+mode = 'interrupted'
+
+    @pytest.mark.parametrize('mode', ['oversize', 'decode', 'interrupted'])
+    def test_qidian_keeps_bounded_received_evidence_on_read_failures(mode):
+        import base64
+        from app.connectors.qidian_mobile import QidianMobile
+    
+        class Partial(httpx.SyncByteStream):
+            def __iter__(self):
+                yield b'challenge-prefix'
+                raise httpx.ReadError('connection interrupted')
+    
+        response = httpx.Response(403, content=b'challenge-prefix' + b'x' * (3 * 1024 * 1024)) if mode == 'oversize' else httpx.Response(200, content=b'challenge-prefix\xff') if mode == 'decode' else httpx.Response(200, stream=Partial())
+        reply = QidianMobile(httpx.Client(transport=httpx.MockTransport(lambda r: response))).fetch('novel.qidian.board', board(), maximum=30)
+        assert reply.error and reply.batch is None
+        if mode == 'decode':
+            assert '[invalid UTF-8; base64 body]' in reply.raw_text
+            assert base64.b64encode(b'challenge-prefix\xff').decode() in reply.raw_text
+        else:
+>           assert reply.raw_text.startswith('challenge-prefix')
+E           AssertionError: assert False
+E            +  where False = <built-in method startswith of str object at 0x109a0edb0>('challenge-prefix')
+E            +    where <built-in method startswith of str object at 0x109a0edb0> = '[empty response]'.startswith
+E            +      where '[empty response]' = Reply(http_status=200, provider_code=None, outcome='network_error', raw_text='[empty response]', captured_at=datetime.datetime(2026, 10, 20, 4, 53, 8, 892860, tzinfo=datetime.timezone.utc), batch=None, error='NETWORK_ERROR').raw_text
+
+tests/test_qidian_mobile.py:146: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_qidian_mobile.py::test_qidian_keeps_bounded_received_evidence_on_read_failures[oversize]
+FAILED tests/test_qidian_mobile.py::test_qidian_keeps_bounded_received_evidence_on_read_failures[decode]
+FAILED tests/test_qidian_mobile.py::test_qidian_keeps_bounded_received_evidence_on_read_failures[interrupted]
+3 failed, 6 passed in 0.11s

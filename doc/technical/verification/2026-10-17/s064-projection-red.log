@@ -1,0 +1,12 @@
+........F                                                                [100%]
+=================================== FAILURES ===================================
+_____ test_projection_keeps_only_single_work_claims_and_recounts_emotions ______
+
+    def test_projection_keeps_only_single_work_claims_and_recounts_emotions():
+>       from app.intelligence.feedback import project
+E       ModuleNotFoundError: No module named 'app.intelligence.feedback'
+
+backend/tests/test_feedback_policy.py:71: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/test_feedback_policy.py::test_projection_keeps_only_single_work_claims_and_recounts_emotions
+1 failed, 8 passed in 0.08s

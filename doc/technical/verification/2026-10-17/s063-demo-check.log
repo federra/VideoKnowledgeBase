@@ -1,0 +1,2 @@
+$ node scripts/sync-demo.mjs --check
+Verified Demo baseline a610b8754f5c; original unchanged.

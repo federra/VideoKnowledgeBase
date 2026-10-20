@@ -1,0 +1,33 @@
+{
+  "name": "content-intelligence-provider",
+  "private": true,
+  "packageManager": "pnpm@11.24.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "pnpm --dir frontend dev",
+    "build": "pnpm --dir frontend build",
+    "check": "pnpm --dir frontend check",
+    "test": "pnpm --dir frontend test",
+    "demo:sync": "node scripts/sync-demo.mjs",
+    "demo:check": "node scripts/sync-demo.mjs --check",
+    "dev:backend": "cd backend && uv run uvicorn app.main:app --reload --host 127.0.0.1 --port 8000",
+    "infra": "uv run --project backend python scripts/local_infra.py",
+    "probe:redfox": "uv run --project backend python scripts/probe_redfox.py",
+    "db:status": "uv run --project backend python scripts/database.py status",
+    "db:upgrade": "uv run --project backend python scripts/database.py upgrade",
+    "db:test": "uv run --project backend python scripts/database.py test",
+    "db:app-role": "uv run --project backend python scripts/database.py app-role",
+    "db:audit": "uv run --project backend python scripts/database.py audit",
+    "api:generate": "uv run --project backend python scripts/contracts.py && pnpm --dir tools/contracts generate",
+    "api:check": "uv run --project backend python scripts/contracts.py --check && pnpm --dir tools/contracts check",
+    "accounts": "uv run --project backend python scripts/accounts.py",
+    "files": "uv run --project backend python scripts/files.py",
+    "tasks": "uv run --project backend python scripts/tasks.py",
+    "worker": "cd backend && uv run celery -A app.tasks.celery_app:app worker --pool=prefork --concurrency=2 --loglevel=WARNING --without-gossip --without-mingle",
+    "beat": "cd backend && uv run celery -A app.tasks.celery_app:app beat --loglevel=WARNING --schedule celerybeat-schedule",
+    "api:test": "uv run --project backend python scripts/frontend_api.py",
+    "collection": "uv run --project backend python scripts/collection.py"
+  }
+}

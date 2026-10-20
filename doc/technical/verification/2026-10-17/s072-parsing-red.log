@@ -1,0 +1,12 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_text_parsing_preserves_original_paragraph_numbers_and_missing_media ___
+
+    def test_text_parsing_preserves_original_paragraph_numbers_and_missing_media():
+>       from app.processing.research import parse_text
+E       ModuleNotFoundError: No module named 'app.processing.research'
+
+backend/tests/test_research_parsing.py:5: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/test_research_parsing.py::test_text_parsing_preserves_original_paragraph_numbers_and_missing_media
+1 failed in 0.07s

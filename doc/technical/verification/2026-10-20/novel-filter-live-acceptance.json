@@ -1,0 +1,2332 @@
+{
+  "date": "2026-10-20",
+  "feeds": {
+    "fanqie:None": {
+      "total": "2213",
+      "rank_types": [
+        {
+          "value": "new",
+          "label": "新书榜"
+        },
+        {
+          "value": "read",
+          "label": "阅读榜"
+        }
+      ],
+      "genders": [
+        {
+          "value": "female",
+          "label": "女频"
+        },
+        {
+          "value": "male",
+          "label": "男频"
+        }
+      ],
+      "genres": [
+        {
+          "value": "东方仙侠",
+          "label": "东方仙侠"
+        },
+        {
+          "value": "传统玄幻",
+          "label": "传统玄幻"
+        },
+        {
+          "value": "动漫衍生",
+          "label": "动漫衍生"
+        },
+        {
+          "value": "历史古代",
+          "label": "历史古代"
+        },
+        {
+          "value": "历史脑洞",
+          "label": "历史脑洞"
+        },
+        {
+          "value": "古言脑洞",
+          "label": "古言脑洞"
+        },
+        {
+          "value": "古风世情",
+          "label": "古风世情"
+        },
+        {
+          "value": "女频悬疑",
+          "label": "女频悬疑"
+        },
+        {
+          "value": "女频衍生",
+          "label": "女频衍生"
+        },
+        {
+          "value": "宫斗宅斗",
+          "label": "宫斗宅斗"
+        },
+        {
+          "value": "年代",
+          "label": "年代"
+        },
+        {
+          "value": "快穿",
+          "label": "快穿"
+        },
+        {
+          "value": "悬疑灵异",
+          "label": "悬疑灵异"
+        },
+        {
+          "value": "悬疑脑洞",
+          "label": "悬疑脑洞"
+        },
+        {
+          "value": "战神赘婿",
+          "label": "战神赘婿"
+        },
+        {
+          "value": "抗战谍战",
+          "label": "抗战谍战"
+        },
+        {
+          "value": "星光璀璨",
+          "label": "星光璀璨"
+        },
+        {
+          "value": "民国言情",
+          "label": "民国言情"
+        },
+        {
+          "value": "游戏体育",
+          "label": "游戏体育"
+        },
+        {
+          "value": "玄幻脑洞",
+          "label": "玄幻脑洞"
+        },
+        {
+          "value": "玄幻言情",
+          "label": "玄幻言情"
+        },
+        {
+          "value": "现言脑洞",
+          "label": "现言脑洞"
+        },
+        {
+          "value": "男频衍生",
+          "label": "男频衍生"
+        },
+        {
+          "value": "种田",
+          "label": "种田"
+        },
+        {
+          "value": "科幻末世",
+          "label": "科幻末世"
+        },
+        {
+          "value": "职场婚恋",
+          "label": "职场婚恋"
+        },
+        {
+          "value": "西方奇幻",
+          "label": "西方奇幻"
+        },
+        {
+          "value": "豪门总裁",
+          "label": "豪门总裁"
+        },
+        {
+          "value": "都市修真",
+          "label": "都市修真"
+        },
+        {
+          "value": "都市日常",
+          "label": "都市日常"
+        },
+        {
+          "value": "都市种田",
+          "label": "都市种田"
+        },
+        {
+          "value": "都市脑洞",
+          "label": "都市脑洞"
+        },
+        {
+          "value": "都市高武",
+          "label": "都市高武"
+        },
+        {
+          "value": "青春甜宠",
+          "label": "青春甜宠"
+        }
+      ],
+      "statuses": [
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:1017",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:1017",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:748",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:748",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:750",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:750",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:747",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:747",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:745",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:745",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:749",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:749",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:24",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:24",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:253",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:253",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:539",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:539",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:246",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:246",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:267",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:267",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:79",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:79",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:23",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:23",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:248",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:248",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:1015",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:1015",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:746",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:746",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:8",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:8",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:1139",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:1139",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:1016",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:1016",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:718",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:718",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:746",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:746",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:504",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:504",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:751",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:751",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:257",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:257",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:262",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:262",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:539",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:539",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:272",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:272",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:258",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:258",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:263",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:263",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:27",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:27",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:273",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:273",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:1014",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:1014",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:124",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:124",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:261",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:261",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:8",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:8",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:1140",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:1140",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:1141",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:1141",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:catalog",
+          "state": "succeeded",
+          "http_status": 200
+        }
+      ],
+      "page_labels": [
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "96666"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "95923"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "80023"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "63218"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "63094"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "60417"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "55081"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "50369"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "49585"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "48090"
+        }
+      ]
+    },
+    "fanqie:male": {
+      "total": "1133",
+      "rank_types": [
+        {
+          "value": "new",
+          "label": "新书榜"
+        },
+        {
+          "value": "read",
+          "label": "阅读榜"
+        }
+      ],
+      "genders": [
+        {
+          "value": "female",
+          "label": "女频"
+        },
+        {
+          "value": "male",
+          "label": "男频"
+        }
+      ],
+      "genres": [
+        {
+          "value": "东方仙侠",
+          "label": "东方仙侠"
+        },
+        {
+          "value": "传统玄幻",
+          "label": "传统玄幻"
+        },
+        {
+          "value": "动漫衍生",
+          "label": "动漫衍生"
+        },
+        {
+          "value": "历史古代",
+          "label": "历史古代"
+        },
+        {
+          "value": "历史脑洞",
+          "label": "历史脑洞"
+        },
+        {
+          "value": "古言脑洞",
+          "label": "古言脑洞",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "古风世情",
+          "label": "古风世情",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "女频悬疑",
+          "label": "女频悬疑",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "女频衍生",
+          "label": "女频衍生",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "宫斗宅斗",
+          "label": "宫斗宅斗",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "年代",
+          "label": "年代",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "快穿",
+          "label": "快穿",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "悬疑灵异",
+          "label": "悬疑灵异"
+        },
+        {
+          "value": "悬疑脑洞",
+          "label": "悬疑脑洞"
+        },
+        {
+          "value": "战神赘婿",
+          "label": "战神赘婿"
+        },
+        {
+          "value": "抗战谍战",
+          "label": "抗战谍战"
+        },
+        {
+          "value": "星光璀璨",
+          "label": "星光璀璨",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "民国言情",
+          "label": "民国言情",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "游戏体育",
+          "label": "游戏体育"
+        },
+        {
+          "value": "玄幻脑洞",
+          "label": "玄幻脑洞"
+        },
+        {
+          "value": "玄幻言情",
+          "label": "玄幻言情",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "现言脑洞",
+          "label": "现言脑洞",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "男频衍生",
+          "label": "男频衍生"
+        },
+        {
+          "value": "种田",
+          "label": "种田",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "科幻末世",
+          "label": "科幻末世"
+        },
+        {
+          "value": "职场婚恋",
+          "label": "职场婚恋",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "西方奇幻",
+          "label": "西方奇幻"
+        },
+        {
+          "value": "豪门总裁",
+          "label": "豪门总裁",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "都市修真",
+          "label": "都市修真"
+        },
+        {
+          "value": "都市日常",
+          "label": "都市日常"
+        },
+        {
+          "value": "都市种田",
+          "label": "都市种田"
+        },
+        {
+          "value": "都市脑洞",
+          "label": "都市脑洞"
+        },
+        {
+          "value": "都市高武",
+          "label": "都市高武"
+        },
+        {
+          "value": "青春甜宠",
+          "label": "青春甜宠",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        }
+      ],
+      "statuses": [
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:1017",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:1017",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:748",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:748",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:750",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:750",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:747",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:747",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:745",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:745",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:749",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:749",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:24",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:24",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:253",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:253",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:539",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:539",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:246",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:246",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:267",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:267",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:79",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:79",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:23",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:23",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:248",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:248",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:1015",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:1015",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:746",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:746",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:8",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:8",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:1139",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:1139",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:1016",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:1016",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:718",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:718",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:746",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:746",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:504",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:504",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:751",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:751",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:257",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:257",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:262",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:262",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:539",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:539",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:272",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:272",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:258",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:258",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:263",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:263",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:27",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:27",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:273",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:273",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:1014",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:1014",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:124",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:124",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:261",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:261",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:8",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:8",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:1140",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:1140",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:1141",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:1141",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:catalog",
+          "state": "succeeded",
+          "http_status": 200
+        }
+      ],
+      "page_labels": [
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "325950"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "317506"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "232770"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "200251"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "176299"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "127681"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "125064"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "113894"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "113229"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "108291"
+        }
+      ]
+    },
+    "fanqie:female": {
+      "total": "1080",
+      "rank_types": [
+        {
+          "value": "new",
+          "label": "新书榜"
+        },
+        {
+          "value": "read",
+          "label": "阅读榜"
+        }
+      ],
+      "genders": [
+        {
+          "value": "female",
+          "label": "女频"
+        },
+        {
+          "value": "male",
+          "label": "男频"
+        }
+      ],
+      "genres": [
+        {
+          "value": "东方仙侠",
+          "label": "东方仙侠",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "传统玄幻",
+          "label": "传统玄幻",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "动漫衍生",
+          "label": "动漫衍生",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "历史古代",
+          "label": "历史古代",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "历史脑洞",
+          "label": "历史脑洞",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "古言脑洞",
+          "label": "古言脑洞"
+        },
+        {
+          "value": "古风世情",
+          "label": "古风世情"
+        },
+        {
+          "value": "女频悬疑",
+          "label": "女频悬疑"
+        },
+        {
+          "value": "女频衍生",
+          "label": "女频衍生"
+        },
+        {
+          "value": "宫斗宅斗",
+          "label": "宫斗宅斗"
+        },
+        {
+          "value": "年代",
+          "label": "年代"
+        },
+        {
+          "value": "快穿",
+          "label": "快穿"
+        },
+        {
+          "value": "悬疑灵异",
+          "label": "悬疑灵异",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "悬疑脑洞",
+          "label": "悬疑脑洞"
+        },
+        {
+          "value": "战神赘婿",
+          "label": "战神赘婿",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "抗战谍战",
+          "label": "抗战谍战",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "星光璀璨",
+          "label": "星光璀璨"
+        },
+        {
+          "value": "民国言情",
+          "label": "民国言情"
+        },
+        {
+          "value": "游戏体育",
+          "label": "游戏体育"
+        },
+        {
+          "value": "玄幻脑洞",
+          "label": "玄幻脑洞",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "玄幻言情",
+          "label": "玄幻言情"
+        },
+        {
+          "value": "现言脑洞",
+          "label": "现言脑洞"
+        },
+        {
+          "value": "男频衍生",
+          "label": "男频衍生",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "种田",
+          "label": "种田"
+        },
+        {
+          "value": "科幻末世",
+          "label": "科幻末世"
+        },
+        {
+          "value": "职场婚恋",
+          "label": "职场婚恋"
+        },
+        {
+          "value": "西方奇幻",
+          "label": "西方奇幻",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "豪门总裁",
+          "label": "豪门总裁"
+        },
+        {
+          "value": "都市修真",
+          "label": "都市修真",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "都市日常",
+          "label": "都市日常",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "都市种田",
+          "label": "都市种田",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "都市脑洞",
+          "label": "都市脑洞",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "都市高武",
+          "label": "都市高武",
+          "disabled": true,
+          "reason": "当前男女频／榜型下无此题材分类"
+        },
+        {
+          "value": "青春甜宠",
+          "label": "青春甜宠"
+        }
+      ],
+      "statuses": [
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:1017",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:1017",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:748",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:748",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:750",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:750",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:747",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:747",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:745",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:745",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:749",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:749",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:24",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:24",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:253",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:253",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:539",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:539",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:246",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:246",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:267",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:267",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:79",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:79",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:23",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:23",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:248",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:248",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:1015",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:1015",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:746",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:746",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:8",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:8",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:female:1139",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:female:1139",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:1016",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:1016",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:718",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:718",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:746",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:746",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:504",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:504",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:751",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:751",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:257",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:257",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:262",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:262",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:539",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:539",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:272",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:272",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:258",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:258",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:263",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:263",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:27",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:27",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:273",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:273",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:1014",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:1014",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:124",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:124",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:261",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:261",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:8",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:8",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:1140",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:1140",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:new:male:1141",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:read:male:1141",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "fanqie",
+          "board": "fanqie:catalog",
+          "state": "succeeded",
+          "http_status": 200
+        }
+      ],
+      "page_labels": [
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "96666"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "95923"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "80023"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "63218"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "63094"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "60417"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "55081"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "50369"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "49585"
+        },
+        {
+          "gender": null,
+          "genre": null,
+          "reader_count": "48090"
+        }
+      ]
+    },
+    "qidian:None": {
+      "total": "118",
+      "rank_types": [
+        {
+          "value": "hotsales",
+          "label": "畅销榜"
+        },
+        {
+          "value": "newauthor",
+          "label": "新人榜"
+        },
+        {
+          "value": "newbook",
+          "label": "新书榜"
+        },
+        {
+          "value": "newfans",
+          "label": "书友榜"
+        },
+        {
+          "value": "readindex",
+          "label": "阅读榜"
+        },
+        {
+          "value": "rec",
+          "label": "推荐榜"
+        },
+        {
+          "value": "sign",
+          "label": "签约榜"
+        },
+        {
+          "value": "update",
+          "label": "更新榜"
+        },
+        {
+          "value": "yuepiao",
+          "label": "月票榜"
+        }
+      ],
+      "genders": [
+        {
+          "value": "female",
+          "label": "女频",
+          "disabled": true,
+          "reason": "女频目录尚无可访问榜单（HTTP 202）"
+        },
+        {
+          "value": "male",
+          "label": "男频"
+        }
+      ],
+      "genres": [
+        {
+          "value": "仙侠",
+          "label": "仙侠"
+        },
+        {
+          "value": "体育",
+          "label": "体育"
+        },
+        {
+          "value": "军事",
+          "label": "军事"
+        },
+        {
+          "value": "历史",
+          "label": "历史"
+        },
+        {
+          "value": "奇幻",
+          "label": "奇幻"
+        },
+        {
+          "value": "悬疑灵异",
+          "label": "悬疑灵异"
+        },
+        {
+          "value": "武侠",
+          "label": "武侠"
+        },
+        {
+          "value": "游戏",
+          "label": "游戏"
+        },
+        {
+          "value": "玄幻",
+          "label": "玄幻"
+        },
+        {
+          "value": "现实",
+          "label": "现实"
+        },
+        {
+          "value": "科幻",
+          "label": "科幻"
+        },
+        {
+          "value": "诸天无限",
+          "label": "诸天无限"
+        },
+        {
+          "value": "轻小说",
+          "label": "轻小说"
+        },
+        {
+          "value": "都市",
+          "label": "都市"
+        }
+      ],
+      "statuses": [
+        {
+          "platform": "qidian",
+          "board": "qidian:mobile:male:newauthor",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "qidian",
+          "board": "qidian:mobile:male:newbook",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "qidian",
+          "board": "qidian:mobile:male:sign",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "qidian",
+          "board": "qidian:mobile:male:update",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "qidian",
+          "board": "qidian:mobile:male:rec",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "qidian",
+          "board": "qidian:mobile:male:newfans",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "qidian",
+          "board": "qidian:mobile:male:readindex",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "qidian",
+          "board": "qidian:mobile:male:hotsales",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "qidian",
+          "board": "qidian:mobile:male:yuepiao",
+          "state": "succeeded",
+          "http_status": 200
+        },
+        {
+          "platform": "qidian",
+          "board": "qidian:mobile:female:catalog",
+          "state": "failed",
+          "http_status": 202
+        },
+        {
+          "platform": "qidian",
+          "board": "qidian:mobile:male:catalog",
+          "state": "succeeded",
+          "http_status": 200
+        }
+      ],
+      "page_labels": [
+        {
+          "gender": null,
+          "genre": "都市",
+          "reader_count": null
+        },
+        {
+          "gender": null,
+          "genre": "仙侠",
+          "reader_count": null
+        },
+        {
+          "gender": null,
+          "genre": "仙侠",
+          "reader_count": null
+        },
+        {
+          "gender": null,
+          "genre": "玄幻",
+          "reader_count": null
+        },
+        {
+          "gender": null,
+          "genre": "玄幻",
+          "reader_count": null
+        },
+        {
+          "gender": null,
+          "genre": "仙侠",
+          "reader_count": null
+        },
+        {
+          "gender": null,
+          "genre": "都市",
+          "reader_count": null
+        },
+        {
+          "gender": null,
+          "genre": "玄幻",
+          "reader_count": null
+        },
+        {
+          "gender": null,
+          "genre": "玄幻",
+          "reader_count": null
+        },
+        {
+          "gender": null,
+          "genre": "玄幻",
+          "reader_count": null
+        }
+      ]
+    }
+  },
+  "fanqie_after": {
+    "sources": {
+      "count": 75,
+      "sha256": "115ce043e1ae0461cc3603b2f9be33c9945c6938595958d61bf179ecfa0a3857"
+    },
+    "tasks": {
+      "count": 75,
+      "sha256": "5f25c7b19bc5419f7c8dc178e14d1059d7f12a1622b814c6f0463150b9290808"
+    },
+    "collection_jobs": {
+      "count": 75,
+      "sha256": "0a3b30b76146e3db360942c3315a2c02066d5b7ece9d89f6eddc06609aa99573"
+    },
+    "collection_calls": {
+      "count": 75,
+      "sha256": "cb93942c1294513b67da42a30e46f7488ba09cd5bad10fb9bbdc7f4e40b097a0"
+    },
+    "raw_assets": {
+      "count": 75,
+      "sha256": "5038ee4d3d7fc751b4a9d98e39f5116c87a1d7048d448532318b4b12308d677e"
+    },
+    "intelligence_snapshots": {
+      "count": 74,
+      "sha256": "7d60ac782f6eb99cc3ebc7713422c51574f04fd02f39b1ca5ee193acbd4e6492"
+    },
+    "snapshot_entries": {
+      "count": 2213,
+      "sha256": "3a8a0395dccf1832f4d1d3b35654a224e7df9f60659af99d252723e86aa6e455"
+    },
+    "external_contents": {
+      "count": 2213,
+      "sha256": "758f5d808a231b93ceb7df0d156be7d1b7bdf6188edafad8bbfd0ecb44e8852c"
+    },
+    "content_observations": {
+      "count": 2213,
+      "sha256": "8d61c14c6162d6c485b2c2e099bdb55db3919b45cd1935598e85291ce4644ab8"
+    }
+  },
+  "fanqie_unchanged": true
+}

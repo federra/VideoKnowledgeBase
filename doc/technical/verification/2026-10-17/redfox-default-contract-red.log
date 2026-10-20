@@ -1,0 +1,17 @@
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+__________ test_feed_contract_accepts_explicit_provider_default_order __________
+
+    def test_feed_contract_accepts_explicit_provider_default_order():
+        from app.contracts.models import IntelligenceFeed
+>       result=IntelligenceFeed.model_validate({'business_code':'motion_comic','business_date':'2026-10-17','has_snapshot':True,'metrics':{'videos':'10','creators':None,'comments':None,'likes':None},'boards':[],'creators':[],'page':1,'page_size':10,'total':'10','items':[],'keyword_ranking_status':'default_order'})
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for IntelligenceFeed
+E       keyword_ranking_status
+E         Input should be 'not_acquired', 'no_content_matches', 'insufficient_metrics' or 'ready' [type=literal_error, input_value='default_order', input_type=str]
+E           For further information visit https://errors.pydantic.dev/2.14/v/literal_error
+
+tests/test_intelligence.py:13: ValidationError
+=========================== short test summary info ============================
+FAILED tests/test_intelligence.py::test_feed_contract_accepts_explicit_provider_default_order
+1 failed, 1 passed in 0.20s

@@ -1,0 +1,56 @@
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+_ test_comment_normalization_exact_target_dedup_preserves_unknown_and_username _
+
+    def test_comment_normalization_exact_target_dedup_preserves_unknown_and_username():
+>       from app.collection.comment_normalize import normalize_comments
+E       ModuleNotFoundError: No module named 'app.collection.comment_normalize'
+
+backend/tests/test_comment_normalize.py:14: ModuleNotFoundError
+____ test_comment_normalization_rejects_unsupported_evidence[wrong_target] _____
+
+case = 'wrong_target'
+
+    @pytest.mark.parametrize('case',['wrong_target','bad_timestamp','conflicting_duplicate','inner_error'])
+    def test_comment_normalization_rejects_unsupported_evidence(case):
+>       from app.collection.comment_normalize import normalize_comments
+E       ModuleNotFoundError: No module named 'app.collection.comment_normalize'
+
+backend/tests/test_comment_normalize.py:25: ModuleNotFoundError
+____ test_comment_normalization_rejects_unsupported_evidence[bad_timestamp] ____
+
+case = 'bad_timestamp'
+
+    @pytest.mark.parametrize('case',['wrong_target','bad_timestamp','conflicting_duplicate','inner_error'])
+    def test_comment_normalization_rejects_unsupported_evidence(case):
+>       from app.collection.comment_normalize import normalize_comments
+E       ModuleNotFoundError: No module named 'app.collection.comment_normalize'
+
+backend/tests/test_comment_normalize.py:25: ModuleNotFoundError
+_ test_comment_normalization_rejects_unsupported_evidence[conflicting_duplicate] _
+
+case = 'conflicting_duplicate'
+
+    @pytest.mark.parametrize('case',['wrong_target','bad_timestamp','conflicting_duplicate','inner_error'])
+    def test_comment_normalization_rejects_unsupported_evidence(case):
+>       from app.collection.comment_normalize import normalize_comments
+E       ModuleNotFoundError: No module named 'app.collection.comment_normalize'
+
+backend/tests/test_comment_normalize.py:25: ModuleNotFoundError
+_____ test_comment_normalization_rejects_unsupported_evidence[inner_error] _____
+
+case = 'inner_error'
+
+    @pytest.mark.parametrize('case',['wrong_target','bad_timestamp','conflicting_duplicate','inner_error'])
+    def test_comment_normalization_rejects_unsupported_evidence(case):
+>       from app.collection.comment_normalize import normalize_comments
+E       ModuleNotFoundError: No module named 'app.collection.comment_normalize'
+
+backend/tests/test_comment_normalize.py:25: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/test_comment_normalize.py::test_comment_normalization_exact_target_dedup_preserves_unknown_and_username
+FAILED backend/tests/test_comment_normalize.py::test_comment_normalization_rejects_unsupported_evidence[wrong_target]
+FAILED backend/tests/test_comment_normalize.py::test_comment_normalization_rejects_unsupported_evidence[bad_timestamp]
+FAILED backend/tests/test_comment_normalize.py::test_comment_normalization_rejects_unsupported_evidence[conflicting_duplicate]
+FAILED backend/tests/test_comment_normalize.py::test_comment_normalization_rejects_unsupported_evidence[inner_error]
+5 failed in 0.12s

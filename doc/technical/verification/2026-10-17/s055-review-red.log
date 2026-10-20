@@ -1,0 +1,32 @@
+$ vitest run
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/api-client.test.ts (23 tests | 2 failed) 65ms
+   × 收到403后仍能直接撤销有效会话 2ms
+   × 收到404后仍能直接撤销有效会话 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/api-client.test.ts > 收到403后仍能直接撤销有效会话
+ FAIL  tests/api-client.test.ts > 收到404后仍能直接撤销有效会话
+ApiError: 请先登录或重新登录
+ ❯ ApiClient.headers src/api/client.ts:245:19
+    243|     private headers(key?: string, contentType?: string) {
+    244|         if (!this.csrf || this.blocked)
+    245|             throw new ApiError(401, 'AUTH_REQUIRED');
+       |                   ^
+    246|         if (key !== undefined && !id(key))
+    247|             throw new ApiError(0, 'INVALID_REQUEST');
+ ❯ ApiClient.logout src/api/client.ts:253:30
+ ❯ tests/api-client.test.ts:172:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  2 failed | 36 passed (38)
+   Start at  09:37:06
+   Duration  1.06s (tests 46%, environment 42%, setup 7%, transform 3%, import 2%, worker 1%)
+
+[ELIFECYCLE] Test failed. See above for more details.

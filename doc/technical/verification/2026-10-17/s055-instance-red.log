@@ -1,0 +1,64 @@
+$ vitest run
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/api-query.test.tsx (8 tests | 1 failed) 1056ms
+   × 更换客户端实例时不会复用另一实例尚未完成的私有查询 1009ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/api-query.test.tsx > 更换客户端实例时不会复用另一实例尚未完成的私有查询
+TestingLibraryElementError: Unable to find an element with the text: second client result. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<output[39m
+      [33maria-label[39m=[32m"状态"[39m
+    [36m>[39m
+      [0msuccess[0m
+    [36m</output>[39m
+    [36m<div[39m
+      [33mrole[39m=[32m"status"[39m
+    [36m/>[39m
+    [36m<div>[39m
+      [0mfirst client private record[0m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<output[39m
+      [33maria-label[39m=[32m"状态"[39m
+    [36m>[39m
+      [0msuccess[0m
+    [36m</output>[39m
+    [36m<div[39m
+      [33mrole[39m=[32m"status"[39m
+    [36m/>[39m
+    [36m<div>[39m
+      [0mfirst client private record[0m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ tests/api-query.test.tsx:74:16
+     72|   view.rerender(<View client={second}/>);
+     73|   await act(async()=>{oldResponse(response(['first client private reco…
+     74|   await screen.findByText('second client result');
+       |                ^
+     75|   expect(screen.queryByText('first client private record')).toBeNull();
+     76| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 35 passed (36)
+   Start at  09:35:22
+   Duration  1.65s (tests 54%, environment 36%, setup 7%, import 2%, transform 2%)
+
+[ELIFECYCLE] Test failed. See above for more details.

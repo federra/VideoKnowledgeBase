@@ -1,0 +1,16 @@
+{
+  "repository_root_matches": true,
+  "branch": "main",
+  "head_commit_exists": false,
+  "remote_count": 0,
+  "staged_files_count": 0,
+  "ignored": {
+    ".env": true,
+    "data/redfox/search-user-response.json": true,
+    "data/redfox/broad-work-list-response.json": true,
+    "backend/.venv/bin/python": true,
+    "frontend/node_modules/": true,
+    ".pnpm-store/": true,
+    ".superpowers/": true
+  }
+}

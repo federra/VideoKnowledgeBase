@@ -1,0 +1,160 @@
+$ vitest run -- api-client.test.ts
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/api-client.test.ts (17 tests | 17 failed) 7ms
+   ❯ 真实请求传输与安全边界 (17)
+     × 按运行契约读取会话，保留空动作及大整数原字符串，不持久化令牌 2ms
+     × 写请求无CSRF即失败，取得会话后发原始字节与显式幂等键，版本不转数字 2ms
+     × 文件GET支持父对象、返回二进制；JSON拒绝不是可下载文件 0ms
+     × 401保留安全错误类别和request_id，不透传服务端正文或自动重试 0ms
+     × 403保留安全错误类别和request_id，不透传服务端正文或自动重试 0ms
+     × 404保留安全错误类别和request_id，不透传服务端正文或自动重试 0ms
+     × 409保留安全错误类别和request_id，不透传服务端正文或自动重试 0ms
+     × 422保留安全错误类别和request_id，不透传服务端正文或自动重试 0ms
+     × 429保留安全错误类别和request_id，不透传服务端正文或自动重试 0ms
+     × 503保留安全错误类别和request_id，不透传服务端正文或自动重试 0ms
+     × 500保留安全错误类别和request_id，不透传服务端正文或自动重试 0ms
+     × HTML错误与损坏成功JSON明确失败，不读取Demo兜底 0ms
+     × 仅允许同源API路径，拒绝跨域、协议相对路径、路径逃逸和重定向 0ms
+     × 写请求网络中断不自动重发，错误标明结果须核验 0ms
+     × 支持AbortSignal和超时，取消／超时不会变成空成功 1ms
+     × 登录切换与401清除API缓存，旧响应不能恢复旧会话或内容 0ms
+     × 登录和退出均不缓存密码，退出后不能继续沿用原CSRF 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 17 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 按运行契约读取会话，保留空动作及大整数原字符串，不持久化令牌
+TypeError: ApiClient is not a constructor
+ ❯ tests/api-client.test.ts:23:20
+     21|     const fetcher = vi.fn(async () => envelope(session));
+     22|     const storage = vi.spyOn(Storage.prototype, 'setItem');
+     23|     const client = new ApiClient({fetcher});
+       |                    ^
+     24|     expect(await client.getSession()).toEqual(session);
+     25|     expect(fetcher.mock.calls[0]).toMatchObject(['/api/v1/session', {c…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/17]⎯
+
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 写请求无CSRF即失败，取得会话后发原始字节与显式幂等键，版本不转数字
+TypeError: ApiClient is not a constructor
+ ❯ tests/api-client.test.ts:30:20
+     28|   it('写请求无CSRF即失败，取得会话后发原始字节与显式幂等键，版本不转数字', async () => {
+     29|     const fetcher = vi.fn().mockResolvedValueOnce(envelope(session)).m…
+     30|     const client = new ApiClient({fetcher});
+       |                    ^
+     31|     await expect(client.uploadFile(new Blob(['body']),metadata,rid)).r…
+     32|     expect(fetcher).not.toHaveBeenCalled();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/17]⎯
+
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 文件GET支持父对象、返回二进制；JSON拒绝不是可下载文件
+TypeError: ApiClient is not a constructor
+ ❯ tests/api-client.test.ts:47:20
+     45|     const fetcher = vi.fn().mockResolvedValueOnce(new Response('bytes'…
+     46|       .mockResolvedValueOnce(failure(404,'NOT_FOUND'));
+     47|     const client = new ApiClient({fetcher});
+       |                    ^
+     48|     const blob = await client.downloadFile(fid,{parent_kind:'works',pa…
+     49|     expect(await blob.text()).toBe('bytes');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/17]⎯
+
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 401保留安全错误类别和request_id，不透传服务端正文或自动重试
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 403保留安全错误类别和request_id，不透传服务端正文或自动重试
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 404保留安全错误类别和request_id，不透传服务端正文或自动重试
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 409保留安全错误类别和request_id，不透传服务端正文或自动重试
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 422保留安全错误类别和request_id，不透传服务端正文或自动重试
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 429保留安全错误类别和request_id，不透传服务端正文或自动重试
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 503保留安全错误类别和request_id，不透传服务端正文或自动重试
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 500保留安全错误类别和request_id，不透传服务端正文或自动重试
+TypeError: ApiClient is not a constructor
+ ❯ tests/api-client.test.ts:57:22
+     55|     '%s保留安全错误类别和request_id，不透传服务端正文或自动重试', async (status, code) => {
+     56|       const fetcher = vi.fn(async () => failure(status as number,code …
+     57|       const client = new ApiClient({fetcher});
+       |                      ^
+     58|       const error = await client.getSession().catch(e => e);
+     59|       expect(error).toBeInstanceOf(ApiError);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/17]⎯
+
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > HTML错误与损坏成功JSON明确失败，不读取Demo兜底
+TypeError: ApiClient is not a constructor
+ ❯ tests/api-client.test.ts:69:20
+     67|       .mockResolvedValueOnce(new Response('{bad',{headers:{'Content-Ty…
+     68|       .mockResolvedValueOnce(envelope({unexpected:'shape'}));
+     69|     const client = new ApiClient({fetcher});
+       |                    ^
+     70|     await expect(client.getSession()).rejects.toMatchObject({status:50…
+     71|     await expect(client.getSession()).rejects.toMatchObject({code:'INV…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/17]⎯
+
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 仅允许同源API路径，拒绝跨域、协议相对路径、路径逃逸和重定向
+TypeError: ApiClient is not a constructor
+ ❯ tests/api-client.test.ts:76:20
+     74|   it('仅允许同源API路径，拒绝跨域、协议相对路径、路径逃逸和重定向', async () => {
+     75|     const fetcher = vi.fn();
+     76|     const client = new ApiClient({fetcher});
+       |                    ^
+     77|     for (const url of ['https://evil.test/api/v1/session','//evil.test…
+     78|       await expect(client.get(url, value=>value)).rejects.toMatchObjec…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/17]⎯
+
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 写请求网络中断不自动重发，错误标明结果须核验
+TypeError: ApiClient is not a constructor
+ ❯ tests/api-client.test.ts:84:20
+     82|   it('写请求网络中断不自动重发，错误标明结果须核验', async () => {
+     83|     const fetcher = vi.fn().mockResolvedValueOnce(envelope(session)).m…
+     84|     const client = new ApiClient({fetcher});
+       |                    ^
+     85|     await client.getSession();
+     86|     const e = await client.uploadFile(new Blob(['x']),metadata,rid).ca…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/17]⎯
+
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 支持AbortSignal和超时，取消／超时不会变成空成功
+TypeError: ApiClient is not a constructor
+ ❯ tests/api-client.test.ts:96:20
+     94|       init?.signal?.addEventListener('abort',()=>reject(new DOMExcepti…
+     95|     }));
+     96|     const client = new ApiClient({fetcher,timeoutMs:100});
+       |                    ^
+     97|     const controller = new AbortController();
+     98|     const cancelled = client.getSession(controller.signal).catch(e=>e);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/17]⎯
+
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 登录切换与401清除API缓存，旧响应不能恢复旧会话或内容
+TypeError: ApiClient is not a constructor
+ ❯ tests/api-client.test.ts:111:20
+    109|       .mockImplementationOnce(()=>new Promise<Response>(resolve=>{reso…
+    110|       .mockResolvedValueOnce(failure(401,'AUTH_REQUIRED'));
+    111|     const client = new ApiClient({fetcher,onBoundary:purge});
+       |                    ^
+    112|     await client.getSession();
+    113|     const pending = client.getSession().catch(e=>e);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/17]⎯
+
+ FAIL  tests/api-client.test.ts > 真实请求传输与安全边界 > 登录和退出均不缓存密码，退出后不能继续沿用原CSRF
+TypeError: ApiClient is not a constructor
+ ❯ tests/api-client.test.ts:122:20
+    120|   it('登录和退出均不缓存密码，退出后不能继续沿用原CSRF', async () => {
+    121|     const fetcher = vi.fn().mockResolvedValueOnce(envelope(session)).m…
+    122|     const client = new ApiClient({fetcher});
+       |                    ^
+    123|     await client.login({org_id:wid,login_name:'test',password:'test pa…
+    124|     expect(await client.logout()).toEqual({acknowledged:true});
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/17]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  17 failed | 7 passed (24)
+   Start at  09:23:04
+   Duration  1.29s (environment 47%, tests 40%, setup 8%, transform 3%, import 2%)
+
+[ELIFECYCLE] Test failed. See above for more details.

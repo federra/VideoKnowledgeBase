@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-10-16T10:38:01.084661+00:00",
+  "ordinary_backend_passed": 80,
+  "real_postgresql_redis_worker_beat_passed": 109,
+  "frontend_passed": 7,
+  "type_assertions": 16,
+  "released_sql_snapshots": 14,
+  "revision": "0007_tasks",
+  "tables": 74,
+  "project_business_rows": 0,
+  "paid_provider_calls": 0,
+  "project_tick": {
+    "sent": 0,
+    "expired_checked": 0
+  },
+  "demo_sha256": "a610b8754f5c20b3c5431e4f8383d102642b20117ce3e874e510f2038c1ddd32",
+  "frontend_js_unchanged": true,
+  "review": {
+    "critical": 0,
+    "important_fixed": 1,
+    "minor_deferred": 1
+  },
+  "git_commit_created": false,
+  "documents_checked": 12,
+  "local_links_checked": 267,
+  "missing_local_links": 0
+}

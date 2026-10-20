@@ -1,0 +1,12 @@
+S04独立只读审阅记录（2026-10-16）
+审阅范围：AGENTS、S04计划、字典三册／迁移走查、模型／角色／事务／迁移／数据库测试；未看.env、未调用外部API。
+
+确认发现及修复：
+P1 终态可直接SQL绕过token/实时lease：应用角色撤去Task状态与Attempt写权限，cip_claim_task/cip_finish_task有限definer函数核验；test_restricted_login_cannot_disable_guards_or_change_epoch、test_stale_worker_cannot_complete。
+P1 TaskOutput可串另一任务执行：延迟验证生产Task；test_task_cannot_claim_another_tasks_execution_as_output，RED→GREEN。
+P1 INSERT预装活动／正式指针绕过UPDATE守卫：创建指针须空、再经守卫更新，存量Rubric必须expert_baseline；test_insert_cannot_preinstall_active_or_formal_pointer，RED→GREEN。
+P2 未来任务提前领取：cip_claim_task核对available_at与clock_timestamp，test_future_task_is_not_claimable通过。
+待判定 Task主输入错作品：裁定主InputSet、Run、Submission、Evaluation须与Task.work_id一致，跨作品参考走显式lineage和依赖权限交集；test_task_primary_input_cannot_belong_to_another_work，RED→GREEN。S05继续验证完整依赖权限，未宣称当前已有端到端泄漏。
+撤回项：Snapshot/Feedback计数实际使用<>（不等号），不是>。
+
+后续作者补查：旧候选延迟发布、无Run推进报告代号、未知摘要算法版本、图深度及数值精度；对应复现后修复。全部64项PostgreSQL用例最终通过，无未处理的重要审阅发现。该结论不替代S05成员会话和S07模型schema验收。

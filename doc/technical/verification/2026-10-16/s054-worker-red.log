@@ -1,0 +1,87 @@
+ 
+ -------------- ciptest92359e1530534bff8a47b8f93951021a@NathandeMacBook-Air.local v5.6.3 (recovery)
+--- ***** ----- 
+-- ******* ---- macOS-27.0.1-arm64-arm-64bit 2026-10-16 18:27:39
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         cip:0x1083ccec0
+- ** ---------- .> transport:   redis://127.0.0.1:16379/15
+- ** ---------- .> results:     disabled://
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> cip.tasks.test.cdabfacae3c541ca9e5dd07d67ec81d1 exchange=cip.tasks.test.cdabfacae3c541ca9e5dd07d67ec81d1(direct) key=cip.tasks.test.cdabfacae3c541ca9e5dd07d67ec81d1
+                
+
+[2026-10-16 18:27:49,595: ERROR/MainProcess] Task handler raised error: ValueError('not enough values to unpack (expected 3, got 0)')
+billiard.einfo.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/billiard/pool.py", line 364, in workloop
+    result = (True, prepare_result(fun(*args, **kwargs)))
+                                   ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/celery/app/trace.py", line 762, in fast_trace_task
+    tasks, accept, hostname = _loc
+    ^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 3, got 0)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/billiard/pool.py", line 364, in workloop
+    result = (True, prepare_result(fun(*args, **kwargs)))
+                                   ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/celery/app/trace.py", line 762, in fast_trace_task
+    tasks, accept, hostname = _loc
+    ^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 3, got 0)
+[2026-10-16 18:27:59,585: ERROR/MainProcess] Task handler raised error: ValueError('not enough values to unpack (expected 3, got 0)')
+billiard.einfo.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/billiard/pool.py", line 364, in workloop
+    result = (True, prepare_result(fun(*args, **kwargs)))
+                                   ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/celery/app/trace.py", line 762, in fast_trace_task
+    tasks, accept, hostname = _loc
+    ^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 3, got 0)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/billiard/pool.py", line 364, in workloop
+    result = (True, prepare_result(fun(*args, **kwargs)))
+                                   ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/celery/app/trace.py", line 762, in fast_trace_task
+    tasks, accept, hostname = _loc
+    ^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 3, got 0)
+[2026-10-16 18:28:09,583: ERROR/MainProcess] Task handler raised error: ValueError('not enough values to unpack (expected 3, got 0)')
+billiard.einfo.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/billiard/pool.py", line 364, in workloop
+    result = (True, prepare_result(fun(*args, **kwargs)))
+                                   ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/celery/app/trace.py", line 762, in fast_trace_task
+    tasks, accept, hostname = _loc
+    ^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 3, got 0)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/billiard/pool.py", line 364, in workloop
+    result = (True, prepare_result(fun(*args, **kwargs)))
+                                   ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/celery/app/trace.py", line 762, in fast_trace_task
+    tasks, accept, hostname = _loc
+    ^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 3, got 0)
+
+worker: Warm shutdown (MainProcess)

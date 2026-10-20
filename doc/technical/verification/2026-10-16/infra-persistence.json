@@ -1,0 +1,15 @@
+{
+  "marker": "9a0a1018d7614835b5385337aee7e66d",
+  "schema": "cip_s02_probe_9a0a1018d7614835b5385337aee7e66d",
+  "redis_key": "cip:s02:probe:9a0a1018d7614835b5385337aee7e66d",
+  "database": "content_intelligence",
+  "created_at": "2026-10-16T04:31:34Z",
+  "cleaned": true,
+  "postgres_read_write": true,
+  "transaction_rollback": true,
+  "redis_read_write": true,
+  "redis_aof_flushed": true,
+  "postgres_restart_persistent": true,
+  "redis_restart_persistent": true,
+  "completed_at": "2026-10-16T04:31:57Z"
+}

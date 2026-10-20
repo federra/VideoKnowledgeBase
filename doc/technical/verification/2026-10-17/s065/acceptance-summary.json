@@ -1,0 +1,22 @@
+{
+  "feed_cases": 24,
+  "console_cases": 48,
+  "all_viewports_exact": true,
+  "all_no_page_horizontal_overflow": true,
+  "live_project_cards": 10,
+  "paid_calls_added": 0,
+  "fixture": {
+    "kind": "isolated PostgreSQL and mock HTTP",
+    "page1": 10,
+    "page2": 2,
+    "single_creator": 6,
+    "multi_creators": 12,
+    "longtext_keyboard_tooltip": true,
+    "history_date": "2026-10-15",
+    "history_empty": true,
+    "service_down_error_shown": true,
+    "cleanup": "fixture process exited normally with cleanup; separate Vite stopped at end"
+  },
+  "focus_restored_to_entry": true,
+  "demo_sha_prefix": "a610b8754f5c"
+}

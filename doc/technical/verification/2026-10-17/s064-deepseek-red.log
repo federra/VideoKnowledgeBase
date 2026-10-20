@@ -1,0 +1,143 @@
+FFFFFFFFFF                                                               [100%]
+=================================== FAILURES ===================================
+______ test_deepseek_single_bounded_json_request_and_evidence_validation _______
+
+    def test_deepseek_single_bounded_json_request_and_evidence_validation():
+>       from app.ai.deepseek import DeepSeek
+E       ModuleNotFoundError: No module named 'app.ai.deepseek'
+
+backend/tests/test_deepseek.py:11: ModuleNotFoundError
+________________ test_deepseek_failures_safe_no_retry[timeout] _________________
+
+case = 'timeout'
+
+    @pytest.mark.parametrize('case',['timeout','redirect','empty','truncated','foreign_evidence','oversized','http401'])
+    def test_deepseek_failures_safe_no_retry(case):
+>       from app.ai.deepseek import DeepSeek, ModelError
+E       ModuleNotFoundError: No module named 'app.ai.deepseek'
+
+backend/tests/test_deepseek.py:30: ModuleNotFoundError
+________________ test_deepseek_failures_safe_no_retry[redirect] ________________
+
+case = 'redirect'
+
+    @pytest.mark.parametrize('case',['timeout','redirect','empty','truncated','foreign_evidence','oversized','http401'])
+    def test_deepseek_failures_safe_no_retry(case):
+>       from app.ai.deepseek import DeepSeek, ModelError
+E       ModuleNotFoundError: No module named 'app.ai.deepseek'
+
+backend/tests/test_deepseek.py:30: ModuleNotFoundError
+_________________ test_deepseek_failures_safe_no_retry[empty] __________________
+
+case = 'empty'
+
+    @pytest.mark.parametrize('case',['timeout','redirect','empty','truncated','foreign_evidence','oversized','http401'])
+    def test_deepseek_failures_safe_no_retry(case):
+>       from app.ai.deepseek import DeepSeek, ModelError
+E       ModuleNotFoundError: No module named 'app.ai.deepseek'
+
+backend/tests/test_deepseek.py:30: ModuleNotFoundError
+_______________ test_deepseek_failures_safe_no_retry[truncated] ________________
+
+case = 'truncated'
+
+    @pytest.mark.parametrize('case',['timeout','redirect','empty','truncated','foreign_evidence','oversized','http401'])
+    def test_deepseek_failures_safe_no_retry(case):
+>       from app.ai.deepseek import DeepSeek, ModelError
+E       ModuleNotFoundError: No module named 'app.ai.deepseek'
+
+backend/tests/test_deepseek.py:30: ModuleNotFoundError
+____________ test_deepseek_failures_safe_no_retry[foreign_evidence] ____________
+
+case = 'foreign_evidence'
+
+    @pytest.mark.parametrize('case',['timeout','redirect','empty','truncated','foreign_evidence','oversized','http401'])
+    def test_deepseek_failures_safe_no_retry(case):
+>       from app.ai.deepseek import DeepSeek, ModelError
+E       ModuleNotFoundError: No module named 'app.ai.deepseek'
+
+backend/tests/test_deepseek.py:30: ModuleNotFoundError
+_______________ test_deepseek_failures_safe_no_retry[oversized] ________________
+
+case = 'oversized'
+
+    @pytest.mark.parametrize('case',['timeout','redirect','empty','truncated','foreign_evidence','oversized','http401'])
+    def test_deepseek_failures_safe_no_retry(case):
+>       from app.ai.deepseek import DeepSeek, ModelError
+E       ModuleNotFoundError: No module named 'app.ai.deepseek'
+
+backend/tests/test_deepseek.py:30: ModuleNotFoundError
+________________ test_deepseek_failures_safe_no_retry[http401] _________________
+
+case = 'http401'
+
+    @pytest.mark.parametrize('case',['timeout','redirect','empty','truncated','foreign_evidence','oversized','http401'])
+    def test_deepseek_failures_safe_no_retry(case):
+>       from app.ai.deepseek import DeepSeek, ModelError
+E       ModuleNotFoundError: No module named 'app.ai.deepseek'
+
+backend/tests/test_deepseek.py:30: ModuleNotFoundError
+_______________ test_no_key_or_reservation_denied_does_not_send ________________
+
+    def test_no_key_or_reservation_denied_does_not_send():
+>       from app.ai.deepseek import DeepSeek, ModelError
+E       ModuleNotFoundError: No module named 'app.ai.deepseek'
+
+backend/tests/test_deepseek.py:48: ModuleNotFoundError
+_____________ test_config_supports_user_named_secret_without_echo ______________
+
+    def test_config_supports_user_named_secret_without_echo():
+        from app.core.config import Settings
+        config=Settings(_env_file=None,deepseek_key='fixture-only')
+>       assert config.deepseek_key.get_secret_value()=='fixture-only'
+               ^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_deepseek.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Settings(app_name='content-intelligence-api', redfox_api_key=None, database_url=None, migration_database_url=None, app...8800, external_media_hosts=[], redis_url=SecretStr('**********'), task_queue='cip.tasks.v1', task_key_prefix='cip:v1:')
+item = 'deepseek_key'
+
+    def __getattr__(self, item: str) -> Any:
+        private_attributes = object.__getattribute__(self, '__private_attributes__')
+        if item in private_attributes:
+            attribute = private_attributes[item]
+            if hasattr(attribute, '__get__'):
+                return attribute.__get__(self, type(self))  # type: ignore
+    
+            try:
+                # Note: self.__pydantic_private__ cannot be None if self.__private_attributes__ has items
+                return self.__pydantic_private__[item]  # type: ignore
+            except KeyError as exc:
+                raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}') from exc
+        else:
+            # `__pydantic_extra__` can fail to be set if the model is not yet fully initialized.
+            # See `BaseModel.__repr_args__` for more details
+            try:
+                pydantic_extra = object.__getattribute__(self, '__pydantic_extra__')
+            except AttributeError:
+                pydantic_extra = None
+    
+            if pydantic_extra and item in pydantic_extra:
+                return pydantic_extra[item]
+            else:
+                if hasattr(self.__class__, item):
+                    return super().__getattribute__(item)  # Raises AttributeError if appropriate
+                else:
+                    # this is the current error
+>                   raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E                   AttributeError: 'Settings' object has no attribute 'deepseek_key'
+
+backend/.venv/lib/python3.12/site-packages/pydantic/main.py:1105: AttributeError
+=========================== short test summary info ============================
+FAILED backend/tests/test_deepseek.py::test_deepseek_single_bounded_json_request_and_evidence_validation
+FAILED backend/tests/test_deepseek.py::test_deepseek_failures_safe_no_retry[timeout]
+FAILED backend/tests/test_deepseek.py::test_deepseek_failures_safe_no_retry[redirect]
+FAILED backend/tests/test_deepseek.py::test_deepseek_failures_safe_no_retry[empty]
+FAILED backend/tests/test_deepseek.py::test_deepseek_failures_safe_no_retry[truncated]
+FAILED backend/tests/test_deepseek.py::test_deepseek_failures_safe_no_retry[foreign_evidence]
+FAILED backend/tests/test_deepseek.py::test_deepseek_failures_safe_no_retry[oversized]
+FAILED backend/tests/test_deepseek.py::test_deepseek_failures_safe_no_retry[http401]
+FAILED backend/tests/test_deepseek.py::test_no_key_or_reservation_denied_does_not_send
+FAILED backend/tests/test_deepseek.py::test_config_supports_user_named_secret_without_echo
+10 failed in 0.11s

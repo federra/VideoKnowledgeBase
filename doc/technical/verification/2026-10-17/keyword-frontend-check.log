@@ -1,0 +1,2 @@
+$ pnpm --dir frontend check
+$ tsc -b && eslint src tests

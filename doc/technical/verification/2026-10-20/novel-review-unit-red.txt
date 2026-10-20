@@ -1,0 +1,79 @@
+.......FFFFFFF                                                           [100%]
+=================================== FAILURES ===================================
+_ test_malformed_json_still_returns_failure_reply_with_original_body[payload0] _
+backend/tests/test_novels.py:121: in test_malformed_json_still_returns_failure_reply_with_original_body
+    reply=PublicNovels(client,decoder={}).fetch('novel.fanqie.board',board(),maximum=30)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/app/connectors/novels.py:243: in fetch
+    batch = normalize(request, json.loads(text), decoder=self.decoder)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/app/connectors/novels.py:118: in normalize
+    or (not isinstance(body.get("data", {}).get("book_list"), list))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'get'
+_ test_malformed_json_still_returns_failure_reply_with_original_body[payload1] _
+backend/tests/test_novels.py:121: in test_malformed_json_still_returns_failure_reply_with_original_body
+    reply=PublicNovels(client,decoder={}).fetch('novel.fanqie.board',board(),maximum=30)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/app/connectors/novels.py:243: in fetch
+    batch = normalize(request, json.loads(text), decoder=self.decoder)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/app/connectors/novels.py:125: in normalize
+    ident = str(b.get("bookId", ""))
+                ^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'get'
+_ test_malformed_json_still_returns_failure_reply_with_original_body[payload2] _
+backend/tests/test_novels.py:121: in test_malformed_json_still_returns_failure_reply_with_original_body
+    reply=PublicNovels(client,decoder={}).fetch('novel.fanqie.board',board(),maximum=30)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/app/connectors/novels.py:243: in fetch
+    batch = normalize(request, json.loads(text), decoder=self.decoder)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/app/connectors/novels.py:125: in normalize
+    ident = str(b.get("bookId", ""))
+                ^^^^^
+E   AttributeError: 'list' object has no attribute 'get'
+______________ test_malformed_catalog_returns_failure_reply[None] ______________
+backend/tests/test_novels.py:130: in test_malformed_catalog_returns_failure_reply
+    reply=PublicNovels(client).fetch('novel.fanqie.catalog',{},maximum=30)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/app/connectors/novels.py:237: in fetch
+    catalog(text)
+backend/app/connectors/novels.py:39: in catalog
+    rank = initial(html).get("rank", {})
+           ^^^^^^^^^^^^^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'get'
+_____________ test_malformed_catalog_returns_failure_reply[state1] _____________
+backend/tests/test_novels.py:130: in test_malformed_catalog_returns_failure_reply
+    reply=PublicNovels(client).fetch('novel.fanqie.catalog',{},maximum=30)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/app/connectors/novels.py:237: in fetch
+    catalog(text)
+backend/app/connectors/novels.py:40: in catalog
+    version = rank.get("rankVersion")
+              ^^^^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'get'
+_____________ test_malformed_catalog_returns_failure_reply[state2] _____________
+backend/tests/test_novels.py:130: in test_malformed_catalog_returns_failure_reply
+    reply=PublicNovels(client).fetch('novel.fanqie.catalog',{},maximum=30)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/app/connectors/novels.py:237: in fetch
+    catalog(text)
+backend/app/connectors/novels.py:49: in catalog
+    ident = str(c.get("id", ""))
+                ^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'get'
+__________ test_font_verification_rejects_known_and_unknown_font_mix ___________
+backend/tests/test_novels.py:141: in test_font_verification_rejects_known_and_unknown_font_mix
+    with pytest.raises(RuntimeError):script.verify_font(html,tmp_path)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE RuntimeError
+=========================== short test summary info ============================
+FAILED backend/tests/test_novels.py::test_malformed_json_still_returns_failure_reply_with_original_body[payload0]
+FAILED backend/tests/test_novels.py::test_malformed_json_still_returns_failure_reply_with_original_body[payload1]
+FAILED backend/tests/test_novels.py::test_malformed_json_still_returns_failure_reply_with_original_body[payload2]
+FAILED backend/tests/test_novels.py::test_malformed_catalog_returns_failure_reply[None]
+FAILED backend/tests/test_novels.py::test_malformed_catalog_returns_failure_reply[state1]
+FAILED backend/tests/test_novels.py::test_malformed_catalog_returns_failure_reply[state2]
+FAILED backend/tests/test_novels.py::test_font_verification_rejects_known_and_unknown_font_mix
+7 failed, 7 passed in 0.24s

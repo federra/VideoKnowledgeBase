@@ -1,0 +1,37 @@
+$ node scripts/sync-demo.mjs --check
+Verified Demo baseline a610b8754f5c; original unchanged.
+$ pnpm --dir frontend check
+$ tsc -b && eslint src tests
+$ pnpm --dir frontend test
+$ vitest run
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  14:46:45
+   Duration  1.11s (tests 60%, environment 31%, setup 5%, import 3%, transform 1%)
+
+$ pnpm --dir frontend build
+$ tsc -b && vite build
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 78 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.68 kB │ gzip:   0.45 kB
+dist/assets/index-BgTWi7Tp.css   78.96 kB │ gzip:  14.96 kB
+dist/assets/index-Bt86Gdo3.js   484.11 kB │ gzip: 162.78 kB
+
+✓ built in 91ms
+All checks passed!
+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss........ [ 81%]
+................                                                         [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+24 passed, 64 skipped, 1 warning in 0.35s

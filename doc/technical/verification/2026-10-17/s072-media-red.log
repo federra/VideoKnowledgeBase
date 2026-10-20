@@ -1,0 +1,13 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________ test_audio_probe_local_decode_and_invalid_input ________________
+
+    def test_audio_probe_local_decode_and_invalid_input():
+        import io,wave
+>       from app.processing.media import probe_media
+E       ModuleNotFoundError: No module named 'app.processing.media'
+
+backend/tests/test_research_parsing.py:20: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/test_research_parsing.py::test_audio_probe_local_decode_and_invalid_input
+1 failed, 1 deselected in 0.07s

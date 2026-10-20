@@ -1,0 +1,184 @@
+$ vitest run
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/console.test.tsx (6 tests | 1 failed) 1292ms
+   × 任务记录随服务端状态刷新，不停留在打开时的处理中 1034ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/console.test.tsx > 任务记录随服务端状态刷新，不停留在打开时的处理中
+AssertionError: expected '任务运行记录11111111-1111-4111-8111-1111111…' to contain '成功'
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<h1[39m
+        [33mclass[39m=[32m"sr-only"[39m
+      [36m>[39m
+        [0m运行状态[0m
+      [36m</h1>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"table-wrap"[39m
+      [36m>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th[39m
+                [33mscope[39m=[32m"col"[39m
+              [36m>[39m
+                [0m任务[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mscope[39m=[32m"col"[39m
+              [36m>[39m
+                [0m输入与版本[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mscope[39m=[32m"col"[39m
+              [36m>[39m
+                [0m运行状态[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mscope[39m=[32m"col"[39m
+              [36m>[39m
+                [0m操作[0m
+              [36m</th>[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [36m<strong>[39m
+                  [0m来源采集[0m
+                [36m</strong>[39m
+                [36m<p>[39m
+                  [0m11111111-1111-4111-8111-111111111111[0m
+                [36m</p>[39m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m输入已封存 · 状态 v[0m
+                [0m2[0m
+                [36m<p>[39m
+                  [0m2026/10/17 09:00:00[0m
+                [36m</p>[39m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"tag"[39m
+                [36m>[39m
+                  [0m成功[0m
+                [36m</span>[39m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"btn"[39m
+                [36m>[39m
+                  [0m查看记录[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+          [36m</tbody>[39m
+        [36m</table>[39m
+      [36m</div>[39m
+      [36m<dialog[39m
+        [33maria-labelledby[39m=[32m"consoleDialogTitle"[39m
+        [33mclass[39m=[32m"drawer"[39m
+        [33mopen[39m=[32m""[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"dialog-head"[39m
+        [36m>[39m
+          [36m<h2[39m
+            [33mid[39m=[32m"consoleDialogTitle"[39m
+          [36m>[39m
+            [0m任务运行记录[0m
+          [36m</h2>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"关闭"[39m
+            [33mclass[39m=[32m"iconbtn"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"icon"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"m6 6 12 12M6 18 18 6"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"dialog-body"[39m
+        [36m>[39m
+          [36m<h3>[39m
+            [0m11111111-1111-4111-8111-111111111111[0m
+          [36m</h3>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"timeline"[39m
+          [36m>[39m
+            [36m<div>[39m
+              [0m2026/10/17 09:00:00[0m
+              [0m · 已排队[0m
+              [36m<p>[39m
+                [0m输入版本已保存[0m
+              [36m</p>[39m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m2026/10/17 09:00:00[0m
+              [0m · 处理中[0m
+              [36m<p>[39m
+                [0m实际处理器：[0m
+                [0mcollect.redfox[0m
+              [36m</p>[39m
+            [36m</div>[39m
+            [36m<div>[39m
+              [0m2026/10/17 09:00:00[0m
+              [0m · [0m
+              [0m处理中[0m
+              [36m<p>[39m
+                [0m尚无正式结果[0m
+              [36m</p>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"dialog-foot"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"btn"[39m
+          [36m>[39m
+            [0m关闭[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</dialog>[39m
+    [36m</div>[39m
+  [36m</body>[39m
+[36m</html>[39m
+
+Expected: "成功"
+Received: "任务运行记录11111111-1111-4111-8111-1111111111112026/10/17 09:00:00 · 已排队输入版本已保存2026/10/17 09:00:00 · 处理中实际处理器：collect.redfox2026/10/17 09:00:00 · 处理中尚无正式结果关闭"
+
+ ❯ tests/console.test.tsx:91:74
+     89|  fireEvent.click(await screen.findByRole('button',{name:'查看记录'}));awai…
+     90|  done=true;await queries.invalidateQueries({queryKey:['api']});
+     91|  await waitFor(()=>expect(document.querySelector('dialog')?.textConten…
+       |                                                                          ^
+     92| });
+     93|
+ ❯ runWithExpensiveErrorDiagnosticsDisabled ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 43 passed (44)
+   Start at  11:02:35
+   Duration  1.93s (tests 48%, environment 41%, setup 6%, transform 2%, import 2%)
+
+[ELIFECYCLE] Test failed. See above for more details.

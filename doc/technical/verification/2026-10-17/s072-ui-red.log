@@ -1,0 +1,35 @@
+$ vitest run --run tests/research.test.tsx
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/research.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/research.test.tsx [ tests/research.test.tsx ]
+Error: Failed to resolve import "../src/modules/research/ResearchPage" from "tests/research.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend/tests/research.test.tsx:7:27
+  5  |  import { ApiClient } from "../src/api/client";
+  6  |  import { ApiProvider } from "../src/api/provider";
+  7  |  import { ResearchPage } from "../src/modules/research/ResearchPage";
+     |                                ^
+  8  |  var _jsxFileName = "/Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend/tests/research.test.tsx";
+  9  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+ ❯ TransformPluginContext._formatLog ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:8766:39
+ ❯ TransformPluginContext.error ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:8763:14
+ ❯ normalizeUrl ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:26632:18
+ ❯ ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:26702:30
+ ❯ TransformPluginContext.transform ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:26668:4
+ ❯ EnvironmentPluginContainer.transform ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:8545:14
+ ❯ loadAndTransform ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:20184:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  16:33:38
+   Duration  520ms (environment 85%, setup 14%, transform 1%, worker 1%)
+
+[ELIFECYCLE] Test failed. See above for more details.

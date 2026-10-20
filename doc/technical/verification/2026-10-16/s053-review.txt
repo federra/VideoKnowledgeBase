@@ -1,0 +1,18 @@
+S05.3 一次独立只读审阅与集中修复（2026-10-16）
+
+独立审阅结论：0 Critical、1 Important、0 Minor；修复前应暂缓交付。无二次派审，无凭据读取或数据库／Git修改。
+
+Important：外链Connection:close后，HTTPConnection.sock已被清空，HTTPResponse仍保留makefile，截止Timer无法中断慢速chunked framing。read1内部读chunk行仍可能被逐字节拖延，20秒总限额失效。
+真实复现：socketpair上的标准库HTTPConnection／HTTPResponse接收Connection:close＋chunk扩展逐字节响应；0.2秒内部预算却约2.4秒才退出，时间断言RED。没有用预设Fake响应冒充此生命周期验证。
+修复：生产PinnedHTTPS对实际TLS文件描述符保留独立plain socket副本，仅用于shutdown，HTTPResponse结束时显式close、释放副本；截止回调不依赖被标准库清空的connection.sock。TCP／TLS逐步使用剩余预算，DNS槽位与每跳DNS等待也受总剩余时间限制。相同回归GREEN（18项存储单测合计约0.24秒），后续完整工程／真实PG通过。
+
+同批执行者补查：
+1. 公开RFC2606下载已连通，但标准文本分页符FF被当作非法控制字符；允许标准page break，NUL等二进制控制仍拒绝。精确字节RED→GREEN后，同一公开HTTPS下载8008字节、TLS域名核验及基础格式通过；不写业务库，无供应商收费。
+2. 超长Content-Length（5000位）触发Python整数转换异常；先限长度再转换，稳定拒绝FILE_TOO_LARGE。ValueError RED→安全拒绝GREEN；不放宽整数解析全局限制。
+
+Declined to judge与裁定：
+- 审阅者没有执行有副作用的数据库／磁盘故障套件：由执行者实跑95项真实PG／文件系统验收，日志单列保存；普通pytest跳过项不计数据库通过。
+- 病毒扫描、完整媒体解码、任意分享页、红狐接入及S07材料创建不属于S05.3：accepted仅传输与基础格式校验，attachment/nosniff防直接执行；不冒称这些下游能力完成。
+- 未证明真实断电后的硬件持久性：已实现fsync／目录同步及journal恢复，验证的是正常故障与进程中断状态模型，不把它写成已通过真实掉电试验。生产备份／断电演练随部署验收。
+
+最终结论以修复回归和全套验证为据，不用“第二轮审阅通过”背书。无本轮未处理阻断项；没有延后Minor。

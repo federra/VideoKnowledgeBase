@@ -1,0 +1,40 @@
+$ vitest run tests/intelligence.test.tsx
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/intelligence.test.tsx (19 tests | 1 failed) 405ms
+   × 所有小说平台均按男女频、榜单类型、题材排序，改名不改变筛选含义 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/intelligence.test.tsx > 所有小说平台均按男女频、榜单类型、题材排序，改名不改变筛选含义
+AssertionError: expected [ '榜单类型', '男女频分类', '题材分类' ] to deeply equal [ '男女频', '榜单类型', '题材' ]
+
+- Expected
++ Received
+
+  [
+-   "男女频",
+    "榜单类型",
+-   "题材",
++   "男女频分类",
++   "题材分类",
+  ]
+
+ ❯ tests/intelligence.test.tsx:187:107
+    185|   fireEvent.change(screen.getByRole('combobox',{name:'小说平台'}),{target:…
+    186|   await screen.findByRole('button',{name:'阅读榜'});
+    187|   expect(Array.from(document.querySelectorAll('.novel-filter-row')).ma…
+       |                                                                                                           ^
+    188|   fireEvent.click(screen.getByRole('button',{name:'男频'}));await screen…
+    189|   fireEvent.click(screen.getByRole('button',{name:'阅读榜'}));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 18 passed (19)
+   Start at  13:46:36
+   Duration  965ms (tests 45%, environment 42%, setup 7%, transform 3%, import 3%)
+
+[ELIFECYCLE] Test failed. See above for more details.

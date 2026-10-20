@@ -1,0 +1,29 @@
+S05.2一次独立只读审阅与修复登记（2026-10-16）
+审阅者：独立fresh-context只读agent；不改文件／Git／数据库，不读凭据。未进行第二轮审阅。
+原始结论：未发现Critical，3 Important、1 Minor，修复前不建议交付。
+
+Important 1：raw_asset_events取最后任意事件，withdrawn/access_revoked后expired可能重新开放原文及派生内容。
+修复：访问状态只读取withdrawn/access_revoked/availability_restored，expired独立警告。
+证据：两种撤回状态各一项真实PG回归，RED时DID NOT RAISE，GREEN均通过；受限应用角色下非空Artifact来源依赖也验证撤回后追加expired仍不返回正文。
+
+Important 2：无Publication时正式Knowledge读／列表自动降为candidate权限，待审知识混入正式入口。
+修复：正式Knowledge／Revision均要求Publication；candidate()及list(candidate=True)为显式候选入口，单独检查candidate动作及精确版本与依赖。
+证据：从未发布的item／revision正式读及列表拒绝，显式candidate成功；既有正式v1与候选v2标题／业务隔离继续通过。
+
+Important 3：require重新从原始identity取scope，丢失已读取精确Revision的business范围，合法业务操作错误403。
+修复：动作范围从已检查的正式／候选Revision构建；知识编辑／审核／发布须显式candidate=True，不能用正式版本范围处理另一业务的候选。
+证据：业务级content.export RED为ACCESS_DENIED，GREEN放行；候选换至story_short后正式motion_comic导出仍放行、候选编辑拒绝。
+
+原Minor 4：CLI未显式传key时，生成的恢复键直到提交后才输出；提交后进程中断可导致重复授权。
+严重度裁定：升为Important处理，因为重复Grant会使仅撤销第一份授权后仍存在第二份有效授权，不只是输出样式问题。
+修复：执行治理写入前向stderr输出恢复key并flush；显式传入key保持不变，不输出密码／cookie。
+证据：recovery_key缺失RED，返回值及stderr输出断言GREEN；accounts模块同时可由CLI及测试导入。
+
+审阅者Declined to judge与执行裁定：
+1. 审阅者未独立执行有副作用的85项PG验收：执行者已实际运行完整套件并保存日志，不能用只读审阅替代运行证据。
+2. 受限DB角色最初仅测空列表：执行者扩展同一用例，实测非空Work搜索、含RawAsset来源的Artifact历史、父关联File及撤回＋expired后过滤，最终全套85项通过；不声称所有未实现对象路径均测完。
+3. HTTPS／反向代理／真实浏览器登录未实测：本轮仅本地回环HTTP及ASGI＋真实PG，不宣称正式部署或前端联通完成；这些随部署／S05.5验证。
+4. S04图函数及触发器未全面重审：保持旧SQL摘要不变，64项旧数据库验收仍全部通过；本轮只对增量迁移及调用边界负责。
+5. 业务HTTP、文件流、worker、Demo联通不属于本轮：分别按S06／S07、S05.3、S05.4、S05.5继续，未以缺失实现冒充完成。
+
+最终修复后结果：60项普通后端＋85项真实PG＋7项前端、13条类型断言、lint／构建／契约漂移／Demo基线通过。上述4项均有回归，无未处理的本轮阻断项；没有二次审阅背书，结论以修复测试和完整工程结果为证。

@@ -1,0 +1,94 @@
+Database command failed (RuntimeError): 
+Stock upgrade preserves valid rows; invalid stock aborts the entire migration.
+FFFFFFFFFFF                                                              [100%]
+=================================== FAILURES ===================================
+_ test_real_pipeline_saves_call_evidence_identity_observation_snapshot_and_task_atomically _
+tests/integration/test_collection.py:56: in test_real_pipeline_saves_call_evidence_identity_observation_snapshot_and_task_atomically
+    runner,start,org,_,_,_,_,calls,_=prepared(engine,setup)
+                                     ^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_collection.py:23: in prepared
+    from app.collection.service import configure_connection, configure_source, submit
+E   ModuleNotFoundError: No module named 'app.collection'
+______ test_same_key_and_duplicate_delivery_cannot_spend_or_publish_twice ______
+tests/integration/test_collection.py:70: in test_same_key_and_duplicate_delivery_cannot_spend_or_publish_twice
+    runner,start,org,_,_,_,_,calls,_=prepared(engine,setup)
+                                     ^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_collection.py:23: in prepared
+    from app.collection.service import configure_connection, configure_source, submit
+E   ModuleNotFoundError: No module named 'app.collection'
+_______ test_new_connection_preserves_same_identity_but_distinct_history _______
+tests/integration/test_collection.py:85: in test_new_connection_preserves_same_identity_but_distinct_history
+    from app.collection.service import configure_connection,submit
+E   ModuleNotFoundError: No module named 'app.collection'
+_ test_known_failures_keep_evidence_without_success_snapshot_or_auto_retry[429-body0-RATE_LIMITED] _
+tests/integration/test_collection.py:104: in test_known_failures_keep_evidence_without_success_snapshot_or_auto_retry
+    runner,start,org,_,_,_,_,calls,_=prepared(engine,setup,response=lambda r:httpx.Response(status,json=body))
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_collection.py:23: in prepared
+    from app.collection.service import configure_connection, configure_source, submit
+E   ModuleNotFoundError: No module named 'app.collection'
+_ test_known_failures_keep_evidence_without_success_snapshot_or_auto_retry[410-body1-SOURCE_UNAVAILABLE] _
+tests/integration/test_collection.py:104: in test_known_failures_keep_evidence_without_success_snapshot_or_auto_retry
+    runner,start,org,_,_,_,_,calls,_=prepared(engine,setup,response=lambda r:httpx.Response(status,json=body))
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_collection.py:23: in prepared
+    from app.collection.service import configure_connection, configure_source, submit
+E   ModuleNotFoundError: No module named 'app.collection'
+_ test_known_failures_keep_evidence_without_success_snapshot_or_auto_retry[200-body2-SOURCE_UNAVAILABLE] _
+tests/integration/test_collection.py:104: in test_known_failures_keep_evidence_without_success_snapshot_or_auto_retry
+    runner,start,org,_,_,_,_,calls,_=prepared(engine,setup,response=lambda r:httpx.Response(status,json=body))
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_collection.py:23: in prepared
+    from app.collection.service import configure_connection, configure_source, submit
+E   ModuleNotFoundError: No module named 'app.collection'
+_ test_known_failures_keep_evidence_without_success_snapshot_or_auto_retry[200-body3-INVALID_RESPONSE] _
+tests/integration/test_collection.py:104: in test_known_failures_keep_evidence_without_success_snapshot_or_auto_retry
+    runner,start,org,_,_,_,_,calls,_=prepared(engine,setup,response=lambda r:httpx.Response(status,json=body))
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_collection.py:23: in prepared
+    from app.collection.service import configure_connection, configure_source, submit
+E   ModuleNotFoundError: No module named 'app.collection'
+______________ test_empty_provider_success_is_real_zero_snapshot _______________
+tests/integration/test_collection.py:114: in test_empty_provider_success_is_real_zero_snapshot
+    runner,start,org,*_=prepared(engine,setup,response=lambda r:httpx.Response(200,json={'code':2000,'data':{'list':[]}}))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_collection.py:23: in prepared
+    from app.collection.service import configure_connection, configure_source, submit
+E   ModuleNotFoundError: No module named 'app.collection'
+____ test_revoke_during_network_retains_call_evidence_but_no_formal_result _____
+tests/integration/test_collection.py:125: in test_revoke_during_network_retains_call_evidence_but_no_formal_result
+    runner,start,org,_,_,_,_,calls,_=prepared(engine,setup,before=revoke)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_collection.py:23: in prepared
+    from app.collection.service import configure_connection, configure_source, submit
+E   ModuleNotFoundError: No module named 'app.collection'
+_______ test_budget_source_and_configuration_are_checked_before_network ________
+tests/integration/test_collection.py:136: in test_budget_source_and_configuration_are_checked_before_network
+    from app.collection.service import submit
+E   ModuleNotFoundError: No module named 'app.collection'
+____________ test_local_rate_limit_prevents_second_paid_reservation ____________
+tests/integration/test_collection.py:148: in test_local_rate_limit_prevents_second_paid_reservation
+    runner,start,org,_,_,_,_,calls,_=prepared(engine,setup)
+                                     ^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_collection.py:23: in prepared
+    from app.collection.service import configure_connection, configure_source, submit
+E   ModuleNotFoundError: No module named 'app.collection'
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_collection.py::test_real_pipeline_saves_call_evidence_identity_observation_snapshot_and_task_atomically
+FAILED tests/integration/test_collection.py::test_same_key_and_duplicate_delivery_cannot_spend_or_publish_twice
+FAILED tests/integration/test_collection.py::test_new_connection_preserves_same_identity_but_distinct_history
+FAILED tests/integration/test_collection.py::test_known_failures_keep_evidence_without_success_snapshot_or_auto_retry[429-body0-RATE_LIMITED]
+FAILED tests/integration/test_collection.py::test_known_failures_keep_evidence_without_success_snapshot_or_auto_retry[410-body1-SOURCE_UNAVAILABLE]
+FAILED tests/integration/test_collection.py::test_known_failures_keep_evidence_without_success_snapshot_or_auto_retry[200-body2-SOURCE_UNAVAILABLE]
+FAILED tests/integration/test_collection.py::test_known_failures_keep_evidence_without_success_snapshot_or_auto_retry[200-body3-INVALID_RESPONSE]
+FAILED tests/integration/test_collection.py::test_empty_provider_success_is_real_zero_snapshot
+FAILED tests/integration/test_collection.py::test_revoke_during_network_retains_call_evidence_but_no_formal_result
+FAILED tests/integration/test_collection.py::test_budget_source_and_configuration_are_checked_before_network
+FAILED tests/integration/test_collection.py::test_local_rate_limit_prevents_second_paid_reservation
+11 failed, 109 deselected, 1 warning in 6.30s

@@ -1,0 +1,56 @@
+Database command failed (RuntimeError): 
+Stock upgrade preserves valid rows; invalid stock aborts the entire migration.
+........................................FFF............................. [ 50%]
+......................................................................   [100%]
+=================================== FAILURES ===================================
+_____________ test_feed_exact_day_missing_values_dedup_and_filters _____________
+tests/integration/test_intelligence.py:22: in test_feed_exact_day_missing_values_dedup_and_filters
+    result = feed(c, p, 'motion_comic', day, 'creator', 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/intelligence/service.py:102: in feed
+    pairs = selected(c,p,business,day)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/intelligence/service.py:79: in selected
+    result.append((dict(value), authorized(c, p, value)))
+                                ^^^^^^^^^^^^^^^^^^^^^^^
+app/intelligence/service.py:54: in authorized
+    'entry': {**wire(dict(entry)), 'observation': observation, 'feedback_id': None},
+                ^^^^^^^^^^^^^^^^^
+app/intelligence/service.py:26: in wire
+    return {**value, 'lock_version': str(value['lock_version'])}
+                                         ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'lock_version'
+________ test_feed_latest_version_without_history_overwrite_and_revoke _________
+tests/integration/test_intelligence.py:42: in test_feed_latest_version_without_history_overwrite_and_revoke
+    old = snapshots(c, authenticate(c, rest[-1]), 'motion_comic', day)[0]
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/intelligence/service.py:87: in snapshots
+    return [wire(s) for s, _ in selected(c,p,business,day,source_id,view_kind)]
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/intelligence/service.py:79: in selected
+    result.append((dict(value), authorized(c, p, value)))
+                                ^^^^^^^^^^^^^^^^^^^^^^^
+app/intelligence/service.py:54: in authorized
+    'entry': {**wire(dict(entry)), 'observation': observation, 'feedback_id': None},
+                ^^^^^^^^^^^^^^^^^
+app/intelligence/service.py:26: in wire
+    return {**value, 'lock_version': str(value['lock_version'])}
+                                         ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'lock_version'
+________ test_local_entry_no_manual_login_idempotent_and_remote_denied _________
+tests/integration/test_intelligence.py:68: in test_local_entry_no_manual_login_idempotent_and_remote_denied
+    assert first.status_code == 200, first.text
+E   AssertionError: {"request_id":"9fb4ea9a-1ce2-4429-8018-d9c9a17d04a3","error":{"code":"SERVICE_NOT_READY","message":"接口尚未就绪","field_paths":[]}}
+E   assert 503 == 200
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_intelligence.py::test_feed_exact_day_missing_values_dedup_and_filters
+FAILED tests/integration/test_intelligence.py::test_feed_latest_version_without_history_overwrite_and_revoke
+FAILED tests/integration/test_intelligence.py::test_local_entry_no_manual_login_idempotent_and_remote_denied
+3 failed, 139 passed, 1 warning in 104.52s (0:01:44)

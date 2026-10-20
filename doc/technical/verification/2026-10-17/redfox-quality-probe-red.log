@@ -1,0 +1,20 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+______ test_quality_probe_is_video_search_fixed_hot_order_and_one_request ______
+
+    def test_quality_probe_is_video_search_fixed_hot_order_and_one_request():
+>       from scripts.probe_redfox_quality import fetch_once
+E       ModuleNotFoundError: No module named 'scripts.probe_redfox_quality'
+
+tests/test_redfox_quality_probe.py:8: ModuleNotFoundError
+_________ test_quality_probe_keeps_failure_evidence_and_never_retries __________
+
+    def test_quality_probe_keeps_failure_evidence_and_never_retries():
+>       from scripts.probe_redfox_quality import fetch_once
+E       ModuleNotFoundError: No module named 'scripts.probe_redfox_quality'
+
+tests/test_redfox_quality_probe.py:22: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_redfox_quality_probe.py::test_quality_probe_is_video_search_fixed_hot_order_and_one_request
+FAILED tests/test_redfox_quality_probe.py::test_quality_probe_keeps_failure_evidence_and_never_retries
+2 failed in 0.12s

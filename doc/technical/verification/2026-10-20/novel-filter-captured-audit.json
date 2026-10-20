@@ -1,0 +1,1073 @@
+{
+  "fanqie_before": {
+    "sources": {
+      "count": 75,
+      "sha256": "115ce043e1ae0461cc3603b2f9be33c9945c6938595958d61bf179ecfa0a3857"
+    },
+    "tasks": {
+      "count": 75,
+      "sha256": "5f25c7b19bc5419f7c8dc178e14d1059d7f12a1622b814c6f0463150b9290808"
+    },
+    "collection_jobs": {
+      "count": 75,
+      "sha256": "0a3b30b76146e3db360942c3315a2c02066d5b7ece9d89f6eddc06609aa99573"
+    },
+    "collection_calls": {
+      "count": 75,
+      "sha256": "cb93942c1294513b67da42a30e46f7488ba09cd5bad10fb9bbdc7f4e40b097a0"
+    },
+    "raw_assets": {
+      "count": 75,
+      "sha256": "5038ee4d3d7fc751b4a9d98e39f5116c87a1d7048d448532318b4b12308d677e"
+    },
+    "intelligence_snapshots": {
+      "count": 74,
+      "sha256": "7d60ac782f6eb99cc3ebc7713422c51574f04fd02f39b1ca5ee193acbd4e6492"
+    },
+    "snapshot_entries": {
+      "count": 2213,
+      "sha256": "3a8a0395dccf1832f4d1d3b35654a224e7df9f60659af99d252723e86aa6e455"
+    },
+    "external_contents": {
+      "count": 2213,
+      "sha256": "758f5d808a231b93ceb7df0d156be7d1b7bdf6188edafad8bbfd0ecb44e8852c"
+    },
+    "content_observations": {
+      "count": 2213,
+      "sha256": "8d61c14c6162d6c485b2c2e099bdb55db3919b45cd1935598e85291ce4644ab8"
+    }
+  },
+  "qidian_metrics": [
+    {
+      "rank_type": "yuepiao",
+      "rank_name": "月票榜",
+      "keys": [
+        "_index",
+        "bAuth",
+        "bName",
+        "bid",
+        "cat",
+        "catId",
+        "cnt",
+        "desc",
+        "rankCnt",
+        "rankNum",
+        "subCat",
+        "subCatId"
+      ],
+      "rank_values": [
+        "9.27万月票",
+        "8.92万月票"
+      ],
+      "filters": [
+        {
+          "items": [
+            {
+              "text": "全站",
+              "value": -1
+            },
+            {
+              "text": "玄幻",
+              "value": 21
+            },
+            {
+              "text": "奇幻",
+              "value": 1
+            },
+            {
+              "text": "武侠",
+              "value": 2
+            },
+            {
+              "text": "仙侠",
+              "value": 22
+            },
+            {
+              "text": "都市",
+              "value": 4
+            },
+            {
+              "text": "现实",
+              "value": 15
+            },
+            {
+              "text": "军事",
+              "value": 6
+            },
+            {
+              "text": "历史",
+              "value": 5
+            },
+            {
+              "text": "游戏",
+              "value": 7
+            },
+            {
+              "text": "体育",
+              "value": 8
+            },
+            {
+              "text": "科幻",
+              "value": 9
+            },
+            {
+              "text": "悬疑灵异",
+              "value": 10
+            },
+            {
+              "text": "诸天无限",
+              "value": 20109
+            },
+            {
+              "text": "轻小说",
+              "value": 12
+            }
+          ],
+          "key": "catId",
+          "selectedIndex": 0
+        },
+        {
+          "items": [
+            {
+              "text": "当月",
+              "value": "202610"
+            },
+            {
+              "text": "9月",
+              "value": "202609"
+            },
+            {
+              "text": "8月",
+              "value": "202608"
+            },
+            {
+              "text": "7月",
+              "value": "202607"
+            },
+            {
+              "text": "6月",
+              "value": "202606"
+            },
+            {
+              "text": "5月",
+              "value": "202605"
+            }
+          ],
+          "key": "yearmonth",
+          "selectedIndex": 0
+        }
+      ]
+    },
+    {
+      "rank_type": "hotsales",
+      "rank_name": "畅销榜",
+      "keys": [
+        "_index",
+        "bAuth",
+        "bName",
+        "bid",
+        "cat",
+        "catId",
+        "cnt",
+        "desc",
+        "rankNum",
+        "subCat",
+        "subCatId"
+      ],
+      "rank_values": [
+        null,
+        null
+      ],
+      "filters": [
+        {
+          "items": [
+            {
+              "text": "全站",
+              "value": -1
+            },
+            {
+              "text": "玄幻",
+              "value": 21
+            },
+            {
+              "text": "奇幻",
+              "value": 1
+            },
+            {
+              "text": "武侠",
+              "value": 2
+            },
+            {
+              "text": "仙侠",
+              "value": 22
+            },
+            {
+              "text": "都市",
+              "value": 4
+            },
+            {
+              "text": "现实",
+              "value": 15
+            },
+            {
+              "text": "军事",
+              "value": 6
+            },
+            {
+              "text": "历史",
+              "value": 5
+            },
+            {
+              "text": "游戏",
+              "value": 7
+            },
+            {
+              "text": "体育",
+              "value": 8
+            },
+            {
+              "text": "科幻",
+              "value": 9
+            },
+            {
+              "text": "悬疑灵异",
+              "value": 10
+            },
+            {
+              "text": "诸天无限",
+              "value": 20109
+            },
+            {
+              "text": "轻小说",
+              "value": 12
+            }
+          ],
+          "key": "catId",
+          "selectedIndex": 0
+        }
+      ]
+    },
+    {
+      "rank_type": "readindex",
+      "rank_name": "阅读榜",
+      "keys": [
+        "_index",
+        "bAuth",
+        "bName",
+        "bid",
+        "cat",
+        "catId",
+        "cnt",
+        "desc",
+        "rankNum",
+        "subCat",
+        "subCatId"
+      ],
+      "rank_values": [
+        null,
+        null
+      ],
+      "filters": [
+        {
+          "items": [
+            {
+              "text": "全站",
+              "value": -1
+            },
+            {
+              "text": "玄幻",
+              "value": 21
+            },
+            {
+              "text": "奇幻",
+              "value": 1
+            },
+            {
+              "text": "武侠",
+              "value": 2
+            },
+            {
+              "text": "仙侠",
+              "value": 22
+            },
+            {
+              "text": "都市",
+              "value": 4
+            },
+            {
+              "text": "现实",
+              "value": 15
+            },
+            {
+              "text": "军事",
+              "value": 6
+            },
+            {
+              "text": "历史",
+              "value": 5
+            },
+            {
+              "text": "游戏",
+              "value": 7
+            },
+            {
+              "text": "体育",
+              "value": 8
+            },
+            {
+              "text": "科幻",
+              "value": 9
+            },
+            {
+              "text": "悬疑灵异",
+              "value": 10
+            },
+            {
+              "text": "诸天无限",
+              "value": 20109
+            },
+            {
+              "text": "轻小说",
+              "value": 12
+            }
+          ],
+          "key": "catId",
+          "selectedIndex": 0
+        }
+      ]
+    },
+    {
+      "rank_type": "newfans",
+      "rank_name": "书友榜",
+      "keys": [
+        "_index",
+        "bAuth",
+        "bName",
+        "bid",
+        "cat",
+        "catId",
+        "cnt",
+        "desc",
+        "rankCnt",
+        "rankNum",
+        "subCat",
+        "subCatId"
+      ],
+      "rank_values": [
+        "1519",
+        "1254"
+      ],
+      "filters": [
+        {
+          "items": [
+            {
+              "text": "全站",
+              "value": -1
+            },
+            {
+              "text": "玄幻",
+              "value": 21
+            },
+            {
+              "text": "奇幻",
+              "value": 1
+            },
+            {
+              "text": "武侠",
+              "value": 2
+            },
+            {
+              "text": "仙侠",
+              "value": 22
+            },
+            {
+              "text": "都市",
+              "value": 4
+            },
+            {
+              "text": "现实",
+              "value": 15
+            },
+            {
+              "text": "军事",
+              "value": 6
+            },
+            {
+              "text": "历史",
+              "value": 5
+            },
+            {
+              "text": "游戏",
+              "value": 7
+            },
+            {
+              "text": "体育",
+              "value": 8
+            },
+            {
+              "text": "科幻",
+              "value": 9
+            },
+            {
+              "text": "悬疑灵异",
+              "value": 10
+            },
+            {
+              "text": "诸天无限",
+              "value": 20109
+            },
+            {
+              "text": "轻小说",
+              "value": 12
+            }
+          ],
+          "key": "catId",
+          "selectedIndex": 0
+        },
+        {
+          "items": [
+            {
+              "text": "周榜",
+              "value": 3
+            },
+            {
+              "text": "月榜",
+              "value": 2
+            }
+          ],
+          "key": "rankPeriod",
+          "selectedIndex": 0
+        }
+      ]
+    },
+    {
+      "rank_type": "rec",
+      "rank_name": "推荐榜",
+      "keys": [
+        "_index",
+        "bAuth",
+        "bName",
+        "bid",
+        "cat",
+        "catId",
+        "cnt",
+        "desc",
+        "rankCnt",
+        "rankNum",
+        "subCat",
+        "subCatId"
+      ],
+      "rank_values": [
+        "2.34万推荐",
+        "1.13万推荐"
+      ],
+      "filters": [
+        {
+          "items": [
+            {
+              "text": "全站",
+              "value": -1
+            },
+            {
+              "text": "玄幻",
+              "value": 21
+            },
+            {
+              "text": "奇幻",
+              "value": 1
+            },
+            {
+              "text": "武侠",
+              "value": 2
+            },
+            {
+              "text": "仙侠",
+              "value": 22
+            },
+            {
+              "text": "都市",
+              "value": 4
+            },
+            {
+              "text": "现实",
+              "value": 15
+            },
+            {
+              "text": "军事",
+              "value": 6
+            },
+            {
+              "text": "历史",
+              "value": 5
+            },
+            {
+              "text": "游戏",
+              "value": 7
+            },
+            {
+              "text": "体育",
+              "value": 8
+            },
+            {
+              "text": "科幻",
+              "value": 9
+            },
+            {
+              "text": "悬疑灵异",
+              "value": 10
+            },
+            {
+              "text": "诸天无限",
+              "value": 20109
+            },
+            {
+              "text": "轻小说",
+              "value": 12
+            }
+          ],
+          "key": "catId",
+          "selectedIndex": 0
+        },
+        {
+          "items": [
+            {
+              "text": "周榜",
+              "value": 3
+            },
+            {
+              "text": "月榜",
+              "value": 2
+            },
+            {
+              "text": "总榜",
+              "value": 1
+            }
+          ],
+          "key": "rankPeriod",
+          "selectedIndex": 0
+        }
+      ]
+    },
+    {
+      "rank_type": "update",
+      "rank_name": "更新榜",
+      "keys": [
+        "_index",
+        "bAuth",
+        "bName",
+        "bid",
+        "cat",
+        "catId",
+        "cnt",
+        "desc",
+        "rankCnt",
+        "rankNum",
+        "subCat",
+        "subCatId"
+      ],
+      "rank_values": [
+        "0月更字",
+        "0月更字"
+      ],
+      "filters": [
+        {
+          "items": [
+            {
+              "text": "全站",
+              "value": -1
+            },
+            {
+              "text": "玄幻",
+              "value": 21
+            },
+            {
+              "text": "奇幻",
+              "value": 1
+            },
+            {
+              "text": "武侠",
+              "value": 2
+            },
+            {
+              "text": "仙侠",
+              "value": 22
+            },
+            {
+              "text": "都市",
+              "value": 4
+            },
+            {
+              "text": "现实",
+              "value": 15
+            },
+            {
+              "text": "军事",
+              "value": 6
+            },
+            {
+              "text": "历史",
+              "value": 5
+            },
+            {
+              "text": "游戏",
+              "value": 7
+            },
+            {
+              "text": "体育",
+              "value": 8
+            },
+            {
+              "text": "科幻",
+              "value": 9
+            },
+            {
+              "text": "悬疑灵异",
+              "value": 10
+            },
+            {
+              "text": "诸天无限",
+              "value": 20109
+            },
+            {
+              "text": "轻小说",
+              "value": 12
+            }
+          ],
+          "key": "catId",
+          "selectedIndex": 0
+        }
+      ]
+    },
+    {
+      "rank_type": "sign",
+      "rank_name": "签约榜",
+      "keys": [
+        "_index",
+        "bAuth",
+        "bName",
+        "bid",
+        "cat",
+        "catId",
+        "cnt",
+        "desc",
+        "rankNum",
+        "subCat",
+        "subCatId"
+      ],
+      "rank_values": [
+        null,
+        null
+      ],
+      "filters": [
+        {
+          "items": [
+            {
+              "text": "全站",
+              "value": -1
+            },
+            {
+              "text": "玄幻",
+              "value": 21
+            },
+            {
+              "text": "奇幻",
+              "value": 1
+            },
+            {
+              "text": "武侠",
+              "value": 2
+            },
+            {
+              "text": "仙侠",
+              "value": 22
+            },
+            {
+              "text": "都市",
+              "value": 4
+            },
+            {
+              "text": "现实",
+              "value": 15
+            },
+            {
+              "text": "军事",
+              "value": 6
+            },
+            {
+              "text": "历史",
+              "value": 5
+            },
+            {
+              "text": "游戏",
+              "value": 7
+            },
+            {
+              "text": "体育",
+              "value": 8
+            },
+            {
+              "text": "科幻",
+              "value": 9
+            },
+            {
+              "text": "悬疑灵异",
+              "value": 10
+            },
+            {
+              "text": "诸天无限",
+              "value": 20109
+            },
+            {
+              "text": "轻小说",
+              "value": 12
+            }
+          ],
+          "key": "catId",
+          "selectedIndex": 0
+        }
+      ]
+    },
+    {
+      "rank_type": "newbook",
+      "rank_name": "新书榜",
+      "keys": [
+        "_index",
+        "bAuth",
+        "bName",
+        "bid",
+        "cat",
+        "catId",
+        "cnt",
+        "desc",
+        "rankNum",
+        "subCat",
+        "subCatId"
+      ],
+      "rank_values": [
+        null,
+        null
+      ],
+      "filters": [
+        {
+          "items": [
+            {
+              "text": "全站",
+              "value": -1
+            },
+            {
+              "text": "玄幻",
+              "value": 21
+            },
+            {
+              "text": "奇幻",
+              "value": 1
+            },
+            {
+              "text": "武侠",
+              "value": 2
+            },
+            {
+              "text": "仙侠",
+              "value": 22
+            },
+            {
+              "text": "都市",
+              "value": 4
+            },
+            {
+              "text": "现实",
+              "value": 15
+            },
+            {
+              "text": "军事",
+              "value": 6
+            },
+            {
+              "text": "历史",
+              "value": 5
+            },
+            {
+              "text": "游戏",
+              "value": 7
+            },
+            {
+              "text": "体育",
+              "value": 8
+            },
+            {
+              "text": "科幻",
+              "value": 9
+            },
+            {
+              "text": "悬疑灵异",
+              "value": 10
+            },
+            {
+              "text": "诸天无限",
+              "value": 20109
+            },
+            {
+              "text": "轻小说",
+              "value": 12
+            }
+          ],
+          "key": "catId",
+          "selectedIndex": 0
+        }
+      ]
+    },
+    {
+      "rank_type": "newauthor",
+      "rank_name": "新人榜",
+      "keys": [
+        "_index",
+        "bAuth",
+        "bName",
+        "bid",
+        "cat",
+        "catId",
+        "cnt",
+        "desc",
+        "rankNum",
+        "subCat",
+        "subCatId"
+      ],
+      "rank_values": [
+        null,
+        null
+      ],
+      "filters": [
+        {
+          "items": [
+            {
+              "text": "全站",
+              "value": -1
+            },
+            {
+              "text": "玄幻",
+              "value": 21
+            },
+            {
+              "text": "奇幻",
+              "value": 1
+            },
+            {
+              "text": "武侠",
+              "value": 2
+            },
+            {
+              "text": "仙侠",
+              "value": 22
+            },
+            {
+              "text": "都市",
+              "value": 4
+            },
+            {
+              "text": "现实",
+              "value": 15
+            },
+            {
+              "text": "军事",
+              "value": 6
+            },
+            {
+              "text": "历史",
+              "value": 5
+            },
+            {
+              "text": "游戏",
+              "value": 7
+            },
+            {
+              "text": "体育",
+              "value": 8
+            },
+            {
+              "text": "科幻",
+              "value": 9
+            },
+            {
+              "text": "悬疑灵异",
+              "value": 10
+            },
+            {
+              "text": "诸天无限",
+              "value": 20109
+            },
+            {
+              "text": "轻小说",
+              "value": 12
+            }
+          ],
+          "key": "catId",
+          "selectedIndex": 0
+        }
+      ]
+    }
+  ],
+  "fanqie_dimensions": {
+    "male": {
+      "read": 19,
+      "new": 19
+    },
+    "female": {
+      "read": 18,
+      "new": 18
+    }
+  },
+  "fanqie_categories": {
+    "male": [
+      {
+        "id": "1141",
+        "name": "西方奇幻"
+      },
+      {
+        "id": "1140",
+        "name": "东方仙侠"
+      },
+      {
+        "id": "8",
+        "name": "科幻末世"
+      },
+      {
+        "id": "261",
+        "name": "都市日常"
+      },
+      {
+        "id": "124",
+        "name": "都市修真"
+      },
+      {
+        "id": "1014",
+        "name": "都市高武"
+      },
+      {
+        "id": "273",
+        "name": "历史古代"
+      },
+      {
+        "id": "27",
+        "name": "战神赘婿"
+      },
+      {
+        "id": "263",
+        "name": "都市种田"
+      },
+      {
+        "id": "258",
+        "name": "传统玄幻"
+      },
+      {
+        "id": "272",
+        "name": "历史脑洞"
+      },
+      {
+        "id": "539",
+        "name": "悬疑脑洞"
+      },
+      {
+        "id": "262",
+        "name": "都市脑洞"
+      },
+      {
+        "id": "257",
+        "name": "玄幻脑洞"
+      },
+      {
+        "id": "751",
+        "name": "悬疑灵异"
+      },
+      {
+        "id": "504",
+        "name": "抗战谍战"
+      },
+      {
+        "id": "746",
+        "name": "游戏体育"
+      },
+      {
+        "id": "718",
+        "name": "动漫衍生"
+      },
+      {
+        "id": "1016",
+        "name": "男频衍生"
+      }
+    ],
+    "female": [
+      {
+        "id": "1139",
+        "name": "古风世情"
+      },
+      {
+        "id": "8",
+        "name": "科幻末世"
+      },
+      {
+        "id": "746",
+        "name": "游戏体育"
+      },
+      {
+        "id": "1015",
+        "name": "女频衍生"
+      },
+      {
+        "id": "248",
+        "name": "玄幻言情"
+      },
+      {
+        "id": "23",
+        "name": "种田"
+      },
+      {
+        "id": "79",
+        "name": "年代"
+      },
+      {
+        "id": "267",
+        "name": "现言脑洞"
+      },
+      {
+        "id": "246",
+        "name": "宫斗宅斗"
+      },
+      {
+        "id": "539",
+        "name": "悬疑脑洞"
+      },
+      {
+        "id": "253",
+        "name": "古言脑洞"
+      },
+      {
+        "id": "24",
+        "name": "快穿"
+      },
+      {
+        "id": "749",
+        "name": "青春甜宠"
+      },
+      {
+        "id": "745",
+        "name": "星光璀璨"
+      },
+      {
+        "id": "747",
+        "name": "女频悬疑"
+      },
+      {
+        "id": "750",
+        "name": "职场婚恋"
+      },
+      {
+        "id": "748",
+        "name": "豪门总裁"
+      },
+      {
+        "id": "1017",
+        "name": "民国言情"
+      }
+    ]
+  }
+}

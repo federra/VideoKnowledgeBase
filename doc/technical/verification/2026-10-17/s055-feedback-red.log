@@ -1,0 +1,54 @@
+$ vitest run
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/api-client.test.ts (21 tests | 2 failed) 66ms
+   × 写入成功响应损坏时提示核验原请求，不鼓励新建请求 3ms
+   × 登录网络失败能给查询边界提供明确错误，而非永久加载 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/api-client.test.ts > 写入成功响应损坏时提示核验原请求，不鼓励新建请求
+AssertionError: expected '服务响应格式异常，请稍后重试' to contain '核验'
+
+Expected: "核验"
+Received: "服务响应格式异常，请稍后重试"
+
+ ❯ tests/api-client.test.ts:157:25
+    155|   const error=await client.uploadFile(new Blob(),metadata,rid).catch(e…
+    156|   expect(error.code).toBe('INVALID_RESPONSE');
+    157|   expect(error.message).toContain('核验');
+       |                         ^
+    158| });
+    159|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/api-client.test.ts > 登录网络失败能给查询边界提供明确错误，而非永久加载
+AssertionError: expected undefined to match object { code: 'NETWORK_ERROR' }
+
+- Expected:
+{
+  "code": "NETWORK_ERROR",
+}
+
++ Received:
+undefined
+
+ ❯ tests/api-client.test.ts:163:30
+    161|   const client=new ApiClient({fetcher:vi.fn().mockRejectedValue(new Ty…
+    162|   await expect(client.login({org_id:wid,login_name:'test',password:'te…
+    163|   expect(client.accessError).toMatchObject({code:'NETWORK_ERROR'});
+       |                              ^
+    164| });
+    165|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  2 failed | 33 passed (35)
+   Start at  09:31:35
+   Duration  1.32s (environment 52%, tests 34%, setup 8%, transform 3%, import 2%)
+
+[ELIFECYCLE] Test failed. See above for more details.

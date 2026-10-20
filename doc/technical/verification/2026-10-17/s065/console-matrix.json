@@ -1,0 +1,842 @@
+[
+  {
+    "kind": "demo",
+    "page": 0,
+    "business": "AI漫剧",
+    "theme": "light",
+    "width": 1280,
+    "file": "console-0-1280-light-AI漫剧-demo.png",
+    "actualWidth": 1280,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "real",
+    "page": 0,
+    "business": "AI漫剧",
+    "theme": "light",
+    "width": 1280,
+    "file": "console-0-1280-light-AI漫剧-real.png",
+    "actualWidth": 1280,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "page": 4,
+    "business": "AI漫剧",
+    "theme": "light",
+    "width": 1280,
+    "file": "console-4-1280-light-AI漫剧-demo.png",
+    "actualWidth": 1280,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "real",
+    "page": 4,
+    "business": "AI漫剧",
+    "theme": "light",
+    "width": 1280,
+    "file": "console-4-1280-light-AI漫剧-real.png",
+    "actualWidth": 1280,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 7,
+    "scrollWidth": 1265
+  },
+  {
+    "kind": "demo",
+    "page": 0,
+    "business": "故事短片",
+    "theme": "light",
+    "width": 1280,
+    "file": "console-0-1280-light-故事短片-demo.png",
+    "actualWidth": 1280,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "real",
+    "page": 0,
+    "business": "故事短片",
+    "theme": "light",
+    "width": 1280,
+    "file": "console-0-1280-light-故事短片-real.png",
+    "actualWidth": 1280,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "page": 4,
+    "business": "故事短片",
+    "theme": "light",
+    "width": 1280,
+    "file": "console-4-1280-light-故事短片-demo.png",
+    "actualWidth": 1280,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "real",
+    "page": 4,
+    "business": "故事短片",
+    "theme": "light",
+    "width": 1280,
+    "file": "console-4-1280-light-故事短片-real.png",
+    "actualWidth": 1280,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "page": 0,
+    "business": "电商短视频",
+    "theme": "light",
+    "width": 1280,
+    "file": "console-0-1280-light-电商短视频-demo.png",
+    "actualWidth": 1280,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "real",
+    "page": 0,
+    "business": "电商短视频",
+    "theme": "light",
+    "width": 1280,
+    "file": "console-0-1280-light-电商短视频-real.png",
+    "actualWidth": 1280,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "page": 4,
+    "business": "电商短视频",
+    "theme": "light",
+    "width": 1280,
+    "file": "console-4-1280-light-电商短视频-demo.png",
+    "actualWidth": 1280,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "real",
+    "page": 4,
+    "business": "电商短视频",
+    "theme": "light",
+    "width": 1280,
+    "file": "console-4-1280-light-电商短视频-real.png",
+    "actualWidth": 1280,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "page": 0,
+    "business": "AI漫剧",
+    "theme": "dark",
+    "width": 1280,
+    "file": "console-0-1280-dark-AI漫剧-demo.png",
+    "actualWidth": 1280,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "real",
+    "page": 0,
+    "business": "AI漫剧",
+    "theme": "dark",
+    "width": 1280,
+    "file": "console-0-1280-dark-AI漫剧-real.png",
+    "actualWidth": 1280,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "page": 4,
+    "business": "AI漫剧",
+    "theme": "dark",
+    "width": 1280,
+    "file": "console-4-1280-dark-AI漫剧-demo.png",
+    "actualWidth": 1280,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "real",
+    "page": 4,
+    "business": "AI漫剧",
+    "theme": "dark",
+    "width": 1280,
+    "file": "console-4-1280-dark-AI漫剧-real.png",
+    "actualWidth": 1280,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 7,
+    "scrollWidth": 1265
+  },
+  {
+    "kind": "demo",
+    "page": 0,
+    "business": "故事短片",
+    "theme": "dark",
+    "width": 1280,
+    "file": "console-0-1280-dark-故事短片-demo.png",
+    "actualWidth": 1280,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "real",
+    "page": 0,
+    "business": "故事短片",
+    "theme": "dark",
+    "width": 1280,
+    "file": "console-0-1280-dark-故事短片-real.png",
+    "actualWidth": 1280,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "page": 4,
+    "business": "故事短片",
+    "theme": "dark",
+    "width": 1280,
+    "file": "console-4-1280-dark-故事短片-demo.png",
+    "actualWidth": 1280,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "real",
+    "page": 4,
+    "business": "故事短片",
+    "theme": "dark",
+    "width": 1280,
+    "file": "console-4-1280-dark-故事短片-real.png",
+    "actualWidth": 1280,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "page": 0,
+    "business": "电商短视频",
+    "theme": "dark",
+    "width": 1280,
+    "file": "console-0-1280-dark-电商短视频-demo.png",
+    "actualWidth": 1280,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "real",
+    "page": 0,
+    "business": "电商短视频",
+    "theme": "dark",
+    "width": 1280,
+    "file": "console-0-1280-dark-电商短视频-real.png",
+    "actualWidth": 1280,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "page": 4,
+    "business": "电商短视频",
+    "theme": "dark",
+    "width": 1280,
+    "file": "console-4-1280-dark-电商短视频-demo.png",
+    "actualWidth": 1280,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "real",
+    "page": 4,
+    "business": "电商短视频",
+    "theme": "dark",
+    "width": 1280,
+    "file": "console-4-1280-dark-电商短视频-real.png",
+    "actualWidth": 1280,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "page": 0,
+    "business": "AI漫剧",
+    "theme": "light",
+    "width": 768,
+    "file": "console-0-768-light-AI漫剧-demo.png",
+    "actualWidth": 768,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 753
+  },
+  {
+    "kind": "real",
+    "page": 0,
+    "business": "AI漫剧",
+    "theme": "light",
+    "width": 768,
+    "file": "console-0-768-light-AI漫剧-real.png",
+    "actualWidth": 768,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 753
+  },
+  {
+    "kind": "demo",
+    "page": 4,
+    "business": "AI漫剧",
+    "theme": "light",
+    "width": 768,
+    "file": "console-4-768-light-AI漫剧-demo.png",
+    "actualWidth": 768,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "real",
+    "page": 4,
+    "business": "AI漫剧",
+    "theme": "light",
+    "width": 768,
+    "file": "console-4-768-light-AI漫剧-real.png",
+    "actualWidth": 768,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 7,
+    "scrollWidth": 753
+  },
+  {
+    "kind": "demo",
+    "page": 0,
+    "business": "故事短片",
+    "theme": "light",
+    "width": 768,
+    "file": "console-0-768-light-故事短片-demo.png",
+    "actualWidth": 768,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 753
+  },
+  {
+    "kind": "real",
+    "page": 0,
+    "business": "故事短片",
+    "theme": "light",
+    "width": 768,
+    "file": "console-0-768-light-故事短片-real.png",
+    "actualWidth": 768,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "demo",
+    "page": 4,
+    "business": "故事短片",
+    "theme": "light",
+    "width": 768,
+    "file": "console-4-768-light-故事短片-demo.png",
+    "actualWidth": 768,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "real",
+    "page": 4,
+    "business": "故事短片",
+    "theme": "light",
+    "width": 768,
+    "file": "console-4-768-light-故事短片-real.png",
+    "actualWidth": 768,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "demo",
+    "page": 0,
+    "business": "电商短视频",
+    "theme": "light",
+    "width": 768,
+    "file": "console-0-768-light-电商短视频-demo.png",
+    "actualWidth": 768,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 753
+  },
+  {
+    "kind": "real",
+    "page": 0,
+    "business": "电商短视频",
+    "theme": "light",
+    "width": 768,
+    "file": "console-0-768-light-电商短视频-real.png",
+    "actualWidth": 768,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "demo",
+    "page": 4,
+    "business": "电商短视频",
+    "theme": "light",
+    "width": 768,
+    "file": "console-4-768-light-电商短视频-demo.png",
+    "actualWidth": 768,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "real",
+    "page": 4,
+    "business": "电商短视频",
+    "theme": "light",
+    "width": 768,
+    "file": "console-4-768-light-电商短视频-real.png",
+    "actualWidth": 768,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "demo",
+    "page": 0,
+    "business": "AI漫剧",
+    "theme": "dark",
+    "width": 768,
+    "file": "console-0-768-dark-AI漫剧-demo.png",
+    "actualWidth": 768,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 753
+  },
+  {
+    "kind": "real",
+    "page": 0,
+    "business": "AI漫剧",
+    "theme": "dark",
+    "width": 768,
+    "file": "console-0-768-dark-AI漫剧-real.png",
+    "actualWidth": 768,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 753
+  },
+  {
+    "kind": "demo",
+    "page": 4,
+    "business": "AI漫剧",
+    "theme": "dark",
+    "width": 768,
+    "file": "console-4-768-dark-AI漫剧-demo.png",
+    "actualWidth": 768,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "real",
+    "page": 4,
+    "business": "AI漫剧",
+    "theme": "dark",
+    "width": 768,
+    "file": "console-4-768-dark-AI漫剧-real.png",
+    "actualWidth": 768,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 7,
+    "scrollWidth": 753
+  },
+  {
+    "kind": "demo",
+    "page": 0,
+    "business": "故事短片",
+    "theme": "dark",
+    "width": 768,
+    "file": "console-0-768-dark-故事短片-demo.png",
+    "actualWidth": 768,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 753
+  },
+  {
+    "kind": "real",
+    "page": 0,
+    "business": "故事短片",
+    "theme": "dark",
+    "width": 768,
+    "file": "console-0-768-dark-故事短片-real.png",
+    "actualWidth": 768,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "demo",
+    "page": 4,
+    "business": "故事短片",
+    "theme": "dark",
+    "width": 768,
+    "file": "console-4-768-dark-故事短片-demo.png",
+    "actualWidth": 768,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "real",
+    "page": 4,
+    "business": "故事短片",
+    "theme": "dark",
+    "width": 768,
+    "file": "console-4-768-dark-故事短片-real.png",
+    "actualWidth": 768,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "demo",
+    "page": 0,
+    "business": "电商短视频",
+    "theme": "dark",
+    "width": 768,
+    "file": "console-0-768-dark-电商短视频-demo.png",
+    "actualWidth": 768,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 753
+  },
+  {
+    "kind": "real",
+    "page": 0,
+    "business": "电商短视频",
+    "theme": "dark",
+    "width": 768,
+    "file": "console-0-768-dark-电商短视频-real.png",
+    "actualWidth": 768,
+    "headings": [
+      "监测来源",
+      "采集计划",
+      "用途",
+      "状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "demo",
+    "page": 4,
+    "business": "电商短视频",
+    "theme": "dark",
+    "width": 768,
+    "file": "console-4-768-dark-电商短视频-demo.png",
+    "actualWidth": 768,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 3,
+    "scrollWidth": 768
+  },
+  {
+    "kind": "real",
+    "page": 4,
+    "business": "电商短视频",
+    "theme": "dark",
+    "width": 768,
+    "file": "console-4-768-dark-电商短视频-real.png",
+    "actualWidth": 768,
+    "headings": [
+      "任务",
+      "输入与版本",
+      "运行状态",
+      "操作"
+    ],
+    "rows": 1,
+    "scrollWidth": 768
+  }
+]

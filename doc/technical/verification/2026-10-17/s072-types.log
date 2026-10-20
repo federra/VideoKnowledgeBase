@@ -1,0 +1,3 @@
+$ tsc -b && eslint src tests
+src/modules/intelligence/IntelligencePage.tsx(69,8): error TS6133: 'unavailable' is declared but its value is never read.
+[ELIFECYCLE] Command failed with exit code 1.

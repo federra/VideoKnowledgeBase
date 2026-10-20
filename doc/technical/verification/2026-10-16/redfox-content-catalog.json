@@ -1,0 +1,109 @@
+{
+  "checked_at": "2026-10-16",
+  "catalog_url": "https://redfox.hk/story/web/api/doc/platform/douyin/interfaces",
+  "interface_count": 16,
+  "douyin_comment_text_interface_found": false,
+  "interfaces": [
+    {
+      "id": "P5CHB3BZ",
+      "name": "搜索关键词获取抖音账号 (优质库)",
+      "path": "/story/api/dyData/searchUser",
+      "catalog_price_cny": 0.04
+    },
+    {
+      "id": "L6OUNUN1",
+      "name": "搜索关键词获取抖音账号 (广域库)",
+      "path": "/story/api/dy/data/searchAccount",
+      "catalog_price_cny": 0.04
+    },
+    {
+      "id": "QEQLCKD6",
+      "name": "获取抖音账号作品列表 (优质库)",
+      "path": "/story/api/dyData/queryWorkList",
+      "catalog_price_cny": 0.04
+    },
+    {
+      "id": "QSL2ZSXM",
+      "name": "获取抖音账号作品列表 (广域库)",
+      "path": "/story/api/dy/data/listWorkByAccount",
+      "catalog_price_cny": 0.04
+    },
+    {
+      "id": "774OBKK0",
+      "name": "搜索关键词获取抖音作品 (优质库)",
+      "path": "/story/api/dyData/searchArticle",
+      "catalog_price_cny": 0.04
+    },
+    {
+      "id": "OWIBYU1V",
+      "name": "搜索关键词获取抖音作品 (广域库)",
+      "path": "/story/api/dy/data/searchWork",
+      "catalog_price_cny": 0.04
+    },
+    {
+      "id": "0OT1E306",
+      "name": "获取抖音作品内容详情 (优质库)",
+      "path": "/story/api/dyData/queryWork",
+      "catalog_price_cny": 0.04
+    },
+    {
+      "id": "FK67XDVQ",
+      "name": "获取抖音作品内容详情 (广域库)",
+      "path": "/story/api/dy/data/workDetail",
+      "catalog_price_cny": 0.04
+    },
+    {
+      "id": "20060017",
+      "name": "抖音热门账号推荐",
+      "path": "/story/api/dyData/query",
+      "catalog_price_cny": 0.06
+    },
+    {
+      "id": "HUCIASU",
+      "name": "抖音每日热门作品榜",
+      "path": "/story/api/dy/search/likesRank",
+      "catalog_price_cny": 0.06
+    },
+    {
+      "id": "XUT4CECZ",
+      "name": " 获取抖音账号信息  (优质库)",
+      "path": "/story/api/dyData/queryUser",
+      "catalog_price_cny": 0.04
+    },
+    {
+      "id": "I8P3HTVH",
+      "name": "AI垂类——搜索抖音AI相关作品",
+      "path": "/story/api/parseWork/queryDyAiMsgs",
+      "catalog_price_cny": 0.04
+    },
+    {
+      "id": "WD6UT8DQ",
+      "name": "抖音每日点赞飙升榜",
+      "path": "/story/api/dy/search/getDailyRank",
+      "catalog_price_cny": 0.04
+    },
+    {
+      "id": "0ZB9S2FW",
+      "name": "抖音七日点赞飙升榜",
+      "path": "/story/api/dy/search/getWeeklyRank",
+      "catalog_price_cny": 0.04
+    },
+    {
+      "id": "8DCJW2ZF",
+      "name": "视频提文案-提交任务",
+      "path": "/story/api/parseWork/audioTextExtract/submit/douyin",
+      "catalog_price_cny": 0.6
+    },
+    {
+      "id": "D4YT0XVJ",
+      "name": "视频提文案-查询结果",
+      "path": "/story/api/parseWork/audioTextExtract/result/douyin",
+      "catalog_price_cny": 0.0
+    }
+  ],
+  "notes": [
+    "Public documentation only; no paid calls for these GET requests.",
+    "Catalog pricing is not an account invoice.",
+    "No comment-text endpoint found in this platform catalog; this does not prove the provider has no such service."
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "documents_checked": 12,
+  "local_links_valid": true,
+  "all_frozen_sql_checksums_valid": true,
+  "project_revision": "0005_auth",
+  "tables": 73,
+  "configuration_rows": 4,
+  "default_accounts_created": 0,
+  "runtime_business_operations": 3,
+  "frontend_runtime_changed": false,
+  "external_api_calls": 0,
+  "backend_unit_tests_passed": 60,
+  "database_integration_tests_passed": 85,
+  "frontend_tests_passed": 7,
+  "typescript_compile_assertions": 13,
+  "fresh_readonly_review_count": 1,
+  "review_issues_fixed": 4,
+  "review_blockers_remaining": 0
+}

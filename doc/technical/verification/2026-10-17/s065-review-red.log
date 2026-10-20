@@ -1,0 +1,116 @@
+$ vitest run --run tests/app.test.tsx tests/migration-boundary.test.ts
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/migration-boundary.test.ts (4 tests | 1 failed) 112ms
+   × 生成脚本没有悬空的旧日期或事件标识 110ms
+ ❯ tests/app.test.tsx (9 tests | 2 failed) 612ms
+   × 未迁移研判的评论证据仍能展开、高亮并定位原文 83ms
+   × 旧来源表单不再进入任何Demo业务写入分支 24ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/app.test.tsx > 未迁移研判的评论证据仍能展开、高亮并定位原文
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/app.test.tsx:104:80
+    102|  const details=document.querySelector<HTMLDetailsElement>('.feedback-r…
+    103|  fireEvent.click(screen.getByRole('button',{name:'查看1条证据 ›'}));
+    104|  expect(document.querySelector<HTMLDetailsElement>('#feedbackComments'…
+       |                                                                                ^
+    105|  expect(document.querySelector('#feedback-comment-0')?.classList.conta…
+    106|  expect(screen.getByText('已突出显示 1 条相关评论证据。')).toBeTruthy();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/app.test.tsx > 旧来源表单不再进入任何Demo业务写入分支
+AssertionError: expected [ …(64) ] to deeply equal [ { id: 'C-081', …(7) }, …(62) ]
+
+- Expected
++ Received
+
+@@ -1,8 +1,20 @@
+  [
+    {
+      "biz": [
++       "AI漫剧",
++     ],
++     "id": "C-1792218942636",
++     "input": "https://example.com",
++     "sourceId": "人工提交",
++     "status": "待研判",
++     "title": "obsolete-source",
++     "version": 1,
++     "workId": "WORK-1792218942636",
++   },
++   {
++     "biz": [
+        "故事短片",
+      ],
+      "id": "C-081",
+      "lastAnalyzedAt": "2026-10-07 10:20",
+      "sourceId": "S-2402",
+
+ ❯ tests/app.test.tsx:117:69
+    115|  fireEvent.submit(form);form.remove();
+    116|  const after=JSON.parse(localStorage.getItem('cip-demo-v1')!);
+    117|  for(const key of ['sources','research','works'])expect(after[key]).to…
+       |                                                                     ^
+    118| });
+    119|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/migration-boundary.test.ts > 生成脚本没有悬空的旧日期或事件标识
+AssertionError: expected [ { ruleId: 'no-undef', …(7) }, …(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "column": 722,
++     "endColumn": 736,
++     "endLine": 1029,
++     "line": 1029,
++     "message": "'changeFeedDate' is not defined.",
++     "messageId": "undef",
++     "ruleId": "no-undef",
++     "severity": 2,
++   },
++   {
++     "column": 1051,
++     "endColumn": 1069,
++     "endLine": 1043,
++     "line": 1043,
++     "message": "'feedDateStorageKey' is not defined.",
++     "messageId": "undef",
++     "ruleId": "no-undef",
++     "severity": 2,
++   },
++ ]
+
+ ❯ tests/migration-boundary.test.ts:30:18
+     28| it('生成脚本没有悬空的旧日期或事件标识', () => {
+     29|   const errors=new Linter().verify(runtime,{languageOptions:{sourceTyp…
+     30|   expect(errors).toEqual([]);
+       |                  ^
+     31| });
+     32|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  3 failed | 10 passed (13)
+   Start at  14:35:41
+   Duration  1.07s (tests 48%, environment 34%, setup 8%, import 6%, transform 3%)
+
+[ELIFECYCLE] Test failed. See above for more details.

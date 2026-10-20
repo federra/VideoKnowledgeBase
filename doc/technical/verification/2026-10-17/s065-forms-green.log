@@ -1,0 +1,10 @@
+$ vitest run --run tests/migration-boundary.test.ts
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  14:22:30
+   Duration  497ms (environment 79%, setup 18%, transform 2%, tests 1%, worker 1%)
+

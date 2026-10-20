@@ -1,0 +1,28 @@
+{
+  "request": {
+    "type": "小剧场",
+    "endTime": "2026-10-16",
+    "startTime": "2026-10-16"
+  },
+  "provider_returned": 50,
+  "saved": 10,
+  "displayed": 10,
+  "order_matches_saved_response": true,
+  "categories": [
+    "小剧场"
+  ],
+  "work_types": [
+    "0",
+    "109",
+    "None"
+  ],
+  "raw_sha256": "915eb82dfd863f2ed02613519af2feb2ba20c06695c73fb2cf6d13f96e5f4b22",
+  "source_enabled": false,
+  "request_count": 1,
+  "status": "provider_order",
+  "author_count": 10,
+  "source_labels": [
+    "小剧场 · 红狐每日热门作品榜 · 数据日期 2026-10-16"
+  ],
+  "external_calls_added_by_audit": 0
+}

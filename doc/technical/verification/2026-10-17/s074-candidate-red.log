@@ -1,0 +1,22 @@
+Database command failed (RuntimeError): 
+Stock upgrade preserves valid rows; invalid stock aborts the entire migration.
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+________ test_candidate_is_not_formal_and_revision_requires_new_review _________
+tests/integration/test_knowledge.py:23: in test_candidate_is_not_formal_and_revision_requires_new_review
+    from app.knowledge.service import create, revise, read_candidate, published, listing
+E   ModuleNotFoundError: No module named 'app.knowledge'
+____________ test_candidate_replay_and_queue_current_authorization _____________
+tests/integration/test_knowledge.py:50: in test_candidate_replay_and_queue_current_authorization
+    from app.knowledge.service import create, listing
+E   ModuleNotFoundError: No module named 'app.knowledge'
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_knowledge.py::test_candidate_is_not_formal_and_revision_requires_new_review
+FAILED tests/integration/test_knowledge.py::test_candidate_replay_and_queue_current_authorization
+2 failed, 189 deselected, 1 warning in 1.34s

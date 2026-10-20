@@ -1,0 +1,103 @@
+{
+  "kind": "S03.4 design-only migration inventory; not an executed Alembic plan",
+  "table_groups": {
+    "B1-a": [
+      "organizations",
+      "business_lines",
+      "platforms",
+      "members",
+      "role_definitions",
+      "role_actions",
+      "grants",
+      "audit_events",
+      "file_objects",
+      "provider_connections",
+      "standards",
+      "standard_revisions",
+      "ai_config_revisions",
+      "tasks",
+      "task_inputs",
+      "task_attempts",
+      "task_outputs"
+    ],
+    "B1-b": [
+      "sources",
+      "collection_plans",
+      "collection_jobs",
+      "collection_calls",
+      "external_accounts",
+      "external_account_aliases",
+      "external_contents",
+      "raw_assets",
+      "raw_asset_events",
+      "account_observations",
+      "content_observations",
+      "intelligence_snapshots",
+      "snapshot_entries",
+      "comment_evidence",
+      "feedback_snapshots",
+      "feedback_comments",
+      "feedback_claims",
+      "feedback_claim_evidence"
+    ],
+    "B1-c": [
+      "works",
+      "content_units",
+      "artifacts",
+      "artifact_versions",
+      "artifact_version_sources",
+      "artifact_version_units",
+      "artifact_lineage",
+      "research_submissions",
+      "preliminary_assessments",
+      "input_sets",
+      "input_set_items",
+      "analysis_runs",
+      "ai_executions",
+      "analysis_reports",
+      "report_units",
+      "evidence_refs",
+      "report_evidence",
+      "quality_evaluations",
+      "evaluation_evidence",
+      "metric_specs",
+      "prediction_drafts",
+      "predictions",
+      "prediction_events",
+      "prediction_evidence",
+      "knowledge_items",
+      "knowledge_revisions",
+      "knowledge_businesses",
+      "knowledge_evidence",
+      "knowledge_relations",
+      "review_requests",
+      "review_heads",
+      "review_decisions",
+      "knowledge_publications",
+      "search_documents",
+      "embeddings"
+    ]
+  },
+  "planned_revisions": [
+    {
+      "name": "0001_b1a_structure",
+      "table_group": "B1-a"
+    },
+    {
+      "name": "0002_b1b_structure",
+      "table_group": "B1-b"
+    },
+    {
+      "name": "0003_b1c_structure",
+      "table_group": "B1-c"
+    },
+    {
+      "name": "0004_b1_integrity",
+      "tables_created": [],
+      "purpose": "Install and validate all FK, deferred constraints, sealing guards, immutable-column and state protections; restrict app writes until head."
+    }
+  ],
+  "expected_head": "0004_b1_integrity",
+  "runtime_use_before_head": false,
+  "schema_executed": false
+}

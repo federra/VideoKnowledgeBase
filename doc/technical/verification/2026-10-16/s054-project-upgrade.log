@@ -1,0 +1,2 @@
+Restricted application login configured and verified; credentials stay in private .env.
+Dedicated project database upgraded to head; no business seed data.

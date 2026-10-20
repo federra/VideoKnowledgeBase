@@ -1,0 +1,9 @@
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  17:42:09
+   Duration  874ms (tests 45%, environment 41%, setup 6%, transform 4%, import 3%)
+

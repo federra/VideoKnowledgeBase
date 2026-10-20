@@ -1,0 +1,192 @@
+FFFFFFFFFFFFFFFFFFF                                                      [100%]
+=================================== FAILURES ===================================
+_ test_broad_normalization_preserves_ids_zero_missing_time_units_and_evidence __
+
+    def test_broad_normalization_preserves_ids_zero_missing_time_units_and_evidence():
+>       from app.connectors.redfox import normalize
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:17: ModuleNotFoundError
+_________ test_search_accounts_are_not_work_rank_or_work_interactions __________
+
+    def test_search_accounts_are_not_work_rank_or_work_interactions():
+>       from app.connectors.redfox import normalize
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:30: ModuleNotFoundError
+_____ test_duplicate_page_rows_collapse_but_conflicts_do_not_silently_win ______
+
+    def test_duplicate_page_rows_collapse_but_conflicts_do_not_silently_win():
+>       from app.connectors.redfox import AdapterError, normalize
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:40: ModuleNotFoundError
+____ test_invalid_required_identity_or_counts_reject_whole_page[overrides0] ____
+
+overrides = {'videoId': None}
+
+    @pytest.mark.parametrize('overrides',[{'videoId':None},{'videoId':123},{'likeCount':True},{'likeCount':-1},{'duration':1.1},{'authorFansCount':'1.2万'},{'likeCount':9223372036854775808}])
+    def test_invalid_required_identity_or_counts_reject_whole_page(overrides):
+>       from app.connectors.redfox import AdapterError, normalize
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:50: ModuleNotFoundError
+____ test_invalid_required_identity_or_counts_reject_whole_page[overrides1] ____
+
+overrides = {'videoId': 123}
+
+    @pytest.mark.parametrize('overrides',[{'videoId':None},{'videoId':123},{'likeCount':True},{'likeCount':-1},{'duration':1.1},{'authorFansCount':'1.2万'},{'likeCount':9223372036854775808}])
+    def test_invalid_required_identity_or_counts_reject_whole_page(overrides):
+>       from app.connectors.redfox import AdapterError, normalize
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:50: ModuleNotFoundError
+____ test_invalid_required_identity_or_counts_reject_whole_page[overrides2] ____
+
+overrides = {'likeCount': True}
+
+    @pytest.mark.parametrize('overrides',[{'videoId':None},{'videoId':123},{'likeCount':True},{'likeCount':-1},{'duration':1.1},{'authorFansCount':'1.2万'},{'likeCount':9223372036854775808}])
+    def test_invalid_required_identity_or_counts_reject_whole_page(overrides):
+>       from app.connectors.redfox import AdapterError, normalize
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:50: ModuleNotFoundError
+____ test_invalid_required_identity_or_counts_reject_whole_page[overrides3] ____
+
+overrides = {'likeCount': -1}
+
+    @pytest.mark.parametrize('overrides',[{'videoId':None},{'videoId':123},{'likeCount':True},{'likeCount':-1},{'duration':1.1},{'authorFansCount':'1.2万'},{'likeCount':9223372036854775808}])
+    def test_invalid_required_identity_or_counts_reject_whole_page(overrides):
+>       from app.connectors.redfox import AdapterError, normalize
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:50: ModuleNotFoundError
+____ test_invalid_required_identity_or_counts_reject_whole_page[overrides4] ____
+
+overrides = {'duration': 1.1}
+
+    @pytest.mark.parametrize('overrides',[{'videoId':None},{'videoId':123},{'likeCount':True},{'likeCount':-1},{'duration':1.1},{'authorFansCount':'1.2万'},{'likeCount':9223372036854775808}])
+    def test_invalid_required_identity_or_counts_reject_whole_page(overrides):
+>       from app.connectors.redfox import AdapterError, normalize
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:50: ModuleNotFoundError
+____ test_invalid_required_identity_or_counts_reject_whole_page[overrides5] ____
+
+overrides = {'authorFansCount': '1.2万'}
+
+    @pytest.mark.parametrize('overrides',[{'videoId':None},{'videoId':123},{'likeCount':True},{'likeCount':-1},{'duration':1.1},{'authorFansCount':'1.2万'},{'likeCount':9223372036854775808}])
+    def test_invalid_required_identity_or_counts_reject_whole_page(overrides):
+>       from app.connectors.redfox import AdapterError, normalize
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:50: ModuleNotFoundError
+____ test_invalid_required_identity_or_counts_reject_whole_page[overrides6] ____
+
+overrides = {'likeCount': 9223372036854775808}
+
+    @pytest.mark.parametrize('overrides',[{'videoId':None},{'videoId':123},{'likeCount':True},{'likeCount':-1},{'duration':1.1},{'authorFansCount':'1.2万'},{'likeCount':9223372036854775808}])
+    def test_invalid_required_identity_or_counts_reject_whole_page(overrides):
+>       from app.connectors.redfox import AdapterError, normalize
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:50: ModuleNotFoundError
+_______ test_optional_links_and_alias_placeholders_do_not_become_assets ________
+
+    def test_optional_links_and_alias_placeholders_do_not_become_assets():
+>       from app.connectors.redfox import normalize
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:57: ModuleNotFoundError
+_____ test_empty_success_is_different_from_provider_error_and_wrong_author _____
+
+    def test_empty_success_is_different_from_provider_error_and_wrong_author():
+>       from app.connectors.redfox import AdapterError, normalize
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:65: ModuleNotFoundError
+_____ test_transport_is_fixed_one_call_no_redirect_pagination_or_env_proxy _____
+
+    def test_transport_is_fixed_one_call_no_redirect_pagination_or_env_proxy():
+>       from app.connectors.redfox import RedFox
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:75: ModuleNotFoundError
+____ test_http_failures_do_not_become_empty_success[302-SOURCE_UNAVAILABLE] ____
+
+status = 302, code = 'SOURCE_UNAVAILABLE'
+
+    @pytest.mark.parametrize('status,code',[(302,'SOURCE_UNAVAILABLE'),(404,'SOURCE_UNAVAILABLE'),(410,'SOURCE_UNAVAILABLE'),(429,'RATE_LIMITED'),(500,'FETCH_FAILED')])
+    def test_http_failures_do_not_become_empty_success(status,code):
+>       from app.connectors.redfox import RedFox
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:90: ModuleNotFoundError
+____ test_http_failures_do_not_become_empty_success[404-SOURCE_UNAVAILABLE] ____
+
+status = 404, code = 'SOURCE_UNAVAILABLE'
+
+    @pytest.mark.parametrize('status,code',[(302,'SOURCE_UNAVAILABLE'),(404,'SOURCE_UNAVAILABLE'),(410,'SOURCE_UNAVAILABLE'),(429,'RATE_LIMITED'),(500,'FETCH_FAILED')])
+    def test_http_failures_do_not_become_empty_success(status,code):
+>       from app.connectors.redfox import RedFox
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:90: ModuleNotFoundError
+____ test_http_failures_do_not_become_empty_success[410-SOURCE_UNAVAILABLE] ____
+
+status = 410, code = 'SOURCE_UNAVAILABLE'
+
+    @pytest.mark.parametrize('status,code',[(302,'SOURCE_UNAVAILABLE'),(404,'SOURCE_UNAVAILABLE'),(410,'SOURCE_UNAVAILABLE'),(429,'RATE_LIMITED'),(500,'FETCH_FAILED')])
+    def test_http_failures_do_not_become_empty_success(status,code):
+>       from app.connectors.redfox import RedFox
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:90: ModuleNotFoundError
+_______ test_http_failures_do_not_become_empty_success[429-RATE_LIMITED] _______
+
+status = 429, code = 'RATE_LIMITED'
+
+    @pytest.mark.parametrize('status,code',[(302,'SOURCE_UNAVAILABLE'),(404,'SOURCE_UNAVAILABLE'),(410,'SOURCE_UNAVAILABLE'),(429,'RATE_LIMITED'),(500,'FETCH_FAILED')])
+    def test_http_failures_do_not_become_empty_success(status,code):
+>       from app.connectors.redfox import RedFox
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:90: ModuleNotFoundError
+_______ test_http_failures_do_not_become_empty_success[500-FETCH_FAILED] _______
+
+status = 500, code = 'FETCH_FAILED'
+
+    @pytest.mark.parametrize('status,code',[(302,'SOURCE_UNAVAILABLE'),(404,'SOURCE_UNAVAILABLE'),(410,'SOURCE_UNAVAILABLE'),(429,'RATE_LIMITED'),(500,'FETCH_FAILED')])
+    def test_http_failures_do_not_become_empty_success(status,code):
+>       from app.connectors.redfox import RedFox
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:90: ModuleNotFoundError
+_ test_network_uncertainty_and_bad_shapes_preserve_safe_failure_and_never_retry _
+
+    def test_network_uncertainty_and_bad_shapes_preserve_safe_failure_and_never_retry():
+>       from app.connectors.redfox import RedFox
+E       ModuleNotFoundError: No module named 'app.connectors.redfox'
+
+backend/tests/test_collection.py:101: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/test_collection.py::test_broad_normalization_preserves_ids_zero_missing_time_units_and_evidence
+FAILED backend/tests/test_collection.py::test_search_accounts_are_not_work_rank_or_work_interactions
+FAILED backend/tests/test_collection.py::test_duplicate_page_rows_collapse_but_conflicts_do_not_silently_win
+FAILED backend/tests/test_collection.py::test_invalid_required_identity_or_counts_reject_whole_page[overrides0]
+FAILED backend/tests/test_collection.py::test_invalid_required_identity_or_counts_reject_whole_page[overrides1]
+FAILED backend/tests/test_collection.py::test_invalid_required_identity_or_counts_reject_whole_page[overrides2]
+FAILED backend/tests/test_collection.py::test_invalid_required_identity_or_counts_reject_whole_page[overrides3]
+FAILED backend/tests/test_collection.py::test_invalid_required_identity_or_counts_reject_whole_page[overrides4]
+FAILED backend/tests/test_collection.py::test_invalid_required_identity_or_counts_reject_whole_page[overrides5]
+FAILED backend/tests/test_collection.py::test_invalid_required_identity_or_counts_reject_whole_page[overrides6]
+FAILED backend/tests/test_collection.py::test_optional_links_and_alias_placeholders_do_not_become_assets
+FAILED backend/tests/test_collection.py::test_empty_success_is_different_from_provider_error_and_wrong_author
+FAILED backend/tests/test_collection.py::test_transport_is_fixed_one_call_no_redirect_pagination_or_env_proxy
+FAILED backend/tests/test_collection.py::test_http_failures_do_not_become_empty_success[302-SOURCE_UNAVAILABLE]
+FAILED backend/tests/test_collection.py::test_http_failures_do_not_become_empty_success[404-SOURCE_UNAVAILABLE]
+FAILED backend/tests/test_collection.py::test_http_failures_do_not_become_empty_success[410-SOURCE_UNAVAILABLE]
+FAILED backend/tests/test_collection.py::test_http_failures_do_not_become_empty_success[429-RATE_LIMITED]
+FAILED backend/tests/test_collection.py::test_http_failures_do_not_become_empty_success[500-FETCH_FAILED]
+FAILED backend/tests/test_collection.py::test_network_uncertainty_and_bad_shapes_preserve_safe_failure_and_never_retry
+19 failed in 0.07s

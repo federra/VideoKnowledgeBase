@@ -1,0 +1,21 @@
+...F                                                                     [100%]
+=================================== FAILURES ===================================
+__ test_legacy_keyword_fill_cannot_spend_again_for_unverified_playback_board ___
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x108aeb800>
+
+    def test_legacy_keyword_fill_cannot_spend_again_for_unverified_playback_board(monkeypatch):
+        import pytest
+        from scripts import fill_redfox_keywords as command
+        monkeypatch.setattr('sys.argv',['fill_redfox_keywords.py','--execute'])
+        monkeypatch.setattr(command,'registry',lambda:pytest.fail('old fill must not construct paid handler'),raising=False)
+>       with pytest.raises(RuntimeError,match='PLAYBACK_RANKING_UNVERIFIED'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'PLAYBACK_RANKING_UNVERIFIED'
+E         Actual message: 'Local workspace must be explicitly enabled.'
+
+tests/test_keyword_ranking.py:79: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_keyword_ranking.py::test_legacy_keyword_fill_cannot_spend_again_for_unverified_playback_board
+1 failed, 3 passed in 0.33s

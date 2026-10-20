@@ -1,0 +1,259 @@
+{
+  "version": "v0.1",
+  "date": "2026-10-07",
+  "status": "待审批",
+  "business": "AI漫剧",
+  "pageCount": 25,
+  "commonPrompt": "Generate exactly ONE polished, readable Chinese desktop WEB APPLICATION screen per call. One consistent design set for AI漫剧研判室, awaiting user approval. Target1440x1024 desktop landscape. Current date2026-10-07. Use attached earlier design as visualgrounding for LOWER app shell, DO NOT include its TOP architecture diagram. Preserve one coherentexistingstyle: canvas#f8f9fb surfaceswhite ink#22252c secondarygray#6f7580 borders#e2e4e9, orange-red#ff4b2b actives pale#fff5f1, primarydeeporange-to-berrygradient, systemChinesePingFang. Sidebarwidth174 topbar58px secondarytabs33px formsnormalcompact. Typography14–16px正文, metadata12px,heading20px max. Stronghierarchy,intentional spacing, realisticreadableChinese, no tinytext or clutter. No browserchrome/no devices/no perspective/no futuristicinventedmetrics. Use spacing/dividers beforeborders/shadows. No cardsinsidecards, noallobjectcardswhen tablebetter. Nevergenerateproductionprojectboards/scripts/assets/videos, no生成/锁定/生产管线 actions. This is contentresearch. Mark bottom small “设计提案 · 示例数据 · 待审批”. Example title 误入仙门的打工人,陆迟,林月,执律长老, 8collected6analyzed totalunknown. All content/quotes/metrics are fictionaldesignsamples.\nAPP SHELL: leftbrand内容智库, nav 情报局,研判室 selected,藏经阁,控制台. No 工作空间caption. Compacttopbreadcrumb研判室 › [activeworkspace] › [detailifneeded], rightsmallbusinesscapsulesAI漫剧 selected 故事短片 电商短视频 and 深色主题. No fixeddate/no业务空间label/no genericpageintro below navigation. Main secondarytabs 内容研判 发布复盘 规律验证, exactlyoneactive specified. Preservebreadcrumbs andbacklinks.\nFor REPORT screens: workspace内容研判 active. Workidentityline 返回作品列表 / 误入仙门的打工人 / 已收集8集·已分析6集·总集数未知 / 补充资料. Scope selector 全剧概览 / 单集分析 (as instructed), epdropdown第03集 and成片v2 onlyinsinglescope. Materialscoverage alwaysclear, oldversions retained. Four INTERNALreporttabs 内容拆解 综合判断 人机分歧 候选知识. They are nestedreportviews, notmoduleentrypoints. 内容拆解 screens have skinnyinnerleft menu with EXACT SIX entries 作品概览,人物与世界观,主线与分集,情绪爽点与钩子,金句,画面动效与声音. Selectspecifiedone. Centeranalysisdominant~640px rightoriginalevidencepane~280px secondarycollapsible withactualsmallanimekeyframefromsamecharactersortranscript, timestamps anchor. Otherreporttabs usegenerouscenterspaceandnosixitemmenu.\nQualityandmarketpredictionsmustbeseparate. Partialmaterialsnevergivefullseriescompleteclaims. Missingdata≠0 orC. AIindependentfromhumanfirstgrade. Methodsfromsinglecase arehypothesesnotverified. Alreadyseenpublishedmetricsareposthocnotblindforecasts. KnowledgeonlyformalafterAIandhumanreview. All pendingchanges clearlyproposal,notimplemented screenshot. ExactChinese labels preferred, avoid unnecessary filler. Screen instructions:\nConsistency: 第03集成片v2 duration is exactly02:10. All its timestamps within02:10. Keep the secondaryworkspace tabs immediatelyunder topbar, above workidentity/scope. Do notshuffle navigation.\nDo not inventzero forunknownuncollectedepisodecounts. Totalepisodesunknownremainunknown. Coveragelegend07解析失败08待分析. Completedreportimmutable,newmaterialcreatesnewreportversion. S优秀 A良好 B一般 C较差;证据不足isindependentstatusneverC.\nLongtext belongsinverticalentriesnot8-columntables. Quote screens mustusegenerous verticalentries, eachfieldlabelthenfullsentence. Showtwoentriesandscrollrest ifneeded. Readabletypeandbalancedcenterpriority.",
+  "reference": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-efa1cd1d-822a-42f6-b7a3-179089b9edb1.png",
+  "pages": [
+    {
+      "n": 1,
+      "title": "内容研判｜作品列表",
+      "kind": "list",
+      "prompt": "Active workspace 内容研判. No work-detail report controls. A compact search for 作品名称或编号 and 状态 dropdown, primary 新建研判 upper right. Table columns 作品 / 资料覆盖 / 最近分析 / 状态 / 操作. 6 realistic sample works; first 误入仙门的打工人, 已收集8集 已分析6集 总集数未知, 2026-10-07 10:20, 已完成, 查看报告 / 补充资料. Other rows show 待分析, 分析中, 解析失败 with 重试, 证据不足 with 补充资料. Work title is primary, genre secondary. Row metadata stable WORK-001 etc. Footer pagination 上一页 1 2 3 下一页, 每页10部. One small row above table for 全部 / 待分析 / 分析中 / 已完成 / 需补充. No meaningless metric cards. This is a work-organized research list, not a production project board.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/01-r2.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-c463bdc6-0aa6-4da5-999d-cbb4773f5e39.png",
+      "originalPath": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/01.png",
+      "revisionSource": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-893c28ff-85a6-4434-bc78-97c9f61fa2be.png"
+    },
+    {
+      "n": 2,
+      "title": "内容研判｜新建研判与人工初评",
+      "kind": "intake",
+      "prompt": "Active 内容研判. Show a spacious right drawer 新建研判 over dimmed work list, width ~760px. Tabs 粘贴链接 / 上传文件 / 输入文本. Selected 粘贴链接. URL field 示例链接 with 解析预览. Already parsed fictional item preview title 误入仙门的打工人 第03集, genre 都市奇幻 correctedtag, platform 示例平台, raw metrics 赞1280 转62 评84 藏96 regular no bold. Object identity select 关联已有作品 plus 第03集, material 成片 and v2.人工初评 S A B C with A selected, secondary 业务类型 AI漫剧 and editable题材. Learning question 你认为它好在哪里？ chips 画面质感 动效冲击 世界观设定 剧情反转 金句, text area 学习点. Small note AI首次评级独立进行，原始人工意见分别保存. Bottom 取消 保存草稿 提交研判 primary; no analysis succeeds instantly. Topstep 资料解析 / 归属确认 / 人工初评. Clearly uploaded-file and text tabs exist but not extra unrelated pages.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/02-r2.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-79bd82ad-7567-4ac6-99d3-cc8ec98b4247.png",
+      "originalPath": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/02.png",
+      "revisionSource": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-68df5561-8f7f-43eb-95a7-22fd2c112855.png"
+    },
+    {
+      "n": 3,
+      "title": "内容研判｜资料与集数管理",
+      "kind": "materials",
+      "prompt": "Work detail of 误入仙门的打工人. Dedicated 资料与集数 view entered via 补充资料; back 返回作品报告. No generic topintro. Header 已收集8集 已分析6集 总集数未知. Upload batch or 粘贴链接 buttons compact. Table 集数 / 资料类型 / 版本 / 解析状态 / 分析状态 / 操作. Show ep01-08 with 成片 v1/v2, 剧本文本 v1 grouped by episode. 第03集 成片v2 已解析 已分析 查看资料 历史版本. 第07集 解析失败 未分析 重试;第08集 已解析 待分析 发起分析. Missing总集数 field can edit but unknown remains. A slim reorder handle, no creativeeditor. Selected ep03 drawer has 来源与版本 record originalID, timestamp2026-10-07, document transcripts and 原链接. Bottom primary 分析选中资料, explanation 新材料形成新报告，历史报告保留. No fake complete-series coverage.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/03-r2.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-a5032cb3-d95b-4473-8c88-f9517a1f9cd2.png",
+      "originalPath": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/03.png",
+      "revisionSource": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-be90e7df-0023-4991-8018-a33e90333831.png"
+    },
+    {
+      "n": 4,
+      "title": "全剧｜作品概览",
+      "kind": "report",
+      "scope": "全剧概览",
+      "section": "作品概览",
+      "prompt": "Report 内容拆解 / 作品概览 active; 全剧概览 selected. Only materials 已分析第01–06集, collected08, totalunknown. Center overview concise synopsis 主角误入仙门，以普通人的选择挑战冷漠规则。 Fields 题材 都市奇幻;目标人群 喜欢身份反差与成长故事的观众;核心设定 普通人进入以天赋分层的仙门;故事命题 人的价值是否由出身决定;主要吸引点 规则压迫与人物反抗. Lower materialcoverage ribbon shows episodes01-06 analyzed,07failure08pending. Major original evidence citations 第01集00:18,第03集00:42 clickable. Right evidence a small anime frame or transcript of opening with episode. No full-series SABC yet; basicoverview separatefromjudgment.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/04-r2.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-1cdf0bcb-26ea-40ae-a869-9d5081db6586.png",
+      "originalPath": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/04.png",
+      "revisionSource": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-7e402bc9-6d26-497c-97e4-6788eacf7c11.png"
+    },
+    {
+      "n": 5,
+      "title": "全剧｜人物与世界观",
+      "kind": "report",
+      "scope": "全剧概览",
+      "section": "人物与世界观",
+      "prompt": "Active 内容拆解 / 人物与世界观,全剧概览. Center character relation diagram of 陆迟 protagonist, 林月 ally, 执律长老 antagonist with labels 信任/冲突/试探, no invented externalcharacters. Below structured rows人物目标 救人并找到归属,人物动机 不愿重演被抛弃经历,行为证据 第03集00:42. Two columns 世界规则 / 规则限制 show 仙门按天赋分层 and 越级救人会被处罚. Small inconsistency issue 第05集处罚条件解释不足 with evidence. Light separatorsnotnestedcard. Right original evidence on selectedrule with transcript timestamps. Missing成长结局标 未收集相关集数. No unsupportedcompleteworldclaims.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/05.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-daefecfe-7efa-477e-80f1-b475414e8d4b.png"
+    },
+    {
+      "n": 6,
+      "title": "全剧｜主线与分集",
+      "kind": "report",
+      "scope": "全剧概览",
+      "section": "主线与分集",
+      "prompt": "Active 内容拆解 / 主线与分集,全剧概览. Center organized horizontal arc timeline 入门→受辱→救人→反抗→代价→新目标. Table 01-06 episodes concise剧情推进/冲突/转折/伏笔. Show伏笔跟踪 item 旧令牌 ep01 planted ep06 hints 状态未回收（材料范围内）, do not inventfinal. Major logicalbreak ep04-05由惩罚到新任务缺少过渡. A focused secondary switch within content 主线梳理 / 伏笔回收 if space only2views not addglobaltabs. Right original evidence ep03救人句. Accessible simple timeline not financial graph. Individualepisodejump links.覆盖范围01-06 visible.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/06.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-da4ad884-21d0-4f3a-ada1-9ba9710f950c.png"
+    },
+    {
+      "n": 7,
+      "title": "全剧｜情绪爽点与钩子",
+      "kind": "report",
+      "scope": "全剧概览",
+      "section": "情绪爽点与钩子",
+      "prompt": "Active 内容拆解 / 情绪爽点与钩子,全剧概览. Center across-episode emotional sequence using labeled qualitative curve not invented numerical scoring: 压迫 / 反抗 / 短暂胜利 / 代价 / 新期待 ep01-06. Under it table 集数,开场吸引,爽点释放,结尾钩子. ep03公开救人/挑战门规/身份暴露. Distinguish有效 suspenseand信息不足. A notes area重复钩子 第02与04集都以身份追问收尾，可观察同质化. Right evidence ep03endunknownimage twoactualsampleanimeframe. Treat causalperformanceas方法假设notprovedrule. No preciseviralpercent.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/07-r2.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-d3db7ec9-6ffa-401a-a9df-ef022639aad0.png",
+      "originalPath": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/07.png",
+      "revisionSource": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-cc358dd1-0aab-4b00-ae78-d172622599c3.png"
+    },
+    {
+      "n": 8,
+      "title": "全剧｜金句",
+      "kind": "report",
+      "scope": "全剧概览",
+      "section": "金句",
+      "prompt": "Active 内容拆解 / 金句,全剧概览. Quotes collected from analyzed episodes with filters 人物 全部,作用 全部 and keyword optional. 3 spacious quote rows eachincludes originalquote, speaker,ep/timestamp,scenecontext,function,learningvalue,limits. Quote1 命可以认，路不能让。陆迟 第03集00:42–00:48;作用 人物立场; quote2 怕的不是走错路，是再也不敢走。陆迟 第05集01:36–01:42;作用 成长回应; quote3 规矩若不护人，守它何用。林月 第06集00:52–00:56;作用 主题表达. Quotesarefictionalsample labels示例. Checkbox 选为候选知识 and 定位原片段 on eachrow. Right evidence ep03 and transcript. No rewrite/generatequotebutton; preserveoriginal.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/08-r2.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-29004f10-b940-46c1-a1a6-95af2e13ae8f.png",
+      "originalPath": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/08.png",
+      "revisionSource": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-704f8179-9f24-44c9-9229-f726efa9d4b9.png"
+    },
+    {
+      "n": 9,
+      "title": "全剧｜画面动效与声音",
+      "kind": "report",
+      "scope": "全剧概览",
+      "section": "画面动效与声音",
+      "prompt": "Active 内容拆解 / 画面动效与声音,全剧概览. Center three horizontally aligned realillustrated keyframes of samefictional anime陆迟 across ep01/03/06 for角色一致性 with one marked服饰细节变化待核实. Rows 画风与构图/动作与动效/剪辑与连续性/配音音乐. Each observation anchored ep timestamp. Strongpoint低角度镜头加强反抗姿态 ep03;issue口型与对白不同步 ep02 00:31; unavailable reference角色设定图 未提供，不判自动合格. Right evidence selectedframe and transcript. No generatedassetpipeline. Keepillustrationssubordinateanalysis.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/09.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-53cfe916-dee8-41c7-bde4-79e42cd1500d.png"
+    },
+    {
+      "n": 10,
+      "title": "单集｜作品概览",
+      "kind": "report",
+      "scope": "单集分析",
+      "section": "作品概览",
+      "prompt": "Active 内容拆解 / 作品概览,单集分析 selected 第03集 成片v2. Center episode overview 剧情简介 陆迟违背门规救下被困同门，公开与长老对立。 Fields 本集目标/核心冲突/转折/结尾悬念/与前集衔接. 本集推进 从被动服从到主动反抗. Technical metadata 视频时长02:10,字幕已解析,时间轴 available. Footer sample previousepisode/next links 第02集 第04集; nowholeworkratings. Right evidence beginningframe. Specific scope singleepisodeplainnotrelabelwhole.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/10.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-3cc473b9-17de-4102-a23a-546d5cc24e40.png"
+    },
+    {
+      "n": 11,
+      "title": "单集｜人物与世界观",
+      "kind": "report",
+      "scope": "单集分析",
+      "section": "人物与世界观",
+      "prompt": "Active 内容拆解 / 人物与世界观,单集分析 第03集 成片v2. Center THIS episodepeople 陆迟 林月 执律长老, sceneactions and motiveevidence in table 人物/本集目标/关键行为/变化. 陆迟由服从到公开反抗,林月从旁观到支持. Below本集涉及世界规则 越级救人触犯门规,本集解释范围 noextraexpandedworld. One conflict 本集门规惩罚条件未说明标未发现. Right excerpt for00:42 dialogue. Quotecontextmaintainsdifferentiationfull.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/11.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-f3ba54f2-0d61-4867-8078-9deda57a7c5f.png"
+    },
+    {
+      "n": 12,
+      "title": "单集｜主线与分集",
+      "kind": "report",
+      "scope": "单集分析",
+      "section": "主线与分集",
+      "prompt": "Active 内容拆解 / 主线与分集,单集分析 第03集 成片v2. Center scene/time segment narrative timeline 00:00–00:20 求救建立,00:20–00:42 门规阻碍,00:42–01:05 选择救人,01:05–01:48 后果升级,01:48–02:10 身份悬念. Table事件/因果/信息揭示. Mini planted/repaid伏笔本集旧令牌被认出,来源第01集00:18跨集evidence. Show本集结构notallseries. Right evidence ep03timepoint. Labels 本集冲突推进 and 与前后集关联. Allmaterialtimestampswithin02:10.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/12.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-095bca7e-520b-4926-85ee-269af96aa493.png"
+    },
+    {
+      "n": 13,
+      "title": "单集｜情绪爽点与钩子",
+      "kind": "report",
+      "scope": "单集分析",
+      "section": "情绪爽点与钩子",
+      "prompt": "Active 内容拆解 / 情绪爽点与钩子,单集分析 第03集 成片v2. Focus a labeled qualitative emotiontimeline xaxis0:00,0:42,1:05,1:48,2:10. Levels 压抑/期待/释放/新悬念 notnumericpsychometric. Below timestamp rows 开场钩子 求救声与禁令同时出现;爽点00:42逆规救人;节奏问题01:12–01:35解释重复;结尾钩子01:58令牌身份被认出. Right selectedclipframe transcript. Commentary 学习观察notcausalproof. No addboldredplotgeneric.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/13-r2.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-a44d2f3e-da6c-42bd-83ed-49000b5002d7.png",
+      "originalPath": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/13.png",
+      "revisionSource": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-4555f051-e92f-4643-bc1f-a91ffdb5a17a.png"
+    },
+    {
+      "n": 14,
+      "title": "单集｜金句",
+      "kind": "report",
+      "scope": "单集分析",
+      "section": "金句",
+      "prompt": "Active 内容拆解 / 金句,单集分析 第03集 成片v2. Recreate prior approvedgoldquote hero without upperarchitecturediagram. Quote 命可以认，路不能让。陆迟00:42–00:48, scene被要求放弃救人首次反抗门规,表达作用立人物底线推动冲突,学习价值短句对照通过行动表态,限制依赖压迫情境. Secondquote 我救的是人，不是门规。陆迟01:04–01:09 sample. Eachhas 定位原片段 and 选为候选知识. Right exactsamewords highlightedtranscriptat00:42, notquotevariant. Bottom保存复核onlymainaction. Say 原句提取 · 人工复核.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/14.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-b4985163-3992-4baf-8a02-e1ef6cdb47b8.png"
+    },
+    {
+      "n": 15,
+      "title": "单集｜画面动效与声音",
+      "kind": "report",
+      "scope": "单集分析",
+      "section": "画面动效与声音",
+      "prompt": "Active 内容拆解 / 画面动效与声音,单集分析 第03集 成片v2. Center shotlist includes 00:00–00:08 空镜与求救声,00:42–00:48低角度中近景,01:04–01:09面部特写 and对应expressionpurpose. Three smallreferenceframes sameanimechar. Audio strip 对白/音乐/音效 labeledtimesequences no numericalaudiorating. Issues 00:56动作衔接跳跃;优势 00:42音乐停顿突出选择. Missingref角色一致性 参考未提供. Rightfocusoriginalframe. No cameraproductionprompt generation.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/15.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-2aa3dcdc-1027-46c4-8677-15a124a227ab.png"
+    },
+    {
+      "n": 16,
+      "title": "全剧｜综合判断",
+      "kind": "judgment",
+      "scope": "全剧概览",
+      "prompt": "Report 综合判断 selected,全剧概览. No6categorymenu because not内容拆解. Center TWO clearly separatesections AI内容质量 and 市场表现预测. Quality result 本次覆盖第01–06集：A（示例）不是全剧终评;分项叙事/人物/情绪/视听show A/B/证据不足 labelsno average. 优势/问题 with timestamps,硬性问题单列未发现. Standard 漫剧成片v1.3 查看标准. Prediction 全剧暂不可可靠预测 reason总集数与发布安排未明确; notfillzero orpercentrandom. Show scope/materialcoverage and alreadypublishedcase label事后分析 / 不纳入盲预测校准. Rightcompact证据sources.人工评级notinputs visible compareonlyinhumantab. No averagingepisodes or summingprediction.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/16.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-ededf6ce-81e6-4100-bf94-5a93c27118f6.png"
+    },
+    {
+      "n": 17,
+      "title": "单集｜综合判断与预测条件",
+      "kind": "judgment",
+      "scope": "单集分析",
+      "prompt": "Report 综合判断 selected,单集分析 第03集 成片v2. Two independentsections AI质量评级 A示例 withclear分项and优缺点; 市场表现预测. Current item 已发布外部案例, state 事后分析 · 不纳入盲预测校准. Existingmarket赞转评藏 shown rawhistoricsnapshot timestamp2026-10-07 notpredictions. A slim prospectivepredictconditions panel for未发布新版本inputs 平台/账号/投放/观察窗口7天, currently missingaccountandcomparables. Table 播放/点赞/评论/转发/收藏 cells暂不可可靠预测, nofakevalues. Manualprediction可登记但notblindwhenlate. Draw branch note 未发布且条件齐备时显示区间并冻结留档. Avoid inventedforecastnumbers. 查看标准 secondary action.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/17.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-8c453f06-e63e-4e4e-a804-0401d0444378.png"
+    },
+    {
+      "n": 18,
+      "title": "报告｜人机分歧",
+      "kind": "disagreement",
+      "scope": "单集分析",
+      "prompt": "Report 人机分歧 selected,单集分析 第03集 成片v2. Main two aligned columns 人工初评 S and AI独立判断 A clearlylabeled示例. Human learningcomments 金句有力量，反转鲜明;AI notes立场清晰，但冲突前提解释不足. Table 分歧维度/人工依据/AI依据/证据:叙事清晰度,emotion. Inlinecontrol 采纳AI / 保留人工 / 调整结论; selected保持人工需理由textarea. 原始人工与AI意见均保留. Rightvideoevidenceanchor01:12. Primary保存复核; nooverwriteAIrankand noreadingmanualduringfirstAI. scopefullswitchavailableconsistent.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/18-r2.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-1baf58b6-876d-4b1a-8901-53c628c42047.png",
+      "originalPath": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/18.png",
+      "revisionSource": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-cc24f6bf-cd46-41e1-8f9c-f461f564d532.png"
+    },
+    {
+      "n": 19,
+      "title": "报告｜候选知识与编辑送审",
+      "kind": "knowledge",
+      "scope": "单集分析",
+      "prompt": "Report 候选知识 selected,单集分析第03集成片v2. Center groupedlist of 3 editableitems withcheckbox andtype 案例观察/方法假设. Candidate title 用短句对照表达人物立场;fields 原始证据 ep03 00:42 quote,适用条件 前置压迫充分,限制 无行动支撑容易空泛,反例 尚未补充. Otheritem身份悬念的结尾钩子 方法假设待验证. A rightediting drawer insidecontent (replaceevidencepane) labeled 编辑候选, title/body/evidence/condition/limits fields,操作拆分/合并. States草稿/待AI审核/待人工审核 not已入库fromsave. Primary提交选中候选审核;quiet保存草稿. Explicit通过AI与人工审核后入库. Cannotclaim已验证methodonecase.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/19-r2.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-3a980f25-8720-425d-a91d-d6567a692646.png",
+      "originalPath": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/19.png",
+      "revisionSource": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-88fbd775-6f84-43ba-b2d6-c30ee19b58bb.png"
+    },
+    {
+      "n": 20,
+      "title": "发布复盘｜发布记录列表",
+      "kind": "publist",
+      "prompt": "Active workspace 发布复盘, noworkreportfourtabs. Search作品或发布编号,状态filter, primary 登记发布. Table 发布记录/关联作品与版本/平台账号/观察窗口/预测资格/实绩状态/操作. Rows samework ep03v2 公布2026-10-06 平台示例账号A 7天 未到观察窗口 事后登记 非盲预测 采集中 查看复盘. Rowpriorwork published2026-09-28 window7days 已到期 合格事前预测 已获取;others缺失实绩or版本不匹配 with明确state. Missingvalues未获取 notzero. No forecastsummedfullseries. Paginationbottom10recordsperpage.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/20.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-a8b28920-9927-46ce-9064-5b0dd778281a.png"
+    },
+    {
+      "n": 21,
+      "title": "发布复盘｜登记发布与实绩补录",
+      "kind": "pubform",
+      "prompt": "Active 发布复盘 underlyinglist, spacious rightdrawer 登记发布. Form 外部发布链接、平台、账号、发布时间2026-10-06 18:00、关联作品误入仙门的打工人、第03集、内容版本成片v2、观察窗口7天 withindicator窗口未到. 来源 自动采集 / 人工补录 tabs current人工补录. Fivefields播放12800 点赞1280 评论84 转发62 收藏96 explicit示例 values. Timestamp实绩采集2026-10-07 10:00. Unknowncheckbox 未获取 foreachfield, neverdefaultzeros.予測关联 shows未找到合格发布前冻结记录，本次不纳入盲预测校准. Correction appendreasonrequiredwhenedit. bottom取消 保存发布记录. No productionpublish/uploadbutton.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/21.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-b13f1afb-e945-421d-b615-10f19729b0b8.png"
+    },
+    {
+      "n": 22,
+      "title": "发布复盘｜预测实绩对账与原因分析",
+      "kind": "pubdetail",
+      "prompt": "Active 发布复盘 detail 返回发布记录. Work fictional雨夜归途 第02集 成片v1;publish2026-09-28 18:00 window7daysuntil2026-10-05 18:00, frozen2026-09-28 16:00. Allfacts clearly示例 notactualcalibration. Table 指标/事前预测区间/窗口实绩/偏差/来源 withsampleconsistent hypothetical播放8000–12000 actual10300 区间内,赞500–800 actual610,转40–70 actual未获取 不可对账,评50–90actual120 超出上界,藏100–160actual140. Conditions sameversionaccountnoinvestment. SeparateAI原因假设 与 人工确认:评论争议可能提升互动 evidence用户评论needsvalidation. Learnedobservations candidatebutton 提炼候选规律. Correctionbutton 更正实绩. Canreviewwithoutvalidblindotherrecords butnotmarkeligible. Rightoriginalmetricscaptureandcomments.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/22.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-e65b7b9f-1ef5-4bca-84d3-fc99ddf98faf.png"
+    },
+    {
+      "n": 23,
+      "title": "规律验证｜候选规律列表",
+      "kind": "rulelist",
+      "prompt": "Active workspace 规律验证. Candidate rules table题目/适用业务与对象/旧新标准/样本范围/验证状态/操作. 3items:短句对照能否强化人物立场,AI漫剧 成片,标准v1.3→候选v1.4,调参12验证4 样本不足 查看验证;第二结尾身份悬念with待审核;第三剪辑解释重复停用candidate. All示例. primary新建候选 headercompact. Filter全部/待验证/样本不足/待审核/已生效. Notproductionorpublishstandardsdirectly. Smallbaseline 采纳需独立验证与人工审核. Pagination bottom. Existingactualstandards configuredin控制台 no编辑正式标准button.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/23-r2.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-57df3f8e-144b-4634-bfda-fbe416469e0a.png",
+      "originalPath": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/23.png",
+      "revisionSource": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-84f12c1d-f9a0-41da-89e5-979116425e7f.png"
+    },
+    {
+      "n": 24,
+      "title": "规律验证｜新旧标准对照与审核",
+      "kind": "ruledetail",
+      "prompt": "Active 规律验证 detail 返回候选规律. Title 短句对照能否强化人物立场, status 样本不足. Showcompact internaltabs 验证概览 / 样本与证据 / 新旧标准 / 审核记录 allwithinthisonepage overviewselected. Central oldnewdimensioncomparison 旧版v1.3重台词表达 / 候选v1.4增加行动支撑条件, noautomaticrelease. Sampletable 时间留出调参12部截至2026-09-30,独立验证4部2026-10-01–06,样本不足. Resultsnotclaimsiglift. Namedreasons 人群与题材覆盖不足,需补充反例. Primary补充验证样本,button提交审核 disabledexplain未满足证据条件. Panel审核AI待执行人工未审核,正式版本仍v1.3; futureapprovednew goes控制台共用标准库 historicalunchanged. Viewversioncomparisonclear2column.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/24.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-d84d403d-fc68-4a96-b052-b7747dd1eb57.png"
+    },
+    {
+      "n": 25,
+      "title": "内容研判｜失败、缺资料与重试",
+      "kind": "failure",
+      "prompt": "Active 内容研判 workdetail state nofakeanalysis. Work误入仙门的打工人 ep07成片v1. Threeprogresssteps 资料解析失败→AI分析未开始→报告未生成. Focusfailure 摄取的视频缺少可识别音轨，字幕提取失败. Timestamps2026-10-07, taskJOB-EP07, lastattempt nointernalstack. Primary补充字幕资料 andsecondary重试解析. Existingmaterialsavailable 视频已保存,字幕未获取; otherunaffectedepisodes已完成andcanview. Lower discreet stateexamplesonlyonefocussedpage 证据不足 retains已有可判sections,notC; no matchingwork空态 via搜索/清除;加载有progress. No display completedreportunderfailure. Showfailedpermaterialnotdeleteallwork. Compactreporttabsdisabledlabel尚未生成.",
+      "path": "/Users/nathan/Codex_Projects/VideoKnowledgeBase/doc/design-reviews/2026-10-07-研判室-AI漫剧/25.png",
+      "source": "/Users/nathan/.codex/generated_images/01a0ee16-343e-72b1-80f1-fd9fb4779e98/exec-a3809a59-1a23-44d8-a334-b2d595f7a75a.png"
+    }
+  ]
+}

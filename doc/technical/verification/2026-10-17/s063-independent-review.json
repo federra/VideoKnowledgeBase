@@ -1,0 +1,25 @@
+{
+  "reviewer": "/root/s063_final_review",
+  "read_only": true,
+  "passes": 1,
+  "original_findings": {
+    "critical": 0,
+    "important": 0,
+    "minor": 1
+  },
+  "regraded_findings": {
+    "critical": 0,
+    "important": 1,
+    "minor": 0
+  },
+  "fixed": [
+    "invalid cross-date creator/board selection causes false empty list; s063-filter-red.log then s063-frontend-green.log"
+  ],
+  "deferred": [],
+  "test_counts": {
+    "postgresql_redis": 145,
+    "backend": 102,
+    "frontend": 48,
+    "type_assertions": 26
+  }
+}

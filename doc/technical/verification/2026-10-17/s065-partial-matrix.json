@@ -1,0 +1,57 @@
+{
+  "status": "incomplete",
+  "reason": "User changed ranking definition; playback metric is unverified, finish data source first",
+  "rows": [
+    {
+      "surface": "demo",
+      "business": "motion_comic",
+      "viewport": {
+        "height": 900,
+        "width": 1280
+      },
+      "theme": "light/dark",
+      "readyDrawer": true,
+      "evidence": true
+    },
+    {
+      "surface": "demo",
+      "business": "故事短片",
+      "theme": "dark",
+      "viewport": {
+        "height": 900,
+        "scrollWidth": 1265,
+        "width": 1280
+      }
+    },
+    {
+      "surface": "demo",
+      "business": "故事短片",
+      "theme": "light",
+      "viewport": {
+        "height": 900,
+        "scrollWidth": 1265,
+        "width": 1280
+      }
+    },
+    {
+      "surface": "demo",
+      "business": "电商短视频",
+      "theme": "dark",
+      "viewport": {
+        "height": 900,
+        "scrollWidth": 1265,
+        "width": 1280
+      }
+    },
+    {
+      "surface": "demo",
+      "business": "电商短视频",
+      "theme": "light",
+      "viewport": {
+        "height": 900,
+        "scrollWidth": 1265,
+        "width": 1280
+      }
+    }
+  ]
+}

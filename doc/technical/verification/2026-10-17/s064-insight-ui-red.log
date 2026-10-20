@@ -1,0 +1,489 @@
+$ vitest run -- intelligence.test.tsx
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/intelligence.test.tsx (5 tests | 1 failed) 1209ms
+   × 同日洞察显示封存样本口径，未知母题不伪造，切换筛选不重算 1010ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/intelligence.test.tsx > 同日洞察显示封存样本口径，未知母题不伪造，切换筛选不重算
+TestingLibraryElementError: Unable to find an element with the text: 期待 100%（6条）. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<h1[39m
+      [33mclass[39m=[32m"sr-only"[39m
+    [36m>[39m
+      [0m情报流[0m
+    [36m</h1>[39m
+    [36m<div[39m
+      [33maria-label[39m=[32m"AI漫剧监测概览"[39m
+      [33mclass[39m=[32m"metric-grid"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m榜单视频[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m更新达人[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m用户评论[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m总点赞[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"feed-controls"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"情报类型"[39m
+        [33mclass[39m=[32m"feed-view-filter"[39m
+        [33mrole[39m=[32m"group"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"true"[39m
+          [33mclass[39m=[32m"active"[39m
+        [36m>[39m
+          [0m榜单[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"false"[39m
+          [33mclass[39m=[32m""[39m
+        [36m>[39m
+          [0m达人[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"feed-specific-filter"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rank-filter"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mfor[39m=[32m"rankBoardFilter"[39m
+          [36m>[39m
+            [0m榜单类型[0m
+          [36m</label>[39m
+          [36m<select[39m
+            [33maria-label[39m=[32m"榜单类型"[39m
+            [33mid[39m=[32m"rankBoardFilter"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m""[39m
+            [36m>[39m
+              [0m全部榜单[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<label[39m
+        [33mclass[39m=[32m"search feed-search"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"icon"[39m
+          [33mviewBox[39m=[32m"0 0 24 24"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"10"[39m
+            [33mcy[39m=[32m"10"[39m
+            [33mr[39m=[32m"6"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"m15 15 5 5"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"sr-only"[39m
+        [36m>[39m
+          [0m搜索当前工作区[0m
+        [36m</span>[39m
+        [36m<input[39m
+          [33mautocomplete[39m=[32m"off"[39m
+          [33mid[39m=[32m"search"[39m
+          [33mmaxlength[39m=[32m"100"[39m
+          [33mplaceholder[39m=[32m"搜索视频、达人或剧情简介"[39m
+          [33mvalue[39m=[32m""[39m
+        [36m/>[39m
+      [36m</label>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"feed-columns feed-single "[39m
+    [36m>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"feed-lane rank-lane"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lane-head"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<h2>[39m
+              [0m榜单[0m
+            [36m</h2>[39m
+            [36m<span>[39m
+              [0m正在读取[0m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lane-empty"[39m
+          [33mrole[39m=[32m"alert"[39m
+        [36m>[39m
+          [36m<strong>[39m
+            [0m服务响应格式异常，请稍后重试[0m
+          [36m</strong>[39m
+          [36m<p>[39m
+            [0m未使用演示数据替代。[0m
+          [36m</p>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"btn"[39m
+          [36m>[39m
+            [0m重试[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-label[39m=[32m"榜单翻页"[39m
+          [33mclass[39m=[32m"feed-pager"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [0m每页最多10条 · 第 [0m
+            [0m1[0m
+            [0m / [0m
+            [0m1[0m
+            [0m 页 · 共 [0m
+            [0m未获取[0m
+            [0m 条[0m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"pager-actions"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"榜单上一页"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0m上一页[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"榜单下一页"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0m下一页[0m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<aside[39m
+        [33mclass[39m=[32m"insight-aside"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lane-head"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<h2>[39m
+              [0m洞察报告[0m
+            [36m</h2>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-expanded[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"收起洞察报告"[39m
+            [33mclass[39m=[32m"insight-hide"[39m
+          [36m>[39m
+            [0m收起 ›[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<section[39m
+          [33mclass[39m=[32m"insight-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"feed-snapshot-date"[39m
+          [36m>[39m
+            [0m2026-10-17[0m
+            [0m · 当日快照[0m
+          [36m</span>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"brief"[39m
+          [36m>[39m
+            [0m暂无历史数据，未保存该日期的洞察报告。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+      [36m</aside>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<h1[39m
+      [33mclass[39m=[32m"sr-only"[39m
+    [36m>[39m
+      [0m情报流[0m
+    [36m</h1>[39m
+    [36m<div[39m
+      [33maria-label[39m=[32m"AI漫剧监测概览"[39m
+      [33mclass[39m=[32m"metric-grid"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m榜单视频[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m更新达人[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m用户评论[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m总点赞[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"feed-controls"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"情报类型"[39m
+        [33mclass[39m=[32m"feed-view-filter"[39m
+        [33mrole[39m=[32m"group"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"true"[39m
+          [33mclass[39m=[32m"active"[39m
+        [36m>[39m
+          [0m榜单[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"false"[39m
+          [33mclass[39m=[32m""[39m
+        [36m>[39m
+          [0m达人[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"feed-specific-filter"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rank-filter"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mfor[39m=[32m"rankBoardFilter"[39m
+          [36m>[39m
+            [0m榜单类型[0m
+          [36m</label>[39m
+          [36m<select[39m
+            [33maria-label[39m=[32m"榜单类型"[39m
+            [33mid[39m=[32m"rankBoardFilter"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m""[39m
+            [36m>[39m
+              [0m全部榜单[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<label[39m
+        [33mclass[39m=[32m"search feed-search"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"icon"[39m
+          [33mviewBox[39m=[32m"0 0 24 24"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"10"[39m
+            [33mcy[39m=[32m"10"[39m
+            [33mr[39m=[32m"6"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"m15 15 5 5"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"sr-only"[39m
+        [36m>[39m
+          [0m搜索当前工作区[0m
+        [36m</span>[39m
+        [36m<input[39m
+          [33mautocomplete[39m=[32m"off"[39m
+          [33mid[39m=[32m"search"[39m
+          [33mmaxlength[39m=[32m"100"[39m
+          [33mplaceholder[39m=[32m"搜索视频、达人或剧情简介"[39m
+          [33mvalue[39m=[32m""[39m
+        [36m/>[39m
+      [36m</label>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"feed-columns feed-single "[39m
+    [36m>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"feed-lane rank-lane"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lane-head"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<h2>[39m
+              [0m榜单[0m
+            [36m</h2>[39m
+            [36m<span>[39m
+              [0m正在读取[0m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lane-empty"[39m
+          [33mrole[39m=[32m"alert"[39m
+        [36m>[39m
+          [36m<strong>[39m
+            [0m服务响应格式异常，请稍后重试[0m
+          [36m</strong>[39m
+          [36m<p>[39m
+            [0m未使用演示数据替代。[0m
+          [36m</p>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"btn"[39m
+          [36m>[39m
+            [0m重试[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-label[39m=[32m"榜单翻页"[39m
+          [33mclass[39m=[32m"feed-pager"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [0m每页最多10条 · 第 [0m
+            [0m1[0m
+            [0m / [0m
+            [0m1[0m
+            [0m 页 · 共 [0m
+            [0m未获取[0m
+            [0m 条[0m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"pager-actions"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"榜单上一页"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0m上一页[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"榜单下一页"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0m下一页[0m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+      [36m<aside[39m
+        [33mclass[39m=[32m"insight-aside"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lane-head"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<h2>[39m
+              [0m洞察报告[0m
+            [36m</h2>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-expanded[39m=[32m"true"[39m
+            [33maria-label[39m=[32m"收起洞察报告"[39m
+            [33mclass[39m=[32m"insight-hide"[39m
+          [36m>[39m
+            [0m收起 ›[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<section[39m
+          [33mclass[39m=[32m"insight-card"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"feed-snapshot-date"[39m
+          [36m>[39m
+            [0m2026-10-17[0m
+            [0m · 当日快照[0m
+          [36m</span>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"brief"[39m
+          [36m>[39m
+            [0m暂无历史数据，未保存该日期的洞察报告。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+      [36m</aside>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ tests/intelligence.test.tsx:62:15
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  1 failed | 50 passed (51)
+   Start at  13:20:16
+   Duration  1.95s (environment 49%, tests 37%, setup 8%, import 3%, transform 2%)
+
+[ELIFECYCLE] Test failed. See above for more details.

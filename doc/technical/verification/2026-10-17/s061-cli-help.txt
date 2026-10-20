@@ -1,0 +1,27 @@
+usage: collection.py [-h] --org ORG --login LOGIN [--name NAME]
+                     [--kind {keyword,account}] [--value VALUE] [--enabled]
+                     [--source SOURCE] [--connection CONNECTION]
+                     [--capability {douyin.account.search,douyin.creator.works}]
+                     [--max-items {1,2,3}] [--key KEY] [--allow-paid]
+                     {connection-add,source-add,start}
+
+Controlled local collection configuration; submitting a job permits one paid
+request.
+
+positional arguments:
+  {connection-add,source-add,start}
+
+options:
+  -h, --help            show this help message and exit
+  --org ORG
+  --login LOGIN
+  --name NAME
+  --kind {keyword,account}
+  --value VALUE
+  --enabled
+  --source SOURCE
+  --connection CONNECTION
+  --capability {douyin.account.search,douyin.creator.works}
+  --max-items {1,2,3}
+  --key KEY
+  --allow-paid

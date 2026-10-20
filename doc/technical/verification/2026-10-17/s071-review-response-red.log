@@ -1,0 +1,336 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+______ test_non_object_provider_json_is_closed_as_invalid_response[None] _______
+
+outer = None
+
+    @pytest.mark.parametrize('outer', [None, [], 7, 'text'])
+    def test_non_object_provider_json_is_closed_as_invalid_response(outer):
+        from app.ai.deepseek import DeepSeek, ModelError
+        with pytest.raises(ModelError) as error:
+            DeepSeek(lambda: SecretStr('fixture'), transport=httpx.MockTransport(
+                lambda request: httpx.Response(200, content=json.dumps(outer).encode(), headers={'Content-Type':'application/json'})
+>           )).research('decompose', sample(), reserve=lambda m: None)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_research_model.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/app/ai/deepseek.py:108: in research
+    return self._complete(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <app.ai.deepseek.DeepSeek object at 0x109ddd910>
+payload = {'model': 'deepseek-flash', 'stream': False, 'max_tokens': 2048, 'thinking': {'type': 'disabled'}, ...}
+prompt_version = 'research.decompose.v1'
+validate = <function DeepSeek.research.<locals>.<lambda> at 0x10985cea0>
+reserve = <function test_non_object_provider_json_is_closed_as_invalid_response.<locals>.<lambda> at 0x1096d49a0>
+
+    def _complete(self, payload, prompt_version, validate, reserve):
+        canonical = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+        if len(canonical.encode()) > MAX_INPUT:
+            raise ModelError("INSUFFICIENT_MATERIAL")
+        key = self.key()
+        if not key or not key.get_secret_value().strip():
+            raise ModelError("MODEL_NOT_CONFIGURED")
+        digest = hashlib.sha256(canonical.encode()).hexdigest()
+        # The persistent runner must reserve budget/current authorization before this returns.
+        # Transport never schedules itself; no retry on any failure, including unknown results.
+        reserve(
+            {
+                "provider": "deepseek",
+                "endpoint": URL,
+                "prompt_version": prompt_version,
+                "input_sha256": digest,
+                "request": json.loads(canonical),
+            }
+        )
+        try:
+            with (
+                httpx.Client(
+                    transport=self.transport,
+                    trust_env=False,
+                    follow_redirects=False,
+                    timeout=httpx.Timeout(45, connect=10),
+                ) as client,
+                client.stream(
+                    "POST",
+                    URL,
+                    headers={"Authorization": "Bearer " + key.get_secret_value()},
+                    json=payload,
+                ) as response,
+            ):
+                if response.status_code in (401, 403):
+                    raise ModelError("MODEL_NOT_CONFIGURED")
+                if response.status_code == 429:
+                    raise ModelError("RATE_LIMITED")
+                if response.status_code != 200:
+                    raise ModelError("SOURCE_UNAVAILABLE")
+                body = bytearray()
+                for chunk in response.iter_bytes():
+                    if len(body) + len(chunk) > MAX_RESPONSE:
+                        raise ModelError("INVALID_RESPONSE")
+                    body.extend(chunk)
+        except httpx.RequestError:
+            raise ModelError("EXTERNAL_RESULT_UNKNOWN") from None
+        text = None
+        request_id = None
+        usage = None
+        try:
+            result = json.loads(body)
+>           request_id = result.get("id")
+                         ^^^^^^^^^^
+E           AttributeError: 'NoneType' object has no attribute 'get'
+
+backend/app/ai/deepseek.py:164: AttributeError
+_____ test_non_object_provider_json_is_closed_as_invalid_response[outer1] ______
+
+outer = []
+
+    @pytest.mark.parametrize('outer', [None, [], 7, 'text'])
+    def test_non_object_provider_json_is_closed_as_invalid_response(outer):
+        from app.ai.deepseek import DeepSeek, ModelError
+        with pytest.raises(ModelError) as error:
+            DeepSeek(lambda: SecretStr('fixture'), transport=httpx.MockTransport(
+                lambda request: httpx.Response(200, content=json.dumps(outer).encode(), headers={'Content-Type':'application/json'})
+>           )).research('decompose', sample(), reserve=lambda m: None)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_research_model.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/app/ai/deepseek.py:108: in research
+    return self._complete(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <app.ai.deepseek.DeepSeek object at 0x109e456a0>
+payload = {'model': 'deepseek-flash', 'stream': False, 'max_tokens': 2048, 'thinking': {'type': 'disabled'}, ...}
+prompt_version = 'research.decompose.v1'
+validate = <function DeepSeek.research.<locals>.<lambda> at 0x109e61620>
+reserve = <function test_non_object_provider_json_is_closed_as_invalid_response.<locals>.<lambda> at 0x109e61580>
+
+    def _complete(self, payload, prompt_version, validate, reserve):
+        canonical = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+        if len(canonical.encode()) > MAX_INPUT:
+            raise ModelError("INSUFFICIENT_MATERIAL")
+        key = self.key()
+        if not key or not key.get_secret_value().strip():
+            raise ModelError("MODEL_NOT_CONFIGURED")
+        digest = hashlib.sha256(canonical.encode()).hexdigest()
+        # The persistent runner must reserve budget/current authorization before this returns.
+        # Transport never schedules itself; no retry on any failure, including unknown results.
+        reserve(
+            {
+                "provider": "deepseek",
+                "endpoint": URL,
+                "prompt_version": prompt_version,
+                "input_sha256": digest,
+                "request": json.loads(canonical),
+            }
+        )
+        try:
+            with (
+                httpx.Client(
+                    transport=self.transport,
+                    trust_env=False,
+                    follow_redirects=False,
+                    timeout=httpx.Timeout(45, connect=10),
+                ) as client,
+                client.stream(
+                    "POST",
+                    URL,
+                    headers={"Authorization": "Bearer " + key.get_secret_value()},
+                    json=payload,
+                ) as response,
+            ):
+                if response.status_code in (401, 403):
+                    raise ModelError("MODEL_NOT_CONFIGURED")
+                if response.status_code == 429:
+                    raise ModelError("RATE_LIMITED")
+                if response.status_code != 200:
+                    raise ModelError("SOURCE_UNAVAILABLE")
+                body = bytearray()
+                for chunk in response.iter_bytes():
+                    if len(body) + len(chunk) > MAX_RESPONSE:
+                        raise ModelError("INVALID_RESPONSE")
+                    body.extend(chunk)
+        except httpx.RequestError:
+            raise ModelError("EXTERNAL_RESULT_UNKNOWN") from None
+        text = None
+        request_id = None
+        usage = None
+        try:
+            result = json.loads(body)
+>           request_id = result.get("id")
+                         ^^^^^^^^^^
+E           AttributeError: 'list' object has no attribute 'get'
+
+backend/app/ai/deepseek.py:164: AttributeError
+________ test_non_object_provider_json_is_closed_as_invalid_response[7] ________
+
+outer = 7
+
+    @pytest.mark.parametrize('outer', [None, [], 7, 'text'])
+    def test_non_object_provider_json_is_closed_as_invalid_response(outer):
+        from app.ai.deepseek import DeepSeek, ModelError
+        with pytest.raises(ModelError) as error:
+            DeepSeek(lambda: SecretStr('fixture'), transport=httpx.MockTransport(
+                lambda request: httpx.Response(200, content=json.dumps(outer).encode(), headers={'Content-Type':'application/json'})
+>           )).research('decompose', sample(), reserve=lambda m: None)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_research_model.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/app/ai/deepseek.py:108: in research
+    return self._complete(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <app.ai.deepseek.DeepSeek object at 0x109e45a00>
+payload = {'model': 'deepseek-flash', 'stream': False, 'max_tokens': 2048, 'thinking': {'type': 'disabled'}, ...}
+prompt_version = 'research.decompose.v1'
+validate = <function DeepSeek.research.<locals>.<lambda> at 0x109e623e0>
+reserve = <function test_non_object_provider_json_is_closed_as_invalid_response.<locals>.<lambda> at 0x109e62340>
+
+    def _complete(self, payload, prompt_version, validate, reserve):
+        canonical = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+        if len(canonical.encode()) > MAX_INPUT:
+            raise ModelError("INSUFFICIENT_MATERIAL")
+        key = self.key()
+        if not key or not key.get_secret_value().strip():
+            raise ModelError("MODEL_NOT_CONFIGURED")
+        digest = hashlib.sha256(canonical.encode()).hexdigest()
+        # The persistent runner must reserve budget/current authorization before this returns.
+        # Transport never schedules itself; no retry on any failure, including unknown results.
+        reserve(
+            {
+                "provider": "deepseek",
+                "endpoint": URL,
+                "prompt_version": prompt_version,
+                "input_sha256": digest,
+                "request": json.loads(canonical),
+            }
+        )
+        try:
+            with (
+                httpx.Client(
+                    transport=self.transport,
+                    trust_env=False,
+                    follow_redirects=False,
+                    timeout=httpx.Timeout(45, connect=10),
+                ) as client,
+                client.stream(
+                    "POST",
+                    URL,
+                    headers={"Authorization": "Bearer " + key.get_secret_value()},
+                    json=payload,
+                ) as response,
+            ):
+                if response.status_code in (401, 403):
+                    raise ModelError("MODEL_NOT_CONFIGURED")
+                if response.status_code == 429:
+                    raise ModelError("RATE_LIMITED")
+                if response.status_code != 200:
+                    raise ModelError("SOURCE_UNAVAILABLE")
+                body = bytearray()
+                for chunk in response.iter_bytes():
+                    if len(body) + len(chunk) > MAX_RESPONSE:
+                        raise ModelError("INVALID_RESPONSE")
+                    body.extend(chunk)
+        except httpx.RequestError:
+            raise ModelError("EXTERNAL_RESULT_UNKNOWN") from None
+        text = None
+        request_id = None
+        usage = None
+        try:
+            result = json.loads(body)
+>           request_id = result.get("id")
+                         ^^^^^^^^^^
+E           AttributeError: 'int' object has no attribute 'get'
+
+backend/app/ai/deepseek.py:164: AttributeError
+______ test_non_object_provider_json_is_closed_as_invalid_response[text] _______
+
+outer = 'text'
+
+    @pytest.mark.parametrize('outer', [None, [], 7, 'text'])
+    def test_non_object_provider_json_is_closed_as_invalid_response(outer):
+        from app.ai.deepseek import DeepSeek, ModelError
+        with pytest.raises(ModelError) as error:
+            DeepSeek(lambda: SecretStr('fixture'), transport=httpx.MockTransport(
+                lambda request: httpx.Response(200, content=json.dumps(outer).encode(), headers={'Content-Type':'application/json'})
+>           )).research('decompose', sample(), reserve=lambda m: None)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_research_model.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/app/ai/deepseek.py:108: in research
+    return self._complete(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <app.ai.deepseek.DeepSeek object at 0x109ddd610>
+payload = {'model': 'deepseek-flash', 'stream': False, 'max_tokens': 2048, 'thinking': {'type': 'disabled'}, ...}
+prompt_version = 'research.decompose.v1'
+validate = <function DeepSeek.research.<locals>.<lambda> at 0x109e616c0>
+reserve = <function test_non_object_provider_json_is_closed_as_invalid_response.<locals>.<lambda> at 0x10985e840>
+
+    def _complete(self, payload, prompt_version, validate, reserve):
+        canonical = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+        if len(canonical.encode()) > MAX_INPUT:
+            raise ModelError("INSUFFICIENT_MATERIAL")
+        key = self.key()
+        if not key or not key.get_secret_value().strip():
+            raise ModelError("MODEL_NOT_CONFIGURED")
+        digest = hashlib.sha256(canonical.encode()).hexdigest()
+        # The persistent runner must reserve budget/current authorization before this returns.
+        # Transport never schedules itself; no retry on any failure, including unknown results.
+        reserve(
+            {
+                "provider": "deepseek",
+                "endpoint": URL,
+                "prompt_version": prompt_version,
+                "input_sha256": digest,
+                "request": json.loads(canonical),
+            }
+        )
+        try:
+            with (
+                httpx.Client(
+                    transport=self.transport,
+                    trust_env=False,
+                    follow_redirects=False,
+                    timeout=httpx.Timeout(45, connect=10),
+                ) as client,
+                client.stream(
+                    "POST",
+                    URL,
+                    headers={"Authorization": "Bearer " + key.get_secret_value()},
+                    json=payload,
+                ) as response,
+            ):
+                if response.status_code in (401, 403):
+                    raise ModelError("MODEL_NOT_CONFIGURED")
+                if response.status_code == 429:
+                    raise ModelError("RATE_LIMITED")
+                if response.status_code != 200:
+                    raise ModelError("SOURCE_UNAVAILABLE")
+                body = bytearray()
+                for chunk in response.iter_bytes():
+                    if len(body) + len(chunk) > MAX_RESPONSE:
+                        raise ModelError("INVALID_RESPONSE")
+                    body.extend(chunk)
+        except httpx.RequestError:
+            raise ModelError("EXTERNAL_RESULT_UNKNOWN") from None
+        text = None
+        request_id = None
+        usage = None
+        try:
+            result = json.loads(body)
+>           request_id = result.get("id")
+                         ^^^^^^^^^^
+E           AttributeError: 'str' object has no attribute 'get'
+
+backend/app/ai/deepseek.py:164: AttributeError
+=========================== short test summary info ============================
+FAILED backend/tests/test_research_model.py::test_non_object_provider_json_is_closed_as_invalid_response[None]
+FAILED backend/tests/test_research_model.py::test_non_object_provider_json_is_closed_as_invalid_response[outer1]
+FAILED backend/tests/test_research_model.py::test_non_object_provider_json_is_closed_as_invalid_response[7]
+FAILED backend/tests/test_research_model.py::test_non_object_provider_json_is_closed_as_invalid_response[text]
+4 failed, 4 deselected in 0.13s

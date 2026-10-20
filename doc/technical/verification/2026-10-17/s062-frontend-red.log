@@ -1,0 +1,35 @@
+$ vitest run
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/console.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/console.test.tsx [ tests/console.test.tsx ]
+Error: Failed to resolve import "../src/modules/console/ConsolePage" from "tests/console.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend/tests/console.test.tsx:6:28
+  4  |  import { ApiClient } from "../src/api/client";
+  5  |  import { ApiProvider } from "../src/api/provider";
+  6  |  import { ConsolePage } from "../src/modules/console/ConsolePage";
+     |                               ^
+  7  |  var _jsxFileName = "/Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend/tests/console.test.tsx";
+  8  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+ ❯ TransformPluginContext._formatLog ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:8766:39
+ ❯ TransformPluginContext.error ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:8763:14
+ ❯ normalizeUrl ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:26632:18
+ ❯ ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:26702:30
+ ❯ TransformPluginContext.transform ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:26668:4
+ ❯ EnvironmentPluginContainer.transform ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:8545:14
+ ❯ loadAndTransform ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:20184:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  38 passed (38)
+   Start at  10:29:38
+   Duration  1.56s (environment 57%, tests 26%, setup 11%, transform 3%, import 3%)
+
+[ELIFECYCLE] Test failed. See above for more details.

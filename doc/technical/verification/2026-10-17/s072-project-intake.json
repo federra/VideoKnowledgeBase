@@ -1,0 +1,28 @@
+{
+  "work_id": "91bd5f76-00bf-44ff-867c-49aced7edde6",
+  "title": "我隐藏身份，找到了新妈妈",
+  "collected_units": 0,
+  "analyzed_units": 0,
+  "material_count": 1,
+  "parse": {
+    "task_id": "22c3df27-c8eb-45cf-883a-db56f69457d0",
+    "state": "succeeded",
+    "result_state": "completed",
+    "safe_error_code": null,
+    "paragraphs": [
+      {
+        "evidence_id": "716a4f82-5f4f-40b9-afbe-b6a56ac8bfd9",
+        "number": 1,
+        "text": "男孩楚西西自幼丧母，父亲楚承宇为寻真心伴侣，带他一块去相亲，二十八人离席而去。直到货车司机林秀云嫌咖啡贵，却蹲下把不合脚的童鞋套在他脚上，又用身体挡住水坑。西西哭着喊出“妈妈”。楚承宇藏起真实身份，自称月薪三千的搬运工，林秀云没嫌弃，反拉他上货车搬货。可当真情渐深，楚承宇却始终不敢开口——他怕说出真相的那天，她转身就走。。"
+      }
+    ],
+    "media_kind": "text",
+    "duration_ms": null,
+    "missing_inputs": [],
+    "raw_id": "343a3dcd-db11-4853-917e-fbb842e5c46e"
+  },
+  "revision": "0013_research",
+  "enabled_sources": 0,
+  "new_external_calls": 0,
+  "new_model_calls": 0
+}

@@ -1,0 +1,616 @@
+{
+  "checked_at": "2026-10-20T03:39:51.301715+00:00",
+  "reference": "https://github.com/QiuNova/Qbook",
+  "fanqie": {
+    "catalog_http": 200,
+    "rank_version": "1792467000",
+    "category_count": 37,
+    "board_count": 74,
+    "sample_http": 200,
+    "sample_count": 30,
+    "sample_sha256": "cabdef531aad79f1150e01e2cb554efe14b71a0b510950363b07f8f2fa4e6ed2",
+    "pua_detected": true,
+    "boards": [
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "1141",
+        "category_name": "西方奇幻",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "1140",
+        "category_name": "东方仙侠",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "8",
+        "category_name": "科幻末世",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "261",
+        "category_name": "都市日常",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "124",
+        "category_name": "都市修真",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "1014",
+        "category_name": "都市高武",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "273",
+        "category_name": "历史古代",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "27",
+        "category_name": "战神赘婿",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "263",
+        "category_name": "都市种田",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "258",
+        "category_name": "传统玄幻",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "272",
+        "category_name": "历史脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "539",
+        "category_name": "悬疑脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "262",
+        "category_name": "都市脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "257",
+        "category_name": "玄幻脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "751",
+        "category_name": "悬疑灵异",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "504",
+        "category_name": "抗战谍战",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "746",
+        "category_name": "游戏体育",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "718",
+        "category_name": "动漫衍生",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "male",
+        "category_id": "1016",
+        "category_name": "男频衍生",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "1139",
+        "category_name": "古风世情",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "8",
+        "category_name": "科幻末世",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "746",
+        "category_name": "游戏体育",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "1015",
+        "category_name": "女频衍生",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "248",
+        "category_name": "玄幻言情",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "23",
+        "category_name": "种田",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "79",
+        "category_name": "年代",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "267",
+        "category_name": "现言脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "246",
+        "category_name": "宫斗宅斗",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "539",
+        "category_name": "悬疑脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "253",
+        "category_name": "古言脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "24",
+        "category_name": "快穿",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "749",
+        "category_name": "青春甜宠",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "745",
+        "category_name": "星光璀璨",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "747",
+        "category_name": "女频悬疑",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "750",
+        "category_name": "职场婚恋",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "748",
+        "category_name": "豪门总裁",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "read",
+        "gender": "female",
+        "category_id": "1017",
+        "category_name": "民国言情",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "1141",
+        "category_name": "西方奇幻",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "1140",
+        "category_name": "东方仙侠",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "8",
+        "category_name": "科幻末世",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "261",
+        "category_name": "都市日常",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "124",
+        "category_name": "都市修真",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "1014",
+        "category_name": "都市高武",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "273",
+        "category_name": "历史古代",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "27",
+        "category_name": "战神赘婿",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "263",
+        "category_name": "都市种田",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "258",
+        "category_name": "传统玄幻",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "272",
+        "category_name": "历史脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "539",
+        "category_name": "悬疑脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "262",
+        "category_name": "都市脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "257",
+        "category_name": "玄幻脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "751",
+        "category_name": "悬疑灵异",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "504",
+        "category_name": "抗战谍战",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "746",
+        "category_name": "游戏体育",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "718",
+        "category_name": "动漫衍生",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "male",
+        "category_id": "1016",
+        "category_name": "男频衍生",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "1139",
+        "category_name": "古风世情",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "8",
+        "category_name": "科幻末世",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "746",
+        "category_name": "游戏体育",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "1015",
+        "category_name": "女频衍生",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "248",
+        "category_name": "玄幻言情",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "23",
+        "category_name": "种田",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "79",
+        "category_name": "年代",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "267",
+        "category_name": "现言脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "246",
+        "category_name": "宫斗宅斗",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "539",
+        "category_name": "悬疑脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "253",
+        "category_name": "古言脑洞",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "24",
+        "category_name": "快穿",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "749",
+        "category_name": "青春甜宠",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "745",
+        "category_name": "星光璀璨",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "747",
+        "category_name": "女频悬疑",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "750",
+        "category_name": "职场婚恋",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "748",
+        "category_name": "豪门总裁",
+        "max_items": 30
+      },
+      {
+        "platform": "fanqie",
+        "rank_type": "new",
+        "gender": "female",
+        "category_id": "1017",
+        "category_name": "民国言情",
+        "max_items": 30
+      }
+    ]
+  },
+  "qidian": {
+    "url": "https://m.qidian.com/rank/",
+    "http": 403,
+    "authorized_alternative_provided": false,
+    "status": "access_restricted"
+  },
+  "project_imported": false,
+  "model_calls": 0
+}

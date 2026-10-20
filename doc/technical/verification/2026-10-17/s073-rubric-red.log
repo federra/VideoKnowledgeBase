@@ -1,0 +1,40 @@
+FFF..                                                                    [100%]
+=================================== FAILURES ===================================
+_________ test_incomplete_or_boolean_rubric_cannot_enable_rating[True] _________
+
+rules = True
+
+    @pytest.mark.parametrize('rules',[True,'enabled',{'A':'only one boundary'},{}])
+    def test_incomplete_or_boolean_rubric_cannot_enable_rating(rules):
+>       with pytest.raises(ValueError):validate_output('evaluate',sample(rules),output())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_research_stages.py:17: Failed
+_______ test_incomplete_or_boolean_rubric_cannot_enable_rating[enabled] ________
+
+rules = 'enabled'
+
+    @pytest.mark.parametrize('rules',[True,'enabled',{'A':'only one boundary'},{}])
+    def test_incomplete_or_boolean_rubric_cannot_enable_rating(rules):
+>       with pytest.raises(ValueError):validate_output('evaluate',sample(rules),output())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_research_stages.py:17: Failed
+________ test_incomplete_or_boolean_rubric_cannot_enable_rating[rules2] ________
+
+rules = {'A': 'only one boundary'}
+
+    @pytest.mark.parametrize('rules',[True,'enabled',{'A':'only one boundary'},{}])
+    def test_incomplete_or_boolean_rubric_cannot_enable_rating(rules):
+>       with pytest.raises(ValueError):validate_output('evaluate',sample(rules),output())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_research_stages.py:17: Failed
+=========================== short test summary info ============================
+FAILED tests/test_research_stages.py::test_incomplete_or_boolean_rubric_cannot_enable_rating[True]
+FAILED tests/test_research_stages.py::test_incomplete_or_boolean_rubric_cannot_enable_rating[enabled]
+FAILED tests/test_research_stages.py::test_incomplete_or_boolean_rubric_cannot_enable_rating[rules2]
+3 failed, 2 passed in 0.12s

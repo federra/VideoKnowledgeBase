@@ -1,0 +1,225 @@
+{
+  "checked_files": 7,
+  "local_links_checked": 128,
+  "broken_links": [],
+  "tables": 70,
+  "unique_tables": 70,
+  "undefined_named_fk_targets": [],
+  "role_count": 6,
+  "action_count": 31,
+  "duplicate_actions": [],
+  "actions": {
+    "content.read": [
+      "A",
+      "E",
+      "R",
+      "V"
+    ],
+    "evidence.read": [
+      "A",
+      "E",
+      "R",
+      "V"
+    ],
+    "file.read": [
+      "A",
+      "E",
+      "R",
+      "V"
+    ],
+    "content.export": [
+      "A",
+      "E"
+    ],
+    "content.write": [
+      "A",
+      "E"
+    ],
+    "research.submit": [
+      "A",
+      "E"
+    ],
+    "research.run": [
+      "A"
+    ],
+    "knowledge.candidate.read": [
+      "A",
+      "E",
+      "V"
+    ],
+    "knowledge.edit": [
+      "A",
+      "E"
+    ],
+    "knowledge.review.run": [
+      "A",
+      "E",
+      "V"
+    ],
+    "report.review.run": [
+      "A",
+      "V"
+    ],
+    "knowledge.review": [
+      "V"
+    ],
+    "knowledge.publish": [
+      "V"
+    ],
+    "report.review": [
+      "A",
+      "V"
+    ],
+    "evaluation.review": [
+      "A",
+      "V"
+    ],
+    "prediction.edit": [
+      "A"
+    ],
+    "prediction.freeze": [
+      "A"
+    ],
+    "prediction.retract": [
+      "A"
+    ],
+    "standard.read": [
+      "A",
+      "E",
+      "O",
+      "R",
+      "V"
+    ],
+    "standard.edit": [
+      "A",
+      "O"
+    ],
+    "standard.approve": [
+      "V"
+    ],
+    "standard.activate": [
+      "O"
+    ],
+    "source.configure": [
+      "O"
+    ],
+    "collection.run": [
+      "O"
+    ],
+    "model.configure": [
+      "O"
+    ],
+    "task.read": [
+      "A",
+      "E",
+      "O",
+      "V"
+    ],
+    "task.manage": [
+      "A",
+      "O"
+    ],
+    "member.manage": [
+      "M"
+    ],
+    "role.manage": [
+      "M"
+    ],
+    "grant.manage": [
+      "M"
+    ],
+    "audit.read": [
+      "M"
+    ]
+  },
+  "task_transitions": [
+    [
+      "queued",
+      "running"
+    ],
+    [
+      "queued",
+      "failed"
+    ],
+    [
+      "queued",
+      "cancelled"
+    ],
+    [
+      "running",
+      "succeeded"
+    ],
+    [
+      "running",
+      "failed"
+    ],
+    [
+      "running",
+      "cancel_requested"
+    ],
+    [
+      "cancel_requested",
+      "cancelled"
+    ],
+    [
+      "cancel_requested",
+      "failed"
+    ],
+    [
+      "running",
+      "failed"
+    ],
+    [
+      "failed",
+      "queued"
+    ]
+  ],
+  "design_scenario_count": 18,
+  "unique_scenario_count": 18,
+  "scenario_ids": [
+    "H01",
+    "H02",
+    "H03",
+    "H04",
+    "K01",
+    "K02",
+    "K03",
+    "K04",
+    "K05",
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "S01"
+  ],
+  "missing_supporting_fields": [],
+  "design_checks": {
+    "admin_has_no_implicit_publish": true,
+    "editor_cannot_human_approve": true,
+    "editor_can_request_ai_review": true,
+    "operator_cannot_run_research": true,
+    "task_inputs_fixed_at_creation": true,
+    "budget_increase_executing_principal": true,
+    "cancel_requires_no_remote_effect": true,
+    "review_binds_current_ai": true,
+    "prediction_confirmation_after_commit": true,
+    "epoch_changing_write_no_lock_upgrade": true,
+    "s033_done_s034_pending": true
+  },
+  "credential_value_found_in": [],
+  "git": {
+    "branch": "main",
+    "head_exists": false,
+    "staged_files": 0,
+    "env_ignored": true,
+    "private_data_ignored": true
+  },
+  "new_external_api_calls": 0,
+  "ddl_executed": false,
+  "runtime_tests_executed": false,
+  "scope": "Documentation consistency only; not S03.4 or runtime acceptance."
+}

@@ -1,0 +1,309 @@
+{
+  "method": "qidian-desktop-html-v1",
+  "catalog": {
+    "capture_kind": "user_saved_html",
+    "source_url": "https://www.qdmm.com/rank/",
+    "http_status": null,
+    "sha256": "3be5fa6e58ad9668b06b6c0df2980e164346df19b2459ec680e457093556c8ec",
+    "bytes": 60925,
+    "board_count": 14,
+    "published_books": 0,
+    "boards": [
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "yuepiao",
+        "rank_name": "月票榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:yuepiao",
+        "source_url": "https://www.qdmm.com/rank/yuepiao/",
+        "name": "月票榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "readindex",
+        "rank_name": "阅读指数榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:readindex",
+        "source_url": "https://www.qdmm.com/rank/readindex/",
+        "name": "阅读指数榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "hotsales",
+        "rank_name": "畅销榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:hotsales",
+        "source_url": "https://www.qdmm.com/rank/hotsales/",
+        "name": "畅销榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "newfans",
+        "rank_name": "书友榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:newfans",
+        "source_url": "https://www.qdmm.com/rank/newfans/",
+        "name": "书友榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "subscr",
+        "rank_name": "热门单订榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:subscr",
+        "source_url": "https://www.qdmm.com/rank/subscr/",
+        "name": "热门单订榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "recom",
+        "rank_name": "推荐榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:recom",
+        "source_url": "https://www.qdmm.com/rank/recom/",
+        "name": "推荐榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "collect",
+        "rank_name": "收藏榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:collect",
+        "source_url": "https://www.qdmm.com/rank/collect/",
+        "name": "收藏榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "vipsub",
+        "rank_name": "VIP单订总榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:vipsub",
+        "source_url": "https://www.qdmm.com/rank/vipsub/",
+        "name": "VIP单订总榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "vipup",
+        "rank_name": "VIP更新字数榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:vipup",
+        "source_url": "https://www.qdmm.com/rank/vipup/",
+        "name": "VIP更新字数榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "wordcount",
+        "rank_name": "总字数榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:wordcount",
+        "source_url": "https://www.qdmm.com/rank/wordcount/",
+        "name": "总字数榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "signnewbook",
+        "rank_name": "签约作者新书榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:signnewbook",
+        "source_url": "https://www.qdmm.com/rank/signnewbook/",
+        "name": "签约作者新书榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "pubnewbook",
+        "rank_name": "公众作者新书榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:pubnewbook",
+        "source_url": "https://www.qdmm.com/rank/pubnewbook/",
+        "name": "公众作者新书榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "newsign",
+        "rank_name": "新人签约新书榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:newsign",
+        "source_url": "https://www.qdmm.com/rank/newsign/",
+        "name": "新人签约新书榜 · 女频"
+      },
+      {
+        "platform": "qidian",
+        "method": "qidian-desktop-html-v1",
+        "rank_type": "newauthor",
+        "rank_name": "新人作者新书榜",
+        "gender": "female",
+        "category_id": "all",
+        "category_name": "全站",
+        "code": "qidian:desktop:female:newauthor",
+        "source_url": "https://www.qdmm.com/rank/newauthor/",
+        "name": "新人作者新书榜 · 女频"
+      }
+    ]
+  },
+  "board": {
+    "platform": "qidian",
+    "method": "qidian-desktop-html-v1",
+    "rank_type": "yuepiao",
+    "rank_name": "月票榜",
+    "gender": "female",
+    "category_id": "all",
+    "category_name": "全站",
+    "code": "qidian:desktop:female:yuepiao",
+    "source_url": "https://www.qdmm.com/rank/yuepiao/",
+    "name": "月票榜 · 女频"
+  },
+  "rank_file": {
+    "sha256": "d5c592bb7096cebade442950044542d99caa9cc9dadea59b04588dcf21b7241a",
+    "bytes": 75973
+  },
+  "parsed_items": 20,
+  "http_status": null,
+  "external_requests": 0,
+  "paid_calls": 0,
+  "model_calls": 0,
+  "capture_kind": "user_saved_html",
+  "source_capture_time": null,
+  "business_date": "2026-10-20",
+  "task_state": "succeeded",
+  "task_id": "cc5404f9-ef59-4a90-95dc-eaab79de21d9",
+  "job_id": "7376d9ad-0a85-410b-9f93-8fb3d639328b",
+  "source_id": "f14173af-adda-448c-b5fd-7cc430b5c123",
+  "displayed_total": "20",
+  "genders": [
+    {
+      "value": "female",
+      "label": "女频"
+    },
+    {
+      "value": "male",
+      "label": "男频"
+    }
+  ],
+  "sources_paused": true,
+  "raw_sha_matches_file": true,
+  "collection_call_count": 0,
+  "fanqie_unchanged": true,
+  "fanqie_before": {
+    "sources": {
+      "count": 75,
+      "sha256": "115ce043e1ae0461cc3603b2f9be33c9945c6938595958d61bf179ecfa0a3857"
+    },
+    "tasks": {
+      "count": 75,
+      "sha256": "5f25c7b19bc5419f7c8dc178e14d1059d7f12a1622b814c6f0463150b9290808"
+    },
+    "collection_jobs": {
+      "count": 75,
+      "sha256": "0a3b30b76146e3db360942c3315a2c02066d5b7ece9d89f6eddc06609aa99573"
+    },
+    "collection_calls": {
+      "count": 75,
+      "sha256": "cb93942c1294513b67da42a30e46f7488ba09cd5bad10fb9bbdc7f4e40b097a0"
+    },
+    "raw_assets": {
+      "count": 75,
+      "sha256": "5038ee4d3d7fc751b4a9d98e39f5116c87a1d7048d448532318b4b12308d677e"
+    },
+    "intelligence_snapshots": {
+      "count": 74,
+      "sha256": "7d60ac782f6eb99cc3ebc7713422c51574f04fd02f39b1ca5ee193acbd4e6492"
+    },
+    "snapshot_entries": {
+      "count": 2213,
+      "sha256": "3a8a0395dccf1832f4d1d3b35654a224e7df9f60659af99d252723e86aa6e455"
+    },
+    "external_contents": {
+      "count": 2213,
+      "sha256": "758f5d808a231b93ceb7df0d156be7d1b7bdf6188edafad8bbfd0ecb44e8852c"
+    },
+    "content_observations": {
+      "count": 2213,
+      "sha256": "8d61c14c6162d6c485b2c2e099bdb55db3919b45cd1935598e85291ce4644ab8"
+    }
+  },
+  "fanqie_after": {
+    "sources": {
+      "count": 75,
+      "sha256": "115ce043e1ae0461cc3603b2f9be33c9945c6938595958d61bf179ecfa0a3857"
+    },
+    "tasks": {
+      "count": 75,
+      "sha256": "5f25c7b19bc5419f7c8dc178e14d1059d7f12a1622b814c6f0463150b9290808"
+    },
+    "collection_jobs": {
+      "count": 75,
+      "sha256": "0a3b30b76146e3db360942c3315a2c02066d5b7ece9d89f6eddc06609aa99573"
+    },
+    "collection_calls": {
+      "count": 75,
+      "sha256": "cb93942c1294513b67da42a30e46f7488ba09cd5bad10fb9bbdc7f4e40b097a0"
+    },
+    "raw_assets": {
+      "count": 75,
+      "sha256": "5038ee4d3d7fc751b4a9d98e39f5116c87a1d7048d448532318b4b12308d677e"
+    },
+    "intelligence_snapshots": {
+      "count": 74,
+      "sha256": "7d60ac782f6eb99cc3ebc7713422c51574f04fd02f39b1ca5ee193acbd4e6492"
+    },
+    "snapshot_entries": {
+      "count": 2213,
+      "sha256": "3a8a0395dccf1832f4d1d3b35654a224e7df9f60659af99d252723e86aa6e455"
+    },
+    "external_contents": {
+      "count": 2213,
+      "sha256": "758f5d808a231b93ceb7df0d156be7d1b7bdf6188edafad8bbfd0ecb44e8852c"
+    },
+    "content_observations": {
+      "count": 2213,
+      "sha256": "8d61c14c6162d6c485b2c2e099bdb55db3919b45cd1935598e85291ce4644ab8"
+    }
+  },
+  "replay": {
+    "task_state": "succeeded",
+    "run_outcome": "ignored",
+    "receipt_reused": true,
+    "collection_call_count": 0,
+    "displayed_total": "20",
+    "fanqie_unchanged": true
+  }
+}

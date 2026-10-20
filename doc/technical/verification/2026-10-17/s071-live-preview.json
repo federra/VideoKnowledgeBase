@@ -1,0 +1,11 @@
+{
+  "definition_version": "research.decompose.v1",
+  "snapshot_id": "afa37ee3-3a5a-41a6-bac5-09acda0e1084",
+  "entry_id": "1cb182b8-9e49-4c3d-a328-ea7dd54187eb",
+  "input_sha256": "17e2e8587d39564fe468d75c75f78c35a7f5d1f9fbea2239ce91ecfde290da45",
+  "input_characters": 162,
+  "scope": "synopsis",
+  "collection_calls_added": 0,
+  "model_calls_added": 0,
+  "business_publications": 0
+}

@@ -1,0 +1,22 @@
+{
+  "url": "https://m.qidian.com/rank/",
+  "checked_at": "2026-10-20T05:36:36.011510+00:00",
+  "http_status": 200,
+  "bytes": 108920,
+  "sha256": "38e7b03f8b4fa98d9449f3f2caf25263821b87fa843210c5e5b093a6ede20c01",
+  "official_channel_navigation": [
+    {
+      "label": "男生",
+      "href": "//m.qidian.com/rank/"
+    },
+    {
+      "label": "女生",
+      "href": "//m.qdmm.com/rank/"
+    }
+  ],
+  "public_requests": 1,
+  "paid_calls": 0,
+  "fanqie_requests": 0,
+  "ui_change": false,
+  "finding": "官方榜单提供男生／女生频道；不满足不存在分类时仅留全部的条件。"
+}

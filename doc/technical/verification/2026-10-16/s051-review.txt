@@ -1,0 +1,9 @@
+S05.1一次独立只读审阅，2026-10-16。
+范围：AGENTS、接口契约、字典／Demo及契约模型、生成器、TS断言。未读取.env、未访问数据库、未调用外部API。
+
+P2 导出器仅比较operation的$ref字符串，无法发现同名Task模型属性类型变化：新增递归components依赖闭包比对，test_same_reference_name_does_not_hide_response_model_drift RED→GREEN。
+P2 知识模型缺Demo环节tags：增加严格Tag和读写／列表tags，明确tag=kind:code按正式版本匹配；test_knowledge_round_trips_demo_stage_tags RED→GREEN。
+P2 InputItem.position缺integer上限：限定0～2147483647，2^31和2^53用例拒绝；test_input_positions_fit_database_integer_and_javascript RED→GREEN。
+小校验项 空白keyword通过：复用NonEmpty并保留100长度；test_keyword_is_not_all_whitespace RED→GREEN。
+
+最终31项新增契约测试全部通过。未将后续登录／worker／真实采集未实现误记为S05.1完成；未调度二次审阅。执行裁定及阶段边界详见执行记录。

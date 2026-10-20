@@ -1,0 +1,162 @@
+...............FF                                                        [100%]
+=================================== FAILURES ===================================
+____ test_text_allows_standard_page_breaks_without_allowing_binary_controls ____
+
+    def test_text_allows_standard_page_breaks_without_allowing_binary_controls():
+        from app.storage.validation import validate
+>       assert validate(BytesIO(b'page one\n\fpage two\n'),'pages.txt','text/plain')=='text/plain'
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_file_storage.py:225: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+file = <_io.BytesIO object at 0x108e3e570>, name = 'pages.txt'
+media = 'text/plain'
+
+    def validate(file, name, media):
+        if (
+            not name
+            or len(name) > 200
+            or any(ord(c) < 32 for c in name)
+            or "/" in name
+            or "\\" in name
+            or name in (".", "..")
+            or name.endswith((".", " "))
+        ):
+            raise Denied("INVALID_FILE")
+        if TYPES.get(PurePath(name).suffix.lower()) != media:
+            raise Denied("INVALID_FILE")
+        file.seek(0)
+        body = file.read()
+        file.seek(0)
+        valid = False
+        if media == "text/plain":
+            try:
+                text = body.decode("utf-8-sig")
+                valid = bool(text.strip()) and not any(ord(c) < 32 and c not in "\r\n\t" for c in text)
+                valid &= not bool(
+                    re.search(r"<\s*(?:!doctype|html|script|svg|iframe)\b", text, re.IGNORECASE)
+                )
+            except UnicodeError:
+                pass
+        elif media == "application/pdf":
+            valid = (
+                bool(re.match(rb"%PDF-[12]\.[0-9]", body[:8]))
+                and b"%%EOF" in body[-1024:]
+                and b"startxref" in body[-2048:]
+                and len(body) > 32
+            )
+        elif media == "video/mp4":
+            offset = 0
+            boxes = []
+            while offset + 8 <= len(body):
+                size, kind = struct.unpack(">I4s", body[offset : offset + 8])
+                header = 8
+                if size == 1:
+                    if offset + 16 > len(body):
+                        break
+                    size = struct.unpack(">Q", body[offset + 8 : offset + 16])[0]
+                    header = 16
+                if size == 0:
+                    size = len(body) - offset
+                if size < header or offset + size > len(body):
+                    break
+                boxes.append(kind)
+                offset += size
+            valid = (
+                offset == len(body)
+                and len(body) >= 32
+                and boxes[:1] == [b"ftyp"]
+                and all(k in boxes for k in [b"mdat", b"moov"])
+            )
+        elif media == "image/png":
+            offset = 8
+            kinds = []
+            valid = body.startswith(b"\x89PNG\r\n\x1a\n")
+            while valid and offset + 12 <= len(body):
+                size = struct.unpack(">I", body[offset : offset + 4])[0]
+                if offset + 12 + size > len(body):
+                    valid = False
+                    break
+                chunk = body[offset + 4 : offset + 8 + size]
+                kind = chunk[:4]
+                crc = struct.unpack(">I", body[offset + 8 + size : offset + 12 + size])[0]
+                valid &= zlib.crc32(chunk) & 0xFFFFFFFF == crc
+                if kind == b"IHDR":
+                    valid &= size == 13
+                    if size == 13:
+                        w, h = struct.unpack(">II", chunk[4:12])
+                        valid &= 0 < w <= 16384 and 0 < h <= 16384 and w * h <= 40000000
+                kinds.append(kind)
+                offset += size + 12
+            valid &= (
+                offset == len(body)
+                and kinds[:1] == [b"IHDR"]
+                and kinds[-1:] == [b"IEND"]
+                and b"IDAT" in kinds
+            )
+        elif media == "image/jpeg":
+            valid = body.startswith(b"\xff\xd8\xff") and body.endswith(b"\xff\xd9") and len(body) > 32
+            valid &= b"\xff\xda" in body and any(
+                x in body for x in [b"\xff\xc0", b"\xff\xc1", b"\xff\xc2"]
+            )
+        if not valid:
+>           raise Denied("INVALID_FILE")
+E           app.security.errors.Denied: INVALID_FILE
+
+backend/app/storage/validation.py:110: Denied
+____ test_connection_close_slow_chunk_framing_is_aborted_by_total_deadline _____
+
+    def test_connection_close_slow_chunk_framing_is_aborted_by_total_deadline():
+        import http.client
+        import socket
+        import threading
+        import time
+        from app.storage.external import fetch
+        from app.storage.local import Staged
+        client_socket,server_socket=socket.socketpair()
+        stopped=threading.Event()
+        def server():
+            try:
+                conn=server_socket
+                with conn:
+                    conn.settimeout(2)
+                    request=b''
+                    while b'\r\n\r\n' not in request:request+=conn.recv(4096)
+                    conn.sendall(b'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nTransfer-Encoding: chunked\r\nConnection: close\r\n\r\n1;')
+                    for _ in range(100):
+                        if stopped.wait(.02):break
+                        conn.sendall(b'a')
+                    conn.sendall(b'\r\nZ\r\n0\r\n\r\n')
+            except OSError:pass
+            finally:server_socket.close()
+        worker=threading.Thread(target=server,daemon=True);worker.start()
+        class LocalConnection(http.client.HTTPConnection):
+            def __init__(self,target,timeout):
+                super().__init__('media.example',timeout=timeout)
+                self.transport=None
+            def connect(self):
+                self.sock=client_socket;self.sock.settimeout(self.timeout);self.transport=self.sock.dup()
+            def abort(self):
+                if self.transport:
+                    try:self.transport.shutdown(socket.SHUT_RDWR)
+                    except OSError:pass
+            def release(self):
+                self.close()
+                if self.transport:self.transport.close()
+        start=time.monotonic()
+        try:
+            with pytest.raises(Denied,match='FETCH_FAILED'):
+                fetch('https://media.example/a',['media.example'],Staged(BytesIO(),'test',16),
+                    resolver=lambda *a,**k:[(2,1,6,'',('93.184.215.14',443))],
+                    connector=LocalConnection,total_timeout=.2)
+>           assert time.monotonic()-start<1
+E           AssertionError: assert (48474.720856666 - 48472.331705333) < 1
+E            +  where 48474.720856666 = <built-in function monotonic>()
+E            +    where <built-in function monotonic> = <module 'time' (built-in)>.monotonic
+
+backend/tests/test_file_storage.py:273: AssertionError
+=========================== short test summary info ============================
+FAILED backend/tests/test_file_storage.py::test_text_allows_standard_page_breaks_without_allowing_binary_controls
+FAILED backend/tests/test_file_storage.py::test_connection_close_slow_chunk_framing_is_aborted_by_total_deadline
+2 failed, 15 passed in 2.44s

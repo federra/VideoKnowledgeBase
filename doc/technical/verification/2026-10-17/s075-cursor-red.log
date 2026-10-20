@@ -1,0 +1,12 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________ test_filter_field_boundaries_cannot_reuse_cursor _______________
+
+    def test_filter_field_boundaries_cannot_reuse_cursor():
+>       from app.knowledge.http import filter_scope
+E       ImportError: cannot import name 'filter_scope' from 'app.knowledge.http' (/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/app/knowledge/http.py)
+
+tests/test_knowledge_search.py:8: ImportError
+=========================== short test summary info ============================
+FAILED tests/test_knowledge_search.py::test_filter_field_boundaries_cannot_reuse_cursor
+1 failed in 0.35s

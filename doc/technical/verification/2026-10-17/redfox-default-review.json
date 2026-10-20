@@ -1,0 +1,15 @@
+{
+  "critical": 0,
+  "important": {
+    "finding": "标题覆盖非空正文",
+    "resolution": "正文独立命中并完整保存，标题独有命中排除",
+    "red": "redfox-default-review-red.log",
+    "green": "redfox-default-review-green.log"
+  },
+  "minor": {
+    "finding": "筛选后列表序号重新编号与计划措辞不符",
+    "resolution": "按Demo保留当前列表序号，文档澄清只保持相对顺序"
+  },
+  "external_calls_added_by_review": 0,
+  "browser_cards": 10
+}

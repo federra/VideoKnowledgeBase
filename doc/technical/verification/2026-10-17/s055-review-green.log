@@ -1,0 +1,10 @@
+$ vitest run
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+
+ Test Files  3 passed (3)
+      Tests  38 passed (38)
+   Start at  09:37:49
+   Duration  1.26s (environment 53%, tests 33%, setup 8%, import 3%, transform 2%)
+

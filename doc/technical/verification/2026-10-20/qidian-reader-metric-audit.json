@@ -1,0 +1,15 @@
+{
+  "url": "https://m.qidian.com/book/1027339371/",
+  "http_status": 200,
+  "scope": "单部已采作品公开详情；不推广为全部作品字段承诺",
+  "fields": {
+    "bookInfo.collect": 3996380,
+    "bookInfo.recomAll": 9860799,
+    "bookInfo.clickTotal": -1,
+    "bookInfo.vipClickAll": 0,
+    "fansInfo.fansTotal": "889.07万",
+    "readInfo.hasRead": 0
+  },
+  "reader_count_mapping": null,
+  "reason": "收藏、推荐票、点击、书友榜数与阅读标志均无证据等同在读人数；榜单readindex未返回此数值。"
+}

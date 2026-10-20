@@ -1,0 +1,14 @@
+{
+  "endpoint": "https://redfox.hk/story/api/dyData/queryWorkList",
+  "max_requests": 1,
+  "automatic_retries": 0,
+  "automatic_pagination": false,
+  "started_at": "2026-10-16T04:53:29.432832+00:00",
+  "status": "provider_error",
+  "http_status": 200,
+  "provider_code": 3203,
+  "has_more": null,
+  "can_analyze_video": false,
+  "work_count": null,
+  "completed_at": "2026-10-16T04:53:33.126505+00:00"
+}

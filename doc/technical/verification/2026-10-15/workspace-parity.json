@@ -1,0 +1,181 @@
+{
+  "viewport": [
+    1050,
+    1314
+  ],
+  "business": "故事短片",
+  "theme": "light",
+  "pages": [
+    {
+      "module": "情报局",
+      "page": "情报流",
+      "samePageDOM": true
+    },
+    {
+      "module": "情报局",
+      "page": "选题卡",
+      "samePageDOM": true
+    },
+    {
+      "module": "情报局",
+      "page": "待生产",
+      "samePageDOM": true
+    },
+    {
+      "module": "研判室",
+      "page": "内容研判",
+      "samePageDOM": true
+    },
+    {
+      "module": "研判室",
+      "page": "发布复盘",
+      "samePageDOM": true
+    },
+    {
+      "module": "研判室",
+      "page": "规律验证",
+      "samePageDOM": true
+    },
+    {
+      "module": "藏经阁",
+      "page": "知识浏览",
+      "samePageDOM": true
+    },
+    {
+      "module": "藏经阁",
+      "page": "入库处理",
+      "samePageDOM": true
+    },
+    {
+      "module": "藏经阁",
+      "page": "审核队列",
+      "samePageDOM": true
+    },
+    {
+      "module": "藏经阁",
+      "page": "回收站",
+      "samePageDOM": true
+    },
+    {
+      "module": "控制台",
+      "page": "采集配置",
+      "samePageDOM": true
+    },
+    {
+      "module": "控制台",
+      "page": "处理配置",
+      "samePageDOM": true
+    },
+    {
+      "module": "控制台",
+      "page": "评价标准",
+      "samePageDOM": true
+    },
+    {
+      "module": "控制台",
+      "page": "权限管理",
+      "samePageDOM": true
+    },
+    {
+      "module": "控制台",
+      "page": "运行状态",
+      "samePageDOM": true
+    }
+  ],
+  "researchLayout": {
+    "demo": [
+      [
+        ".sidebar",
+        {
+          "height": 1314,
+          "width": 180,
+          "x": 0,
+          "y": 0
+        }
+      ],
+      [
+        ".topbar",
+        {
+          "height": 58,
+          "width": 870,
+          "x": 180,
+          "y": 0
+        }
+      ],
+      [
+        ".workspace",
+        {
+          "height": 602.109375,
+          "width": 870,
+          "x": 180,
+          "y": 58
+        }
+      ],
+      [
+        ".tabs",
+        {
+          "height": 34,
+          "width": 280,
+          "x": 204,
+          "y": 86
+        }
+      ],
+      [
+        ".work-card",
+        {
+          "height": 175.125,
+          "width": 822,
+          "x": 204,
+          "y": 324.1875
+        }
+      ]
+    ],
+    "frontend": [
+      [
+        ".sidebar",
+        {
+          "height": 1314,
+          "width": 180,
+          "x": 0,
+          "y": 0
+        }
+      ],
+      [
+        ".topbar",
+        {
+          "height": 58,
+          "width": 870,
+          "x": 180,
+          "y": 0
+        }
+      ],
+      [
+        ".workspace",
+        {
+          "height": 602.109375,
+          "width": 870,
+          "x": 180,
+          "y": 58
+        }
+      ],
+      [
+        ".tabs",
+        {
+          "height": 34,
+          "width": 280,
+          "x": 204,
+          "y": 86
+        }
+      ],
+      [
+        ".work-card",
+        {
+          "height": 175.125,
+          "width": 822,
+          "x": 204,
+          "y": 324.1875
+        }
+      ]
+    ]
+  }
+}

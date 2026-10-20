@@ -1,0 +1,914 @@
+[
+  {
+    "kind": "demo",
+    "business": "AI漫剧",
+    "theme": "light",
+    "width": 1280,
+    "file": "feed-1280-light-AI漫剧-demo.png",
+    "actualWidth": 1280,
+    "background": "rgb(255, 255, 255)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 204,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 1061,
+        "x": 204
+      },
+      {
+        "class": "metric-grid",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-controls",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 1005,
+        "x": 232
+      }
+    ],
+    "scrollWidth": 1265
+  },
+  {
+    "kind": "real",
+    "business": "AI漫剧",
+    "theme": "light",
+    "width": 1280,
+    "file": "feed-1280-light-AI漫剧-real.png",
+    "actualWidth": 1280,
+    "background": "rgb(255, 255, 255)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 204,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 1061,
+        "x": 204
+      },
+      {
+        "class": "metric-grid",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-controls",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 1005,
+        "x": 232
+      }
+    ],
+    "scrollWidth": 1265
+  },
+  {
+    "kind": "demo",
+    "business": "故事短片",
+    "theme": "light",
+    "width": 1280,
+    "file": "feed-1280-light-故事短片-demo.png",
+    "actualWidth": 1280,
+    "background": "rgb(255, 255, 255)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 204,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 1061,
+        "x": 204
+      },
+      {
+        "class": "metric-grid",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-controls",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 1005,
+        "x": 232
+      }
+    ],
+    "scrollWidth": 1265
+  },
+  {
+    "kind": "real",
+    "business": "故事短片",
+    "theme": "light",
+    "width": 1280,
+    "file": "feed-1280-light-故事短片-real.png",
+    "actualWidth": 1280,
+    "background": "rgb(255, 255, 255)",
+    "cards": 0,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 204,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 1076,
+        "x": 204
+      },
+      {
+        "class": "metric-grid",
+        "width": 1020,
+        "x": 232
+      },
+      {
+        "class": "feed-controls",
+        "width": 1020,
+        "x": 232
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 1020,
+        "x": 232
+      }
+    ],
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "business": "电商短视频",
+    "theme": "light",
+    "width": 1280,
+    "file": "feed-1280-light-电商短视频-demo.png",
+    "actualWidth": 1280,
+    "background": "rgb(255, 255, 255)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 204,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 1061,
+        "x": 204
+      },
+      {
+        "class": "metric-grid",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-controls",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 1005,
+        "x": 232
+      }
+    ],
+    "scrollWidth": 1265
+  },
+  {
+    "kind": "real",
+    "business": "电商短视频",
+    "theme": "light",
+    "width": 1280,
+    "file": "feed-1280-light-电商短视频-real.png",
+    "actualWidth": 1280,
+    "background": "rgb(255, 255, 255)",
+    "cards": 0,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 204,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 1076,
+        "x": 204
+      },
+      {
+        "class": "metric-grid",
+        "width": 1020,
+        "x": 232
+      },
+      {
+        "class": "feed-controls",
+        "width": 1020,
+        "x": 232
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 1020,
+        "x": 232
+      }
+    ],
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "business": "AI漫剧",
+    "theme": "dark",
+    "width": 1280,
+    "file": "feed-1280-dark-AI漫剧-demo.png",
+    "actualWidth": 1280,
+    "background": "rgb(27, 30, 38)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 204,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 1061,
+        "x": 204
+      },
+      {
+        "class": "metric-grid",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-controls",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 1005,
+        "x": 232
+      }
+    ],
+    "scrollWidth": 1265
+  },
+  {
+    "kind": "real",
+    "business": "AI漫剧",
+    "theme": "dark",
+    "width": 1280,
+    "file": "feed-1280-dark-AI漫剧-real.png",
+    "actualWidth": 1280,
+    "background": "rgb(27, 30, 38)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 204,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 1061,
+        "x": 204
+      },
+      {
+        "class": "metric-grid",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-controls",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 1005,
+        "x": 232
+      }
+    ],
+    "scrollWidth": 1265
+  },
+  {
+    "kind": "demo",
+    "business": "故事短片",
+    "theme": "dark",
+    "width": 1280,
+    "file": "feed-1280-dark-故事短片-demo.png",
+    "actualWidth": 1280,
+    "background": "rgb(27, 30, 38)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 204,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 1061,
+        "x": 204
+      },
+      {
+        "class": "metric-grid",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-controls",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 1005,
+        "x": 232
+      }
+    ],
+    "scrollWidth": 1265
+  },
+  {
+    "kind": "real",
+    "business": "故事短片",
+    "theme": "dark",
+    "width": 1280,
+    "file": "feed-1280-dark-故事短片-real.png",
+    "actualWidth": 1280,
+    "background": "rgb(27, 30, 38)",
+    "cards": 0,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 204,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 1076,
+        "x": 204
+      },
+      {
+        "class": "metric-grid",
+        "width": 1020,
+        "x": 232
+      },
+      {
+        "class": "feed-controls",
+        "width": 1020,
+        "x": 232
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 1020,
+        "x": 232
+      }
+    ],
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "business": "电商短视频",
+    "theme": "dark",
+    "width": 1280,
+    "file": "feed-1280-dark-电商短视频-demo.png",
+    "actualWidth": 1280,
+    "background": "rgb(27, 30, 38)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 204,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 1061,
+        "x": 204
+      },
+      {
+        "class": "metric-grid",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-controls",
+        "width": 1005,
+        "x": 232
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 1005,
+        "x": 232
+      }
+    ],
+    "scrollWidth": 1265
+  },
+  {
+    "kind": "real",
+    "business": "电商短视频",
+    "theme": "dark",
+    "width": 1280,
+    "file": "feed-1280-dark-电商短视频-real.png",
+    "actualWidth": 1280,
+    "background": "rgb(27, 30, 38)",
+    "cards": 0,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 204,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 1076,
+        "x": 204
+      },
+      {
+        "class": "metric-grid",
+        "width": 1020,
+        "x": 232
+      },
+      {
+        "class": "feed-controls",
+        "width": 1020,
+        "x": 232
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 1020,
+        "x": 232
+      }
+    ],
+    "scrollWidth": 1280
+  },
+  {
+    "kind": "demo",
+    "business": "AI漫剧",
+    "theme": "light",
+    "width": 768,
+    "file": "feed-768-light-AI漫剧-demo.png",
+    "actualWidth": 768,
+    "background": "rgb(255, 255, 255)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 180,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 573,
+        "x": 180
+      },
+      {
+        "class": "metric-grid",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-controls",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 525,
+        "x": 204
+      }
+    ],
+    "scrollWidth": 753
+  },
+  {
+    "kind": "real",
+    "business": "AI漫剧",
+    "theme": "light",
+    "width": 768,
+    "file": "feed-768-light-AI漫剧-real.png",
+    "actualWidth": 768,
+    "background": "rgb(255, 255, 255)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 180,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 573,
+        "x": 180
+      },
+      {
+        "class": "metric-grid",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-controls",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 525,
+        "x": 204
+      }
+    ],
+    "scrollWidth": 753
+  },
+  {
+    "kind": "demo",
+    "business": "故事短片",
+    "theme": "light",
+    "width": 768,
+    "file": "feed-768-light-故事短片-demo.png",
+    "actualWidth": 768,
+    "background": "rgb(255, 255, 255)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 180,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 573,
+        "x": 180
+      },
+      {
+        "class": "metric-grid",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-controls",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 525,
+        "x": 204
+      }
+    ],
+    "scrollWidth": 753
+  },
+  {
+    "kind": "real",
+    "business": "故事短片",
+    "theme": "light",
+    "width": 768,
+    "file": "feed-768-light-故事短片-real.png",
+    "actualWidth": 768,
+    "background": "rgb(255, 255, 255)",
+    "cards": 0,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 180,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 573,
+        "x": 180
+      },
+      {
+        "class": "metric-grid",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-controls",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 525,
+        "x": 204
+      }
+    ],
+    "scrollWidth": 753
+  },
+  {
+    "kind": "demo",
+    "business": "电商短视频",
+    "theme": "light",
+    "width": 768,
+    "file": "feed-768-light-电商短视频-demo.png",
+    "actualWidth": 768,
+    "background": "rgb(255, 255, 255)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 180,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 573,
+        "x": 180
+      },
+      {
+        "class": "metric-grid",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-controls",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 525,
+        "x": 204
+      }
+    ],
+    "scrollWidth": 753
+  },
+  {
+    "kind": "real",
+    "business": "电商短视频",
+    "theme": "light",
+    "width": 768,
+    "file": "feed-768-light-电商短视频-real.png",
+    "actualWidth": 768,
+    "background": "rgb(255, 255, 255)",
+    "cards": 0,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 180,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 573,
+        "x": 180
+      },
+      {
+        "class": "metric-grid",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-controls",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 525,
+        "x": 204
+      }
+    ],
+    "scrollWidth": 753
+  },
+  {
+    "kind": "demo",
+    "business": "AI漫剧",
+    "theme": "dark",
+    "width": 768,
+    "file": "feed-768-dark-AI漫剧-demo.png",
+    "actualWidth": 768,
+    "background": "rgb(27, 30, 38)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 180,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 573,
+        "x": 180
+      },
+      {
+        "class": "metric-grid",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-controls",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 525,
+        "x": 204
+      }
+    ],
+    "scrollWidth": 753
+  },
+  {
+    "kind": "real",
+    "business": "AI漫剧",
+    "theme": "dark",
+    "width": 768,
+    "file": "feed-768-dark-AI漫剧-real.png",
+    "actualWidth": 768,
+    "background": "rgb(27, 30, 38)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 180,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 573,
+        "x": 180
+      },
+      {
+        "class": "metric-grid",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-controls",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 525,
+        "x": 204
+      }
+    ],
+    "scrollWidth": 753
+  },
+  {
+    "kind": "demo",
+    "business": "故事短片",
+    "theme": "dark",
+    "width": 768,
+    "file": "feed-768-dark-故事短片-demo.png",
+    "actualWidth": 768,
+    "background": "rgb(27, 30, 38)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 180,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 573,
+        "x": 180
+      },
+      {
+        "class": "metric-grid",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-controls",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 525,
+        "x": 204
+      }
+    ],
+    "scrollWidth": 753
+  },
+  {
+    "kind": "real",
+    "business": "故事短片",
+    "theme": "dark",
+    "width": 768,
+    "file": "feed-768-dark-故事短片-real.png",
+    "actualWidth": 768,
+    "background": "rgb(27, 30, 38)",
+    "cards": 0,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 180,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 573,
+        "x": 180
+      },
+      {
+        "class": "metric-grid",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-controls",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 525,
+        "x": 204
+      }
+    ],
+    "scrollWidth": 753
+  },
+  {
+    "kind": "demo",
+    "business": "电商短视频",
+    "theme": "dark",
+    "width": 768,
+    "file": "feed-768-dark-电商短视频-demo.png",
+    "actualWidth": 768,
+    "background": "rgb(27, 30, 38)",
+    "cards": 10,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 180,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 573,
+        "x": 180
+      },
+      {
+        "class": "metric-grid",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-controls",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 525,
+        "x": 204
+      }
+    ],
+    "scrollWidth": 753
+  },
+  {
+    "kind": "real",
+    "business": "电商短视频",
+    "theme": "dark",
+    "width": 768,
+    "file": "feed-768-dark-电商短视频-real.png",
+    "actualWidth": 768,
+    "background": "rgb(27, 30, 38)",
+    "cards": 0,
+    "layout": [
+      {
+        "class": "sidebar",
+        "width": 180,
+        "x": 0
+      },
+      {
+        "class": "topbar",
+        "width": 573,
+        "x": 180
+      },
+      {
+        "class": "metric-grid",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-controls",
+        "width": 525,
+        "x": 204
+      },
+      {
+        "class": "feed-columns feed-single ",
+        "width": 525,
+        "x": 204
+      }
+    ],
+    "scrollWidth": 753
+  }
+]

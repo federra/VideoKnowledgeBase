@@ -1,0 +1,17 @@
+Database command failed (RuntimeError): 
+Stock upgrade preserves valid rows; invalid stock aborts the entire migration.
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_research_intake_versions_dedup_and_exact_parse_evidence _________
+tests/integration/test_research_intake.py:27: in test_research_intake_versions_dedup_and_exact_parse_evidence
+    from app.research.service import direct_intake,detail,add_material
+E   ModuleNotFoundError: No module named 'app.research.service'
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_research_intake.py::test_research_intake_versions_dedup_and_exact_parse_evidence
+1 failed, 173 deselected, 1 warning in 0.86s

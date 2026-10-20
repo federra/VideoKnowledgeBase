@@ -1,0 +1,9 @@
+S05.4 一次独立只读审阅，reviewer=/root/s054_final_review，2026-10-16。
+范围：任务运行控制SQL、service/handlers/celery_app/worker/policy、MemberPrincipal、受限应用函数授权、CLI及新增测试；读取108项真实PG/Redis/Beat/SIGKILL验收日志，不重复全套运行。
+Critical: 0。
+Important: 1。手动retry丢失当前运维操作者，_retry把actor_member_id固定为execution_authorized_by；当O重试A授权任务时归因错误。
+处理：新增test_manual_retry_audit_records_operator_not_execution_authorizer，真实隔离数据库先RED（错误actor UUID）再GREEN；_retry增加actor参数，手动入口传当前p.member_id，自动重试维持原授权执行上下文。不改变执行授权人、不加预算。最终全套再运行；不再派第二次审阅。
+Minor: 1，deferred。scripts/tasks.py submit-file无论created是否false均打印state=queued；同键回放已成功/失败Task时提示不准，DB事实和幂等不受影响。按当前阶段轻微问题记录，状态以status命令为准，后续CLI改进处理。
+其余重点未发现可确认的阻断项：领取/发布双重授权、摘要、组织锁、活动Attempt唯一、token/版本/DB租约、取消、退避、未知外部调用预留阻断重发。结论限于基础层及file.verify，不能替代后续供应商处理器验收。
+
+最终修复后全套：109 passed, 1 warning；普通后端80 passed、109 skipped（另以db:test全部运行），前端7及类型断言16通过。

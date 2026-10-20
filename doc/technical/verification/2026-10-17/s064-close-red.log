@@ -1,0 +1,41 @@
+Database command failed (RuntimeError): 
+Stock upgrade preserves valid rows; invalid stock aborts the entire migration.
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+______________ test_comment_capture_durable_and_restricted[False] ______________
+tests/integration/test_comment_capture.py:288: in test_comment_capture_durable_and_restricted
+    return exercise_capture(engine, setup, tmp_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/integration/test_comment_capture.py:237: in exercise_capture
+    verify_handoff(engine, org, member, rest[-1], entry, result)
+tests/integration/test_handoffs.py:10: in verify_handoff
+    from app.contracts.models import ResearchEvidenceCreate
+E   ImportError: cannot import name 'ResearchEvidenceCreate' from 'app.contracts.models' (/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/app/contracts/models.py)
+______________ test_comment_capture_durable_and_restricted[True] _______________
+tests/integration/test_comment_capture.py:308: in test_comment_capture_durable_and_restricted
+    exercise_capture(limited, setup, tmp_path)
+tests/integration/test_comment_capture.py:237: in exercise_capture
+    verify_handoff(engine, org, member, rest[-1], entry, result)
+tests/integration/test_handoffs.py:10: in verify_handoff
+    from app.contracts.models import ResearchEvidenceCreate
+E   ImportError: cannot import name 'ResearchEvidenceCreate' from 'app.contracts.models' (/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/app/contracts/models.py)
+________ test_truncated_model_output_is_durably_saved_without_feedback _________
+tests/integration/test_comment_capture.py:318: in test_truncated_model_output_is_durably_saved_without_feedback
+    exercise_capture(engine, setup, tmp_path, truncated=True)
+tests/integration/test_comment_capture.py:198: in exercise_capture
+    assert c.exec_driver_sql("SELECT safe_error_code FROM tasks WHERE id=%s", (ai_task,)).scalar_one() == "INVALID_RESPONSE"
+E   AssertionError: assert 'EXTERNAL_RESULT_UNKNOWN' == 'INVALID_RESPONSE'
+E     
+E     - INVALID_RESPONSE
+E     + EXTERNAL_RESULT_UNKNOWN
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_comment_capture.py::test_comment_capture_durable_and_restricted[False]
+FAILED tests/integration/test_comment_capture.py::test_comment_capture_durable_and_restricted[True]
+FAILED tests/integration/test_comment_capture.py::test_truncated_model_output_is_durably_saved_without_feedback
+3 failed, 150 deselected, 1 warning in 6.04s

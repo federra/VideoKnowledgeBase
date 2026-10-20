@@ -1,0 +1,21 @@
+{
+  "documents_checked": 13,
+  "local_link_targets_valid": true,
+  "frozen_sql_checksums_valid": true,
+  "project_revision": "0006_storage",
+  "tables": 74,
+  "configuration_rows": 4,
+  "default_accounts_created": 0,
+  "business_files_created": 0,
+  "runtime_operations_including_health": 7,
+  "implemented_business_operations": 6,
+  "backend_tests_passed": 78,
+  "real_pg_filesystem_tests_passed": 95,
+  "frontend_tests_passed": 7,
+  "type_assertions": 16,
+  "paid_external_api_calls": 0,
+  "public_https_bytes_verified": 8008,
+  "demo_runtime_changed": false,
+  "fresh_readonly_reviews": 1,
+  "review_blockers_remaining": 0
+}

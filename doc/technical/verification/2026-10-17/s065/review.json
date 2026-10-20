@@ -1,0 +1,13 @@
+{
+  "review_rounds": 1,
+  "critical": 0,
+  "important": 1,
+  "minor": 2,
+  "all_fixed_in_single_pass": true,
+  "red": "../s065-review-red.log",
+  "green": "../s065-review-green.log",
+  "final_frontend_tests": 60,
+  "ordinary_backend_tests": 154,
+  "database_tests_this_turn": "159 skipped; reuse unchanged-backend same-day evidence",
+  "external_calls_added": 0
+}

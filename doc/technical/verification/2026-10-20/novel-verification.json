@@ -1,0 +1,27 @@
+{
+  "ordinary_backend": 215,
+  "frontend": 84,
+  "postgresql_redis": 213,
+  "novel_adapter_unit": 14,
+  "focused_novel_and_sweep": 5,
+  "ordinary_database_tests_skipped": 213,
+  "migration_upgrade_repeat_downgrade_rebuild": true,
+  "demo_baseline_check": true,
+  "api_contract_check": true,
+  "typescript_eslint": true,
+  "ruff": true,
+  "production_build": true,
+  "independent_review": {
+    "critical": 0,
+    "important": 3,
+    "important_fixed": 3,
+    "minor": 0,
+    "additional_reviews": 0
+  },
+  "live_board_count": 74,
+  "live_novel_count": 2213,
+  "live_sources_paused": 76,
+  "paid_api_calls_added": 0,
+  "model_calls_added": 0,
+  "qidian_all_boards_accepted": false
+}

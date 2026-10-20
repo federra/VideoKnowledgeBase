@@ -1,0 +1,17 @@
+Database command failed (RuntimeError): 
+Stock upgrade preserves valid rows; invalid stock aborts the entire migration.
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__ test_manual_source_revision_replaces_only_its_previous_submitted_original ___
+tests/integration/test_knowledge.py:873: in test_manual_source_revision_replaces_only_its_previous_submitted_original
+    from app.knowledge.contracts import KnowledgeWrite,KnowledgeRevisionWrite
+E   ImportError: cannot import name 'KnowledgeWrite' from 'app.knowledge.contracts' (/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/app/knowledge/contracts.py)
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_knowledge.py::test_manual_source_revision_replaces_only_its_previous_submitted_original
+1 failed, 203 deselected, 1 warning in 0.86s

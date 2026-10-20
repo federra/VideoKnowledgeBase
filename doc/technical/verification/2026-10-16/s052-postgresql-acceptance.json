@@ -1,0 +1,19 @@
+{
+  "checked_at": "2026-10-16T08:11:36.476334+00:00",
+  "database": "disposable PostgreSQL",
+  "external_api_calls": 0,
+  "empty_upgrade": true,
+  "repeated_upgrade": true,
+  "downgrade_and_rebuild": true,
+  "valid_stock_preserved": true,
+  "invalid_stock_aborts_migration": true,
+  "test_command": "pnpm db:test",
+  "pytest_summary": "85 passed, 1 warning in 20.13s",
+  "migrations": [
+    "0001_b1",
+    "0002_b1",
+    "0003_b1",
+    "0004_b1",
+    "0005_auth"
+  ]
+}

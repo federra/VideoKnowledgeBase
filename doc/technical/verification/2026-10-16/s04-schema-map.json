@@ -1,0 +1,5727 @@
+{
+  "dictionary": "doc/technical/数据字典-首批字段.md",
+  "head": "0004_b1",
+  "constraints_revision": "0004_b1",
+  "tables": {
+    "organizations": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "name": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "authz_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        }
+      },
+      "constraints": [
+        "ck_organizations_0",
+        "ck_organizations_1",
+        "ck_organizations_lock_version",
+        "ck_organizations_name_nonempty",
+        "pk_organizations"
+      ],
+      "indexes": []
+    },
+    "business_lines": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "name": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_business_lines_0",
+        "ck_business_lines_1",
+        "ck_business_lines_code_nonempty",
+        "ck_business_lines_name_nonempty",
+        "pk_business_lines"
+      ],
+      "indexes": []
+    },
+    "platforms": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "name": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_platforms_0",
+        "ck_platforms_code_nonempty",
+        "ck_platforms_name_nonempty",
+        "pk_platforms"
+      ],
+      "indexes": []
+    },
+    "members": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "login_name": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "display_name": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "password_hash": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "disabled_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_members_0",
+        "ck_members_1",
+        "ck_members_display_name_nonempty",
+        "ck_members_lock_version",
+        "ck_members_login_name_nonempty",
+        "fk_members_0",
+        "pk_members",
+        "uq_members_tenant_id"
+      ],
+      "indexes": [
+        "ix_members_fk_0",
+        "uq_members_login"
+      ]
+    },
+    "role_definitions": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "name": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "description": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_role_definitions_code_nonempty",
+        "ck_role_definitions_lock_version",
+        "ck_role_definitions_name_nonempty",
+        "fk_role_definitions_0",
+        "pk_role_definitions",
+        "uq_role_definitions_0",
+        "uq_role_definitions_tenant_id"
+      ],
+      "indexes": [
+        "ix_role_definitions_fk_0"
+      ]
+    },
+    "role_actions": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "role_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "action_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_role_actions_0",
+        "ck_role_actions_action_code_nonempty",
+        "fk_role_actions_0",
+        "fk_role_actions_1",
+        "pk_role_actions"
+      ],
+      "indexes": [
+        "ix_role_actions_fk_0",
+        "ix_role_actions_fk_1"
+      ]
+    },
+    "grants": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "member_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "role_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "scope_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "business_code": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "source_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "raw_asset_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "work_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "knowledge_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "standard_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "file_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "task_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "granted_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "expires_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "revoked_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_grants_0",
+        "ck_grants_1",
+        "ck_grants_lock_version",
+        "ck_grants_scope_kind_nonempty",
+        "fk_grants_0",
+        "fk_grants_1",
+        "fk_grants_10",
+        "fk_grants_11",
+        "fk_grants_2",
+        "fk_grants_3",
+        "fk_grants_4",
+        "fk_grants_5",
+        "fk_grants_6",
+        "fk_grants_7",
+        "fk_grants_8",
+        "fk_grants_9",
+        "pk_grants",
+        "uq_grants_tenant_id"
+      ],
+      "indexes": [
+        "ix_grants_fk_0",
+        "ix_grants_fk_1",
+        "ix_grants_fk_10",
+        "ix_grants_fk_11",
+        "ix_grants_fk_2",
+        "ix_grants_fk_3",
+        "ix_grants_fk_4",
+        "ix_grants_fk_5",
+        "ix_grants_fk_6",
+        "ix_grants_fk_7",
+        "ix_grants_fk_8",
+        "ix_grants_fk_9",
+        "ix_grants_org_id_member_id_revoked_at"
+      ]
+    },
+    "audit_events": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "actor_member_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "action_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "target_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "target_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "target_version_no": {
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        },
+        "occurred_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "request_id": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "safe_details": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": "'{}'"
+        }
+      },
+      "constraints": [
+        "ck_audit_events_0",
+        "ck_audit_events_1",
+        "ck_audit_events_action_code_nonempty",
+        "ck_audit_events_request_id_nonempty",
+        "ck_audit_events_safe_details",
+        "ck_audit_events_target_kind_nonempty",
+        "fk_audit_events_0",
+        "fk_audit_events_1",
+        "pk_audit_events",
+        "uq_audit_events_tenant_id"
+      ],
+      "indexes": [
+        "ix_audit_events_fk_0",
+        "ix_audit_events_fk_1",
+        "ix_audit_events_org_id_occurred_at_id",
+        "ix_audit_events_org_id_target_kind_target_id_occurred_at"
+      ]
+    },
+    "file_objects": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "storage_backend": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "storage_key": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "original_name": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "media_type": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "byte_size": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": null
+        },
+        "sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        },
+        "uploaded_by": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "validation_state": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": "'pending'"
+        }
+      },
+      "constraints": [
+        "ck_file_objects_0",
+        "ck_file_objects_1",
+        "ck_file_objects_byte_size",
+        "ck_file_objects_lock_version",
+        "ck_file_objects_media_type_nonempty",
+        "ck_file_objects_sha256",
+        "ck_file_objects_storage_backend_nonempty",
+        "ck_file_objects_storage_key_nonempty",
+        "ck_file_objects_validation_state_nonempty",
+        "fk_file_objects_0",
+        "fk_file_objects_1",
+        "pk_file_objects",
+        "uq_file_objects_0",
+        "uq_file_objects_tenant_id"
+      ],
+      "indexes": [
+        "ix_file_objects_fk_0",
+        "ix_file_objects_fk_1",
+        "ix_file_objects_org_id_sha256"
+      ]
+    },
+    "provider_connections": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "provider_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "name": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "secret_ref": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "enabled": {
+          "type": "BOOLEAN",
+          "nullable": false,
+          "default": "false"
+        }
+      },
+      "constraints": [
+        "ck_provider_connections_0",
+        "ck_provider_connections_1",
+        "ck_provider_connections_lock_version",
+        "ck_provider_connections_name_nonempty",
+        "ck_provider_connections_provider_code_nonempty",
+        "ck_provider_connections_secret_ref_nonempty",
+        "fk_provider_connections_0",
+        "pk_provider_connections",
+        "uq_provider_connections_0",
+        "uq_provider_connections_tenant_id"
+      ],
+      "indexes": [
+        "ix_provider_connections_fk_0"
+      ]
+    },
+    "standards": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "business_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "name": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "active_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_standards_0",
+        "ck_standards_business_code_nonempty",
+        "ck_standards_code_nonempty",
+        "ck_standards_kind_nonempty",
+        "ck_standards_lock_version",
+        "ck_standards_name_nonempty",
+        "fk_standards_0",
+        "fk_standards_1",
+        "fk_standards_2",
+        "pk_standards",
+        "uq_standards_0",
+        "uq_standards_tenant_id"
+      ],
+      "indexes": [
+        "ix_standards_fk_0",
+        "ix_standards_fk_1",
+        "ix_standards_fk_2"
+      ]
+    },
+    "standard_revisions": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "standard_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "version_no": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "schema_version": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "1"
+        },
+        "material_kind": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "definition": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": null
+        },
+        "origin_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "provenance_note": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "content_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        },
+        "created_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_standard_revisions_0",
+        "ck_standard_revisions_1",
+        "ck_standard_revisions_2",
+        "ck_standard_revisions_content_sha256",
+        "ck_standard_revisions_definition",
+        "ck_standard_revisions_origin_kind_nonempty",
+        "ck_standard_revisions_provenance_note_nonempty",
+        "ck_standard_revisions_schema_version",
+        "ck_standard_revisions_version_no",
+        "fk_standard_revisions_0",
+        "fk_standard_revisions_1",
+        "fk_standard_revisions_2",
+        "pk_standard_revisions",
+        "uq_standard_revisions_0",
+        "uq_standard_revisions_1",
+        "uq_standard_revisions_tenant_id"
+      ],
+      "indexes": [
+        "ix_standard_revisions_fk_0",
+        "ix_standard_revisions_fk_1",
+        "ix_standard_revisions_fk_2"
+      ]
+    },
+    "ai_config_revisions": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "config_key": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "version_no": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "task_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "provider_connection_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "model_identifier": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "prompt_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "parameters": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": "'{}'"
+        },
+        "output_schema": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": null
+        },
+        "content_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        },
+        "created_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_ai_config_revisions_0",
+        "ck_ai_config_revisions_config_key_nonempty",
+        "ck_ai_config_revisions_content_sha256",
+        "ck_ai_config_revisions_model_identifier_nonempty",
+        "ck_ai_config_revisions_output_schema",
+        "ck_ai_config_revisions_parameters",
+        "ck_ai_config_revisions_task_kind_nonempty",
+        "ck_ai_config_revisions_version_no",
+        "fk_ai_config_revisions_0",
+        "fk_ai_config_revisions_1",
+        "fk_ai_config_revisions_2",
+        "fk_ai_config_revisions_3",
+        "pk_ai_config_revisions",
+        "uq_ai_config_revisions_0",
+        "uq_ai_config_revisions_tenant_id"
+      ],
+      "indexes": [
+        "ix_ai_config_revisions_fk_0",
+        "ix_ai_config_revisions_fk_1",
+        "ix_ai_config_revisions_fk_2",
+        "ix_ai_config_revisions_fk_3"
+      ]
+    },
+    "tasks": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "handler_version": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "business_code": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "source_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "raw_asset_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "work_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "knowledge_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "standard_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "file_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "requested_by": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "execution_authorized_by": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "inputs_sealed_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "outputs_sealed_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "inputs_frozen_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "business_outcome": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "max_attempts": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "1"
+        },
+        "max_external_calls": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "0"
+        },
+        "state": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": "'queued'"
+        },
+        "idempotency_key": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "input_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        },
+        "normalization_version": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "1"
+        },
+        "available_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "started_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "finished_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "cancel_requested_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "safe_error_code": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_tasks_0",
+        "ck_tasks_1",
+        "ck_tasks_2",
+        "ck_tasks_3",
+        "ck_tasks_4",
+        "ck_tasks_5",
+        "ck_tasks_6",
+        "ck_tasks_7",
+        "ck_tasks_handler_version_nonempty",
+        "ck_tasks_idempotency_key_nonempty",
+        "ck_tasks_input_sha256",
+        "ck_tasks_kind_nonempty",
+        "ck_tasks_lock_version",
+        "ck_tasks_normalization_version",
+        "ck_tasks_state_nonempty",
+        "fk_tasks_0",
+        "fk_tasks_1",
+        "fk_tasks_2",
+        "fk_tasks_3",
+        "fk_tasks_4",
+        "fk_tasks_5",
+        "fk_tasks_6",
+        "fk_tasks_7",
+        "fk_tasks_8",
+        "fk_tasks_9",
+        "pk_tasks",
+        "uq_tasks_0",
+        "uq_tasks_tenant_id"
+      ],
+      "indexes": [
+        "ix_tasks_fk_0",
+        "ix_tasks_fk_1",
+        "ix_tasks_fk_2",
+        "ix_tasks_fk_3",
+        "ix_tasks_fk_4",
+        "ix_tasks_fk_5",
+        "ix_tasks_fk_6",
+        "ix_tasks_fk_7",
+        "ix_tasks_fk_8",
+        "ix_tasks_fk_9",
+        "ix_tasks_org_id_state_created_at_id",
+        "ix_tasks_state_available_at"
+      ]
+    },
+    "task_inputs": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "task_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "position": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "role": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "raw_asset_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "artifact_version_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "input_set_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "snapshot_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "feedback_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "knowledge_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "standard_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "ai_config_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "review_request_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_task_inputs_0",
+        "ck_task_inputs_1",
+        "ck_task_inputs_2",
+        "ck_task_inputs_role_nonempty",
+        "fk_task_inputs_0",
+        "fk_task_inputs_1",
+        "fk_task_inputs_10",
+        "fk_task_inputs_2",
+        "fk_task_inputs_3",
+        "fk_task_inputs_4",
+        "fk_task_inputs_5",
+        "fk_task_inputs_6",
+        "fk_task_inputs_7",
+        "fk_task_inputs_8",
+        "fk_task_inputs_9",
+        "pk_task_inputs"
+      ],
+      "indexes": [
+        "ix_task_inputs_fk_0",
+        "ix_task_inputs_fk_1",
+        "ix_task_inputs_fk_10",
+        "ix_task_inputs_fk_2",
+        "ix_task_inputs_fk_3",
+        "ix_task_inputs_fk_4",
+        "ix_task_inputs_fk_5",
+        "ix_task_inputs_fk_6",
+        "ix_task_inputs_fk_7",
+        "ix_task_inputs_fk_8",
+        "ix_task_inputs_fk_9"
+      ]
+    },
+    "task_outputs": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "task_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "position": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "role": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "raw_asset_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "snapshot_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "feedback_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "report_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "evaluation_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "prediction_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "knowledge_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "ai_execution_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "review_decision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "artifact_version_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_task_outputs_0",
+        "ck_task_outputs_1",
+        "ck_task_outputs_2",
+        "ck_task_outputs_role_nonempty",
+        "fk_task_outputs_0",
+        "fk_task_outputs_1",
+        "fk_task_outputs_10",
+        "fk_task_outputs_11",
+        "fk_task_outputs_2",
+        "fk_task_outputs_3",
+        "fk_task_outputs_4",
+        "fk_task_outputs_5",
+        "fk_task_outputs_6",
+        "fk_task_outputs_7",
+        "fk_task_outputs_8",
+        "fk_task_outputs_9",
+        "pk_task_outputs"
+      ],
+      "indexes": [
+        "ix_task_outputs_fk_0",
+        "ix_task_outputs_fk_1",
+        "ix_task_outputs_fk_10",
+        "ix_task_outputs_fk_11",
+        "ix_task_outputs_fk_2",
+        "ix_task_outputs_fk_3",
+        "ix_task_outputs_fk_4",
+        "ix_task_outputs_fk_5",
+        "ix_task_outputs_fk_6",
+        "ix_task_outputs_fk_7",
+        "ix_task_outputs_fk_8",
+        "ix_task_outputs_fk_9"
+      ]
+    },
+    "task_attempts": {
+      "structure_revision": "0001_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "task_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "attempt_no": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "worker_token": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "lease_expires_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": null
+        },
+        "started_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "finished_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "outcome": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "safe_error_code": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "provider_code": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_task_attempts_0",
+        "ck_task_attempts_1",
+        "ck_task_attempts_2",
+        "ck_task_attempts_3",
+        "ck_task_attempts_4",
+        "fk_task_attempts_0",
+        "fk_task_attempts_1",
+        "pk_task_attempts",
+        "uq_task_attempts_0",
+        "uq_task_attempts_tenant_id"
+      ],
+      "indexes": [
+        "ix_task_attempts_fk_0",
+        "ix_task_attempts_fk_1",
+        "ix_task_attempts_lease_expires_at",
+        "ix_task_attempts_org_id_task_id"
+      ]
+    },
+    "sources": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "name": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "business_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "platform_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "target_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "keyword": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "board_code": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "account_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "content_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "enabled": {
+          "type": "BOOLEAN",
+          "nullable": false,
+          "default": "false"
+        },
+        "created_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_sources_0",
+        "ck_sources_1",
+        "ck_sources_2",
+        "ck_sources_3",
+        "ck_sources_4",
+        "ck_sources_5",
+        "ck_sources_6",
+        "ck_sources_7",
+        "ck_sources_business_code_nonempty",
+        "ck_sources_lock_version",
+        "ck_sources_name_nonempty",
+        "ck_sources_platform_code_nonempty",
+        "ck_sources_target_kind_nonempty",
+        "fk_sources_0",
+        "fk_sources_1",
+        "fk_sources_2",
+        "fk_sources_3",
+        "fk_sources_4",
+        "fk_sources_5",
+        "pk_sources",
+        "uq_sources_tenant_id"
+      ],
+      "indexes": [
+        "ix_sources_fk_0",
+        "ix_sources_fk_1",
+        "ix_sources_fk_2",
+        "ix_sources_fk_3",
+        "ix_sources_fk_4",
+        "ix_sources_fk_5",
+        "ix_sources_org_id_business_code_enabled"
+      ]
+    },
+    "collection_plans": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "source_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "connection_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "authorized_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "capability_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "connector_version": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "schedule_expression": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "schedule_timezone": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": "'Asia/Shanghai'"
+        },
+        "enabled": {
+          "type": "BOOLEAN",
+          "nullable": false,
+          "default": "false"
+        },
+        "max_requests_per_run": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "1"
+        },
+        "max_items_per_run": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "1"
+        },
+        "request_options": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": "'{}'"
+        }
+      },
+      "constraints": [
+        "ck_collection_plans_0",
+        "ck_collection_plans_capability_code_nonempty",
+        "ck_collection_plans_connector_version_nonempty",
+        "ck_collection_plans_lock_version",
+        "ck_collection_plans_request_options",
+        "ck_collection_plans_schedule_expression_nonempty",
+        "ck_collection_plans_schedule_timezone_nonempty",
+        "fk_collection_plans_0",
+        "fk_collection_plans_1",
+        "fk_collection_plans_2",
+        "fk_collection_plans_3",
+        "pk_collection_plans",
+        "uq_collection_plans_tenant_id"
+      ],
+      "indexes": [
+        "ix_collection_plans_fk_0",
+        "ix_collection_plans_fk_1",
+        "ix_collection_plans_fk_2",
+        "ix_collection_plans_fk_3",
+        "ix_collection_plans_org_id_source_id_enabled"
+      ]
+    },
+    "collection_jobs": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "source_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "connection_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "task_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "plan_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "capability_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "connector_version": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "business_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "business_date": {
+          "type": "DATE",
+          "nullable": false,
+          "default": null
+        },
+        "safe_request": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": null
+        },
+        "request_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        },
+        "scheduled_for": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "max_requests": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "max_items": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_collection_jobs_0",
+        "ck_collection_jobs_1",
+        "ck_collection_jobs_business_code_nonempty",
+        "ck_collection_jobs_capability_code_nonempty",
+        "ck_collection_jobs_connector_version_nonempty",
+        "ck_collection_jobs_request_sha256",
+        "ck_collection_jobs_safe_request",
+        "fk_collection_jobs_0",
+        "fk_collection_jobs_1",
+        "fk_collection_jobs_2",
+        "fk_collection_jobs_3",
+        "fk_collection_jobs_4",
+        "fk_collection_jobs_5",
+        "pk_collection_jobs",
+        "uq_collection_jobs_0",
+        "uq_collection_jobs_tenant_id"
+      ],
+      "indexes": [
+        "ix_collection_jobs_fk_0",
+        "ix_collection_jobs_fk_1",
+        "ix_collection_jobs_fk_2",
+        "ix_collection_jobs_fk_3",
+        "ix_collection_jobs_fk_4",
+        "ix_collection_jobs_fk_5",
+        "ix_collection_jobs_org_id_plan_id_scheduled_for",
+        "ix_collection_jobs_org_id_source_id_business_date_created_at_id"
+      ]
+    },
+    "collection_calls": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "job_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "attempt_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "sequence_no": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "request_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        },
+        "reserved_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "completed_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "http_status": {
+          "type": "SMALLINT",
+          "nullable": true,
+          "default": null
+        },
+        "provider_code": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "outcome": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "returned_items": {
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        },
+        "provider_reports_charged": {
+          "type": "BOOLEAN",
+          "nullable": true,
+          "default": null
+        },
+        "billed_amount": {
+          "type": "NUMERIC(20, 6)",
+          "nullable": true,
+          "default": null
+        },
+        "currency": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "billing_reference": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_collection_calls_0",
+        "ck_collection_calls_1",
+        "ck_collection_calls_2",
+        "ck_collection_calls_3",
+        "ck_collection_calls_4",
+        "ck_collection_calls_5",
+        "ck_collection_calls_6",
+        "ck_collection_calls_7",
+        "ck_collection_calls_request_sha256",
+        "fk_collection_calls_0",
+        "fk_collection_calls_1",
+        "fk_collection_calls_2",
+        "pk_collection_calls",
+        "uq_collection_calls_0",
+        "uq_collection_calls_tenant_id"
+      ],
+      "indexes": [
+        "ix_collection_calls_fk_0",
+        "ix_collection_calls_fk_1",
+        "ix_collection_calls_fk_2"
+      ]
+    },
+    "external_accounts": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "platform_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "platform_uid": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "display_name": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_external_accounts_0",
+        "ck_external_accounts_lock_version",
+        "ck_external_accounts_platform_code_nonempty",
+        "ck_external_accounts_platform_uid_nonempty",
+        "fk_external_accounts_0",
+        "fk_external_accounts_1",
+        "pk_external_accounts",
+        "uq_external_accounts_0",
+        "uq_external_accounts_tenant_id"
+      ],
+      "indexes": [
+        "ix_external_accounts_fk_0",
+        "ix_external_accounts_fk_1"
+      ]
+    },
+    "external_account_aliases": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "account_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "alias_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "alias_value": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "raw_asset_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "observed_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_external_account_aliases_0",
+        "ck_external_account_aliases_1",
+        "ck_external_account_aliases_2",
+        "ck_external_account_aliases_alias_kind_nonempty",
+        "ck_external_account_aliases_alias_value_nonempty",
+        "fk_external_account_aliases_0",
+        "fk_external_account_aliases_1",
+        "fk_external_account_aliases_2",
+        "pk_external_account_aliases",
+        "uq_external_account_aliases_0",
+        "uq_external_account_aliases_tenant_id"
+      ],
+      "indexes": [
+        "ix_external_account_aliases_fk_0",
+        "ix_external_account_aliases_fk_1",
+        "ix_external_account_aliases_fk_2"
+      ]
+    },
+    "external_contents": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "platform_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "platform_content_id": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "account_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_external_contents_0",
+        "ck_external_contents_lock_version",
+        "ck_external_contents_platform_code_nonempty",
+        "ck_external_contents_platform_content_id_nonempty",
+        "fk_external_contents_0",
+        "fk_external_contents_1",
+        "fk_external_contents_2",
+        "pk_external_contents",
+        "uq_external_contents_0",
+        "uq_external_contents_tenant_id"
+      ],
+      "indexes": [
+        "ix_external_contents_fk_0",
+        "ix_external_contents_fk_1",
+        "ix_external_contents_fk_2"
+      ]
+    },
+    "raw_assets": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "origin": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "asset_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "collection_job_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "collection_call_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "submitted_by": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "processing_task_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "parent_raw_asset_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "parent_artifact_version_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "external_content_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "body_text": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "file_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        },
+        "normalization_version": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "1"
+        },
+        "captured_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": null
+        },
+        "provider_time_raw": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "provider_timezone": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_raw_assets_0",
+        "ck_raw_assets_1",
+        "ck_raw_assets_2",
+        "ck_raw_assets_3",
+        "ck_raw_assets_4",
+        "ck_raw_assets_5",
+        "ck_raw_assets_6",
+        "ck_raw_assets_7",
+        "ck_raw_assets_8",
+        "ck_raw_assets_9",
+        "ck_raw_assets_asset_kind_nonempty",
+        "ck_raw_assets_normalization_version",
+        "ck_raw_assets_origin_nonempty",
+        "ck_raw_assets_sha256",
+        "fk_raw_assets_0",
+        "fk_raw_assets_1",
+        "fk_raw_assets_2",
+        "fk_raw_assets_3",
+        "fk_raw_assets_4",
+        "fk_raw_assets_5",
+        "fk_raw_assets_6",
+        "fk_raw_assets_7",
+        "fk_raw_assets_8",
+        "pk_raw_assets",
+        "uq_raw_assets_tenant_id"
+      ],
+      "indexes": [
+        "ix_raw_assets_fk_0",
+        "ix_raw_assets_fk_1",
+        "ix_raw_assets_fk_2",
+        "ix_raw_assets_fk_3",
+        "ix_raw_assets_fk_4",
+        "ix_raw_assets_fk_5",
+        "ix_raw_assets_fk_6",
+        "ix_raw_assets_fk_7",
+        "ix_raw_assets_fk_8",
+        "ix_raw_assets_org_id_collection_call_id_sha256",
+        "ix_raw_assets_org_id_sha256"
+      ]
+    },
+    "raw_asset_events": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "raw_asset_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "event_no": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": null
+        },
+        "event_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "reason": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "actor_member_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "occurred_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "constraints": [
+        "ck_raw_asset_events_0",
+        "ck_raw_asset_events_1",
+        "ck_raw_asset_events_2",
+        "ck_raw_asset_events_event_kind_nonempty",
+        "ck_raw_asset_events_reason_nonempty",
+        "fk_raw_asset_events_0",
+        "fk_raw_asset_events_1",
+        "fk_raw_asset_events_2",
+        "pk_raw_asset_events",
+        "uq_raw_asset_events_0",
+        "uq_raw_asset_events_tenant_id"
+      ],
+      "indexes": [
+        "ix_raw_asset_events_fk_0",
+        "ix_raw_asset_events_fk_1",
+        "ix_raw_asset_events_fk_2"
+      ]
+    },
+    "account_observations": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "account_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "raw_asset_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "nickname": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "unique_name": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "avatar_url": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "follower_count": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "work_count": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "total_liked_count": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "provider_updated_at_raw": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "observed_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_account_observations_follower_count",
+        "ck_account_observations_total_liked_count",
+        "ck_account_observations_work_count",
+        "fk_account_observations_0",
+        "fk_account_observations_1",
+        "fk_account_observations_2",
+        "pk_account_observations",
+        "uq_account_observations_0",
+        "uq_account_observations_tenant_id"
+      ],
+      "indexes": [
+        "ix_account_observations_fk_0",
+        "ix_account_observations_fk_1",
+        "ix_account_observations_fk_2",
+        "ix_account_observations_org_id_account_id_observed_at_id"
+      ]
+    },
+    "content_observations": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "content_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "raw_asset_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "description": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "original_url": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "cover_url": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "source_type_raw": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "duration_ms": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "published_at_raw": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "published_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "publish_timezone": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "observed_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": null
+        },
+        "provider_updated_at_raw": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "like_count": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "comment_count": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "share_count": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "collect_count": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "repost_count": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "view_count": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "author_fans_count": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "image_urls": {
+          "type": "JSONB",
+          "nullable": true,
+          "default": null
+        },
+        "source_tags": {
+          "type": "JSONB",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_content_observations_0",
+        "ck_content_observations_author_fans_count",
+        "ck_content_observations_collect_count",
+        "ck_content_observations_comment_count",
+        "ck_content_observations_duration_ms",
+        "ck_content_observations_image_urls",
+        "ck_content_observations_like_count",
+        "ck_content_observations_repost_count",
+        "ck_content_observations_share_count",
+        "ck_content_observations_source_tags",
+        "ck_content_observations_view_count",
+        "fk_content_observations_0",
+        "fk_content_observations_1",
+        "fk_content_observations_2",
+        "pk_content_observations",
+        "uq_content_observations_0",
+        "uq_content_observations_tenant_id"
+      ],
+      "indexes": [
+        "ix_content_observations_fk_0",
+        "ix_content_observations_fk_1",
+        "ix_content_observations_fk_2",
+        "ix_content_observations_org_id_content_id_observed_at_id"
+      ]
+    },
+    "intelligence_snapshots": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "sealed_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "source_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "job_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "business_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "business_date": {
+          "type": "DATE",
+          "nullable": false,
+          "default": null
+        },
+        "view_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "version_no": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "entry_count": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_intelligence_snapshots_0",
+        "ck_intelligence_snapshots_business_code_nonempty",
+        "ck_intelligence_snapshots_entry_count",
+        "ck_intelligence_snapshots_version_no",
+        "ck_intelligence_snapshots_view_kind_nonempty",
+        "fk_intelligence_snapshots_0",
+        "fk_intelligence_snapshots_1",
+        "fk_intelligence_snapshots_2",
+        "fk_intelligence_snapshots_3",
+        "pk_intelligence_snapshots",
+        "uq_intelligence_snapshots_0",
+        "uq_intelligence_snapshots_1",
+        "uq_intelligence_snapshots_tenant_id"
+      ],
+      "indexes": [
+        "ix_intelligence_snapshots_fk_0",
+        "ix_intelligence_snapshots_fk_1",
+        "ix_intelligence_snapshots_fk_2",
+        "ix_intelligence_snapshots_fk_3",
+        "ix_intelligence_snapshots_org_id_business_code_busin_4979e8bfbd"
+      ]
+    },
+    "snapshot_entries": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "snapshot_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "position": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "account_observation_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "content_observation_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "provider_rank": {
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_snapshot_entries_0",
+        "ck_snapshot_entries_1",
+        "fk_snapshot_entries_0",
+        "fk_snapshot_entries_1",
+        "fk_snapshot_entries_2",
+        "fk_snapshot_entries_3",
+        "pk_snapshot_entries",
+        "uq_snapshot_entries_0",
+        "uq_snapshot_entries_tenant_id"
+      ],
+      "indexes": [
+        "ix_snapshot_entries_fk_0",
+        "ix_snapshot_entries_fk_1",
+        "ix_snapshot_entries_fk_2",
+        "ix_snapshot_entries_fk_3",
+        "ix_snapshot_entries_org_id_snapshot_id_account_observation_id",
+        "ix_snapshot_entries_org_id_snapshot_id_content_observation_id"
+      ]
+    },
+    "comment_evidence": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "content_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "raw_asset_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "platform_comment_id": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "body_text": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "like_count": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "posted_at_raw": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "posted_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "posted_timezone": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "captured_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": null
+        },
+        "sample_position": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_comment_evidence_0",
+        "ck_comment_evidence_1",
+        "ck_comment_evidence_2",
+        "ck_comment_evidence_body_text_nonempty",
+        "ck_comment_evidence_like_count",
+        "fk_comment_evidence_0",
+        "fk_comment_evidence_1",
+        "fk_comment_evidence_2",
+        "pk_comment_evidence",
+        "uq_comment_evidence_0",
+        "uq_comment_evidence_tenant_id"
+      ],
+      "indexes": [
+        "ix_comment_evidence_fk_0",
+        "ix_comment_evidence_fk_1",
+        "ix_comment_evidence_fk_2",
+        "ix_comment_evidence_org_id_content_id_captured_at_id"
+      ]
+    },
+    "feedback_snapshots": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "sealed_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "snapshot_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "version_no": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "task_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "ai_execution_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "sampling_description": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "sample_count": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "classified_count": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "coverage_note": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "summary": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_feedback_snapshots_0",
+        "ck_feedback_snapshots_1",
+        "ck_feedback_snapshots_classified_count",
+        "ck_feedback_snapshots_coverage_note_nonempty",
+        "ck_feedback_snapshots_sample_count",
+        "ck_feedback_snapshots_sampling_description_nonempty",
+        "ck_feedback_snapshots_version_no",
+        "fk_feedback_snapshots_0",
+        "fk_feedback_snapshots_1",
+        "fk_feedback_snapshots_2",
+        "fk_feedback_snapshots_3",
+        "pk_feedback_snapshots",
+        "uq_feedback_snapshots_0",
+        "uq_feedback_snapshots_1",
+        "uq_feedback_snapshots_tenant_id"
+      ],
+      "indexes": [
+        "ix_feedback_snapshots_fk_0",
+        "ix_feedback_snapshots_fk_1",
+        "ix_feedback_snapshots_fk_2",
+        "ix_feedback_snapshots_fk_3"
+      ]
+    },
+    "feedback_comments": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "feedback_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "comment_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "position": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_feedback_comments_0",
+        "fk_feedback_comments_0",
+        "fk_feedback_comments_1",
+        "fk_feedback_comments_2",
+        "pk_feedback_comments",
+        "uq_feedback_comments_0"
+      ],
+      "indexes": [
+        "ix_feedback_comments_fk_0",
+        "ix_feedback_comments_fk_1",
+        "ix_feedback_comments_fk_2"
+      ]
+    },
+    "feedback_claims": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "feedback_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "claim_key": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "text": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "details": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": "'{}'"
+        },
+        "support_count": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_feedback_claims_0",
+        "ck_feedback_claims_1",
+        "ck_feedback_claims_claim_key_nonempty",
+        "ck_feedback_claims_details",
+        "ck_feedback_claims_kind_nonempty",
+        "ck_feedback_claims_support_count",
+        "ck_feedback_claims_text_nonempty",
+        "fk_feedback_claims_0",
+        "fk_feedback_claims_1",
+        "pk_feedback_claims",
+        "uq_feedback_claims_0",
+        "uq_feedback_claims_1",
+        "uq_feedback_claims_tenant_id"
+      ],
+      "indexes": [
+        "ix_feedback_claims_fk_0",
+        "ix_feedback_claims_fk_1"
+      ]
+    },
+    "feedback_claim_evidence": {
+      "structure_revision": "0002_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "feedback_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "claim_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "comment_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "fk_feedback_claim_evidence_0",
+        "fk_feedback_claim_evidence_1",
+        "fk_feedback_claim_evidence_2",
+        "fk_feedback_claim_evidence_3",
+        "pk_feedback_claim_evidence"
+      ],
+      "indexes": [
+        "ix_feedback_claim_evidence_fk_0",
+        "ix_feedback_claim_evidence_fk_1",
+        "ix_feedback_claim_evidence_fk_2",
+        "ix_feedback_claim_evidence_fk_3"
+      ]
+    },
+    "works": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "business_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "work_number": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "name": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "genre_tags": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": "'[]'"
+        },
+        "total_episode_count": {
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        },
+        "cover_file_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "cover_url": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "created_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "report_generation": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "0"
+        },
+        "latest_report_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_works_0",
+        "ck_works_1",
+        "ck_works_2",
+        "ck_works_3",
+        "ck_works_business_code_nonempty",
+        "ck_works_genre_tags",
+        "ck_works_lock_version",
+        "ck_works_name_nonempty",
+        "ck_works_total_episode_count",
+        "ck_works_work_number_nonempty",
+        "fk_works_0",
+        "fk_works_1",
+        "fk_works_2",
+        "fk_works_3",
+        "fk_works_4",
+        "pk_works",
+        "uq_works_0",
+        "uq_works_tenant_id"
+      ],
+      "indexes": [
+        "ix_works_fk_0",
+        "ix_works_fk_1",
+        "ix_works_fk_2",
+        "ix_works_fk_3",
+        "ix_works_fk_4",
+        "ix_works_org_id_business_code_created_at_id"
+      ]
+    },
+    "content_units": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "work_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "unit_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "episode_no": {
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        },
+        "title": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "order_key": {
+          "type": "NUMERIC(20, 6)",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_content_units_0",
+        "ck_content_units_1",
+        "ck_content_units_2",
+        "ck_content_units_lock_version",
+        "ck_content_units_unit_kind_nonempty",
+        "fk_content_units_0",
+        "fk_content_units_1",
+        "pk_content_units",
+        "uq_content_units_0",
+        "uq_content_units_tenant_id"
+      ],
+      "indexes": [
+        "ix_content_units_fk_0",
+        "ix_content_units_fk_1",
+        "ix_content_units_org_id_work_id_episode_no"
+      ]
+    },
+    "artifacts": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "work_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "primary_unit_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "material_number": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "title": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "material_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "current_version_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "created_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_artifacts_0",
+        "ck_artifacts_lock_version",
+        "ck_artifacts_material_kind_nonempty",
+        "ck_artifacts_material_number_nonempty",
+        "fk_artifacts_0",
+        "fk_artifacts_1",
+        "fk_artifacts_2",
+        "fk_artifacts_3",
+        "fk_artifacts_4",
+        "pk_artifacts",
+        "uq_artifacts_0",
+        "uq_artifacts_1",
+        "uq_artifacts_tenant_id"
+      ],
+      "indexes": [
+        "ix_artifacts_fk_0",
+        "ix_artifacts_fk_1",
+        "ix_artifacts_fk_2",
+        "ix_artifacts_fk_3",
+        "ix_artifacts_fk_4"
+      ]
+    },
+    "artifact_versions": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "sealed_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "artifact_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "work_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "version_no": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "title": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "material_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "body_text": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "file_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "content_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        },
+        "normalization_version": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "1"
+        },
+        "created_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "revision_reason": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_artifact_versions_0",
+        "ck_artifact_versions_1",
+        "ck_artifact_versions_content_sha256",
+        "ck_artifact_versions_material_kind_nonempty",
+        "ck_artifact_versions_normalization_version",
+        "ck_artifact_versions_version_no",
+        "fk_artifact_versions_0",
+        "fk_artifact_versions_1",
+        "fk_artifact_versions_2",
+        "fk_artifact_versions_3",
+        "fk_artifact_versions_4",
+        "pk_artifact_versions",
+        "uq_artifact_versions_0",
+        "uq_artifact_versions_1",
+        "uq_artifact_versions_2",
+        "uq_artifact_versions_3",
+        "uq_artifact_versions_tenant_id"
+      ],
+      "indexes": [
+        "ix_artifact_versions_fk_0",
+        "ix_artifact_versions_fk_1",
+        "ix_artifact_versions_fk_2",
+        "ix_artifact_versions_fk_3",
+        "ix_artifact_versions_fk_4"
+      ]
+    },
+    "artifact_version_sources": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "artifact_version_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "raw_asset_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "role": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_artifact_version_sources_0",
+        "ck_artifact_version_sources_role_nonempty",
+        "fk_artifact_version_sources_0",
+        "fk_artifact_version_sources_1",
+        "fk_artifact_version_sources_2",
+        "pk_artifact_version_sources"
+      ],
+      "indexes": [
+        "ix_artifact_version_sources_fk_0",
+        "ix_artifact_version_sources_fk_1",
+        "ix_artifact_version_sources_fk_2"
+      ]
+    },
+    "artifact_version_units": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "artifact_version_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "work_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "unit_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "episode_no_at_input": {
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        },
+        "unit_title_at_input": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_artifact_version_units_0",
+        "fk_artifact_version_units_0",
+        "fk_artifact_version_units_1",
+        "fk_artifact_version_units_2",
+        "fk_artifact_version_units_3",
+        "pk_artifact_version_units"
+      ],
+      "indexes": [
+        "ix_artifact_version_units_fk_0",
+        "ix_artifact_version_units_fk_1",
+        "ix_artifact_version_units_fk_2",
+        "ix_artifact_version_units_fk_3"
+      ]
+    },
+    "artifact_lineage": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "from_version_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "to_version_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "relation_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_artifact_lineage_0",
+        "ck_artifact_lineage_1",
+        "ck_artifact_lineage_relation_kind_nonempty",
+        "fk_artifact_lineage_0",
+        "fk_artifact_lineage_1",
+        "fk_artifact_lineage_2",
+        "pk_artifact_lineage"
+      ],
+      "indexes": [
+        "ix_artifact_lineage_fk_0",
+        "ix_artifact_lineage_fk_1",
+        "ix_artifact_lineage_fk_2"
+      ]
+    },
+    "research_submissions": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "sealed_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "work_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "artifact_version_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "origin": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "snapshot_entry_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "feedback_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "submitted_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "task_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "client_request_key": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "import_key": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "input_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_research_submissions_0",
+        "ck_research_submissions_1",
+        "ck_research_submissions_2",
+        "ck_research_submissions_3",
+        "ck_research_submissions_client_request_key_nonempty",
+        "ck_research_submissions_import_key_nonempty",
+        "ck_research_submissions_input_sha256",
+        "ck_research_submissions_origin_nonempty",
+        "fk_research_submissions_0",
+        "fk_research_submissions_1",
+        "fk_research_submissions_2",
+        "fk_research_submissions_3",
+        "fk_research_submissions_4",
+        "fk_research_submissions_5",
+        "fk_research_submissions_6",
+        "pk_research_submissions",
+        "uq_research_submissions_0",
+        "uq_research_submissions_tenant_id"
+      ],
+      "indexes": [
+        "ix_research_submissions_fk_0",
+        "ix_research_submissions_fk_1",
+        "ix_research_submissions_fk_2",
+        "ix_research_submissions_fk_3",
+        "ix_research_submissions_fk_4",
+        "ix_research_submissions_fk_5",
+        "ix_research_submissions_fk_6",
+        "ix_research_submissions_org_id_work_id_import_key_created_at_id"
+      ]
+    },
+    "preliminary_assessments": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "submission_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "assessed_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "quality_grade": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "opinion": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "learning_tags": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": "'[]'"
+        },
+        "additional_learning": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "confirmed_business_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "confirmed_genre_tags": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": "'[]'"
+        },
+        "work_name_at_submit": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "total_episodes_at_submit": {
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        },
+        "episode_no_at_submit": {
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_preliminary_assessments_0",
+        "ck_preliminary_assessments_1",
+        "ck_preliminary_assessments_2",
+        "ck_preliminary_assessments_3",
+        "ck_preliminary_assessments_confirmed_business_code_nonempty",
+        "ck_preliminary_assessments_confirmed_genre_tags",
+        "ck_preliminary_assessments_learning_tags",
+        "ck_preliminary_assessments_work_name_at_submit_nonempty",
+        "fk_preliminary_assessments_0",
+        "fk_preliminary_assessments_1",
+        "fk_preliminary_assessments_2",
+        "fk_preliminary_assessments_3",
+        "pk_preliminary_assessments",
+        "uq_preliminary_assessments_0",
+        "uq_preliminary_assessments_tenant_id"
+      ],
+      "indexes": [
+        "ix_preliminary_assessments_fk_0",
+        "ix_preliminary_assessments_fk_1",
+        "ix_preliminary_assessments_fk_2",
+        "ix_preliminary_assessments_fk_3"
+      ]
+    },
+    "input_sets": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "sealed_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "work_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "scope": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "unit_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "artifact_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "business_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "manifest_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        },
+        "normalization_version": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "1"
+        },
+        "total_episode_count_at_input": {
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_input_sets_0",
+        "ck_input_sets_1",
+        "ck_input_sets_2",
+        "ck_input_sets_business_code_nonempty",
+        "ck_input_sets_manifest_sha256",
+        "ck_input_sets_normalization_version",
+        "ck_input_sets_scope_nonempty",
+        "fk_input_sets_0",
+        "fk_input_sets_1",
+        "fk_input_sets_2",
+        "fk_input_sets_3",
+        "fk_input_sets_4",
+        "pk_input_sets",
+        "uq_input_sets_0",
+        "uq_input_sets_1",
+        "uq_input_sets_tenant_id"
+      ],
+      "indexes": [
+        "ix_input_sets_fk_0",
+        "ix_input_sets_fk_1",
+        "ix_input_sets_fk_2",
+        "ix_input_sets_fk_3",
+        "ix_input_sets_fk_4"
+      ]
+    },
+    "input_set_items": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "input_set_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "work_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "artifact_version_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "role": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "position": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_input_set_items_0",
+        "ck_input_set_items_1",
+        "ck_input_set_items_role_nonempty",
+        "fk_input_set_items_0",
+        "fk_input_set_items_1",
+        "fk_input_set_items_2",
+        "fk_input_set_items_3",
+        "pk_input_set_items",
+        "uq_input_set_items_0"
+      ],
+      "indexes": [
+        "ix_input_set_items_fk_0",
+        "ix_input_set_items_fk_1",
+        "ix_input_set_items_fk_2",
+        "ix_input_set_items_fk_3"
+      ]
+    },
+    "analysis_runs": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "report_generation": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": null
+        },
+        "input_set_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "task_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "template_revision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "rubric_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "ai_config_revision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "state": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": "'queued'"
+        },
+        "started_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "finished_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "safe_error_code": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_analysis_runs_0",
+        "ck_analysis_runs_1",
+        "ck_analysis_runs_state_nonempty",
+        "fk_analysis_runs_0",
+        "fk_analysis_runs_1",
+        "fk_analysis_runs_2",
+        "fk_analysis_runs_3",
+        "fk_analysis_runs_4",
+        "fk_analysis_runs_5",
+        "pk_analysis_runs",
+        "uq_analysis_runs_0",
+        "uq_analysis_runs_tenant_id"
+      ],
+      "indexes": [
+        "ix_analysis_runs_fk_0",
+        "ix_analysis_runs_fk_1",
+        "ix_analysis_runs_fk_2",
+        "ix_analysis_runs_fk_3",
+        "ix_analysis_runs_fk_4",
+        "ix_analysis_runs_fk_5",
+        "ix_analysis_runs_org_id_input_set_id_created_at_id"
+      ]
+    },
+    "ai_executions": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "task_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "attempt_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "config_revision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "invocation_no": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "input_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        },
+        "input_manifest_file_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "provider_request_id": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "started_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "finished_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "result_state": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "output_file_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "safe_error_code": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "input_tokens": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "output_tokens": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "cost_amount": {
+          "type": "NUMERIC(20, 6)",
+          "nullable": true,
+          "default": null
+        },
+        "cost_currency": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_ai_executions_0",
+        "ck_ai_executions_1",
+        "ck_ai_executions_2",
+        "ck_ai_executions_3",
+        "ck_ai_executions_4",
+        "ck_ai_executions_5",
+        "ck_ai_executions_6",
+        "ck_ai_executions_input_sha256",
+        "ck_ai_executions_input_tokens",
+        "ck_ai_executions_output_tokens",
+        "fk_ai_executions_0",
+        "fk_ai_executions_1",
+        "fk_ai_executions_2",
+        "fk_ai_executions_3",
+        "fk_ai_executions_4",
+        "fk_ai_executions_5",
+        "pk_ai_executions",
+        "uq_ai_executions_0",
+        "uq_ai_executions_tenant_id"
+      ],
+      "indexes": [
+        "ix_ai_executions_fk_0",
+        "ix_ai_executions_fk_1",
+        "ix_ai_executions_fk_2",
+        "ix_ai_executions_fk_3",
+        "ix_ai_executions_fk_4",
+        "ix_ai_executions_fk_5"
+      ]
+    },
+    "analysis_reports": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "sealed_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "work_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "input_set_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "analysis_run_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "ai_execution_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "version_no": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "coverage_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "schema_version": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "1"
+        },
+        "body": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": null
+        },
+        "missing_inputs": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": "'[]'"
+        },
+        "result_state": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "content_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_analysis_reports_0",
+        "ck_analysis_reports_1",
+        "ck_analysis_reports_body",
+        "ck_analysis_reports_content_sha256",
+        "ck_analysis_reports_coverage_kind_nonempty",
+        "ck_analysis_reports_missing_inputs",
+        "ck_analysis_reports_result_state_nonempty",
+        "ck_analysis_reports_schema_version",
+        "ck_analysis_reports_version_no",
+        "fk_analysis_reports_0",
+        "fk_analysis_reports_1",
+        "fk_analysis_reports_2",
+        "fk_analysis_reports_3",
+        "fk_analysis_reports_4",
+        "pk_analysis_reports",
+        "uq_analysis_reports_0",
+        "uq_analysis_reports_1",
+        "uq_analysis_reports_2",
+        "uq_analysis_reports_tenant_id"
+      ],
+      "indexes": [
+        "ix_analysis_reports_fk_0",
+        "ix_analysis_reports_fk_1",
+        "ix_analysis_reports_fk_2",
+        "ix_analysis_reports_fk_3",
+        "ix_analysis_reports_fk_4"
+      ]
+    },
+    "report_units": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "report_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "work_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "unit_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "coverage_state": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "episode_no_at_report": {
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        },
+        "unit_title_at_report": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_report_units_0",
+        "ck_report_units_1",
+        "ck_report_units_coverage_state_nonempty",
+        "fk_report_units_0",
+        "fk_report_units_1",
+        "fk_report_units_2",
+        "fk_report_units_3",
+        "pk_report_units"
+      ],
+      "indexes": [
+        "ix_report_units_fk_0",
+        "ix_report_units_fk_1",
+        "ix_report_units_fk_2",
+        "ix_report_units_fk_3"
+      ]
+    },
+    "evidence_refs": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "raw_asset_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "artifact_version_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "locator_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "paragraph_no": {
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        },
+        "page_no": {
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        },
+        "start_ms": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "end_ms": {
+          "type": "BIGINT",
+          "nullable": true,
+          "default": null
+        },
+        "quoted_text": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_evidence_refs_0",
+        "ck_evidence_refs_1",
+        "ck_evidence_refs_locator_kind_nonempty",
+        "fk_evidence_refs_0",
+        "fk_evidence_refs_1",
+        "fk_evidence_refs_2",
+        "pk_evidence_refs",
+        "uq_evidence_refs_tenant_id"
+      ],
+      "indexes": [
+        "ix_evidence_refs_fk_0",
+        "ix_evidence_refs_fk_1",
+        "ix_evidence_refs_fk_2"
+      ]
+    },
+    "report_evidence": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "report_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "evidence_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "claim_path": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_report_evidence_0",
+        "ck_report_evidence_claim_path_nonempty",
+        "fk_report_evidence_0",
+        "fk_report_evidence_1",
+        "fk_report_evidence_2",
+        "pk_report_evidence"
+      ],
+      "indexes": [
+        "ix_report_evidence_fk_0",
+        "ix_report_evidence_fk_1",
+        "ix_report_evidence_fk_2"
+      ]
+    },
+    "quality_evaluations": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "sealed_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "input_set_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "task_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "rubric_revision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "ai_execution_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "report_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "result_state": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "quality_grade": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "schema_version": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": "1"
+        },
+        "dimensions": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": null
+        },
+        "summary": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "content_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_quality_evaluations_0",
+        "ck_quality_evaluations_1",
+        "ck_quality_evaluations_2",
+        "ck_quality_evaluations_content_sha256",
+        "ck_quality_evaluations_dimensions",
+        "ck_quality_evaluations_result_state_nonempty",
+        "ck_quality_evaluations_schema_version",
+        "fk_quality_evaluations_0",
+        "fk_quality_evaluations_1",
+        "fk_quality_evaluations_2",
+        "fk_quality_evaluations_3",
+        "fk_quality_evaluations_4",
+        "fk_quality_evaluations_5",
+        "pk_quality_evaluations",
+        "uq_quality_evaluations_0",
+        "uq_quality_evaluations_tenant_id"
+      ],
+      "indexes": [
+        "ix_quality_evaluations_fk_0",
+        "ix_quality_evaluations_fk_1",
+        "ix_quality_evaluations_fk_2",
+        "ix_quality_evaluations_fk_3",
+        "ix_quality_evaluations_fk_4",
+        "ix_quality_evaluations_fk_5",
+        "ix_quality_evaluations_org_id_input_set_id_created_at_id"
+      ]
+    },
+    "evaluation_evidence": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "evaluation_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "evidence_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "dimension_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_evaluation_evidence_dimension_code_nonempty",
+        "fk_evaluation_evidence_0",
+        "fk_evaluation_evidence_1",
+        "fk_evaluation_evidence_2",
+        "pk_evaluation_evidence"
+      ],
+      "indexes": [
+        "ix_evaluation_evidence_fk_0",
+        "ix_evaluation_evidence_fk_1",
+        "ix_evaluation_evidence_fk_2"
+      ]
+    },
+    "metric_specs": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "version_no": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "name": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "unit": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "definition": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "aggregation_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "denominator_definition": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_metric_specs_0",
+        "ck_metric_specs_1",
+        "ck_metric_specs_aggregation_kind_nonempty",
+        "ck_metric_specs_code_nonempty",
+        "ck_metric_specs_definition_nonempty",
+        "ck_metric_specs_name_nonempty",
+        "ck_metric_specs_unit_nonempty",
+        "ck_metric_specs_version_no",
+        "fk_metric_specs_0",
+        "pk_metric_specs",
+        "uq_metric_specs_0",
+        "uq_metric_specs_tenant_id"
+      ],
+      "indexes": [
+        "ix_metric_specs_fk_0"
+      ]
+    },
+    "prediction_drafts": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "input_set_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "metric_spec_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "author_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "author_member_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "ai_execution_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "platform_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "account_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "window_start_offset_seconds": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": null
+        },
+        "window_end_offset_seconds": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": null
+        },
+        "conditions": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": null
+        },
+        "context_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": "'unknown'"
+        },
+        "outcome_exposure": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": "'unknown'"
+        },
+        "lower_bound": {
+          "type": "NUMERIC(20, 6)",
+          "nullable": true,
+          "default": null
+        },
+        "upper_bound": {
+          "type": "NUMERIC(20, 6)",
+          "nullable": true,
+          "default": null
+        },
+        "rationale": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "uncertainty_note": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "rubric_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "prompt_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "supersedes_prediction_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "reliability": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_prediction_drafts_0",
+        "ck_prediction_drafts_1",
+        "ck_prediction_drafts_2",
+        "ck_prediction_drafts_3",
+        "ck_prediction_drafts_4",
+        "ck_prediction_drafts_5",
+        "ck_prediction_drafts_6",
+        "ck_prediction_drafts_7",
+        "ck_prediction_drafts_8",
+        "ck_prediction_drafts_9",
+        "ck_prediction_drafts_author_kind_nonempty",
+        "ck_prediction_drafts_conditions",
+        "ck_prediction_drafts_context_kind_nonempty",
+        "ck_prediction_drafts_lock_version",
+        "ck_prediction_drafts_outcome_exposure_nonempty",
+        "ck_prediction_drafts_platform_code_nonempty",
+        "ck_prediction_drafts_rationale_nonempty",
+        "ck_prediction_drafts_reliability_nonempty",
+        "ck_prediction_drafts_uncertainty_note_nonempty",
+        "fk_prediction_drafts_0",
+        "fk_prediction_drafts_1",
+        "fk_prediction_drafts_2",
+        "fk_prediction_drafts_3",
+        "fk_prediction_drafts_4",
+        "fk_prediction_drafts_5",
+        "fk_prediction_drafts_6",
+        "fk_prediction_drafts_7",
+        "fk_prediction_drafts_8",
+        "fk_prediction_drafts_9",
+        "pk_prediction_drafts",
+        "uq_prediction_drafts_tenant_id"
+      ],
+      "indexes": [
+        "ix_prediction_drafts_fk_0",
+        "ix_prediction_drafts_fk_1",
+        "ix_prediction_drafts_fk_2",
+        "ix_prediction_drafts_fk_3",
+        "ix_prediction_drafts_fk_4",
+        "ix_prediction_drafts_fk_5",
+        "ix_prediction_drafts_fk_6",
+        "ix_prediction_drafts_fk_7",
+        "ix_prediction_drafts_fk_8",
+        "ix_prediction_drafts_fk_9"
+      ]
+    },
+    "predictions": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "sealed_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "input_set_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "metric_spec_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "author_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "author_member_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "ai_execution_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "platform_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "account_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "window_start_offset_seconds": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": null
+        },
+        "window_end_offset_seconds": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": null
+        },
+        "conditions": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": null
+        },
+        "context_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": "'unknown'"
+        },
+        "outcome_exposure": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": "'unknown'"
+        },
+        "lower_bound": {
+          "type": "NUMERIC(20, 6)",
+          "nullable": true,
+          "default": null
+        },
+        "upper_bound": {
+          "type": "NUMERIC(20, 6)",
+          "nullable": true,
+          "default": null
+        },
+        "rationale": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "uncertainty_note": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "rubric_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "prompt_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "supersedes_prediction_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "draft_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "draft_lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": null
+        },
+        "frozen_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "clock_timestamp()"
+        },
+        "freeze_transaction": {
+          "type": "xid8",
+          "nullable": false,
+          "default": "pg_current_xact_id()"
+        },
+        "frozen_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "content_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_predictions_0",
+        "ck_predictions_1",
+        "ck_predictions_2",
+        "ck_predictions_3",
+        "ck_predictions_4",
+        "ck_predictions_5",
+        "ck_predictions_6",
+        "ck_predictions_7",
+        "ck_predictions_8",
+        "ck_predictions_9",
+        "ck_predictions_author_kind_nonempty",
+        "ck_predictions_conditions",
+        "ck_predictions_content_sha256",
+        "ck_predictions_context_kind_nonempty",
+        "ck_predictions_outcome_exposure_nonempty",
+        "ck_predictions_platform_code_nonempty",
+        "ck_predictions_rationale_nonempty",
+        "ck_predictions_uncertainty_note_nonempty",
+        "fk_predictions_0",
+        "fk_predictions_1",
+        "fk_predictions_10",
+        "fk_predictions_11",
+        "fk_predictions_2",
+        "fk_predictions_3",
+        "fk_predictions_4",
+        "fk_predictions_5",
+        "fk_predictions_6",
+        "fk_predictions_7",
+        "fk_predictions_8",
+        "fk_predictions_9",
+        "pk_predictions",
+        "uq_predictions_0",
+        "uq_predictions_tenant_id"
+      ],
+      "indexes": [
+        "ix_predictions_fk_0",
+        "ix_predictions_fk_1",
+        "ix_predictions_fk_10",
+        "ix_predictions_fk_11",
+        "ix_predictions_fk_2",
+        "ix_predictions_fk_3",
+        "ix_predictions_fk_4",
+        "ix_predictions_fk_5",
+        "ix_predictions_fk_6",
+        "ix_predictions_fk_7",
+        "ix_predictions_fk_8",
+        "ix_predictions_fk_9"
+      ]
+    },
+    "prediction_events": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "prediction_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "event_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "reason": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "actor_member_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "occurred_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "clock_timestamp()"
+        }
+      },
+      "constraints": [
+        "ck_prediction_events_0",
+        "ck_prediction_events_1",
+        "ck_prediction_events_event_kind_nonempty",
+        "ck_prediction_events_reason_nonempty",
+        "fk_prediction_events_0",
+        "fk_prediction_events_1",
+        "fk_prediction_events_2",
+        "pk_prediction_events",
+        "uq_prediction_events_0",
+        "uq_prediction_events_tenant_id"
+      ],
+      "indexes": [
+        "ix_prediction_events_fk_0",
+        "ix_prediction_events_fk_1",
+        "ix_prediction_events_fk_2"
+      ]
+    },
+    "prediction_evidence": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "prediction_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "evidence_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "fk_prediction_evidence_0",
+        "fk_prediction_evidence_1",
+        "fk_prediction_evidence_2",
+        "pk_prediction_evidence"
+      ],
+      "indexes": [
+        "ix_prediction_evidence_fk_0",
+        "ix_prediction_evidence_fk_1",
+        "ix_prediction_evidence_fk_2"
+      ]
+    },
+    "knowledge_items": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "title": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "owner_member_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "current_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "published_publication_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "created_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_knowledge_items_lock_version",
+        "ck_knowledge_items_title_nonempty",
+        "fk_knowledge_items_0",
+        "fk_knowledge_items_1",
+        "fk_knowledge_items_2",
+        "fk_knowledge_items_3",
+        "fk_knowledge_items_4",
+        "pk_knowledge_items",
+        "uq_knowledge_items_tenant_id"
+      ],
+      "indexes": [
+        "ix_knowledge_items_fk_0",
+        "ix_knowledge_items_fk_1",
+        "ix_knowledge_items_fk_2",
+        "ix_knowledge_items_fk_3",
+        "ix_knowledge_items_fk_4"
+      ]
+    },
+    "knowledge_revisions": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "sealed_at": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "knowledge_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "version_no": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "title": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "body_text": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "knowledge_type": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "browse_category": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "tags": {
+          "type": "JSONB",
+          "nullable": false,
+          "default": "'[]'"
+        },
+        "valid_from": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "valid_until": {
+          "type": "DATETIME",
+          "nullable": true,
+          "default": null
+        },
+        "limitations": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "origin": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "source_report_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "created_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "content_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_knowledge_revisions_0",
+        "ck_knowledge_revisions_1",
+        "ck_knowledge_revisions_2",
+        "ck_knowledge_revisions_3",
+        "ck_knowledge_revisions_4",
+        "ck_knowledge_revisions_5",
+        "ck_knowledge_revisions_body_text_nonempty",
+        "ck_knowledge_revisions_browse_category_nonempty",
+        "ck_knowledge_revisions_content_sha256",
+        "ck_knowledge_revisions_knowledge_type_nonempty",
+        "ck_knowledge_revisions_origin_nonempty",
+        "ck_knowledge_revisions_tags",
+        "ck_knowledge_revisions_title_nonempty",
+        "ck_knowledge_revisions_version_no",
+        "fk_knowledge_revisions_0",
+        "fk_knowledge_revisions_1",
+        "fk_knowledge_revisions_2",
+        "fk_knowledge_revisions_3",
+        "pk_knowledge_revisions",
+        "uq_knowledge_revisions_0",
+        "uq_knowledge_revisions_1",
+        "uq_knowledge_revisions_tenant_id"
+      ],
+      "indexes": [
+        "ix_knowledge_revisions_fk_0",
+        "ix_knowledge_revisions_fk_1",
+        "ix_knowledge_revisions_fk_2",
+        "ix_knowledge_revisions_fk_3"
+      ]
+    },
+    "knowledge_businesses": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "revision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "business_code": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_knowledge_businesses_business_code_nonempty",
+        "fk_knowledge_businesses_0",
+        "fk_knowledge_businesses_1",
+        "fk_knowledge_businesses_2",
+        "pk_knowledge_businesses"
+      ],
+      "indexes": [
+        "ix_knowledge_businesses_business_code_org_id_revision_id",
+        "ix_knowledge_businesses_fk_0",
+        "ix_knowledge_businesses_fk_1",
+        "ix_knowledge_businesses_fk_2"
+      ]
+    },
+    "knowledge_evidence": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "revision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "evidence_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "claim_path": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_knowledge_evidence_0",
+        "ck_knowledge_evidence_claim_path_nonempty",
+        "fk_knowledge_evidence_0",
+        "fk_knowledge_evidence_1",
+        "fk_knowledge_evidence_2",
+        "pk_knowledge_evidence"
+      ],
+      "indexes": [
+        "ix_knowledge_evidence_fk_0",
+        "ix_knowledge_evidence_fk_1",
+        "ix_knowledge_evidence_fk_2"
+      ]
+    },
+    "knowledge_relations": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "from_revision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "to_revision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "relation_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "reason": {
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        "created_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_knowledge_relations_0",
+        "ck_knowledge_relations_1",
+        "ck_knowledge_relations_relation_kind_nonempty",
+        "fk_knowledge_relations_0",
+        "fk_knowledge_relations_1",
+        "fk_knowledge_relations_2",
+        "fk_knowledge_relations_3",
+        "pk_knowledge_relations",
+        "uq_knowledge_relations_0",
+        "uq_knowledge_relations_tenant_id"
+      ],
+      "indexes": [
+        "ix_knowledge_relations_fk_0",
+        "ix_knowledge_relations_fk_1",
+        "ix_knowledge_relations_fk_2",
+        "ix_knowledge_relations_fk_3"
+      ]
+    },
+    "review_requests": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "purpose": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "knowledge_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "report_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "evaluation_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "standard_revision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "input_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        },
+        "requested_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_review_requests_0",
+        "ck_review_requests_1",
+        "ck_review_requests_2",
+        "ck_review_requests_3",
+        "ck_review_requests_4",
+        "ck_review_requests_5",
+        "ck_review_requests_input_sha256",
+        "ck_review_requests_purpose_nonempty",
+        "fk_review_requests_0",
+        "fk_review_requests_1",
+        "fk_review_requests_2",
+        "fk_review_requests_3",
+        "fk_review_requests_4",
+        "fk_review_requests_5",
+        "pk_review_requests",
+        "uq_review_requests_tenant_id"
+      ],
+      "indexes": [
+        "ix_review_requests_fk_0",
+        "ix_review_requests_fk_1",
+        "ix_review_requests_fk_2",
+        "ix_review_requests_fk_3",
+        "ix_review_requests_fk_4",
+        "ix_review_requests_fk_5",
+        "ix_review_requests_org_id_purpose_evaluation_id",
+        "ix_review_requests_org_id_purpose_knowledge_revision_id",
+        "ix_review_requests_org_id_purpose_report_id",
+        "ix_review_requests_org_id_purpose_standard_revision_id"
+      ]
+    },
+    "review_heads": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "request_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "reviewer_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "decision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "lock_version": {
+          "type": "BIGINT",
+          "nullable": false,
+          "default": "1"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "constraints": [
+        "ck_review_heads_0",
+        "ck_review_heads_lock_version",
+        "ck_review_heads_reviewer_kind_nonempty",
+        "fk_review_heads_0",
+        "fk_review_heads_1",
+        "fk_review_heads_2",
+        "pk_review_heads"
+      ],
+      "indexes": [
+        "ix_review_heads_fk_0",
+        "ix_review_heads_fk_1",
+        "ix_review_heads_fk_2"
+      ]
+    },
+    "review_decisions": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "request_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "reviewer_kind": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "reviewer_member_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "ai_execution_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "verdict": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "reason": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "supersedes_decision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        "input_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        },
+        "reviewed_ai_decision_id": {
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_review_decisions_0",
+        "ck_review_decisions_1",
+        "ck_review_decisions_2",
+        "ck_review_decisions_3",
+        "ck_review_decisions_4",
+        "ck_review_decisions_input_sha256",
+        "ck_review_decisions_reason_nonempty",
+        "ck_review_decisions_reviewer_kind_nonempty",
+        "ck_review_decisions_verdict_nonempty",
+        "fk_review_decisions_0",
+        "fk_review_decisions_1",
+        "fk_review_decisions_2",
+        "fk_review_decisions_3",
+        "fk_review_decisions_4",
+        "fk_review_decisions_5",
+        "pk_review_decisions",
+        "uq_review_decisions_0",
+        "uq_review_decisions_1",
+        "uq_review_decisions_tenant_id"
+      ],
+      "indexes": [
+        "ix_review_decisions_fk_0",
+        "ix_review_decisions_fk_1",
+        "ix_review_decisions_fk_2",
+        "ix_review_decisions_fk_3",
+        "ix_review_decisions_fk_4",
+        "ix_review_decisions_fk_5",
+        "ix_review_decisions_org_id_request_id_ai_execution_id",
+        "ix_review_decisions_org_id_request_id_created_at_id"
+      ]
+    },
+    "knowledge_publications": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "knowledge_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "revision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "review_request_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "ai_decision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "human_decision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "published_by": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "published_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "constraints": [
+        "fk_knowledge_publications_0",
+        "fk_knowledge_publications_1",
+        "fk_knowledge_publications_2",
+        "fk_knowledge_publications_3",
+        "fk_knowledge_publications_4",
+        "fk_knowledge_publications_5",
+        "fk_knowledge_publications_6",
+        "pk_knowledge_publications",
+        "uq_knowledge_publications_0",
+        "uq_knowledge_publications_1",
+        "uq_knowledge_publications_tenant_id"
+      ],
+      "indexes": [
+        "ix_knowledge_publications_fk_0",
+        "ix_knowledge_publications_fk_1",
+        "ix_knowledge_publications_fk_2",
+        "ix_knowledge_publications_fk_3",
+        "ix_knowledge_publications_fk_4",
+        "ix_knowledge_publications_fk_5",
+        "ix_knowledge_publications_fk_6"
+      ]
+    },
+    "search_documents": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "publication_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "revision_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "document_text": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "search_vector": {
+          "type": "TSVECTOR",
+          "nullable": false,
+          "default": null
+        },
+        "index_config_version": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "indexed_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "constraints": [
+        "ck_search_documents_document_text_nonempty",
+        "ck_search_documents_index_config_version_nonempty",
+        "fk_search_documents_0",
+        "fk_search_documents_1",
+        "fk_search_documents_2",
+        "pk_search_documents",
+        "uq_search_documents_0",
+        "uq_search_documents_tenant_id"
+      ],
+      "indexes": [
+        "ix_search_documents_fk_0",
+        "ix_search_documents_fk_1",
+        "ix_search_documents_fk_2",
+        "ix_search_documents_search_vector"
+      ]
+    },
+    "embeddings": {
+      "structure_revision": "0003_b1",
+      "columns": {
+        "id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "org_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "nullable": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "search_document_id": {
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        "chunk_no": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "start_offset": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "end_offset": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "embedding_model": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "model_version": {
+          "type": "TEXT",
+          "nullable": false,
+          "default": null
+        },
+        "dimensions": {
+          "type": "INTEGER",
+          "nullable": false,
+          "default": null
+        },
+        "embedding": {
+          "type": "VECTOR",
+          "nullable": false,
+          "default": null
+        },
+        "content_sha256": {
+          "type": "CHAR(64)",
+          "nullable": false,
+          "default": null
+        }
+      },
+      "constraints": [
+        "ck_embeddings_0",
+        "ck_embeddings_1",
+        "ck_embeddings_2",
+        "ck_embeddings_content_sha256",
+        "ck_embeddings_embedding_model_nonempty",
+        "ck_embeddings_model_version_nonempty",
+        "fk_embeddings_0",
+        "fk_embeddings_1",
+        "pk_embeddings",
+        "uq_embeddings_0",
+        "uq_embeddings_tenant_id"
+      ],
+      "indexes": [
+        "ix_embeddings_fk_0",
+        "ix_embeddings_fk_1"
+      ]
+    }
+  }
+}

@@ -1,0 +1,67 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_____________ test_v2_review_accepts_exact_supported_frozen_review _____________
+
+    def test_v2_review_accepts_exact_supported_frozen_review():
+>       from app.knowledge.model import validate_output
+E       ModuleNotFoundError: No module named 'app.knowledge.model'
+
+tests/test_knowledge_models.py:15: ModuleNotFoundError
+__________ test_v2_review_rejects_incomplete_approval[missing_check] ___________
+
+bad = 'missing_check'
+
+    @pytest.mark.parametrize('bad',['missing_check','duplicate_check','bad_quote','missing_comparison','missing_target'])
+    def test_v2_review_rejects_incomplete_approval(bad):
+>       from app.knowledge.model import validate_output
+E       ModuleNotFoundError: No module named 'app.knowledge.model'
+
+tests/test_knowledge_models.py:21: ModuleNotFoundError
+_________ test_v2_review_rejects_incomplete_approval[duplicate_check] __________
+
+bad = 'duplicate_check'
+
+    @pytest.mark.parametrize('bad',['missing_check','duplicate_check','bad_quote','missing_comparison','missing_target'])
+    def test_v2_review_rejects_incomplete_approval(bad):
+>       from app.knowledge.model import validate_output
+E       ModuleNotFoundError: No module named 'app.knowledge.model'
+
+tests/test_knowledge_models.py:21: ModuleNotFoundError
+____________ test_v2_review_rejects_incomplete_approval[bad_quote] _____________
+
+bad = 'bad_quote'
+
+    @pytest.mark.parametrize('bad',['missing_check','duplicate_check','bad_quote','missing_comparison','missing_target'])
+    def test_v2_review_rejects_incomplete_approval(bad):
+>       from app.knowledge.model import validate_output
+E       ModuleNotFoundError: No module named 'app.knowledge.model'
+
+tests/test_knowledge_models.py:21: ModuleNotFoundError
+________ test_v2_review_rejects_incomplete_approval[missing_comparison] ________
+
+bad = 'missing_comparison'
+
+    @pytest.mark.parametrize('bad',['missing_check','duplicate_check','bad_quote','missing_comparison','missing_target'])
+    def test_v2_review_rejects_incomplete_approval(bad):
+>       from app.knowledge.model import validate_output
+E       ModuleNotFoundError: No module named 'app.knowledge.model'
+
+tests/test_knowledge_models.py:21: ModuleNotFoundError
+__________ test_v2_review_rejects_incomplete_approval[missing_target] __________
+
+bad = 'missing_target'
+
+    @pytest.mark.parametrize('bad',['missing_check','duplicate_check','bad_quote','missing_comparison','missing_target'])
+    def test_v2_review_rejects_incomplete_approval(bad):
+>       from app.knowledge.model import validate_output
+E       ModuleNotFoundError: No module named 'app.knowledge.model'
+
+tests/test_knowledge_models.py:21: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_knowledge_models.py::test_v2_review_accepts_exact_supported_frozen_review
+FAILED tests/test_knowledge_models.py::test_v2_review_rejects_incomplete_approval[missing_check]
+FAILED tests/test_knowledge_models.py::test_v2_review_rejects_incomplete_approval[duplicate_check]
+FAILED tests/test_knowledge_models.py::test_v2_review_rejects_incomplete_approval[bad_quote]
+FAILED tests/test_knowledge_models.py::test_v2_review_rejects_incomplete_approval[missing_comparison]
+FAILED tests/test_knowledge_models.py::test_v2_review_rejects_incomplete_approval[missing_target]
+6 failed in 0.07s

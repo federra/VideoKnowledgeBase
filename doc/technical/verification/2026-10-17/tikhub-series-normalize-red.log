@@ -1,0 +1,12 @@
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_normalize_series_preserves_desc_and_separate_series_metrics_without_author_likes _
+
+    def test_normalize_series_preserves_desc_and_separate_series_metrics_without_author_likes():
+>       from app.connectors.tikhub_series import normalize_series
+E       ImportError: cannot import name 'normalize_series' from 'app.connectors.tikhub_series' (/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/app/connectors/tikhub_series.py)
+
+backend/tests/test_tikhub_series.py:35: ImportError
+=========================== short test summary info ============================
+FAILED backend/tests/test_tikhub_series.py::test_normalize_series_preserves_desc_and_separate_series_metrics_without_author_likes
+1 failed, 1 passed in 0.10s

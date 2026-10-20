@@ -1,0 +1,30 @@
+[
+  {
+    "name": "fanqie-directory",
+    "url": "https://fanqienovel.com/rank",
+    "http_status": 404,
+    "bytes": 17574,
+    "sha256": "c9818da644243d9c61c749014c067f97e0d4031aca8218689a6bc350755d8072"
+  },
+  {
+    "name": "qidian-female-directory",
+    "url": "https://m.qdmm.com/rank/",
+    "http_status": 202,
+    "bytes": 209,
+    "sha256": "cb7851e716fe40aab682229a1b10530262264f2f958ef12d13a662ca2d198aa7"
+  },
+  {
+    "name": "qidian-book",
+    "url": "https://m.qidian.com/book/1027339371/",
+    "http_status": 200,
+    "bytes": 459748,
+    "sha256": "c971ecfdf4a4ad23dfa6b0c6aa78962ef351b52a1ba6a6defa380b284bb445a9"
+  },
+  {
+    "name": "fanqie-directory-desktop",
+    "url": "https://fanqienovel.com/rank",
+    "http_status": 200,
+    "bytes": 79624,
+    "sha256": "ed1d17b3292b75dabac22bffee39663c186faf7349e6684b8cbda8f751de44b1"
+  }
+]

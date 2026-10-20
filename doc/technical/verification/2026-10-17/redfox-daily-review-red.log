@@ -1,0 +1,32 @@
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_daily_board_accepts_numeric_zero_alongside_documented_string_video_types _
+
+    def test_daily_board_accepts_numeric_zero_alongside_documented_string_video_types():
+        from app.connectors.redfox import normalize
+        body = payload()
+        body["data"][0]["workType"] = 0
+        body["data"][1]["workType"] = "视频"
+>       batch = normalize(CAP, body, maximum=10)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_redfox_daily.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/app/connectors/redfox.py:168: in normalize
+    "source_type_raw": text(row.get("workType")),
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = 0
+
+    def text(value):
+        if value is None:
+            return None
+        if not isinstance(value, str):
+>           raise AdapterError("INVALID_RESPONSE")
+E           app.connectors.redfox.AdapterError: INVALID_RESPONSE
+
+backend/app/connectors/redfox.py:92: AdapterError
+=========================== short test summary info ============================
+FAILED backend/tests/test_redfox_daily.py::test_daily_board_accepts_numeric_zero_alongside_documented_string_video_types
+1 failed, 2 passed in 0.10s

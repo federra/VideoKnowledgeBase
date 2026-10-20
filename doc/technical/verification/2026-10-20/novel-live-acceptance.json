@@ -1,0 +1,564 @@
+{
+  "checked_at": "2026-10-20T04:14:51.329796+00:00",
+  "business_date": "2026-10-20",
+  "migration": "0015_novels",
+  "reference": "https://github.com/QiuNova/Qbook",
+  "novel_count": "2213",
+  "saved_memberships": 2213,
+  "board_count": 74,
+  "all_sources_paused": true,
+  "raw_count": 76,
+  "all_response_hashes_valid": true,
+  "statistics_note": "统计时间截止至10-19 24:00（平台原文）",
+  "local_read_seconds": 1.056,
+  "selected_read_male_scifi_total": "30",
+  "selected_first_title": "末世选择：开局一亿只美洲大蠊",
+  "qidian_status": [
+    {
+      "platform": "qidian",
+      "board": "qidian:catalog",
+      "state": "failed",
+      "http_status": 202
+    }
+  ],
+  "qidian_statistics_note": null,
+  "console_source_read_valid": true,
+  "console_novel_source_count": 76,
+  "model_calls_added": 0,
+  "paid_api_calls_added": 0,
+  "no_background_schedule": true,
+  "boards": [
+    {
+      "code": "fanqie:catalog",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": null,
+      "saved_items": 0
+    },
+    {
+      "code": "fanqie:new:female:1015",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:1017",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:1139",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:23",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:24",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:246",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:248",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:253",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:267",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:539",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:745",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:746",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:747",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:748",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:749",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:750",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:79",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:female:8",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:1014",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:1016",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:1140",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:1141",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:124",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:257",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:258",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:261",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:262",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:263",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:27",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 23,
+      "saved_items": 23
+    },
+    {
+      "code": "fanqie:new:male:272",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:273",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:504",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:539",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:718",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:746",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:751",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:new:male:8",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:1015",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:1017",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:1139",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:23",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:24",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:246",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:248",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:253",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:267",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:539",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:745",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:746",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:747",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:748",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:749",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:750",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:79",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:female:8",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:1014",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:1016",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:1140",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:1141",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:124",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:257",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:258",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:261",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:262",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:263",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:27",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:272",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:273",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:504",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:539",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:718",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:746",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:751",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "fanqie:read:male:8",
+      "state": "succeeded",
+      "http_status": 200,
+      "returned_items": 30,
+      "saved_items": 30
+    },
+    {
+      "code": "qidian:catalog",
+      "state": "failed",
+      "http_status": 202,
+      "returned_items": null,
+      "saved_items": 0
+    }
+  ]
+}

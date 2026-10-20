@@ -1,0 +1,13 @@
+2026-10-16 independent read-only review by /root/s033_review.
+Scope: permissions and scope inheritance/revocation, execution authorization,
+task state/freeze/lease/cancel/retry/budget, review heads and publication,
+prediction confirmation/exposure, report generation and supporting fields.
+Two findings: budget increases lacked precise executing-principal approval;
+ cancellation text could allow local worker stop despite in-flight remote effect.
+Both fixed in state and field volumes. Focused reviewer follow-up confirmed
+both closed; no remaining important blocker to S03.3 documentation reported.
+Author additionally clarified organization-only governance, scope-limited
+delegation, visibility epoch invalidation and acquiring exclusive organization
+locks upfront for epoch-changing writes (no shared-lock upgrade).
+No reviewer secrets/private data access, network calls, edits or DDL.
+This is design review, not S03.4 readiness or runtime/database validation.

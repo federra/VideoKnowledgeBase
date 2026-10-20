@@ -1,0 +1,655 @@
+$ pnpm --dir frontend test
+$ vitest run
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/console.test.tsx (6 tests | 1 failed) 271ms
+   ❯ 真实控制台 (3)
+     × 读取失败明确反馈，不回退演示成功 6ms
+ ❯ tests/app.test.tsx (7 tests | 2 failed) 527ms
+   ❯ Demo 基线与工程导航 (7)
+     × React日期控件每次只处理一次变更，不重复进入原生事件层 23ms
+     × 搜索无结果可恢复、主题和业务可保留，存储与原 Demo 隔离 21ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/app.test.tsx > Demo 基线与工程导航 > React日期控件每次只处理一次变更，不重复进入原生事件层
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/app.test.tsx:28:80
+     26|     const save = vi.spyOn(Storage.prototype, 'setItem');
+     27|     fireEvent.change(screen.getByLabelText('情报流日期'), {target: {value: …
+     28|     expect(save.mock.calls.filter(([key]) => key === 'cip-demo-v1-feed…
+       |                                                                                ^
+     29|     expect((screen.getByLabelText('情报流日期') as HTMLInputElement).value)…
+     30|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/app.test.tsx > Demo 基线与工程导航 > 搜索无结果可恢复、主题和业务可保留，存储与原 Demo 隔离
+TestingLibraryElementError: Unable to find an accessible element with the role "textbox" and name "搜索当前工作区"
+
+Here are the accessible roles:
+
+  complementary:
+
+  Name "":
+  [36m<aside[39m
+    [33mclass[39m=[32m"sidebar"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  navigation:
+
+  Name "一级导航":
+  [36m<nav[39m
+    [33maria-label[39m=[32m"一级导航"[39m
+    [33mclass[39m=[32m"nav"[39m
+    [33mid[39m=[32m"nav"[39m
+  [36m/>[39m
+
+  Name "面包屑":
+  [36m<nav[39m
+    [33maria-label[39m=[32m"面包屑"[39m
+    [33mclass[39m=[32m"breadcrumb"[39m
+    [33mid[39m=[32m"breadcrumb"[39m
+  [36m/>[39m
+
+  Name "二级工作区":
+  [36m<nav[39m
+    [33maria-label[39m=[32m"二级工作区"[39m
+    [33mclass[39m=[32m"tabs"[39m
+    [33mid[39m=[32m"tabs"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "情报局":
+  [36m<button[39m
+    [33maria-current[39m=[32m"page"[39m
+    [33mclass[39m=[32m"active"[39m
+  [36m/>[39m
+
+  Name "研判室":
+  [36m<button[39m
+    [33mclass[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "藏经阁":
+  [36m<button[39m
+    [33mclass[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "控制台":
+  [36m<button[39m
+    [33mclass[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "AI漫剧":
+  [36m<button[39m
+    [33maria-pressed[39m=[32m"false"[39m
+    [33mclass[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "故事短片":
+  [36m<button[39m
+    [33maria-pressed[39m=[32m"true"[39m
+    [33mclass[39m=[32m"active"[39m
+  [36m/>[39m
+
+  Name "电商短视频":
+  [36m<button[39m
+    [33maria-pressed[39m=[32m"false"[39m
+    [33mclass[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "切换深色主题":
+  [36m<button[39m
+    [33maria-label[39m=[32m"切换深色主题"[39m
+    [33maria-pressed[39m=[32m"false"[39m
+    [33mclass[39m=[32m"btn theme-switch"[39m
+    [33mid[39m=[32m"themeToggle"[39m
+  [36m/>[39m
+
+  Name "情报流":
+  [36m<button[39m
+    [33maria-current[39m=[32m"page"[39m
+    [33mclass[39m=[32m"active"[39m
+  [36m/>[39m
+
+  Name "选题卡":
+  [36m<button[39m
+    [33mclass[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "待生产":
+  [36m<button[39m
+    [33mclass[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "重试":
+  [36m<button[39m
+    [33mclass[39m=[32m"btn"[39m
+  [36m/>[39m
+
+  Name "打开闪念胶囊":
+  [36m<button[39m
+    [33maria-label[39m=[32m"打开闪念胶囊"[39m
+    [33mclass[39m=[32m"spark-float"[39m
+    [33mid[39m=[32m"sparkFloat"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"main"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"topbar"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "情报局":
+  [36m<a[39m
+    [33mdata-discover[39m=[32m"true"[39m
+    [33mhref[39m=[32m"#/0/0"[39m
+    [33mid[39m=[32m"crumb"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  group:
+
+  Name "业务线，单选":
+  [36m<div[39m
+    [33maria-label[39m=[32m"业务线，单选"[39m
+    [33mclass[39m=[32m"workspace-options"[39m
+    [33mid[39m=[32m"businessWorkspace"[39m
+    [33mrole[39m=[32m"group"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  region:
+
+  Name "真实情报流":
+  [36m<section[39m
+    [33maria-label[39m=[32m"真实情报流"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "情报流":
+  [36m<h1[39m
+    [33mclass[39m=[32m"sr-only"[39m
+  [36m/>[39m
+
+  Name "网络连接失败":
+  [36m<h2 />[39m
+
+  --------------------------------------------------
+  alert:
+
+  Name "":
+  [36m<div[39m
+    [33mclass[39m=[32m"empty"[39m
+    [33mrole[39m=[32m"alert"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  contentinfo:
+
+  Name "":
+  [36m<footer[39m
+    [33mclass[39m=[32m"footer"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  status:
+
+  Name "":
+  [36m<div[39m
+    [33maria-live[39m=[32m"polite"[39m
+    [33mclass[39m=[32m"toast"[39m
+    [33mid[39m=[32m"toast"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app"[39m
+    [36m>[39m
+      [36m<aside[39m
+        [33mclass[39m=[32m"sidebar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"brand"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"brand-mark"[39m
+            [33mid[39m=[32m"brandIcon"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"icon"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M3 4h6a4 4 0 0 1 3 2 4 4 0 0 1 3-2h6v15h-6a4 4 0 0 0-3 2 4 4 0 0 0-3-2H3zM12 6v15"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+          [36m</span>[39m
+          [0m内容智库[0m
+        [36m</div>[39m
+        [36m<nav[39m
+          [33maria-label[39m=[32m"一级导航"[39m
+          [33mclass[39m=[32m"nav"[39m
+          [33mid[39m=[32m"nav"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33maria-current[39m=[32m"page"[39m
+            [33mclass[39m=[32m"active"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"icon nav-solid"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M12 3a9 9 0 1 0 9 9 9 9 0 0 0-9-9Zm0 6a3 3 0 1 0 3 3 3 3 0 0 0-3-3Z"[39m
+                [33mfill-rule[39m=[32m"evenodd"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"12"[39m
+                [33mcy[39m=[32m"12"[39m
+                [33mr[39m=[32m"1.5"[39m
+              [36m/>[39m
+              [36m<path[39m
+                [33md[39m=[32m"m11 12 8-9 2 2-9 8Z"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [36m<span>[39m
+              [0m情报局[0m
+            [36m</span>[39m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m""[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"icon"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M9 3h6M10 3v6l-6 10a1 1 0 0 0 1 2h14a1 1 0 0 0 1-2L14 9V3M8 14h8"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [36m<span>[39m
+              [0m研判室[0m
+            [36m</span>[39m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m""[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"icon"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M3 4h6a4 4 0 0 1 3 2 4 4 0 0 1 3-2h6v15h-6a4 4 0 0 0-3 2 4 4 0 0 0-3-2H3zM12 6v15"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [36m<span>[39m
+              [0m藏经阁[0m
+            [36m</span>[39m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m""[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"icon"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M4 6h16M4 12h16M4 18h16"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"8"[39m
+                [33mcy[39m=[32m"6"[39m
+                [33mfill[39m=[32m"var(--canvas)"[39m
+                [33mr[39m=[32m"2"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"16"[39m
+                [33mcy[39m=[32m"12"[39m
+                [33mfill[39m=[32m"var(--canvas)"[39m
+                [33mr[39m=[32m"2"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"10"[39m
+                [33mcy[39m=[32m"18"[39m
+                [33mfill[39m=[32m"var(--canvas)"[39m
+                [33mr[39m=[32m"2"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [36m<span>[39m
+              [0m控制台[0m
+            [36m</span>[39m
+          [36m</button>[39m
+        [36m</nav>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"sidebar-bottom"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"side-note"[39m
+          [36m>[39m
+            [0m把信息变成判断[0m
+            [36m<br />[39m
+            [0m让经验成为知识[0m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"profile"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"avatar"[39m
+            [36m>[39m
+              [0m南[0m
+            [36m</span>[39m
+            [36m<div>[39m
+              [0m本地工作区[0m
+              [36m<div[39m
+                [33mclass[39m=[32m"small muted"[39m
+              [36m>[39m
+                [0m本地工作区 · 当前权限[0m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</aside>[39m
+      [36m<main[39m
+        [33mclass[39m=[32m"main"[39m
+      [36m>[39m
+        [36m<header[39m
+          [33mclass[39m=[32m"topbar"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"top-context"[39m
+          [36m>[39m
+            [36m<nav[39m
+              [33maria-label[39m=[32m"面包屑"[39m
+              [33mclass[39m=[32m"breadcrumb"[39m
+              [33mid[39m=[32m"breadcrumb"[39m
+            [36m>[39m
+              [36m<a[39m
+                [33mdata-discover[39m=[32m"true"[39m
+                [33mhref[39m=[32m"#/0/0"[39m
+                [33mid[39m=[32m"crumb"[39m
+              [36m>[39m
+                [0m情报局[0m
+              [36m</a>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"muted"[39m
+              [36m>[39m
+                [0m›[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33maria-current[39m=[32m"page"[39m
+                [33mid[39m=[32m"crumbTab"[39m
+              [36m>[39m
+                [0m情报流[0m
+              [36m</span>[39m
+            [36m</nav>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"top-actions"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"business-workspace"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"workspace-label"[39m
+              [36m>[39m
+                [0m业务线[0m
+              [36m</span>[39m
+              [36m<div[39m
+                [33maria-label[39m=[32m"业务线，单选"[39m
+                [33mclass[39m=[32m"workspace-options"[39m
+                [33mid[39m=[32m"businessWorkspace"[39m
+                [33mrole[39m=[32m"group"[39m
+              [36m>[39m
+                [36m<button[39m
+                  [33maria-pressed[39m=[32m"false"[39m
+                  [33mclass[39m=[32m""[39m
+                [36m>[39m
+                  [0mAI漫剧[0m
+                [36m</button>[39m
+                [36m<button[39m
+                  [33maria-pressed[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"active"[39m
+                [36m>[39m
+                  [0m故事短片[0m
+                [36m</button>[39m
+                [36m<button[39m
+                  [33maria-pressed[39m=[32m"false"[39m
+                  [33mclass[39m=[32m""[39m
+                [36m>[39m
+                  [0m电商短视频[0m
+                [36m</button>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"切换深色主题"[39m
+              [33maria-pressed[39m=[32m"false"[39m
+              [33mclass[39m=[32m"btn theme-switch"[39m
+              [33mid[39m=[32m"themeToggle"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"icon"[39m
+                [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [36m>[39m
+                [36m<path[39m
+                  [33md[39m=[32m"M20.5 15.2A8.6 8.6 0 0 1 8.8 3.5 8.8 8.8 0 1 0 20.5 15.2Z"[39m
+                [36m/>[39m
+              [36m</svg>[39m
+              [36m<span>[39m
+                [0m深色[0m
+                [0m主题[0m
+              [36m</span>[39m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</header>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"workspace"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"workspace-nav"[39m
+          [36m>[39m
+            [36m<nav[39m
+              [33maria-label[39m=[32m"二级工作区"[39m
+              [33mclass[39m=[32m"tabs"[39m
+              [33mid[39m=[32m"tabs"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-current[39m=[32m"page"[39m
+                [33mclass[39m=[32m"active"[39m
+              [36m>[39m
+                [0m情报流[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m""[39m
+              [36m>[39m
+                [0m选题卡[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m""[39m
+              [36m>[39m
+                [0m待生产[0m
+              [36m</button>[39m
+            [36m</nav>[39m
+            [36m<div[39m
+              [33mid[39m=[32m"feedDateTools"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"feed-date-filter"[39m
+              [36m>[39m
+                [36m<label[39m
+                  [33mfor[39m=[32m"feedDate"[39m
+                [36m>[39m
+                  [0m日期[0m
+                [36m</label>[39m
+                [36m<input[39m
+                  [33maria-label[39m=[32m"情报流日期"[39m
+                  [33mid[39m=[32m"feedDate"[39m
+                  [33mmax[39m=[32m"2026-10-17"[39m
+                  [33mtitle[39m=[32m"按北京时间查看指定日期的真实快照"[39m
+                  [33mtype[39m=[32m"date"[39m
+                  [33mvalue[39m=[32m"2026-10-17"[39m
+                [36m/>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<section[39m
+            [33maria-label[39m=[32m"当前工作区"[39m
+            [33mhidden[39m=[32m""[39m
+            [33mid[39m=[32m"page"[39m
+          [36m/>[39m
+          [36m<section[39m
+            [33maria-label[39m=[32m"真实情报流"[39m
+          [36m>[39m
+            [36m<h1[39m
+              [33mclass[39m=[32m"sr-only"[39m
+            [36m>[39m
+              [0m情报流[0m
+            [36m</h1>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"empty"[39m
+              [33mrole[39m=[32m"alert"[39m
+            [36m>[39m
+              [36m<h2>[39m
+                [0m网络连接失败[0m
+              [36m</h2>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"btn"[39m
+              [36m>[39m
+                [0m重试[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</section>[39m
+          [36m<footer[39m
+            [33mclass[39m=[32m"footer"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0m情报流 · 真实快照 · Asia/Shanghai[0m
+            [36m</span>[39m
+          [36m</footer>[39m
+        [36m</div>[39m
+      [36m</main>[39m
+    [36m</div>[39m
+    [36m<button[39m
+      [33maria-label[39m=[32m"打开闪念胶囊"[39m
+      [33mclass[39m=[32m"spark-float"[39m
+      [33mid[39m=[32m"sparkFloat"[39m
+    [36m>[39m
+      [36m<svg[39m
+        [33maria-hidden[39m=[32m"true"[39m
+        [33mclass[39m=[32m"icon"[39m
+        [33mviewBox[39m=[32m"0 0 24 24"[39m
+      [36m>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M8 3h8a5 5 0 0 1 0 10H8A5 5 0 0 1 8 3Zm0 10h8a5 5 0 0 1 0 10H8a5 5 0 0 1 0-10Z"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M8 13h8M12 6v4m-2-2h4"[39m
+        [36m/>[39m
+      [36m</svg>[39m
+      [36m<span>[39m
+        [0m闪念胶囊[0m
+      [36m</span>[39m
+      [36m<span[39m
+        [33mclass[39m=[32m"spark-count"[39m
+      [36m>[39m
+        [0m0[0m
+      [36m</span>[39m
+    [36m</button>[39m
+    [36m<dialog[39m
+      [33maria-labelledby[39m=[32m"dialogTitle"[39m
+      [33mid[39m=[32m"dialog"[39m
+    [36m/>[39m
+    [36m<div[39m
+      [33mhidden[39m=[32m""[39m
+      [33mid[39m=[32m"feedTextPopover"[39m
+      [33mrole[39m=[32m"tooltip"[39m
+      [33mtabindex[39m=[32m"0"[39m
+    [36m/>[39m
+    [36m<div[39m
+      [33maria-live[39m=[32m"polite"[39m
+      [33mclass[39m=[32m"toast"[39m
+      [33mid[39m=[32m"toast"[39m
+      [33mrole[39m=[32m"status"[39m
+    [36m/>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/app.test.tsx:61:28
+     59|     render(<App />);
+     60|     await screen.findByRole('heading', {name: '情报流'});
+     61|     fireEvent.input(screen.getByRole('textbox', {name: '搜索当前工作区'}), {t…
+       |                            ^
+     62|     expect(screen.getByText('暂无榜单样例')).toBeTruthy();
+     63|     fireEvent.input(screen.getByRole('textbox', {name: '搜索当前工作区'}), {t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/console.test.tsx > 真实控制台 > 读取失败明确反馈，不回退演示成功
+AssertionError: expected '无权执行此操作本地服务尚未就绪，请检查后端运行状态。重试' to match /权限/
+
+- Expected:
+/权限/
+
++ Received:
+"无权执行此操作本地服务尚未就绪，请检查后端运行状态。重试"
+
+ ❯ tests/console.test.tsx:31:72
+     29|  });
+     30|  it('读取失败明确反馈，不回退演示成功',async()=>{
+     31|   mount(4,true);expect((await screen.findByRole('alert')).textContent)…
+       |                                                                        ^
+     32|   expect(screen.queryByText('演示成功')).toBeNull();
+     33|  });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed | 3 passed (5)
+      Tests  3 failed | 44 passed (47)
+   Start at  11:32:55
+   Duration  1.20s (environment 57%, tests 27%, setup 9%, transform 4%, import 3%)
+
+[ELIFECYCLE] Test failed. See above for more details.
+[ELIFECYCLE] Test failed. See above for more details.

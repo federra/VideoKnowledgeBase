@@ -1,0 +1,14 @@
+{
+  "external_api_calls": 0,
+  "project_account_created": false,
+  "health_status": 200,
+  "GET_session": {
+    "status": 401,
+    "code": "AUTH_REQUIRED"
+  },
+  "DELETE_session": {
+    "status": 401,
+    "code": "AUTH_REQUIRED"
+  },
+  "session_operations": 3
+}

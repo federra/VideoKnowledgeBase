@@ -1,0 +1,16 @@
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+___________ test_dedicated_parse_queue_is_declared_and_dispatchable ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a4191c0>
+
+    def test_dedicated_parse_queue_is_declared_and_dispatchable(monkeypatch):
+        from uuid import uuid4
+        from app.research.worker import app, dispatch_parse, execute_parse
+>       assert 'research' in {q.name for q in app.conf.task_queues}
+E       AssertionError: assert 'research' in {'cip.tasks.v1'}
+
+tests/test_research_parsing.py:41: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_research_parsing.py::test_dedicated_parse_queue_is_declared_and_dispatchable
+1 failed, 2 passed in 0.21s

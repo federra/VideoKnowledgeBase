@@ -1,0 +1,24 @@
+...F                                                                     [100%]
+=================================== FAILURES ===================================
+____ test_default_search_keeps_original_body_and_rejects_title_only_keyword ____
+
+    def test_default_search_keeps_original_body_and_rejects_title_only_keyword():
+        from app.connectors.redfox import normalize
+    
+        body = payload()
+        body["data"]["list"][0]["title"] = "漫剧标题"
+        body["data"]["list"][0]["content"] = "普通原文保留"
+        body["data"]["list"][1]["title"] = "漫剧"
+        original = "漫剧正文完整\n第二行"
+        body["data"]["list"][1]["content"] = original
+        result = normalize(CAP, body, maximum=10)
+>       assert result.records[0]["platform_content_id"] == "101"
+E       AssertionError: assert '100' == '101'
+E         
+E         - 101
+E         + 100
+
+backend/tests/test_redfox_default.py:95: AssertionError
+=========================== short test summary info ============================
+FAILED backend/tests/test_redfox_default.py::test_default_search_keeps_original_body_and_rejects_title_only_keyword
+1 failed, 3 passed in 0.08s

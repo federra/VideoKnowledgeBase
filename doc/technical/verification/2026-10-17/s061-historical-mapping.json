@@ -1,0 +1,32 @@
+{
+  "external_api_calls": 0,
+  "mode": "offline historical mapping; not new collection/snapshot",
+  "samples": [
+    {
+      "file": "search-user-response.json",
+      "sha256": "d87117cdfe3dfa67492f3cceea5d9c2ac276c6b62afd07924f076125dae94158",
+      "capability": "douyin.account.search",
+      "provider_items": 20,
+      "processed_items": 1,
+      "missing_fields": [],
+      "duration_ms": null,
+      "published_at_is_unknown": true
+    },
+    {
+      "file": "broad-work-list-response.json",
+      "sha256": "d911bf43bde34420589ab7a7be913859bda0b9c5ea2a66ab4273639296800ddc",
+      "capability": "douyin.creator.works",
+      "provider_items": 1,
+      "processed_items": 1,
+      "missing_fields": [
+        "published_at",
+        "publish_timezone",
+        "provider_updated_at_raw",
+        "repost_count",
+        "view_count"
+      ],
+      "duration_ms": 20874,
+      "published_at_is_unknown": true
+    }
+  ]
+}

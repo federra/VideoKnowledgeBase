@@ -1,0 +1,9 @@
+{
+  "font_sha256": "a0b14372a725ee4443dd1ec55a3f57a3d8a3b9c96454c7d01927b1e39e45192e",
+  "reference_sha256": "69a090057ee75936451397c038da6d32194e45bbf878ef674dddc0d5f0621ce5",
+  "method": "exact-decomposed-outlines",
+  "mapped_characters": 362,
+  "exact_match": true,
+  "reference_url": "https://cdn.jsdelivr.net/gh/adobe-fonts/source-han-sans@2.002R/OTF/SimplifiedChinese/SourceHanSansSC-Normal.otf",
+  "reference_version": "SourceHanSansSC-Normal 2.002"
+}

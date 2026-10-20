@@ -1,0 +1,10 @@
+$ vitest run tests/intelligence.test.tsx
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  19 passed (19)
+   Start at  13:47:36
+   Duration  1.07s (tests 46%, environment 41%, setup 6%, transform 4%, import 3%)
+

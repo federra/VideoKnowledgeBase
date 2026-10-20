@@ -1,0 +1,29 @@
+{
+  "records": 2213,
+  "counts": {
+    "records": 2213,
+    "pos_category_differs_from_board": 18,
+    "category_nonempty": 4
+  },
+  "classification_keys": [
+    "curent_category_id",
+    "pos_category_id",
+    "categoryV2",
+    "category"
+  ],
+  "examples": [
+    {
+      "category": "都市"
+    },
+    {
+      "category": "都市"
+    },
+    {
+      "category": "都市"
+    },
+    {
+      "category": "都市"
+    }
+  ],
+  "external_requests": 0
+}

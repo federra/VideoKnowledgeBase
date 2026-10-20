@@ -1,0 +1,17 @@
+Database command failed (RuntimeError): 
+Stock upgrade preserves valid rows; invalid stock aborts the entire migration.
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_console_cursor_anchor_survives_newer_source_insert ____________
+tests/integration/test_console.py:414: in test_console_cursor_anchor_survives_newer_source_insert
+    assert following['items'][0]['id']!=first['items'][0]['id']
+E   AssertionError: assert '7e33b44a-7c40-4a02-b87b-64fd94add670' != '7e33b44a-7c40-4a02-b87b-64fd94add670'
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_console.py::test_console_cursor_anchor_survives_newer_source_insert
+1 failed, 136 deselected, 1 warning in 0.90s

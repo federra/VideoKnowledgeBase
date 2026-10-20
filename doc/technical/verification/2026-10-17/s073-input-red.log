@@ -1,0 +1,22 @@
+Database command failed (RuntimeError): 
+Stock upgrade preserves valid rows; invalid stock aborts the entire migration.
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_______________ test_input_set_seals_exact_versions_and_replays ________________
+tests/integration/test_research_analysis.py:20: in test_input_set_seals_exact_versions_and_replays
+    from app.research.inputs import create_input,read_input
+E   ModuleNotFoundError: No module named 'app.research.inputs'
+__________ test_input_rejects_foreign_versions_and_conflicting_scope ___________
+tests/integration/test_research_analysis.py:33: in test_input_rejects_foreign_versions_and_conflicting_scope
+    from app.research.inputs import create_input
+E   ModuleNotFoundError: No module named 'app.research.inputs'
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_research_analysis.py::test_input_set_seals_exact_versions_and_replays
+FAILED tests/integration/test_research_analysis.py::test_input_rejects_foreign_versions_and_conflicting_scope
+2 failed, 177 deselected, 1 warning in 1.39s

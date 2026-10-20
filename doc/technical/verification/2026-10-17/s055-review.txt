@@ -1,0 +1,8 @@
+S05.5 一次独立只读审阅：/root/s055_final_review，2026-10-17。
+范围：client/provider/App Provider、前端请求及状态测试、类型断言、真实HTTP测试与隔离脚本；不以未新增登录UI或未替换Demo业务页面认定缺陷。
+Critical 0；Important 1；Minor 1。
+Important：403/404将client标记blocked，但logout先调用通用headers()，因此无法发送DELETE，也无法进入finally清除本地状态。
+修复：退出单独使用已保留CSRF，准备／请求／失败均纳入finally清理，仍禁止并发身份变更；普通写入继续受blocked限制。两项403/404回归先RED再GREEN；真实HTTP套件追加拒权后直接DELETE退出，并重新登录验证404及再次退出。修复后38项前端及真实HTTP19请求通过，工程全检随后重跑；不进行第二次派审。
+Minor（deferred）：frontend_api.py在初始化事务提交前设置role_created，后续初始化异常会回滚角色，清理不存在角色可能再次异常并跳过临时库删除。正常成功路径及本轮失败测试后的资源已清理；未注入初始化事务故障，后续完善验收工具时独立修正。该问题不涉及项目业务库或正式请求逻辑。
+审阅者独立运行api-query.test.tsx共8项通过，读取当时17请求HTTP证据；其余来自代码审查，未复跑全套或浏览器视觉检查。
+自查RED→GREEN另包括：旧错误正文污染新身份、并发登录与旧Cookie恢复、失败写入核验提示、登录失败反馈及实例切换私有查询隔离。

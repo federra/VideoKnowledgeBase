@@ -1,0 +1,15 @@
+{
+  "health": 200,
+  "business_rows_created": 0,
+  "external_api_calls": 0,
+  "download": {
+    "status": 401,
+    "code": "AUTH_REQUIRED"
+  },
+  "upload": {
+    "status": 401,
+    "code": "AUTH_REQUIRED"
+  },
+  "runtime_operations": 7,
+  "binary_download_documented": true
+}

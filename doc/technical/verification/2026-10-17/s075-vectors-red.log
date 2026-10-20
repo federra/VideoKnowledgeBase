@@ -1,0 +1,67 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+___________________ test_invalid_embedding_rejected[value0] ____________________
+
+value = [0.0, 0.0]
+
+    @pytest.mark.parametrize('value',[[0.,0.],[1.],[float('nan'),1.],[True,1.],[float('inf'),1.]])
+    def test_invalid_embedding_rejected(value):
+>       from app.knowledge.vectors import checked_vector
+E       ModuleNotFoundError: No module named 'app.knowledge.vectors'
+
+tests/test_knowledge_vectors.py:6: ModuleNotFoundError
+___________________ test_invalid_embedding_rejected[value1] ____________________
+
+value = [1.0]
+
+    @pytest.mark.parametrize('value',[[0.,0.],[1.],[float('nan'),1.],[True,1.],[float('inf'),1.]])
+    def test_invalid_embedding_rejected(value):
+>       from app.knowledge.vectors import checked_vector
+E       ModuleNotFoundError: No module named 'app.knowledge.vectors'
+
+tests/test_knowledge_vectors.py:6: ModuleNotFoundError
+___________________ test_invalid_embedding_rejected[value2] ____________________
+
+value = [nan, 1.0]
+
+    @pytest.mark.parametrize('value',[[0.,0.],[1.],[float('nan'),1.],[True,1.],[float('inf'),1.]])
+    def test_invalid_embedding_rejected(value):
+>       from app.knowledge.vectors import checked_vector
+E       ModuleNotFoundError: No module named 'app.knowledge.vectors'
+
+tests/test_knowledge_vectors.py:6: ModuleNotFoundError
+___________________ test_invalid_embedding_rejected[value3] ____________________
+
+value = [True, 1.0]
+
+    @pytest.mark.parametrize('value',[[0.,0.],[1.],[float('nan'),1.],[True,1.],[float('inf'),1.]])
+    def test_invalid_embedding_rejected(value):
+>       from app.knowledge.vectors import checked_vector
+E       ModuleNotFoundError: No module named 'app.knowledge.vectors'
+
+tests/test_knowledge_vectors.py:6: ModuleNotFoundError
+___________________ test_invalid_embedding_rejected[value4] ____________________
+
+value = [inf, 1.0]
+
+    @pytest.mark.parametrize('value',[[0.,0.],[1.],[float('nan'),1.],[True,1.],[float('inf'),1.]])
+    def test_invalid_embedding_rejected(value):
+>       from app.knowledge.vectors import checked_vector
+E       ModuleNotFoundError: No module named 'app.knowledge.vectors'
+
+tests/test_knowledge_vectors.py:6: ModuleNotFoundError
+___________ test_embedding_chunks_preserve_offsets_and_complete_text ___________
+
+    def test_embedding_chunks_preserve_offsets_and_complete_text():
+>       from app.knowledge.vectors import chunks,checked_vector
+E       ModuleNotFoundError: No module named 'app.knowledge.vectors'
+
+tests/test_knowledge_vectors.py:11: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_knowledge_vectors.py::test_invalid_embedding_rejected[value0]
+FAILED tests/test_knowledge_vectors.py::test_invalid_embedding_rejected[value1]
+FAILED tests/test_knowledge_vectors.py::test_invalid_embedding_rejected[value2]
+FAILED tests/test_knowledge_vectors.py::test_invalid_embedding_rejected[value3]
+FAILED tests/test_knowledge_vectors.py::test_invalid_embedding_rejected[value4]
+FAILED tests/test_knowledge_vectors.py::test_embedding_chunks_preserve_offsets_and_complete_text
+6 failed in 0.05s

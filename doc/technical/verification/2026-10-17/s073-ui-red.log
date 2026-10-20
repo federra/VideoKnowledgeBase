@@ -1,0 +1,578 @@
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/research.test.tsx (5 tests | 1 failed) 1280ms
+   × 报告读取真实历史版本，质量与市场预测分别展示，不用评级补数值 1011ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/research.test.tsx > 报告读取真实历史版本，质量与市场预测分别展示，不用评级补数值
+TestingLibraryElementError: Unable to find an element with the text: 合成测试：主角发现线索. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<h1[39m
+      [33mclass[39m=[32m"sr-only"[39m
+    [36m>[39m
+      [0m内容研判[0m
+    [36m</h1>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"work-back-row"[39m
+    [36m>[39m
+      [36m<button[39m
+        [33mclass[39m=[32m"btn"[39m
+      [36m>[39m
+        [0m‹ 返回作品列表[0m
+      [36m</button>[39m
+      [36m<span[39m
+        [33mclass[39m=[32m"small muted"[39m
+      [36m>[39m
+        [0m研判室 / 内容研判 / 作品详情[0m
+      [36m</span>[39m
+    [36m</div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"work-detail-header"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"work-detail-identity"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"work-cover"[39m
+        [36m>[39m
+          [0m真[0m
+        [36m</span>[39m
+        [36m<div>[39m
+          [36m<h1[39m
+            [33mid[39m=[32m"workDetailTitle"[39m
+          [36m>[39m
+            [0m真实作品[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"small muted"[39m
+          [36m>[39m
+            [0mW-real[0m
+            [0m · [0m
+            [0m题材待补充[0m
+            [0m · [0m
+            [0m博主ID未记录[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"btn"[39m
+        [36m>[39m
+          [0m补充资料[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"work-overview-stats"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m总集数[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m150[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m已收集[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m0[0m
+            [0m [0m
+            [0m集[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m已分析[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m0[0m
+            [0m [0m
+            [0m集[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"work-report-overview"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [0m最新报告[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m尚无报告[0m
+          [36m</strong>[39m
+          [36m<small>[39m
+            [0m尚无可用作品报告[0m
+          [36m</small>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m总观看量[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33maria-label[39m=[32m"未获取"[39m
+            [33mclass[39m=[32m"work-performance-value"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m互动量[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33maria-label[39m=[32m"未获取"[39m
+            [33mclass[39m=[32m"work-performance-value"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<p[39m
+        [33mclass[39m=[32m"work-detail-progress"[39m
+      [36m>[39m
+        [0m1[0m
+        [0m份材料 · [0m
+        [0m0[0m
+        [0m份解析中 · 总集数未知时覆盖不代表全剧；参考简介不计为已收集单集。[0m
+      [36m</p>[39m
+    [36m</section>[39m
+    [36m<div[39m
+      [33maria-label[39m=[32m"作品详情分区"[39m
+      [33mclass[39m=[32m"work-detail-tabs"[39m
+      [33mrole[39m=[32m"group"[39m
+    [36m>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"true"[39m
+        [33mclass[39m=[32m"active"[39m
+      [36m>[39m
+        [0m作品分析[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"false"[39m
+        [33mclass[39m=[32m""[39m
+      [36m>[39m
+        [0m分集分析[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"false"[39m
+        [33mclass[39m=[32m""[39m
+      [36m>[39m
+        [0m资料与记录[0m
+      [36m</button>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mid[39m=[32m"workDetailContent"[39m
+    [36m>[39m
+      [36m<article[39m
+        [33mclass[39m=[32m"work-analysis-document work-panel"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"report-title-row"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0m作品分析[0m
+          [36m</h2>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"report-version-label"[39m
+          [36m>[39m
+            [0m待分析[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m0 作品优缺点[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m1 故事大纲[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m2 情绪与母题[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m3 人物设计[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m4 世界观与长线悬念[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m5 情节与冲突[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m6 节奏结构[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m7 终局设计[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m8 剧情发展高潮曲线[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m9 观众评论反馈总结[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+      [36m</article>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<h1[39m
+      [33mclass[39m=[32m"sr-only"[39m
+    [36m>[39m
+      [0m内容研判[0m
+    [36m</h1>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"work-back-row"[39m
+    [36m>[39m
+      [36m<button[39m
+        [33mclass[39m=[32m"btn"[39m
+      [36m>[39m
+        [0m‹ 返回作品列表[0m
+      [36m</button>[39m
+      [36m<span[39m
+        [33mclass[39m=[32m"small muted"[39m
+      [36m>[39m
+        [0m研判室 / 内容研判 / 作品详情[0m
+      [36m</span>[39m
+    [36m</div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"work-detail-header"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"work-detail-identity"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"work-cover"[39m
+        [36m>[39m
+          [0m真[0m
+        [36m</span>[39m
+        [36m<div>[39m
+          [36m<h1[39m
+            [33mid[39m=[32m"workDetailTitle"[39m
+          [36m>[39m
+            [0m真实作品[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"small muted"[39m
+          [36m>[39m
+            [0mW-real[0m
+            [0m · [0m
+            [0m题材待补充[0m
+            [0m · [0m
+            [0m博主ID未记录[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"btn"[39m
+        [36m>[39m
+          [0m补充资料[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"work-overview-stats"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m总集数[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m150[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m已收集[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m0[0m
+            [0m [0m
+            [0m集[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m已分析[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m0[0m
+            [0m [0m
+            [0m集[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"work-report-overview"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [0m最新报告[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m尚无报告[0m
+          [36m</strong>[39m
+          [36m<small>[39m
+            [0m尚无可用作品报告[0m
+          [36m</small>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m总观看量[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33maria-label[39m=[32m"未获取"[39m
+            [33mclass[39m=[32m"work-performance-value"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m互动量[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33maria-label[39m=[32m"未获取"[39m
+            [33mclass[39m=[32m"work-performance-value"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<p[39m
+        [33mclass[39m=[32m"work-detail-progress"[39m
+      [36m>[39m
+        [0m1[0m
+        [0m份材料 · [0m
+        [0m0[0m
+        [0m份解析中 · 总集数未知时覆盖不代表全剧；参考简介不计为已收集单集。[0m
+      [36m</p>[39m
+    [36m</section>[39m
+    [36m<div[39m
+      [33maria-label[39m=[32m"作品详情分区"[39m
+      [33mclass[39m=[32m"work-detail-tabs"[39m
+      [33mrole[39m=[32m"group"[39m
+    [36m>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"true"[39m
+        [33mclass[39m=[32m"active"[39m
+      [36m>[39m
+        [0m作品分析[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"false"[39m
+        [33mclass[39m=[32m""[39m
+      [36m>[39m
+        [0m分集分析[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"false"[39m
+        [33mclass[39m=[32m""[39m
+      [36m>[39m
+        [0m资料与记录[0m
+      [36m</button>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mid[39m=[32m"workDetailContent"[39m
+    [36m>[39m
+      [36m<article[39m
+        [33mclass[39m=[32m"work-analysis-document work-panel"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"report-title-row"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0m作品分析[0m
+          [36m</h2>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"report-version-label"[39m
+          [36m>[39m
+            [0m待分析[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m0 作品优缺点[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m1 故事大纲[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m2 情绪与母题[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m3 人物设计[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m4 世界观与长线悬念[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m5 情节与冲突[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m6 节奏结构[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m7 终局设计[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m8 剧情发展高潮曲线[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+        [36m<section>[39m
+          [36m<h2>[39m
+            [0m9 观众评论反馈总结[0m
+          [36m</h2>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"muted"[39m
+          [36m>[39m
+            [0m材料尚未形成有效分析，待分析。[0m
+          [36m</p>[39m
+        [36m</section>[39m
+      [36m</article>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ tests/research.test.tsx:63:15
+     61|  const history={reports:[report],evaluations:[],prediction_drafts:[],f…
+     62|  mount(p=>p.endsWith('/analysis-history')?history:p.includes('/works/'…
+     63|  await screen.findByText('合成测试：主角发现线索');
+       |               ^
+     64|  expect(screen.getByText(/暂不可可靠预测/)).toBeTruthy();
+     65|  expect(screen.queryByText('S级')).toBeNull();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  17:34:44
+   Duration  1.82s (tests 73%, environment 20%, setup 4%, import 2%, transform 1%)
+

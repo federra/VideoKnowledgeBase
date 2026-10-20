@@ -1,0 +1,11 @@
+$ pnpm --dir frontend test
+$ vitest run
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+
+ Test Files  9 passed (9)
+      Tests  74 passed (74)
+   Start at  19:42:08
+   Duration  4.33s (environment 45%, tests 42%, setup 7%, import 3%, transform 3%)
+

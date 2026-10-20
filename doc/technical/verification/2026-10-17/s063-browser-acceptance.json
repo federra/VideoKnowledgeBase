@@ -1,0 +1,45 @@
+{
+  "environment": "disposable PostgreSQL, restricted role, local HTTP API and React UI",
+  "fixture": "12 synthetic creator works, two captured authors; not project data or provider live sampling",
+  "external_paid_calls": 0,
+  "project_worker_started": false,
+  "project_beat_started": false,
+  "checks": [
+    "no manual login; current local actor shown",
+    "10+2 pagination",
+    "single author 6 rows, multi-select 12",
+    "long text tooltip, Esc close",
+    "missing historical date 2025-10-16 does not fall back",
+    "unavailable board/comment/insight explicit",
+    "dark narrow screen readable",
+    "project empty metrics remain unknown"
+  ],
+  "screenshots": {
+    "demo": "s063-demo-creator.jpg",
+    "project": "s063-project-feed.jpg",
+    "long_text": "s063-long-text.jpg",
+    "narrow": "s063-narrow-dark.jpg"
+  },
+  "viewports": {
+    "demo": [
+      1280,
+      720
+    ],
+    "project": [
+      1280,
+      720
+    ],
+    "narrow": [
+      390,
+      844
+    ]
+  },
+  "narrow_document": {
+    "client_width": 375,
+    "scroll_width": 375
+  },
+  "cleanup": {
+    "temporary_databases_remaining": 0,
+    "temporary_roles_remaining": 0
+  }
+}

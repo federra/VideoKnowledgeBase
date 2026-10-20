@@ -1,0 +1,478 @@
+{
+  "date": "2026-10-20",
+  "qidian_total": "118",
+  "novel_count_all": "2331",
+  "rank_types": [
+    {
+      "value": "hotsales",
+      "label": "畅销榜"
+    },
+    {
+      "value": "newauthor",
+      "label": "新人榜"
+    },
+    {
+      "value": "newbook",
+      "label": "新书榜"
+    },
+    {
+      "value": "newfans",
+      "label": "书友榜"
+    },
+    {
+      "value": "readindex",
+      "label": "阅读榜"
+    },
+    {
+      "value": "rec",
+      "label": "推荐榜"
+    },
+    {
+      "value": "sign",
+      "label": "签约榜"
+    },
+    {
+      "value": "update",
+      "label": "更新榜"
+    },
+    {
+      "value": "yuepiao",
+      "label": "月票榜"
+    }
+  ],
+  "genres": [
+    {
+      "value": "仙侠",
+      "label": "仙侠"
+    },
+    {
+      "value": "体育",
+      "label": "体育"
+    },
+    {
+      "value": "军事",
+      "label": "军事"
+    },
+    {
+      "value": "历史",
+      "label": "历史"
+    },
+    {
+      "value": "奇幻",
+      "label": "奇幻"
+    },
+    {
+      "value": "悬疑灵异",
+      "label": "悬疑灵异"
+    },
+    {
+      "value": "武侠",
+      "label": "武侠"
+    },
+    {
+      "value": "游戏",
+      "label": "游戏"
+    },
+    {
+      "value": "玄幻",
+      "label": "玄幻"
+    },
+    {
+      "value": "现实",
+      "label": "现实"
+    },
+    {
+      "value": "科幻",
+      "label": "科幻"
+    },
+    {
+      "value": "诸天无限",
+      "label": "诸天无限"
+    },
+    {
+      "value": "轻小说",
+      "label": "轻小说"
+    },
+    {
+      "value": "都市",
+      "label": "都市"
+    }
+  ],
+  "statuses": [
+    {
+      "platform": "qidian",
+      "board": "qidian:mobile:male:newauthor",
+      "state": "succeeded",
+      "http_status": 200
+    },
+    {
+      "platform": "qidian",
+      "board": "qidian:mobile:male:newbook",
+      "state": "succeeded",
+      "http_status": 200
+    },
+    {
+      "platform": "qidian",
+      "board": "qidian:mobile:male:sign",
+      "state": "succeeded",
+      "http_status": 200
+    },
+    {
+      "platform": "qidian",
+      "board": "qidian:mobile:male:update",
+      "state": "succeeded",
+      "http_status": 200
+    },
+    {
+      "platform": "qidian",
+      "board": "qidian:mobile:male:rec",
+      "state": "succeeded",
+      "http_status": 200
+    },
+    {
+      "platform": "qidian",
+      "board": "qidian:mobile:male:newfans",
+      "state": "succeeded",
+      "http_status": 200
+    },
+    {
+      "platform": "qidian",
+      "board": "qidian:mobile:male:readindex",
+      "state": "succeeded",
+      "http_status": 200
+    },
+    {
+      "platform": "qidian",
+      "board": "qidian:mobile:male:hotsales",
+      "state": "succeeded",
+      "http_status": 200
+    },
+    {
+      "platform": "qidian",
+      "board": "qidian:mobile:male:yuepiao",
+      "state": "succeeded",
+      "http_status": 200
+    },
+    {
+      "platform": "qidian",
+      "board": "qidian:mobile:female:catalog",
+      "state": "failed",
+      "http_status": 202
+    },
+    {
+      "platform": "qidian",
+      "board": "qidian:mobile:male:catalog",
+      "state": "succeeded",
+      "http_status": 200
+    }
+  ],
+  "fanqie_total": "2213",
+  "fanqie_fingerprints_unchanged": true,
+  "jobs": [
+    {
+      "task_id": "f6fb43e5-3a7a-42ca-a3d0-29441013cb81",
+      "job_id": "d832b7d1-9cd5-4239-bc7c-9daa1787a7c3",
+      "source_id": "4e9e28bf-de74-45a2-b7d8-a7d647cf23f3",
+      "board": "qidian:mobile:male:catalog",
+      "name": "男频官方目录",
+      "state": "succeeded",
+      "safe_error_code": null,
+      "saved": 0,
+      "calls": [
+        {
+          "http_status": 200,
+          "outcome": "success",
+          "returned_items": null
+        }
+      ]
+    },
+    {
+      "task_id": "db972730-aaeb-4904-b7b7-f4123e07750f",
+      "job_id": "7186cdc9-0bcd-4239-accb-8d975b8a9aa7",
+      "source_id": "a9a91a3f-d8be-40d9-834e-55f0f928df40",
+      "board": "qidian:mobile:female:catalog",
+      "name": "女频官方目录",
+      "state": "failed",
+      "safe_error_code": "SOURCE_UNAVAILABLE",
+      "saved": 0,
+      "calls": [
+        {
+          "http_status": 202,
+          "outcome": "http_error",
+          "returned_items": null
+        }
+      ]
+    },
+    {
+      "task_id": "31c5ed04-2de5-4f1f-b28e-183dd3196cea",
+      "job_id": "e00d441a-27ac-4abd-8254-74bb046db3a2",
+      "source_id": "8605b63d-f67d-41a2-9489-17039e1d39a1",
+      "board": "qidian:mobile:male:yuepiao",
+      "name": "月票榜 · 男频",
+      "state": "succeeded",
+      "safe_error_code": null,
+      "saved": 20,
+      "calls": [
+        {
+          "http_status": 200,
+          "outcome": "success",
+          "returned_items": 20
+        }
+      ]
+    },
+    {
+      "task_id": "b9c26f1b-b916-44ed-b15c-3966d48a415a",
+      "job_id": "85b01a95-6f8b-4d9e-88f9-3cfc0b5e64c9",
+      "source_id": "e88a4d18-3f6a-47ff-8a29-54a43ff4f364",
+      "board": "qidian:mobile:male:hotsales",
+      "name": "畅销榜 · 男频",
+      "state": "succeeded",
+      "safe_error_code": null,
+      "saved": 20,
+      "calls": [
+        {
+          "http_status": 200,
+          "outcome": "success",
+          "returned_items": 20
+        }
+      ]
+    },
+    {
+      "task_id": "9aa8c8e2-727c-4fa7-a198-676d6ff97a73",
+      "job_id": "e9120388-e917-4cc6-8a7c-b31235d47a6f",
+      "source_id": "1f116077-5a92-494b-a827-710b78b79da5",
+      "board": "qidian:mobile:male:readindex",
+      "name": "阅读榜 · 男频",
+      "state": "succeeded",
+      "safe_error_code": null,
+      "saved": 20,
+      "calls": [
+        {
+          "http_status": 200,
+          "outcome": "success",
+          "returned_items": 20
+        }
+      ]
+    },
+    {
+      "task_id": "b102efbc-c9f2-47c2-9b64-2b61223d7842",
+      "job_id": "a6d1ed3f-b6a1-4122-b4e4-2a0045f8c7f8",
+      "source_id": "b53f3f01-3867-4b65-b936-d06685145fef",
+      "board": "qidian:mobile:male:newfans",
+      "name": "书友榜 · 男频",
+      "state": "succeeded",
+      "safe_error_code": null,
+      "saved": 20,
+      "calls": [
+        {
+          "http_status": 200,
+          "outcome": "success",
+          "returned_items": 20
+        }
+      ]
+    },
+    {
+      "task_id": "9a19f325-3f42-4e96-bb0d-087e103ae7f0",
+      "job_id": "fbb8da8f-f2fc-4c27-92ad-ca3e774a9845",
+      "source_id": "b7b647e8-eaf6-42ba-8767-3702a6df9841",
+      "board": "qidian:mobile:male:rec",
+      "name": "推荐榜 · 男频",
+      "state": "succeeded",
+      "safe_error_code": null,
+      "saved": 20,
+      "calls": [
+        {
+          "http_status": 200,
+          "outcome": "success",
+          "returned_items": 20
+        }
+      ]
+    },
+    {
+      "task_id": "65dcd647-e276-41bc-aae0-055ca7eca825",
+      "job_id": "86fd6b97-bf3c-40fc-bb5a-8829763900a3",
+      "source_id": "f5789ee4-87f8-4c37-b3c3-5ff6f7692b70",
+      "board": "qidian:mobile:male:update",
+      "name": "更新榜 · 男频",
+      "state": "succeeded",
+      "safe_error_code": null,
+      "saved": 20,
+      "calls": [
+        {
+          "http_status": 200,
+          "outcome": "success",
+          "returned_items": 20
+        }
+      ]
+    },
+    {
+      "task_id": "c78c1009-3d8d-4626-89c9-1e563919530f",
+      "job_id": "dcf27a69-9580-4e46-8cb1-e1858a5ea798",
+      "source_id": "691d5d82-054d-4f21-bf68-2ffb373c4f8e",
+      "board": "qidian:mobile:male:sign",
+      "name": "签约榜 · 男频",
+      "state": "succeeded",
+      "safe_error_code": null,
+      "saved": 20,
+      "calls": [
+        {
+          "http_status": 200,
+          "outcome": "success",
+          "returned_items": 20
+        }
+      ]
+    },
+    {
+      "task_id": "022feb3e-a9e2-446c-9478-4b0d7e7529bf",
+      "job_id": "62488be4-2fed-4a8e-9d8f-76ff26906e51",
+      "source_id": "ca517497-763f-41a8-88e5-d35fef26fbb8",
+      "board": "qidian:mobile:male:newbook",
+      "name": "新书榜 · 男频",
+      "state": "succeeded",
+      "safe_error_code": null,
+      "saved": 20,
+      "calls": [
+        {
+          "http_status": 200,
+          "outcome": "success",
+          "returned_items": 20
+        }
+      ]
+    },
+    {
+      "task_id": "c417163a-9a29-44d1-864c-c0496636ff6c",
+      "job_id": "ed533be6-a484-4589-a175-543de14d96f2",
+      "source_id": "da0851d6-00dd-4c87-8828-5aefea854dba",
+      "board": "qidian:mobile:male:newauthor",
+      "name": "新人榜 · 男频",
+      "state": "succeeded",
+      "safe_error_code": null,
+      "saved": 20,
+      "calls": [
+        {
+          "http_status": 200,
+          "outcome": "success",
+          "returned_items": 20
+        }
+      ]
+    }
+  ],
+  "source_paused": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "raw_checks": [
+    {
+      "board": "qidian:mobile:male:catalog",
+      "sha256_matches": true
+    },
+    {
+      "board": "qidian:mobile:female:catalog",
+      "sha256_matches": true
+    },
+    {
+      "board": "qidian:mobile:male:yuepiao",
+      "sha256_matches": true
+    },
+    {
+      "board": "qidian:mobile:male:hotsales",
+      "sha256_matches": true
+    },
+    {
+      "board": "qidian:mobile:male:readindex",
+      "sha256_matches": true
+    },
+    {
+      "board": "qidian:mobile:male:newfans",
+      "sha256_matches": true
+    },
+    {
+      "board": "qidian:mobile:male:rec",
+      "sha256_matches": true
+    },
+    {
+      "board": "qidian:mobile:male:update",
+      "sha256_matches": true
+    },
+    {
+      "board": "qidian:mobile:male:sign",
+      "sha256_matches": true
+    },
+    {
+      "board": "qidian:mobile:male:newbook",
+      "sha256_matches": true
+    },
+    {
+      "board": "qidian:mobile:male:newauthor",
+      "sha256_matches": true
+    }
+  ],
+  "all_qidian_members": {
+    "count": 180,
+    "unique_ids": 118,
+    "reader_count_null": true,
+    "work_gender_null": true,
+    "genre_in_own_taxonomy": true
+  },
+  "sample_work_labels": [
+    {
+      "gender": null,
+      "genre": "都市",
+      "reader_count": null
+    },
+    {
+      "gender": null,
+      "genre": "仙侠",
+      "reader_count": null
+    },
+    {
+      "gender": null,
+      "genre": "仙侠",
+      "reader_count": null
+    },
+    {
+      "gender": null,
+      "genre": "玄幻",
+      "reader_count": null
+    },
+    {
+      "gender": null,
+      "genre": "玄幻",
+      "reader_count": null
+    },
+    {
+      "gender": null,
+      "genre": "仙侠",
+      "reader_count": null
+    },
+    {
+      "gender": null,
+      "genre": "都市",
+      "reader_count": null
+    },
+    {
+      "gender": null,
+      "genre": "玄幻",
+      "reader_count": null
+    },
+    {
+      "gender": null,
+      "genre": "玄幻",
+      "reader_count": null
+    },
+    {
+      "gender": null,
+      "genre": "玄幻",
+      "reader_count": null
+    }
+  ]
+}

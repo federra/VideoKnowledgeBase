@@ -1,0 +1,167 @@
+$ vitest run --run tests/console.test.tsx
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/console.test.tsx (6 tests | 1 failed) 252ms
+   ❯ 真实控制台 (3)
+     × 空来源显示真实空态，不呈现Demo来源 85ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/console.test.tsx > 真实控制台 > 空来源显示真实空态，不呈现Demo来源
+AssertionError: expected <body><div>…(5)</div></body> to be <button class="btn">…(1)</button> // Object.is equality
+
+- Expected
++ Received
+
+@@ -1,5 +1,15 @@
++ <body>
++   <div>
++     <h1
++       class="sr-only"
++     >
++       采集配置
++     </h1>
++     <div
++       class="page-heading page-actions"
++     >
+        <button
+          class="btn"
+        >
+          <svg
+            aria-hidden="true"
+@@ -9,6 +19,116 @@
+            <path
+              d="M12 5v14M5 12h14"
+            />
+          </svg>
+           新增来源
++       </button>
++     </div>
++     <div
++       class="notice"
++     >
++       <svg
++         aria-hidden="true"
++         class="icon"
++         viewBox="0 0 24 24"
++       >
++         <circle
++           cx="12"
++           cy="12"
++           r="9"
++         />
++         <path
++           d="M12 11v6M12 7v1"
++         />
++       </svg>
++       <p>
++         来源由服务端保存；启用后按计划调用红狐（可能计费），每次最多1个请求、1条记录。新来源默认暂停。
++       </p>
++     </div>
++     <div
++       class="console-config-grid"
++     >
++       <section
++         class="console-config-card"
++       >
++         <div>
++           <h2>
++             榜单类型
++           </h2>
++           <p>
++             按业务线维护情报流的榜单筛选项
++           </p>
++         </div>
++         <button
++           class="btn"
++         >
++           管理榜单类型
++         </button>
++       </section>
++       <section
++         class="console-config-card"
++       >
++         <div>
++           <h2>
++             监测达人
++           </h2>
++           <p>
++             按业务线维护达人更新的监测名单
++           </p>
++         </div>
++         <button
++           class="btn"
++         >
++           管理监测达人
+          </button>
++       </section>
++     </div>
++     <div
++       class="table-wrap"
++     >
++       <table>
++         <thead>
++           <tr>
++             <th
++               scope="col"
++             >
++               监测来源
++             </th>
++             <th
++               scope="col"
++             >
++               采集计划
++             </th>
++             <th
++               scope="col"
++             >
++               用途
++             </th>
++             <th
++               scope="col"
++             >
++               状态
++             </th>
++             <th
++               scope="col"
++             >
++               操作
++             </th>
++           </tr>
++         </thead>
++         <tbody>
++           <tr>
++             <td
++               colspan="5"
++             >
++               <div
++                 class="empty"
++               >
++                 暂无监测来源
++               </div>
++             </td>
++           </tr>
++         </tbody>
++       </table>
++     </div>
++   </div>
++ </body>
+
+ ❯ tests/console.test.tsx:29:34
+     27|   screen.getByRole('button',{name:'取消'}).focus();fireEvent.click(scree…
+     28|   await waitFor(()=>expect(document.querySelector('dialog')?.open).toB…
+     29|   expect(document.activeElement).toBe(opener);
+       |                                  ^
+     30|  });
+     31|  it('读取失败明确反馈，不回退演示成功',async()=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 passed (6)
+   Start at  14:28:23
+   Duration  579ms (tests 48%, environment 40%, setup 6%, transform 3%, import 3%)
+
+[ELIFECYCLE] Test failed. See above for more details.

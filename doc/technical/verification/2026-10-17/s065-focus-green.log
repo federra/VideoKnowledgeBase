@@ -1,0 +1,10 @@
+$ vitest run --run tests/audience-feedback.test.tsx tests/console.test.tsx
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+
+ Test Files  2 passed (2)
+      Tests  9 passed (9)
+   Start at  14:28:33
+   Duration  747ms (environment 46%, tests 38%, setup 7%, transform 6%, import 3%)
+

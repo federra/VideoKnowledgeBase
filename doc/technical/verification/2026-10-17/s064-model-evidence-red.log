@@ -1,0 +1,18 @@
+..........F                                                              [100%]
+=================================== FAILURES ===================================
+_ test_invalid_structured_output_preserves_private_raw_output_for_execution_record _
+
+    def test_invalid_structured_output_preserves_private_raw_output_for_execution_record():
+        from app.ai.deepseek import DeepSeek, ModelError
+        raw='{"result_state":"completed","summary":"invalid schema"}'
+        transport=httpx.MockTransport(lambda _:httpx.Response(200,json={'id':'bad-output','choices':[{'finish_reason':'stop','message':{'content':raw}}],'usage':{'prompt_tokens':12,'completion_tokens':6}}))
+        with pytest.raises(ModelError) as result:
+            DeepSeek(lambda:SecretStr('offline'),transport=transport).feedback(inputs(),reserve=lambda _:None)
+>       assert result.value.raw_text==raw
+               ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'ModelError' object has no attribute 'raw_text'
+
+backend/tests/test_deepseek.py:122: AttributeError
+=========================== short test summary info ============================
+FAILED backend/tests/test_deepseek.py::test_invalid_structured_output_preserves_private_raw_output_for_execution_record
+1 failed, 10 passed in 0.14s

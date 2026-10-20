@@ -1,0 +1,110 @@
+FFFFFFFFF                                                                [100%]
+=================================== FAILURES ===================================
+__________ test_single_fixed_first_page_request_and_secret_redaction ___________
+
+    def test_single_fixed_first_page_request_and_secret_redaction():
+>       from app.connectors.tikhub import CAPABILITY, TikHub
+E       ModuleNotFoundError: No module named 'app.connectors.tikhub'
+
+backend/tests/test_tikhub.py:8: ModuleNotFoundError
+___________ test_failures_are_bounded_safe_and_never_retry[redirect] ___________
+
+case = 'redirect'
+
+    @pytest.mark.parametrize(
+        "case", ["redirect", "timeout", "provider_error", "invalid_json", "oversize", "missing_data"]
+    )
+    def test_failures_are_bounded_safe_and_never_retry(case):
+>       from app.connectors.tikhub import CAPABILITY, TikHub
+E       ModuleNotFoundError: No module named 'app.connectors.tikhub'
+
+backend/tests/test_tikhub.py:36: ModuleNotFoundError
+___________ test_failures_are_bounded_safe_and_never_retry[timeout] ____________
+
+case = 'timeout'
+
+    @pytest.mark.parametrize(
+        "case", ["redirect", "timeout", "provider_error", "invalid_json", "oversize", "missing_data"]
+    )
+    def test_failures_are_bounded_safe_and_never_retry(case):
+>       from app.connectors.tikhub import CAPABILITY, TikHub
+E       ModuleNotFoundError: No module named 'app.connectors.tikhub'
+
+backend/tests/test_tikhub.py:36: ModuleNotFoundError
+________ test_failures_are_bounded_safe_and_never_retry[provider_error] ________
+
+case = 'provider_error'
+
+    @pytest.mark.parametrize(
+        "case", ["redirect", "timeout", "provider_error", "invalid_json", "oversize", "missing_data"]
+    )
+    def test_failures_are_bounded_safe_and_never_retry(case):
+>       from app.connectors.tikhub import CAPABILITY, TikHub
+E       ModuleNotFoundError: No module named 'app.connectors.tikhub'
+
+backend/tests/test_tikhub.py:36: ModuleNotFoundError
+_________ test_failures_are_bounded_safe_and_never_retry[invalid_json] _________
+
+case = 'invalid_json'
+
+    @pytest.mark.parametrize(
+        "case", ["redirect", "timeout", "provider_error", "invalid_json", "oversize", "missing_data"]
+    )
+    def test_failures_are_bounded_safe_and_never_retry(case):
+>       from app.connectors.tikhub import CAPABILITY, TikHub
+E       ModuleNotFoundError: No module named 'app.connectors.tikhub'
+
+backend/tests/test_tikhub.py:36: ModuleNotFoundError
+___________ test_failures_are_bounded_safe_and_never_retry[oversize] ___________
+
+case = 'oversize'
+
+    @pytest.mark.parametrize(
+        "case", ["redirect", "timeout", "provider_error", "invalid_json", "oversize", "missing_data"]
+    )
+    def test_failures_are_bounded_safe_and_never_retry(case):
+>       from app.connectors.tikhub import CAPABILITY, TikHub
+E       ModuleNotFoundError: No module named 'app.connectors.tikhub'
+
+backend/tests/test_tikhub.py:36: ModuleNotFoundError
+_________ test_failures_are_bounded_safe_and_never_retry[missing_data] _________
+
+case = 'missing_data'
+
+    @pytest.mark.parametrize(
+        "case", ["redirect", "timeout", "provider_error", "invalid_json", "oversize", "missing_data"]
+    )
+    def test_failures_are_bounded_safe_and_never_retry(case):
+>       from app.connectors.tikhub import CAPABILITY, TikHub
+E       ModuleNotFoundError: No module named 'app.connectors.tikhub'
+
+backend/tests/test_tikhub.py:36: ModuleNotFoundError
+_____________ test_no_key_wrong_target_or_extra_page_does_not_call _____________
+
+    def test_no_key_wrong_target_or_extra_page_does_not_call():
+>       from app.connectors.tikhub import CAPABILITY, TikHub
+E       ModuleNotFoundError: No module named 'app.connectors.tikhub'
+
+backend/tests/test_tikhub.py:63: ModuleNotFoundError
+________________ test_httpx_info_log_never_exposes_query_token _________________
+
+caplog = <_pytest.logging.LogCaptureFixture object at 0x10947ffe0>
+
+    def test_httpx_info_log_never_exposes_query_token(caplog):
+        import logging
+    
+>       from app.connectors.tikhub import CAPABILITY, TikHub
+E       ModuleNotFoundError: No module named 'app.connectors.tikhub'
+
+backend/tests/test_tikhub.py:83: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/test_tikhub.py::test_single_fixed_first_page_request_and_secret_redaction
+FAILED backend/tests/test_tikhub.py::test_failures_are_bounded_safe_and_never_retry[redirect]
+FAILED backend/tests/test_tikhub.py::test_failures_are_bounded_safe_and_never_retry[timeout]
+FAILED backend/tests/test_tikhub.py::test_failures_are_bounded_safe_and_never_retry[provider_error]
+FAILED backend/tests/test_tikhub.py::test_failures_are_bounded_safe_and_never_retry[invalid_json]
+FAILED backend/tests/test_tikhub.py::test_failures_are_bounded_safe_and_never_retry[oversize]
+FAILED backend/tests/test_tikhub.py::test_failures_are_bounded_safe_and_never_retry[missing_data]
+FAILED backend/tests/test_tikhub.py::test_no_key_wrong_target_or_extra_page_does_not_call
+FAILED backend/tests/test_tikhub.py::test_httpx_info_log_never_exposes_query_token
+9 failed in 0.10s

@@ -1,0 +1,104 @@
+{
+  "status": "series_order",
+  "total": "10",
+  "sources": [
+    "TikHub短剧热榜 · content_type=0 · 整剧统计"
+  ],
+  "calls": 1,
+  "source_paused": true,
+  "snapshots": [
+    "afa37ee3-3a5a-41a6-bac5-09acda0e1084"
+  ],
+  "items": [
+    {
+      "title": "我隐藏身份，找到了新妈妈",
+      "description_present": true,
+      "views": "1931322963",
+      "collects": "2588882",
+      "likes": null,
+      "comments": null,
+      "shares": null
+    },
+    {
+      "title": "督军府大小姐，这枪我不封了",
+      "description_present": true,
+      "views": "1764679094",
+      "collects": "2044045",
+      "likes": null,
+      "comments": null,
+      "shares": null
+    },
+    {
+      "title": "傅总别装了，你老婆要掀桌",
+      "description_present": true,
+      "views": "1499602437",
+      "collects": "2707031",
+      "likes": null,
+      "comments": null,
+      "shares": null
+    },
+    {
+      "title": "将军将我贬妻为妾，圣旨赐下后他慌了",
+      "description_present": true,
+      "views": "1238473779",
+      "collects": "1334596",
+      "likes": null,
+      "comments": null,
+      "shares": null
+    },
+    {
+      "title": "穷酸老爹是装穷",
+      "description_present": true,
+      "views": "1215836766",
+      "collects": "1763478",
+      "likes": null,
+      "comments": null,
+      "shares": null
+    },
+    {
+      "title": "五十岁爷们闪婚了",
+      "description_present": true,
+      "views": "1244408107",
+      "collects": "1321912",
+      "likes": null,
+      "comments": null,
+      "shares": null
+    },
+    {
+      "title": "被讹后，全村的麦子烂在地里了",
+      "description_present": true,
+      "views": "921357575",
+      "collects": "774560",
+      "likes": null,
+      "comments": null,
+      "shares": null
+    },
+    {
+      "title": "东北婆婆，笑护全家",
+      "description_present": true,
+      "views": "966491110",
+      "collects": "1223988",
+      "likes": null,
+      "comments": null,
+      "shares": null
+    },
+    {
+      "title": "二嫁有喜",
+      "description_present": true,
+      "views": "863627369",
+      "collects": "1414570",
+      "likes": null,
+      "comments": null,
+      "shares": null
+    },
+    {
+      "title": "公公甩资让我离婚，前夫婚礼上我惊艳全场",
+      "description_present": true,
+      "views": "823905782",
+      "collects": "1142948",
+      "likes": null,
+      "comments": null,
+      "shares": null
+    }
+  ]
+}

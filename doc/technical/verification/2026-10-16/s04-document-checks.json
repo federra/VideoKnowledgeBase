@@ -1,0 +1,13 @@
+{
+  "document_links": 11,
+  "missing_links": [],
+  "mapped_tables": 70,
+  "released_sql_match_database_audit": true,
+  "all_business_tables_empty": true,
+  "frontend_tests": 7,
+  "backend_tests": 24,
+  "postgresql_tests": 64,
+  "project_check_exit": 0,
+  "demo_baseline_prefix": "a610b8754f5c",
+  "alembic_metadata_diff": "No new upgrade operations detected; no cycle warnings"
+}

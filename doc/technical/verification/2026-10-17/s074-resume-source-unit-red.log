@@ -1,0 +1,26 @@
+......FF                                                                 [100%]
+=================================== FAILURES ===================================
+_ test_manual_source_requires_text_instead_of_only_link[https://example.com/source] _
+
+text = 'https://example.com/source'
+
+    @pytest.mark.parametrize('text',['https://example.com/source','   '])
+    def test_manual_source_requires_text_instead_of_only_link(text):
+>       from app.knowledge.contracts import ManualSource
+E       ImportError: cannot import name 'ManualSource' from 'app.knowledge.contracts' (/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/app/knowledge/contracts.py)
+
+tests/test_knowledge_models.py:85: ImportError
+__________ test_manual_source_requires_text_instead_of_only_link[   ] __________
+
+text = '   '
+
+    @pytest.mark.parametrize('text',['https://example.com/source','   '])
+    def test_manual_source_requires_text_instead_of_only_link(text):
+>       from app.knowledge.contracts import ManualSource
+E       ImportError: cannot import name 'ManualSource' from 'app.knowledge.contracts' (/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/app/knowledge/contracts.py)
+
+tests/test_knowledge_models.py:85: ImportError
+=========================== short test summary info ============================
+FAILED tests/test_knowledge_models.py::test_manual_source_requires_text_instead_of_only_link[https://example.com/source]
+FAILED tests/test_knowledge_models.py::test_manual_source_requires_text_instead_of_only_link[   ]
+2 failed, 6 passed in 0.10s

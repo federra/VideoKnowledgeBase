@@ -1,0 +1,25 @@
+{
+  "revision": "0009_collection_lock",
+  "paid_request_reservations": 1,
+  "calls": [
+    {
+      "http_status": 200,
+      "provider_code": "2000",
+      "outcome": "success",
+      "returned_items": 10,
+      "completed_at": "2026-10-17 04:07:12.089333+00:00"
+    }
+  ],
+  "stored_works": 10,
+  "keyword_works_count": "10",
+  "board_entries": 0,
+  "source_enabled": false,
+  "metrics": {
+    "videos": null,
+    "creators": null,
+    "comments": "2345",
+    "likes": "36525"
+  },
+  "all_results_literal_keyword": true,
+  "task_attempts_update_privilege": false
+}

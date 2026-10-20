@@ -1,0 +1,57 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_daily_board_uses_category_endpoint_and_preserves_order_without_keyword __
+
+    def test_daily_board_uses_category_endpoint_and_preserves_order_without_keyword():
+        from app.connectors.redfox import RedFox
+        calls = []
+        request = {"type": "小剧场", "startTime": "2026-10-16", "endTime": "2026-10-16"}
+        def transport(r):
+            calls.append(r)
+            assert r.url.path == "/story/api/dy/search/likesRank"
+            assert json.loads(r.content) == request
+            return httpx.Response(200, json=payload())
+>       reply = RedFox(lambda: "offline", transport=httpx.MockTransport(transport)).fetch(CAP, request, maximum=10)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_redfox_daily.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <app.connectors.redfox.RedFox object at 0x10aee8ce0>
+capability = 'douyin.board.daily'
+request = {'type': '小剧场', 'startTime': '2026-10-16', 'endTime': '2026-10-16'}
+maximum = 10
+
+    def fetch(self, capability, request, *, maximum=None):
+        if capability not in CAPABILITIES:
+>           raise AdapterError("UNSUPPORTED_SOURCE")
+E           app.connectors.redfox.AdapterError: UNSUPPORTED_SOURCE
+
+backend/app/connectors/redfox.py:281: AdapterError
+_ test_daily_board_does_not_accept_wrong_category_mixed_media_or_hidden_paging _
+
+    def test_daily_board_does_not_accept_wrong_category_mixed_media_or_hidden_paging():
+        from app.connectors.redfox import RedFox, normalize
+        body = payload()
+        body["data"][0]["category"] = "二次元"
+        body["data"][1]["workType"] = "图文"
+>       batch = normalize(CAP, body, maximum=10)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/test_redfox_daily.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+capability = 'douyin.board.daily'
+payload = {'code': 2000, 'data': [{'workId': '500', 'workType': '0', 'category': '二次元', 'content': '真实剧情样本0', ...}, {'workId': '...场', 'content': '真实剧情样本4', ...}, {'workId': '505', 'workType': '0', 'category': '小剧场', 'content': '真实剧情样本5', ...}, ...]}
+maximum = 10, target = None
+
+    def normalize(capability, payload, *, maximum=1, target=None):
+        if capability not in CAPABILITIES:
+>           raise AdapterError("UNSUPPORTED_SOURCE")
+E           app.connectors.redfox.AdapterError: UNSUPPORTED_SOURCE
+
+backend/app/connectors/redfox.py:127: AdapterError
+=========================== short test summary info ============================
+FAILED backend/tests/test_redfox_daily.py::test_daily_board_uses_category_endpoint_and_preserves_order_without_keyword
+FAILED backend/tests/test_redfox_daily.py::test_daily_board_does_not_accept_wrong_category_mixed_media_or_hidden_paging
+2 failed in 0.10s

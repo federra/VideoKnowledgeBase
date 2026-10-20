@@ -1,0 +1,15 @@
+...................F                                                     [100%]
+=================================== FAILURES ===================================
+_______ test_provider_response_failure_is_a_serializable_contract_error ________
+
+    def test_provider_response_failure_is_a_serializable_contract_error():
+        from typing import get_args
+        from app.contracts.models import ERROR_STATUS, ErrorCode
+>       assert 'INVALID_RESPONSE' in get_args(ErrorCode)
+E       AssertionError: assert 'INVALID_RESPONSE' in ('AUTH_REQUIRED', 'AUTH_INVALID', 'CSRF_INVALID', 'ACCESS_DENIED', 'NOT_FOUND', 'VALIDATION_FAILED', ...)
+E        +  where ('AUTH_REQUIRED', 'AUTH_INVALID', 'CSRF_INVALID', 'ACCESS_DENIED', 'NOT_FOUND', 'VALIDATION_FAILED', ...) = <function get_args at 0x1060a4ae0>(typing.Literal['AUTH_REQUIRED', 'AUTH_INVALID', 'CSRF_INVALID', 'ACCESS_DENIED', 'NOT_FOUND', 'VALIDATION_FAILED', 'VE... 'RATE_LIMITED', 'SERVICE_NOT_READY', 'INTERNAL_ERROR', 'FILE_TOO_LARGE', 'INVALID_FILE', 'UNSAFE_URL', 'FETCH_FAILED'])
+
+backend/tests/test_collection.py:220: AssertionError
+=========================== short test summary info ============================
+FAILED backend/tests/test_collection.py::test_provider_response_failure_is_a_serializable_contract_error
+1 failed, 19 passed in 0.10s

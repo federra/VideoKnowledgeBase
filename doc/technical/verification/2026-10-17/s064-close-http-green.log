@@ -1,0 +1,20 @@
+Database command failed (RuntimeError): 
+Stock upgrade preserves valid rows; invalid stock aborts the entire migration.
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_handoff_http_missing_feedback_csrf_current_authority_and_frozen_snapshot _
+tests/integration/test_handoffs.py:124: in test_handoff_http_missing_feedback_csrf_current_authority_and_frozen_snapshot
+    assert client.post(url, json=body).status_code == 403
+E   AssertionError: assert 503 == 403
+E    +  where 503 = <Response [503 Service Unavailable]>.status_code
+E    +    where <Response [503 Service Unavailable]> = post('/api/v1/intelligence/entries/dbf58eb8-e1f8-43fb-9140-d29d1e5dc36d/research-evidence', json={'business_code': 'motion_comic', 'business_date': '2026-10-17', 'snapshot_id': '49561dc2-a6b5-4d74-ab3e-b110a9030b48', 'snapshot_version': 1, ...})
+E    +      where post = <starlette.testclient.TestClient object at 0x10bed8d70>.post
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_handoffs.py::test_handoff_http_missing_feedback_csrf_current_authority_and_frozen_snapshot
+1 failed, 1 passed, 153 deselected, 1 warning in 2.97s

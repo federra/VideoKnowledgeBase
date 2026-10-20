@@ -1,0 +1,115 @@
+{
+  "sample_id": "RF-WORK-001",
+  "provider_code": 2000,
+  "page_num": 1,
+  "page_size": 1,
+  "total_available": 18,
+  "rows_received": 1,
+  "raw_sha256": "d911bf43bde34420589ab7a7be913859bda0b9c5ea2a66ab4273639296800ddc",
+  "fields": {
+    "authorAvatarUrl": {
+      "type": "str",
+      "null": false,
+      "empty": false
+    },
+    "authorFansCount": {
+      "type": "int",
+      "null": false,
+      "empty": false
+    },
+    "authorName": {
+      "type": "str",
+      "null": false,
+      "empty": false
+    },
+    "authorSecUid": {
+      "type": "str",
+      "null": false,
+      "empty": false
+    },
+    "authorShortId": {
+      "type": "str",
+      "null": false,
+      "empty": false
+    },
+    "authorUid": {
+      "type": "str",
+      "null": false,
+      "empty": false
+    },
+    "authorUniqueId": {
+      "type": "str",
+      "null": false,
+      "empty": false
+    },
+    "collectCount": {
+      "type": "int",
+      "null": false,
+      "empty": false
+    },
+    "commentCount": {
+      "type": "int",
+      "null": false,
+      "empty": false
+    },
+    "content": {
+      "type": "str",
+      "null": false,
+      "empty": false
+    },
+    "coverUrl": {
+      "type": "str",
+      "null": false,
+      "empty": false
+    },
+    "duration": {
+      "type": "int",
+      "null": false,
+      "empty": false
+    },
+    "imageUrlList": {
+      "type": "list",
+      "null": false,
+      "empty": true
+    },
+    "likeCount": {
+      "type": "int",
+      "null": false,
+      "empty": false
+    },
+    "opusUrl": {
+      "type": "str",
+      "null": false,
+      "empty": false
+    },
+    "publishTime": {
+      "type": "str",
+      "null": false,
+      "empty": false
+    },
+    "shareCount": {
+      "type": "int",
+      "null": false,
+      "empty": false
+    },
+    "tagList": {
+      "type": "list",
+      "null": false,
+      "empty": false
+    },
+    "videoId": {
+      "type": "str",
+      "null": false,
+      "empty": false
+    },
+    "videoType": {
+      "type": "str",
+      "null": false,
+      "empty": false
+    }
+  },
+  "media_url_present": false,
+  "comment_text_present": false,
+  "description_classification": "AI motion-comic production tutorial by description, not verified narrative footage",
+  "billing_invoice_verified": false
+}

@@ -1,0 +1,52 @@
+$ node scripts/sync-demo.mjs --check
+Verified Demo baseline 85e09ee05552; original unchanged.
+$ uv run --project backend python scripts/contracts.py --check && pnpm --dir tools/contracts check
+Runtime OpenAPI and first-chain design verified.
+$ openapi-typescript ../../doc/technical/openapi/runtime.openapi.json -o ../../frontend/src/api/generated/runtime.ts --immutable --default-non-nullable false --check && openapi-typescript ../../doc/technical/openapi/first-chain.openapi.json -o ../../frontend/src/api/generated/first-chain.ts --immutable --default-non-nullable false --check
+✨ openapi-typescript 7.13.0
+✨ openapi-typescript 7.13.0
+$ pnpm --dir frontend check
+$ tsc -b && eslint src tests
+$ pnpm --dir frontend test
+$ vitest run
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+
+ Test Files  10 passed (10)
+      Tests  86 passed (86)
+   Start at  12:31:58
+   Duration  4.39s (tests 50%, environment 36%, setup 7%, transform 4%, import 3%)
+
+$ pnpm --dir frontend build
+$ tsc -b && vite build
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 95 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.68 kB │ gzip:   0.46 kB
+dist/assets/index-DsZ3xF2K.css   81.84 kB │ gzip:  15.49 kB
+dist/assets/index-CYvyvOMX.js   613.15 kB │ gzip: 199.11 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 103ms
+All checks passed!
+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss [ 16%]
+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss [ 33%]
+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss [ 50%]
+........................................................................ [ 66%]
+........................................................................ [ 83%]
+........................................................................ [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+216 passed, 216 skipped, 1 warning in 2.60s
+S07.1 definition snapshot matches code.

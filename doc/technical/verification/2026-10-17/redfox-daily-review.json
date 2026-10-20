@@ -1,0 +1,18 @@
+{
+  "review_rounds": 1,
+  "critical": 0,
+  "important": 1,
+  "minor": 1,
+  "all_fixed_in_single_pass": true,
+  "backend": 157,
+  "postgresql_redis": 161,
+  "frontend": 62,
+  "external_calls_this_turn": 1,
+  "model_calls": 0,
+  "source_paused": true,
+  "review_red": "redfox-daily-review-red.log",
+  "review_green": "redfox-daily-review-green.log",
+  "empty_red": "redfox-daily-empty-red.log",
+  "ui_green": "redfox-daily-ui-green.log",
+  "live_page": "redfox-daily-live-page.png"
+}

@@ -1,0 +1,11 @@
+{
+  "first-chain.openapi.json": {
+    "deliberate_drift_rejected": true,
+    "exit_code": 1
+  },
+  "first-chain.ts": {
+    "deliberate_drift_rejected": true,
+    "exit_code": 1
+  },
+  "restored_artifacts_check_passed": true
+}

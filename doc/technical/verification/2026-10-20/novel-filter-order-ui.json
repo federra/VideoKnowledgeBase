@@ -1,0 +1,37 @@
+{
+  "qidian": {
+    "platform": "qidian",
+    "rows": [
+      {
+        "label": "男女频",
+        "selected": "全部"
+      },
+      {
+        "label": "榜单类型",
+        "selected": "全部"
+      },
+      {
+        "label": "题材",
+        "selected": "全部"
+      }
+    ]
+  },
+  "fanqie": {
+    "cards": 10,
+    "platform": "fanqie",
+    "rows": [
+      {
+        "label": "男女频",
+        "selected": "全部"
+      },
+      {
+        "label": "榜单类型",
+        "selected": "全部"
+      },
+      {
+        "label": "题材",
+        "selected": "全部"
+      }
+    ]
+  }
+}

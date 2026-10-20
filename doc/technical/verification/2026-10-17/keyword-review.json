@@ -1,0 +1,12 @@
+{
+  "reviewer": "/root/keyword_lock_review",
+  "passes": 1,
+  "critical": 0,
+  "important": 0,
+  "minor": 0,
+  "application_task_attempts_update_grant_added": false,
+  "replacement": "0009 removes redundant attempt FOR UPDATE under existing tenant mutex; existing task lock and lease checks remain",
+  "postgresql_redis_tests": 147,
+  "backend_tests": 104,
+  "frontend_tests": 48
+}

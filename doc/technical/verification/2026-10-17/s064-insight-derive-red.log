@@ -1,0 +1,12 @@
+...........F                                                             [100%]
+=================================== FAILURES ===================================
+__ test_same_day_insight_is_sample_scoped_and_does_not_invent_genre_or_motif ___
+
+    def test_same_day_insight_is_sample_scoped_and_does_not_invent_genre_or_motif():
+>       from app.intelligence.insight import derive
+E       ModuleNotFoundError: No module named 'app.intelligence.insight'
+
+backend/tests/test_feedback_policy.py:214: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/test_feedback_policy.py::test_same_day_insight_is_sample_scoped_and_does_not_invent_genre_or_motif
+1 failed, 11 passed in 0.23s

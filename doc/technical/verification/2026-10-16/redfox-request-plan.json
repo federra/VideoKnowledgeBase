@@ -1,0 +1,12 @@
+{
+  "endpoint": "https://redfox.hk/story/api/dyData/searchUser",
+  "request": {
+    "keyword": "漫剧",
+    "offset": 0,
+    "sortType": "_0"
+  },
+  "api_key_configured": true,
+  "max_requests": 1,
+  "retries": 0,
+  "pagination": false
+}

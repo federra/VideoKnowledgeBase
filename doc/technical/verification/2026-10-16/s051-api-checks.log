@@ -1,0 +1,5 @@
+Runtime OpenAPI and first-chain design verified.
+✨ openapi-typescript 7.13.0
+✨ openapi-typescript 7.13.0
+$ uv run --project backend python scripts/contracts.py --check && pnpm --dir tools/contracts check
+$ openapi-typescript ../../doc/technical/openapi/runtime.openapi.json -o ../../frontend/src/api/generated/runtime.ts --immutable --default-non-nullable false --check && openapi-typescript ../../doc/technical/openapi/first-chain.openapi.json -o ../../frontend/src/api/generated/first-chain.ts --immutable --default-non-nullable false --check

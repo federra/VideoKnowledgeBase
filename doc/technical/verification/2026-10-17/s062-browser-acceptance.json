@@ -1,0 +1,29 @@
+{
+  "environment": "disposable PostgreSQL and restricted application HTTP on 8010, temporary Vite 5180",
+  "project_business_rows_written": 0,
+  "provider_api_key": "empty",
+  "worker_started": false,
+  "paid_calls": 0,
+  "counts": {
+    "sources": 3,
+    "tasks": 1,
+    "collection_calls": 0,
+    "raw_assets": 0,
+    "intelligence_snapshots": 0
+  },
+  "verified": [
+    "Swagger login returns200 and HttpOnly session works in React",
+    "business switch real empty state",
+    "create source defaults paused",
+    "enable then pause in isolated no-worker environment",
+    "creator add and soft archive updates list",
+    "task record shows actual cancellation and no output",
+    "light/dark theme",
+    "390x844 viewport: document clientWidth=scrollWidth=375"
+  ],
+  "demo_comparison": "1280x720 AI漫剧 light; unchanged CSS and controls; supported source semantics and service feedback differ",
+  "cleanup": {
+    "temporary_databases_remaining": 0,
+    "temporary_roles_remaining": 0
+  }
+}

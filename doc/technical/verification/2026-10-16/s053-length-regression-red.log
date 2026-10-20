@@ -1,0 +1,93 @@
+.................F                                                       [100%]
+=================================== FAILURES ===================================
+_____ test_fetch_rejects_huge_content_length_without_integer_parser_error ______
+
+    def test_fetch_rejects_huge_content_length_without_integer_parser_error():
+        from app.storage.external import fetch
+        from app.storage.local import Staged
+        class Body(BytesIO):
+            status=200
+            def getheader(self,key,default=None):
+                return '9'*5000 if key=='Content-Length' else default
+        class Connection:
+            sock=None
+            def __init__(self,*args):pass
+            def request(self,*args,**kwargs):pass
+            def getresponse(self):return Body()
+            def close(self):pass
+        with pytest.raises(Denied,match='FILE_TOO_LARGE'):
+>           fetch('https://media.example/a',['media.example'],Staged(BytesIO(),'test',16),
+                resolver=lambda *a,**k:[(2,1,6,'',('93.184.215.14',443))],connector=Connection)
+
+backend/tests/test_file_storage.py:322: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+url = 'https://media.example/a', allowed = ['media.example']
+staged = <app.storage.local.Staged object at 0x10963d310>
+resolver = <function test_fetch_rejects_huge_content_length_without_integer_parser_error.<locals>.<lambda> at 0x1096d27a0>
+connector = <class 'tests.test_file_storage.test_fetch_rejects_huge_content_length_without_integer_parser_error.<locals>.Connection'>
+total_timeout = 20
+
+    def fetch(url, allowed, staged, *, resolver=dns, connector=PinnedHTTPS, total_timeout=20):
+        if not 0 < total_timeout <= 20:
+            raise ValueError("Invalid external deadline")
+        deadline = time.monotonic() + total_timeout
+        current = url
+        try:
+            for hop in range(4):
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    raise Denied("FETCH_FAILED")
+                target = resolve_url(current, allowed, resolver=resolver, timeout=min(5, remaining))
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    raise Denied("FETCH_FAILED")
+                connection = connector(target, min(5, remaining))
+    
+                def abort(connection=connection):
+                    if hasattr(connection, "abort"):
+                        connection.abort()
+                        return
+                    sock = connection.sock
+                    if sock is not None:
+                        try:
+                            sock.shutdown(socket.SHUT_RDWR)
+                        except OSError:
+                            pass
+    
+                timer = Timer(remaining, abort)
+                timer.daemon = True
+                timer.start()
+                response = None
+                try:
+                    connection.request(
+                        "GET",
+                        target.path,
+                        headers={
+                            "Host": target.host,
+                            "Accept-Encoding": "identity",
+                            "Connection": "close",
+                            "User-Agent": "CIP-File/0.1",
+                        },
+                    )
+                    response = connection.getresponse()
+                    if response.status in (301, 302, 303, 307, 308):
+                        location = response.getheader("Location")
+                        if not location or hop == 3:
+                            raise Denied("UNSAFE_URL")
+                        current = urljoin(current, location)
+                        continue
+                    if (
+                        response.status != 200
+                        or response.getheader("Content-Encoding", "identity").lower() != "identity"
+                    ):
+                        raise Denied("FETCH_FAILED")
+                    length = response.getheader("Content-Length")
+>                   if length and (not length.isdecimal() or int(length) > staged.maximum):
+                                                             ^^^^^^^^^^^
+E                   ValueError: Exceeds the limit (4300 digits) for integer string conversion: value has 5000 digits; use sys.set_int_max_str_digits() to increase the limit
+
+backend/app/storage/external.py:189: ValueError
+=========================== short test summary info ============================
+FAILED backend/tests/test_file_storage.py::test_fetch_rejects_huge_content_length_without_integer_parser_error
+1 failed, 17 passed in 0.27s

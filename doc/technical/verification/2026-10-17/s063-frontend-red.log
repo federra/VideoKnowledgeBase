@@ -1,0 +1,37 @@
+$ pnpm --dir frontend test -- intelligence
+$ vitest run -- intelligence
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/intelligence.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/intelligence.test.tsx [ tests/intelligence.test.tsx ]
+Error: Failed to resolve import "../src/modules/intelligence/IntelligencePage" from "tests/intelligence.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend/tests/intelligence.test.tsx:6:33
+  4  |  import { ApiClient } from "../src/api/client";
+  5  |  import { ApiProvider } from "../src/api/provider";
+  6  |  import { IntelligencePage } from "../src/modules/intelligence/IntelligencePage";
+     |                                    ^
+  7  |  var _jsxFileName = "/Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend/tests/intelligence.test.tsx";
+  8  |  import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
+ ❯ TransformPluginContext._formatLog ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:8766:39
+ ❯ TransformPluginContext.error ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:8763:14
+ ❯ normalizeUrl ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:26632:18
+ ❯ ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:26702:30
+ ❯ TransformPluginContext.transform ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:26668:4
+ ❯ EnvironmentPluginContainer.transform ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:8545:14
+ ❯ loadAndTransform ../node_modules/.pnpm/vite@8.3.4_@types+node@26.6.5/node_modules/vite/dist/node/chunks/node.js:20184:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  44 passed (44)
+   Start at  11:31:45
+   Duration  1.51s (environment 59%, tests 25%, setup 10%, transform 3%, import 2%)
+
+[ELIFECYCLE] Test failed. See above for more details.
+[ELIFECYCLE] Test failed. See above for more details.

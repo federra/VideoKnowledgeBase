@@ -1,0 +1,128 @@
+{
+  "task_id": "e962be77-da55-40f9-8dcb-25eef6729c58",
+  "task_state": "succeeded",
+  "execution_id": "875d54b8-4024-4a0e-b2e3-c600dabe2e8f",
+  "execution_result_state": "completed",
+  "provider_request_id": "c4d878ee-1c72-481c-993d-aecdf8671f01",
+  "input_tokens": 890,
+  "output_tokens": 479,
+  "cost_amount": null,
+  "cost_currency": null,
+  "input_request_sha256": "8217fd90b086b5e4241c7181029790599535360bfe96988f2ff16782157988fc",
+  "private_files_hash_verified": true,
+  "output": {
+    "result_state": "completed",
+    "coverage": "partial",
+    "limitations": [
+      "任务范围限定为简介层面的 synopsis 提取，仅有单段简介文本，未提供完整剧本、实际集数与集数覆盖信息。",
+      "未提供音视频及时间点，无法核对镜头呈现、演出与节奏。",
+      "未提供评论原文，无法识别观众反馈或口碑。",
+      "未提供批准的评级边界，无法进行评级或分级判断。",
+      "未提供事前发布条件与独立校准样本，无法核验发布前提条件。",
+      "所有结论仅基于简介文本，不补写镜头、结局或节奏曲线，不对全剧作评级。"
+    ],
+    "claims": [
+      {
+        "key": "protagonist_goal",
+        "dimension": "人物目标",
+        "finding": "简介呈现的核心人物目标是：父亲楚承宇为寻真心伴侣而带儿子相亲，并在此过程中与林秀云建立感情。",
+        "evidence": [
+          {
+            "segment_id": "p1",
+            "quote": "父亲楚承宇为寻真心伴侣，带他一块去相亲"
+          }
+        ]
+      },
+      {
+        "key": "central_conflict",
+        "dimension": "核心冲突",
+        "finding": "主要冲突来自楚承宇隐瞒真实身份：他自称月薪三千的搬运工，真情渐深后却因怕对方知道真相离开而不敢开口。",
+        "evidence": [
+          {
+            "segment_id": "p1",
+            "quote": "楚承宇藏起真实身份，自称月薪三千的搬运工"
+          },
+          {
+            "segment_id": "p1",
+            "quote": "他怕说出真相的那天，她转身就走"
+          }
+        ]
+      },
+      {
+        "key": "setup_and_relationship",
+        "dimension": "设定与主线",
+        "finding": "简介设定以童鞋与水坑等具体细节推动西西对林秀云喊出“妈妈”，并引出林秀云不嫌弃楚承宇自称的身份、反拉他上货车搬货的关系发展。",
+        "evidence": [
+          {
+            "segment_id": "p1",
+            "quote": "把不合脚的童鞋套在他脚上，又用身体挡住水坑。西西哭着喊出“妈妈”"
+          },
+          {
+            "segment_id": "p1",
+            "quote": "林秀云没嫌弃，反拉他上货车搬货"
+          }
+        ]
+      }
+    ]
+  },
+  "anchors": {
+    "protagonist_goal": [
+      {
+        "segment_id": "p1",
+        "source_kind": "content_observation",
+        "source_id": "9ae3dff8-e88a-4d5b-a370-07f414742f8c",
+        "source_version": 1,
+        "text_sha256": "c81b0726aa92f22090cfd4f5ae5a3ddd3c37b24ba756f84749b89852b9691e66",
+        "start": 10,
+        "end": 29
+      }
+    ],
+    "central_conflict": [
+      {
+        "segment_id": "p1",
+        "source_kind": "content_observation",
+        "source_id": "9ae3dff8-e88a-4d5b-a370-07f414742f8c",
+        "source_version": 1,
+        "text_sha256": "c81b0726aa92f22090cfd4f5ae5a3ddd3c37b24ba756f84749b89852b9691e66",
+        "start": 89,
+        "end": 109
+      },
+      {
+        "segment_id": "p1",
+        "source_kind": "content_observation",
+        "source_id": "9ae3dff8-e88a-4d5b-a370-07f414742f8c",
+        "source_version": 1,
+        "text_sha256": "c81b0726aa92f22090cfd4f5ae5a3ddd3c37b24ba756f84749b89852b9691e66",
+        "start": 145,
+        "end": 160
+      }
+    ],
+    "setup_and_relationship": [
+      {
+        "segment_id": "p1",
+        "source_kind": "content_observation",
+        "source_id": "9ae3dff8-e88a-4d5b-a370-07f414742f8c",
+        "source_version": 1,
+        "text_sha256": "c81b0726aa92f22090cfd4f5ae5a3ddd3c37b24ba756f84749b89852b9691e66",
+        "start": 56,
+        "end": 88
+      },
+      {
+        "segment_id": "p1",
+        "source_kind": "content_observation",
+        "source_id": "9ae3dff8-e88a-4d5b-a370-07f414742f8c",
+        "source_version": 1,
+        "text_sha256": "c81b0726aa92f22090cfd4f5ae5a3ddd3c37b24ba756f84749b89852b9691e66",
+        "start": 110,
+        "end": 125
+      }
+    ]
+  },
+  "temporary_grant_scope": "source",
+  "temporary_grant_source": "e09aaa0b-3743-4832-8b89-d7bacbcde782",
+  "temporary_grant_revoked": true,
+  "research_run_after_cleanup": false,
+  "task_output_count": 1,
+  "execution_reservations": 1,
+  "source_paused": true
+}

@@ -1,0 +1,63 @@
+$ vitest run
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/api-client.test.ts (19 tests | 2 failed) 66ms
+   × 旧会话的迟到错误正文不能注销新会话 55ms
+   × 身份变更期间不并发发起第二个登录或旧Cookie会话恢复 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/api-client.test.ts > 旧会话的迟到错误正文不能注销新会话
+AssertionError: expected ApiError: 请先登录或重新登录 { …(4) } to match object { code: 'REQUEST_CANCELLED' }
+(4 matching properties omitted from actual)
+
+- Expected
++ Received
+
+- {
+-   "code": "REQUEST_CANCELLED",
++ ApiError {
++   "code": "AUTH_REQUIRED",
+  }
+
+ ❯ tests/api-client.test.ts:142:21
+    140|   await client.login({org_id:wid,login_name:'new member',password:'tes…
+    141|   finishBody({request_id:rid,error:{code:'AUTH_REQUIRED'}});
+    142|   expect(await old).toMatchObject({code:'REQUEST_CANCELLED'});
+       |                     ^
+    143|   await expect(client.uploadFile(new Blob(),metadata,rid)).resolves.to…
+    144| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/api-client.test.ts > 身份变更期间不并发发起第二个登录或旧Cookie会话恢复
+AssertionError: expected ApiError: 网络连接失败；提交结果需核验，请保留原提交标识，不要重复新建请求 { …(4) } to match object { code: 'AUTH_CHANGE_IN_PROGRESS' }
+(4 matching properties omitted from actual)
+
+- Expected
++ Received
+
+- {
+-   "code": "AUTH_CHANGE_IN_PROGRESS",
++ ApiError {
++   "code": "NETWORK_ERROR",
+  }
+
+ ❯ tests/api-client.test.ts:151:86
+    149|   const client=new ApiClient({fetcher});
+    150|   const login=client.login({org_id:wid,login_name:'one',password:'test…
+    151|   await expect(client.login({org_id:wid,login_name:'two',password:'oth…
+       |                                                                                      ^
+    152|   await expect(client.getSession()).rejects.toMatchObject({code:'AUTH_…
+    153|   expect(fetcher).toHaveBeenCalledOnce();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  2 failed | 31 passed (33)
+   Start at  09:28:12
+   Duration  1.35s (environment 51%, tests 32%, setup 8%, transform 6%, import 2%)
+
+[ELIFECYCLE] Test failed. See above for more details.

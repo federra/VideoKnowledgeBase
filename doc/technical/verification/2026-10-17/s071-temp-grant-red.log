@@ -1,0 +1,17 @@
+Database command failed (RuntimeError): 
+Stock upgrade preserves valid rows; invalid stock aborts the entire migration.
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_research_probe_temporary_run_grant_is_source_scoped_and_revoked _____
+tests/integration/test_research_probe.py:234: in test_research_probe_temporary_run_grant_is_source_scoped_and_revoked
+    from scripts.validate_research_sample import temporary_run_grant
+E   ImportError: cannot import name 'temporary_run_grant' from 'scripts.validate_research_sample' (/Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/../scripts/validate_research_sample.py)
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_research_probe.py::test_research_probe_temporary_run_grant_is_source_scoped_and_revoked
+1 failed, 172 deselected, 1 warning in 0.87s

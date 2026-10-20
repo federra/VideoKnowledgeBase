@@ -1,0 +1,922 @@
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/research.test.tsx (4 tests | 2 failed) 1140ms
+   × 作品列表支持翻页，超过20条仍可进入 21ms
+   × 长剧深链接恢复120集导航分段，同集补充携带材料版本锁 1010ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/research.test.tsx > 作品列表支持翻页，超过20条仍可进入
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name "作品下一页"
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "内容研判":
+  [36m<h1[39m
+    [33mclass[39m=[32m"sr-only"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "新建研判":
+  [36m<button[39m
+    [33mclass[39m=[32m"btn primary"[39m
+  [36m/>[39m
+
+  Name "全部 (0)":
+  [36m<button[39m
+    [33maria-pressed[39m=[32m"true"[39m
+    [33mclass[39m=[32m"active"[39m
+  [36m/>[39m
+
+  Name "处理中 (0)":
+  [36m<button[39m
+    [33maria-pressed[39m=[32m"false"[39m
+    [33mclass[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "需处理 (0)":
+  [36m<button[39m
+    [33maria-pressed[39m=[32m"false"[39m
+    [33mclass[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "待复核 (0)":
+  [36m<button[39m
+    [33maria-pressed[39m=[32m"false"[39m
+    [33mclass[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "已有报告 (0)":
+  [36m<button[39m
+    [33maria-pressed[39m=[32m"false"[39m
+    [33mclass[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "真实作品":
+  [36m<button[39m
+    [33mclass[39m=[32m"work-title"[39m
+  [36m/>[39m
+
+  Name "查看作品":
+  [36m<button[39m
+    [33mclass[39m=[32m"btn"[39m
+  [36m/>[39m
+
+  Name "补充资料":
+  [36m<button[39m
+    [33mclass[39m=[32m"btn"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  group:
+
+  Name "作品筛选，可交叉命中":
+  [36m<div[39m
+    [33maria-label[39m=[32m"作品筛选，可交叉命中"[39m
+    [33mclass[39m=[32m"work-status-tabs"[39m
+    [33mrole[39m=[32m"group"[39m
+  [36m/>[39m
+
+  Name "查看作品详情：真实作品":
+  [36m<article[39m
+    [33maria-label[39m=[32m"查看作品详情：真实作品"[39m
+    [33mclass[39m=[32m"work-card"[39m
+    [33mrole[39m=[32m"group"[39m
+    [33mtabindex[39m=[32m"0"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  textbox:
+
+  Name "搜索作品名称、作品编号、博主ID或名称":
+  [36m<input[39m
+    [33mid[39m=[32m"researchSearch"[39m
+    [33mplaceholder[39m=[32m"搜索作品名称、作品编号、博主ID或名称"[39m
+    [33mvalue[39m=[32m""[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "作品题材筛选":
+  [36m<select[39m
+    [33maria-label[39m=[32m"作品题材筛选"[39m
+    [33mid[39m=[32m"workGenreFilter"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "全部题材":
+  [36m<option[39m
+    [33mvalue[39m=[32m""[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"work-id"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"work-genre"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"small muted"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong />[39m
+
+  Name "":
+  [36m<strong />[39m
+
+  Name "":
+  [36m<strong />[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<h1[39m
+      [33mclass[39m=[32m"sr-only"[39m
+    [36m>[39m
+      [0m内容研判[0m
+    [36m</h1>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"page-heading actions-left"[39m
+    [36m>[39m
+      [36m<button[39m
+        [33mclass[39m=[32m"btn primary"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"icon"[39m
+          [33mviewBox[39m=[32m"0 0 24 24"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M12 5v14M5 12h14"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [0m 新建研判[0m
+      [36m</button>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33maria-label[39m=[32m"作品筛选，可交叉命中"[39m
+      [33mclass[39m=[32m"work-status-tabs"[39m
+      [33mrole[39m=[32m"group"[39m
+    [36m>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"true"[39m
+        [33mclass[39m=[32m"active"[39m
+      [36m>[39m
+        [0m全部[0m
+        [0m [0m
+        [36m<span>[39m
+          [0m([0m
+          [0m0[0m
+          [0m)[0m
+        [36m</span>[39m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"false"[39m
+        [33mclass[39m=[32m""[39m
+      [36m>[39m
+        [0m处理中[0m
+        [0m [0m
+        [36m<span>[39m
+          [0m([0m
+          [0m0[0m
+          [0m)[0m
+        [36m</span>[39m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"false"[39m
+        [33mclass[39m=[32m""[39m
+      [36m>[39m
+        [0m需处理[0m
+        [0m [0m
+        [36m<span>[39m
+          [0m([0m
+          [0m0[0m
+          [0m)[0m
+        [36m</span>[39m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"false"[39m
+        [33mclass[39m=[32m""[39m
+      [36m>[39m
+        [0m待复核[0m
+        [0m [0m
+        [36m<span>[39m
+          [0m([0m
+          [0m0[0m
+          [0m)[0m
+        [36m</span>[39m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"false"[39m
+        [33mclass[39m=[32m""[39m
+      [36m>[39m
+        [0m已有报告[0m
+        [0m [0m
+        [36m<span>[39m
+          [0m([0m
+          [0m0[0m
+          [0m)[0m
+        [36m</span>[39m
+      [36m</button>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"toolbar"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"search"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"icon"[39m
+          [33mviewBox[39m=[32m"0 0 24 24"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"10"[39m
+            [33mcy[39m=[32m"10"[39m
+            [33mr[39m=[32m"6"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"m15 15 5 5"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"sr-only"[39m
+          [33mfor[39m=[32m"researchSearch"[39m
+        [36m>[39m
+          [0m搜索作品名称、作品编号、博主ID或名称[0m
+        [36m</label>[39m
+        [36m<input[39m
+          [33mid[39m=[32m"researchSearch"[39m
+          [33mplaceholder[39m=[32m"搜索作品名称、作品编号、博主ID或名称"[39m
+          [33mvalue[39m=[32m""[39m
+        [36m/>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"work-genre-filter"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mfor[39m=[32m"workGenreFilter"[39m
+        [36m>[39m
+          [0m作品题材[0m
+        [36m</label>[39m
+        [36m<select[39m
+          [33maria-label[39m=[32m"作品题材筛选"[39m
+          [33mid[39m=[32m"workGenreFilter"[39m
+        [36m>[39m
+          [36m<option[39m
+            [33mvalue[39m=[32m""[39m
+          [36m>[39m
+            [0m全部题材[0m
+          [36m</option>[39m
+        [36m</select>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33maria-label[39m=[32m"作品列表"[39m
+      [33mclass[39m=[32m"work-list"[39m
+    [36m>[39m
+      [36m<article[39m
+        [33maria-label[39m=[32m"查看作品详情：真实作品"[39m
+        [33mclass[39m=[32m"work-card"[39m
+        [33mrole[39m=[32m"group"[39m
+        [33mtabindex[39m=[32m"0"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"work-identity"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mclass[39m=[32m"work-cover"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"work-cover-letter"[39m
+            [36m>[39m
+              [0m真[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"work-identity-text"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"work-title"[39m
+            [36m>[39m
+              [0m真实作品[0m
+            [36m</button>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"work-id"[39m
+            [36m>[39m
+              [0mW-real[0m
+            [36m</p>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"work-genre"[39m
+            [36m>[39m
+              [0m题材待补充[0m
+            [36m</p>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"small muted"[39m
+            [36m>[39m
+              [0m博主ID未记录[0m
+            [36m</p>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"work-cell"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"work-label"[39m
+          [36m>[39m
+            [0m资料覆盖[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m已收集 [0m
+            [0m0[0m
+            [0m [0m
+            [0m集[0m
+            [0m · 已分析 [0m
+            [0m0[0m
+            [0m [0m
+            [0m集[0m
+          [36m</strong>[39m
+          [36m<small>[39m
+            [0m总集数 150 集[0m
+          [36m</small>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"work-cell"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"work-label"[39m
+          [36m>[39m
+            [0m处理进度[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m待分析[0m
+          [36m</strong>[39m
+          [36m<small>[39m
+            [0m1[0m
+            [0m份材料 · 解析不等于分析[0m
+          [36m</small>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"work-cell"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"work-label"[39m
+          [36m>[39m
+            [0m最新报告[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m尚无报告[0m
+          [36m</strong>[39m
+          [36m<small>[39m
+            [0m有效分析形成后生成[0m
+          [36m</small>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"work-actions"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"btn"[39m
+          [36m>[39m
+            [0m查看作品[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"btn"[39m
+          [36m>[39m
+            [0m补充资料[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</article>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ tests/research.test.tsx:43:25
+     41|  const fetcher=mount(p=>p.includes('page=2')?{...empty,items:[work],to…
+     42|  await screen.findByRole('button',{name:'真实作品',exact:true});
+     43|  fireEvent.click(screen.getByRole('button',{name:'作品下一页'}));
+       |                         ^
+     44|  await waitFor(()=>expect(fetcher.mock.calls.some(([p])=>String(p).inc…
+     45| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/research.test.tsx > 长剧深链接恢复120集导航分段，同集补充携带材料版本锁
+TestingLibraryElementError: Unable to find an element with the text: 第120集. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<h1[39m
+      [33mclass[39m=[32m"sr-only"[39m
+    [36m>[39m
+      [0m内容研判[0m
+    [36m</h1>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"work-back-row"[39m
+    [36m>[39m
+      [36m<button[39m
+        [33mclass[39m=[32m"btn"[39m
+      [36m>[39m
+        [0m‹ 返回作品列表[0m
+      [36m</button>[39m
+      [36m<span[39m
+        [33mclass[39m=[32m"small muted"[39m
+      [36m>[39m
+        [0m研判室 / 内容研判 / 作品详情[0m
+      [36m</span>[39m
+    [36m</div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"work-detail-header"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"work-detail-identity"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"work-cover"[39m
+        [36m>[39m
+          [0m真[0m
+        [36m</span>[39m
+        [36m<div>[39m
+          [36m<h1[39m
+            [33mid[39m=[32m"workDetailTitle"[39m
+          [36m>[39m
+            [0m真实作品[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"small muted"[39m
+          [36m>[39m
+            [0mW-real[0m
+            [0m · [0m
+            [0m题材待补充[0m
+            [0m · [0m
+            [0m博主ID未记录[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"btn"[39m
+        [36m>[39m
+          [0m补充资料[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"work-overview-stats"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m总集数[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m150[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m已收集[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m0[0m
+            [0m [0m
+            [0m集[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m已分析[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m0[0m
+            [0m [0m
+            [0m集[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"work-report-overview"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [0m最新报告[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m尚无报告[0m
+          [36m</strong>[39m
+          [36m<small>[39m
+            [0m尚无可用作品报告[0m
+          [36m</small>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m总观看量[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33maria-label[39m=[32m"未获取"[39m
+            [33mclass[39m=[32m"work-performance-value"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m互动量[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33maria-label[39m=[32m"未获取"[39m
+            [33mclass[39m=[32m"work-performance-value"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<p[39m
+        [33mclass[39m=[32m"work-detail-progress"[39m
+      [36m>[39m
+        [0m1[0m
+        [0m份材料 · [0m
+        [0m0[0m
+        [0m份解析中 · 总集数未知时覆盖不代表全剧；参考简介不计为已收集单集。[0m
+      [36m</p>[39m
+    [36m</section>[39m
+    [36m<div[39m
+      [33maria-label[39m=[32m"作品详情分区"[39m
+      [33mclass[39m=[32m"work-detail-tabs"[39m
+      [33mrole[39m=[32m"group"[39m
+    [36m>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"false"[39m
+        [33mclass[39m=[32m""[39m
+      [36m>[39m
+        [0m作品分析[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"true"[39m
+        [33mclass[39m=[32m"active"[39m
+      [36m>[39m
+        [0m分集分析[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"false"[39m
+        [33mclass[39m=[32m""[39m
+      [36m>[39m
+        [0m资料与记录[0m
+      [36m</button>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mid[39m=[32m"workDetailContent"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"episode-layout"[39m
+      [36m>[39m
+        [36m<aside[39m
+          [33mclass[39m=[32m"episode-sidebar"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0m分集导航 [0m
+            [36m<small>[39m
+              [0m150[0m
+            [36m</small>[39m
+          [36m</h2>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"row-actions"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"btn"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0m上一段[0m
+            [36m</button>[39m
+            [36m<span>[39m
+              [0m1[0m
+              [0m—[0m
+              [0m100[0m
+            [36m</span>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"btn"[39m
+            [36m>[39m
+              [0m下一段[0m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"episode-nav-item is-missing "[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"episode-nav-number"[39m
+            [36m>[39m
+              [0m1[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"episode-row-title"[39m
+            [36m>[39m
+              [0m标题未获取[0m
+            [36m</span>[39m
+            [36m<small>[39m
+              [0m缺资料[0m
+            [36m</small>[39m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"episode-nav-item is-missing "[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"episode-nav-number"[39m
+            [36m>[39m
+              [0m2[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"episode-row-title"[39m
+            [36m>[39m
+              [0m标题未获取[0m
+            [36m</span>[39m
+            [36m<small>[39m
+              [0m缺资料[0m
+            [36m</small>[39m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"episode-nav-item is-missing "[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"episode-nav-number"[39m
+            [36m>[39m
+              [0m3[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"episode-row-title"[39m
+            [36m>[39m
+              [0m标题未获取[0m
+            [36m</span>[39m
+            [36m<small>[39m
+              [0m缺资料...
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<h1[39m
+      [33mclass[39m=[32m"sr-only"[39m
+    [36m>[39m
+      [0m内容研判[0m
+    [36m</h1>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"work-back-row"[39m
+    [36m>[39m
+      [36m<button[39m
+        [33mclass[39m=[32m"btn"[39m
+      [36m>[39m
+        [0m‹ 返回作品列表[0m
+      [36m</button>[39m
+      [36m<span[39m
+        [33mclass[39m=[32m"small muted"[39m
+      [36m>[39m
+        [0m研判室 / 内容研判 / 作品详情[0m
+      [36m</span>[39m
+    [36m</div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"work-detail-header"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"work-detail-identity"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"work-cover"[39m
+        [36m>[39m
+          [0m真[0m
+        [36m</span>[39m
+        [36m<div>[39m
+          [36m<h1[39m
+            [33mid[39m=[32m"workDetailTitle"[39m
+          [36m>[39m
+            [0m真实作品[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"small muted"[39m
+          [36m>[39m
+            [0mW-real[0m
+            [0m · [0m
+            [0m题材待补充[0m
+            [0m · [0m
+            [0m博主ID未记录[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"btn"[39m
+        [36m>[39m
+          [0m补充资料[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"work-overview-stats"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m总集数[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m150[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m已收集[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m0[0m
+            [0m [0m
+            [0m集[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m已分析[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m0[0m
+            [0m [0m
+            [0m集[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"work-report-overview"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [0m最新报告[0m
+          [36m</span>[39m
+          [36m<strong>[39m
+            [0m尚无报告[0m
+          [36m</strong>[39m
+          [36m<small>[39m
+            [0m尚无可用作品报告[0m
+          [36m</small>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m总观看量[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33maria-label[39m=[32m"未获取"[39m
+            [33mclass[39m=[32m"work-performance-value"[39m
+          [36m/>[39m
+        [36m</div>[39m
+        [36m<div>[39m
+          [36m<span>[39m
+            [0m互动量[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33maria-label[39m=[32m"未获取"[39m
+            [33mclass[39m=[32m"work-performance-value"[39m
+          [36m/>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<p[39m
+        [33mclass[39m=[32m"work-detail-progress"[39m
+      [36m>[39m
+        [0m1[0m
+        [0m份材料 · [0m
+        [0m0[0m
+        [0m份解析中 · 总集数未知时覆盖不代表全剧；参考简介不计为已收集单集。[0m
+      [36m</p>[39m
+    [36m</section>[39m
+    [36m<div[39m
+      [33maria-label[39m=[32m"作品详情分区"[39m
+      [33mclass[39m=[32m"work-detail-tabs"[39m
+      [33mrole[39m=[32m"group"[39m
+    [36m>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"false"[39m
+        [33mclass[39m=[32m""[39m
+      [36m>[39m
+        [0m作品分析[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"true"[39m
+        [33mclass[39m=[32m"active"[39m
+      [36m>[39m
+        [0m分集分析[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33maria-pressed[39m=[32m"false"[39m
+        [33mclass[39m=[32m""[39m
+      [36m>[39m
+        [0m资料与记录[0m
+      [36m</button>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mid[39m=[32m"workDetailContent"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"episode-layout"[39m
+      [36m>[39m
+        [36m<aside[39m
+          [33mclass[39m=[32m"episode-sidebar"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0m分集导航 [0m
+            [36m<small>[39m
+              [0m150[0m
+            [36m</small>[39m
+          [36m</h2>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"row-actions"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"btn"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0m上一段[0m
+            [36m</button>[39m
+            [36m<span>[39m
+              [0m1[0m
+              [0m—[0m
+              [0m100[0m
+            [36m</span>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"btn"[39m
+            [36m>[39m
+              [0m下一段[0m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"episode-nav-item is-missing "[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"episode-nav-number"[39m
+            [36m>[39m
+              [0m1[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"episode-row-title"[39m
+            [36m>[39m
+              [0m标题未获取[0m
+            [36m</span>[39m
+            [36m<small>[39m
+              [0m缺资料[0m
+            [36m</small>[39m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"episode-nav-item is-missing "[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"episode-nav-number"[39m
+            [36m>[39m
+              [0m2[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"episode-row-title"[39m
+            [36m>[39m
+              [0m标题未获取[0m
+            [36m</span>[39m
+            [36m<small>[39m
+              [0m缺资料[0m
+            [36m</small>[39m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"episode-nav-item is-missing "[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"episode-nav-number"[39m
+            [36m>[39m
+              [0m3[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"episode-row-title"[39m
+            [36m>[39m
+              [0m标题未获取[0m
+            [36m</span>[39m
+            [36m<small>[39m
+              [0m缺资料...
+ ❯ waitForWrapper ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ tests/research.test.tsx:48:15
+     46| it('长剧深链接恢复120集导航分段，同集补充携带材料版本锁',async()=>{
+     47|  const fetcher=mount(p=>p.includes('/works/'+id)?detail:empty,'/2/0/wo…
+     48|  await screen.findByText('第120集');
+       |               ^
+     49|  expect(screen.getByRole('button',{name:/120.*有资料/})).toBeTruthy();
+     50|  fireEvent.click(screen.getByRole('button',{name:'补充资料',exact:true}));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 2 passed (4)
+   Start at  16:47:57
+   Duration  1.74s (tests 68%, environment 25%, setup 4%, import 2%, transform 1%)
+

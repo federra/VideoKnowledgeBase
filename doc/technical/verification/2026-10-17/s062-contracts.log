@@ -1,0 +1,7 @@
+$ uv run --project backend python scripts/contracts.py && pnpm --dir tools/contracts generate
+Runtime OpenAPI and first-chain design exported.
+$ openapi-typescript ../../doc/technical/openapi/runtime.openapi.json -o ../../frontend/src/api/generated/runtime.ts --immutable --default-non-nullable false && openapi-typescript ../../doc/technical/openapi/first-chain.openapi.json -o ../../frontend/src/api/generated/first-chain.ts --immutable --default-non-nullable false
+✨ openapi-typescript 7.13.0
+🚀 ../../doc/technical/openapi/runtime.openapi.json → ../../frontend/src/api/generated/runtime.ts [43ms]
+✨ openapi-typescript 7.13.0
+🚀 ../../doc/technical/openapi/first-chain.openapi.json → ../../frontend/src/api/generated/first-chain.ts [85.6ms]

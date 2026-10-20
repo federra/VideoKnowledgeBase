@@ -1,0 +1,15 @@
+...F                                                                     [100%]
+=================================== FAILURES ===================================
+__________ test_default_worker_can_recognize_dedicated_parse_messages __________
+
+    def test_default_worker_can_recognize_dedicated_parse_messages():
+        from app.tasks.celery_app import app
+>       assert 'app.research.worker' in app.conf.include
+E       AssertionError: assert 'app.research.worker' in ['app.tasks.worker']
+E        +  where ['app.tasks.worker'] = Settings({'broker_url': 'redis://127.0.0.1:16379/0', 'include': ['app.tasks.worker'], 'deprecated_settings': set(), 'a...'worker_timer': None, 'worker_timer_precision': 1.0, 'worker_detect_quorum_queues': True, 'deprecated_settings': None}).include
+E        +    where Settings({'broker_url': 'redis://127.0.0.1:16379/0', 'include': ['app.tasks.worker'], 'deprecated_settings': set(), 'a...'worker_timer': None, 'worker_timer_precision': 1.0, 'worker_detect_quorum_queues': True, 'deprecated_settings': None}) = <Celery cip at 0x1076f45f0>.conf
+
+tests/test_research_parsing.py:55: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_research_parsing.py::test_default_worker_can_recognize_dedicated_parse_messages
+1 failed, 3 passed in 0.36s

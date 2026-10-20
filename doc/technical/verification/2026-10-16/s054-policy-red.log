@@ -1,0 +1,20 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__________ test_retry_is_bounded_and_only_allowlisted_local_failures ___________
+
+    def test_retry_is_bounded_and_only_allowlisted_local_failures():
+>       from app.tasks.policy import retry_delay
+E       ModuleNotFoundError: No module named 'app.tasks.policy'
+
+backend/tests/test_tasks.py:7: ModuleNotFoundError
+______ test_celery_transport_has_no_business_results_or_unbounded_retries ______
+
+    def test_celery_transport_has_no_business_results_or_unbounded_retries():
+>       from app.tasks.celery_app import app
+E       ModuleNotFoundError: No module named 'app.tasks.celery_app'
+
+backend/tests/test_tasks.py:19: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/test_tasks.py::test_retry_is_bounded_and_only_allowlisted_local_failures
+FAILED backend/tests/test_tasks.py::test_celery_transport_has_no_business_results_or_unbounded_retries
+2 failed in 0.01s

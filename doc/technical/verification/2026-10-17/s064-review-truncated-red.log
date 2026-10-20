@@ -1,0 +1,26 @@
+...........F                                                             [100%]
+=================================== FAILURES ===================================
+_ test_truncated_response_keeps_private_content_usage_and_request_id_without_retry _
+
+    def test_truncated_response_keeps_private_content_usage_and_request_id_without_retry():
+        from app.ai.deepseek import DeepSeek, ModelError
+    
+        raw = '{"result_state":"completed","summary":"partial'
+        calls = []
+    
+        def transport(request):
+            calls.append(request)
+            return httpx.Response(200, json={"id":"truncated-1","usage":{"prompt_tokens":100,"completion_tokens":2048},"choices":[{"finish_reason":"length","message":{"content":raw}}]})
+    
+        with pytest.raises(ModelError) as caught:
+            DeepSeek(lambda:SecretStr('offline'),transport=httpx.MockTransport(transport)).feedback(inputs(),reserve=lambda _:None)
+        assert len(calls)==1
+>       assert caught.value.raw_text==raw
+E       assert None == '{"result_state":"completed","summary":"partial'
+E        +  where None = ModelError('INVALID_RESPONSE').raw_text
+E        +    where ModelError('INVALID_RESPONSE') = <ExceptionInfo ModelError('INVALID_RESPONSE') tblen=2>.value
+
+tests/test_deepseek.py:151: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_deepseek.py::test_truncated_response_keeps_private_content_usage_and_request_id_without_retry
+1 failed, 11 passed in 0.10s

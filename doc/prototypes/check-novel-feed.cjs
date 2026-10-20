@@ -1,0 +1,45 @@
+const assert=require('node:assert/strict');
+const {boot}=require('./check-feedback.cjs');
+(async()=>{
+ const app=boot();app.run('state.biz=["AI漫剧"];navigate(0,0)');
+ assert.equal((app.nodes.get('page').innerHTML.match(/class="metric-card"/g)||[]).length,3,'概览仅三个指标');
+ const overview=app.run('feedOverview()');assert.match(overview,/>视频<.*>博主<.*>小说</s);
+ assert.match(overview,/>58<.*>18<.*>2</s);
+ assert.match(app.run('feedViewFilter()'),/>视频<.*>博主<.*>小说</s);
+ app.run('getFeedSnapshot().novels.find(x=>x.biz.includes("AI漫剧")).platformCode="fanqie"');
+ await app.run('action("feed-view","novel")');
+ assert.equal(app.run('state.feedView'),'novel');assert.equal(app.run('feedOverview()'),overview,'切换来源不改变概览口径');
+ let html=app.nodes.get('page').innerHTML;
+ assert.match(html,/class="feed-columns feed-single insight-collapsed novel-feed-columns"/,'小说应使用视频卡片共用布局容器');
+ assert.match(html,/class="rank-card novel-card"/);
+ assert.match(html,/aria-label="作品标签"[^>]*><span class="genre-tag"[^>]*>男女频：—<\/span><span class="genre-tag"[^>]*>题材：—<\/span>/,'作品标签缺失不能回退演示题材或榜单分类');
+ const platformSelect=html.match(/<select id="novelBoardFilter"[\s\S]*?<\/select>/)[0];
+ assert.match(platformSelect,/番茄小说/);assert.match(platformSelect,/起点中文网/);assert.doesNotMatch(platformSelect,/全部平台/);assert.equal(app.run('state.novelPlatform'),'fanqie');
+ assert.doesNotMatch(platformSelect,/热门阅读榜|新书阅读榜/);
+ for(const label of ['男女频','榜单类型','题材'])assert.ok(html.includes('aria-label="'+label+'"'));
+ assert.equal((html.match(/标签待数据接入后配置/g)||[]).length,3);
+ 
+ assert.match(html,/在读人数/);assert.doesNotMatch(html,/rank-stats.*<b>赞<|总点赞|用户评论|反馈.*未获取/s);
+ const book=app.run('getFeedSnapshot().novels.find(x=>x.biz.includes("AI漫剧"))');
+ assert.ok(book,'提供明确标注的小说演示样例');
+ app.run('delete getFeedSnapshot().novels.find(x=>x.biz.includes("AI漫剧")).platformCode;render()');
+ app.dispatch('change',{target:{id:'novelBoardFilter',value:'fanqie'}});
+ assert.equal(app.run('state.novelPlatform'),'fanqie');assert.doesNotMatch(app.nodes.get('page').innerHTML,new RegExp(book.title),'未标注平台的样例不猜平台归属');
+ app.run('getFeedSnapshot().novels[0].platformCode="fanqie";render()');assert.match(app.nodes.get('page').innerHTML,new RegExp(book.title));
+ app.dispatch('change',{target:{id:'novelBoardFilter',value:'qidian'}});assert.doesNotMatch(app.nodes.get('page').innerHTML,new RegExp(book.title));
+ app.dispatch('change',{target:{id:'novelBoardFilter',value:'fanqie'}});
+ 
+ app.run('state.query='+JSON.stringify(book.source)+';render()');assert.match(app.nodes.get('page').innerHTML,new RegExp(book.title));
+ app.run('state.query="未命中的小说";render()');assert.equal(app.run('feedOverview()'),overview,'局部搜索不改变来源数量');assert.match(app.nodes.get('page').innerHTML,/暂无匹配/);
+ app.run('state.query="";render()');
+ await app.run('action("research-send",'+JSON.stringify(book.id)+')');
+ html=app.nodes.get('dialog').innerHTML;assert.match(html,/在读人数/);assert.doesNotMatch(html,/<dt>[赞评转藏]<\/dt>/);
+ app.submit({sourceId:book.id,sourceDate:'2026-10-04',grade:'A',biz:'AI漫剧',workName:'小说研究样例',workId:'',genre:book.genre,learningText:'研究文本叙事',totalEpisodes:'',episodeNumber:''});
+ assert.equal(app.run('db.research[0].sourceSnapshot.sourceType'),'novel');assert.equal(app.run('db.research[0].sourceSnapshot.readers'),book.readers);
+ app.run('changeFeedDate("2026-10-03")');assert.doesNotMatch(app.nodes.get('page').innerHTML,new RegExp(book.title));
+ assert.match(app.nodes.get('page').innerHTML,/暂无.*小说/);
+ app.run('changeFeedDate("2026-10-04");state.biz=["电商短视频"];render()');assert.doesNotMatch(app.nodes.get('page').innerHTML,new RegExp(book.title));
+ app.run('state.biz=["AI漫剧"];state.feedDate=latestFeedDate;const sample=getFeedSnapshot().novels[0];sample.readers=0;render()');assert.match(app.nodes.get('page').innerHTML,/在读人数[\s\S]*?>0<\/strong>/);
+ app.run('getFeedSnapshot().novels[0].readers=null;render()');assert.match(app.nodes.get('page').innerHTML,/在读人数[\s\S]*?未获取/);
+ console.log('PASS 三类来源、小说在读人数、筛选搜索、快照日期与业务隔离、研判快照');
+})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -1,0 +1,91 @@
+[
+  {
+    "url": "https://m.qidian.com/rank/",
+    "checked_at": "2026-10-20T05:42:20.298956+00:00",
+    "status": 200,
+    "http_version": "HTTP/1.1",
+    "bytes": 109949,
+    "sha256": "c2b7fdf6d4336fb2ef125c9ba7eac234dc2e79be3d379bbb8c1b682af947fe80",
+    "safe_response_headers": {
+      "content-type": "text/html; charset=utf-8",
+      "x-powered-by": "Express",
+      "vary": "Accept-Encoding",
+      "server": "Lego Server",
+      "age": "0"
+    },
+    "cookie_names_and_flags_only": [
+      {
+        "name": "newstatisticUUID",
+        "secure": false,
+        "httponly": false
+      },
+      {
+        "name": "fu",
+        "secure": false,
+        "httponly": false
+      },
+      {
+        "name": "_csrfToken",
+        "secure": false,
+        "httponly": false
+      },
+      {
+        "name": "supportWebp",
+        "secure": false,
+        "httponly": false
+      },
+      {
+        "name": "abPolicies",
+        "secure": false,
+        "httponly": false
+      }
+    ],
+    "scripts": [
+      "https://qdfepccdn.qidian.com/m.qidian.com/read/assets/polyfills.87cbba56.js",
+      "https://qdfepccdn.qidian.com/m.qidian.com/read/assets/polyfills.eef6e055-legacy.js",
+      "https://qdfepccdn.qidian.com/m.qidian.com/read/assets/entries/entry-server-routing.d37dd5f1-legacy.js",
+      "https://qdfepccdn.qidian.com/openapp/ddl.0.0.16.js",
+      "https://qdfepccdn.qidian.com/gtimg/lib/clipboard/clipboard.min.js",
+      "https://ywaqstatic.yuewen.com/safe_h5/js/yw_risk_verify.js",
+      "https://aegis.cdn-go.cn/aegis-sdk-v2/2.5.34/aegis.min.js",
+      "https://qdfepccdn.qidian.com/m.qidian.com/read/assets/entries/entry-server-routing.23ee69a9.js"
+    ],
+    "has_business_pageContext": true,
+    "dns_addresses": [
+      "111.10.22.140",
+      "183.230.68.147"
+    ]
+  },
+  {
+    "url": "https://m.qdmm.com/rank/",
+    "checked_at": "2026-10-20T05:42:20.483441+00:00",
+    "status": 202,
+    "http_version": "HTTP/1.1",
+    "bytes": 209,
+    "sha256": "cb7851e716fe40aab682229a1b10530262264f2f958ef12d13a662ca2d198aa7",
+    "safe_response_headers": {
+      "content-type": "text/html; charset=utf-8",
+      "server": "Lego Server",
+      "cache-control": "no-store",
+      "age": "0",
+      "content-length": "209"
+    },
+    "cookie_names_and_flags_only": [
+      {
+        "name": "x-waf-captcha-referer",
+        "secure": false,
+        "httponly": false
+      }
+    ],
+    "scripts": [
+      "/C2WF946J0/probe.js?v=vc1jasc"
+    ],
+    "has_business_pageContext": false,
+    "dns_addresses": [
+      "112.19.197.22",
+      "112.19.197.27",
+      "117.187.181.62",
+      "183.230.68.147"
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__ test_series_capture_is_one_exact_first_page_get_without_cookie_or_followup __
+
+    def test_series_capture_is_one_exact_first_page_get_without_cookie_or_followup():
+>       from app.connectors.tikhub_series import CAPABILITY, Series
+E       ModuleNotFoundError: No module named 'app.connectors.tikhub_series'
+
+backend/tests/test_tikhub_series.py:6: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/test_tikhub_series.py::test_series_capture_is_one_exact_first_page_get_without_cookie_or_followup
+1 failed in 0.09s

@@ -1,0 +1,14 @@
+..........F                                                              [100%]
+=================================== FAILURES ===================================
+___________ test_insufficient_evidence_rejects_unreferenced_summary ____________
+
+    def test_insufficient_evidence_rejects_unreferenced_summary():
+        from app.ai.feedback import inspect_output
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+backend/tests/test_feedback_policy.py:205: Failed
+=========================== short test summary info ============================
+FAILED backend/tests/test_feedback_policy.py::test_insufficient_evidence_rejects_unreferenced_summary
+1 failed, 10 passed in 0.15s

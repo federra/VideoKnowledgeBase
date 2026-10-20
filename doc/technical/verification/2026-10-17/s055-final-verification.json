@@ -1,0 +1,31 @@
+{
+  "checked_at": "2026-10-17T01:40:35.247709+00:00",
+  "frontend_tests": 38,
+  "type_assertions": 22,
+  "backend_tests": 80,
+  "database_regression_skipped": 109,
+  "real_http_suite_passed": true,
+  "real_http_requests": 19,
+  "node_cookie_origin_adapter": true,
+  "demo_sha256": "a610b8754f5c20b3c5431e4f8383d102642b20117ce3e874e510f2038c1ddd32",
+  "demo_source_unchanged": true,
+  "existing_css_bundle_unchanged": true,
+  "product_layout_changed": false,
+  "project_revision": "0007_tasks",
+  "project_table_count": 74,
+  "project_business_rows": 0,
+  "paid_api_calls": 0,
+  "temporary_test_databases_and_roles_remaining": 0,
+  "new_migrations": 0,
+  "new_dependencies": 0,
+  "review": {
+    "critical": 0,
+    "important_fixed": 1,
+    "minor_deferred": 1
+  },
+  "commit_created": false,
+  "documents_checked": 8,
+  "local_links_checked": 221,
+  "missing_local_links": 0,
+  "released_sql_snapshots": 14
+}

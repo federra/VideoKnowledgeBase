@@ -1,0 +1,16 @@
+{
+  "review_rounds": 1,
+  "critical": 0,
+  "original_important": 1,
+  "original_minor": 1,
+  "regraded_important": 2,
+  "fixed": [
+    "connection contention stays queued without attempts or calls; both before/after reservation windows",
+    "all authorized source/task pages are reachable; source101 pause and stable cursor regression"
+  ],
+  "deferred_minors": [],
+  "real_postgresql_redis_tests": 139,
+  "backend_unit_tests": 101,
+  "frontend_tests": 44,
+  "external_provider_calls": 0
+}

@@ -1,0 +1,26 @@
+.F..............................                                         [100%]
+=================================== FAILURES ===================================
+______________ test_planned_operations_are_separate_from_runtime _______________
+
+    def test_planned_operations_are_separate_from_runtime():
+        actual = TestClient(app).get("/openapi.json").json()
+        planned = contract_app.openapi()
+>       assert set(actual["paths"]) == {"/api/health", "/api/v1/session", "/api/v1/files", "/api/v1/files/from-url", "/api/v1/files/{file_id}/content", "/api/v1/collection-jobs", "/api/v1/sources", "/api/v1/sources/{source_id}", "/api/v1/tasks", "/api/v1/tasks/{task_id}", "/api/v1/tasks/{task_id}/cancel", "/api/v1/tasks/{task_id}/retry"}
+E       AssertionError: assert {'/api/health...ce/feed', ...} == {'/api/health...session', ...}
+E         
+E         Extra items in the left set:
+E         '/api/v1/intelligence/snapshots'
+E         '/api/v1/intelligence/feed'
+E         '/api/v1/intelligence/snapshots/{snapshot_id}/entries'
+E         Use -v to get more diff
+
+backend/tests/test_contract.py:37: AssertionError
+=============================== warnings summary ===============================
+backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED backend/tests/test_contract.py::test_planned_operations_are_separate_from_runtime
+1 failed, 31 passed, 1 warning in 0.47s

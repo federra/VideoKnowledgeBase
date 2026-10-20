@@ -1,0 +1,22 @@
+{
+  "reference": "https://github.com/laujjxx/NovelCrawler",
+  "source": "https://github.com/laujjxx/NovelCrawler/blob/master/novel_platform/qidian/crawler.py",
+  "url": "https://m.qidian.com/rank/yuepiao",
+  "checked_at": "2026-10-20T04:35:08.477715+00:00",
+  "requests": 1,
+  "retries": 0,
+  "follow_redirects": false,
+  "fanqie_requests": 0,
+  "model_calls": 0,
+  "paid_api_calls": 0,
+  "http_status": 200,
+  "content_type": "text/html; charset=utf-8",
+  "bytes": 70160,
+  "sha256": "ac219d94cc18484d87bdb3b19e3fbeb3d5c8c0430f192982564c6e4dc7ff8324",
+  "title": "小说月票排行榜单_起点小说月票排行-起点中文网",
+  "has_initial_state": false,
+  "has_page_context": true,
+  "has_book_links": true,
+  "state": "http_received",
+  "requires_shape_validation": true
+}

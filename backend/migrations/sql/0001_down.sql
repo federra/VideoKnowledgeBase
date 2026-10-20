@@ -1,0 +1,17 @@
+DROP TABLE task_attempts;
+DROP TABLE task_outputs;
+DROP TABLE task_inputs;
+DROP TABLE tasks;
+DROP TABLE ai_config_revisions;
+DROP TABLE standard_revisions;
+DROP TABLE standards;
+DROP TABLE provider_connections;
+DROP TABLE file_objects;
+DROP TABLE audit_events;
+DROP TABLE grants;
+DROP TABLE role_actions;
+DROP TABLE role_definitions;
+DROP TABLE members;
+DROP TABLE platforms;
+DROP TABLE business_lines;
+DROP TABLE organizations;

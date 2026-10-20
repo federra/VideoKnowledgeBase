@@ -1,0 +1,14 @@
+{
+  "http_status": 200,
+  "provider_code": 3203,
+  "status": "provider_error",
+  "reason": "Selected account content not included in premium dataset",
+  "provider_reports_points_deducted": false,
+  "billing_invoice_verified": false,
+  "raw_sha256": "3768432e0af1a21fefa33d8c9fa96ce512049de734eadaa9a9aa5cf6cba13e9d",
+  "new_work_list_requests": 1,
+  "new_work_detail_requests": 0,
+  "new_comment_requests": 0,
+  "automatic_retries": 0,
+  "automatic_pagination": false
+}

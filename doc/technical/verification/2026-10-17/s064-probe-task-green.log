@@ -1,0 +1,58 @@
+Database command failed (RuntimeError): 
+Stock upgrade preserves valid rows; invalid stock aborts the entire migration.
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+_____ test_comment_capture_is_durable_bounded_and_does_not_invent_comments _____
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.12/site-packages/psycopg/cursor.py:117: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.InvalidTextRepresentation: invalid input syntax for type uuid: "one-probe"
+E   CONTEXT:  unnamed portal parameter $4 = '...'
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_comment_capture.py:38: in test_comment_capture_is_durable_bounded_and_does_not_invent_comments
+    accepted = submit_capture(c, p, entry, "one-probe", handler)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/collection/comments.py:257: in submit_capture
+    return receipt(c, p, "captureComments", key, {"entry_id": str(entry_id), "page": 1}, perform)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/security/storage.py:45: in receipt
+    row = c.execute(select(t).where(*scope)).mappings().one_or_none()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1421: in execute
+    return meth(
+.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1643: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1848: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:2365: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.12/site-packages/psycopg/cursor.py:117: in execute
+    raise ex.with_traceback(None)
+E   sqlalchemy.exc.DataError: (psycopg.errors.InvalidTextRepresentation) invalid input syntax for type uuid: "one-probe"
+E   CONTEXT:  unnamed portal parameter $4 = '...'
+E   [SQL: SELECT http_receipts.org_id, http_receipts.member_id, http_receipts.operation, http_receipts.key, http_receipts.input_sha256, http_receipts.response, http_receipts.created_at 
+E   FROM http_receipts 
+E   WHERE http_receipts.org_id = %(org_id_1)s::UUID AND http_receipts.member_id = %(member_id_1)s::UUID AND http_receipts.operation = %(operation_1)s::VARCHAR AND http_receipts.key = %(key_1)s::UUID]
+E   [SQL parameters hidden due to hide_parameters=True]
+E   (Background on this error at: https://sqlalche.me/e/20/9h9h)
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nathan/Codex_Projects/VideoKnowledgeBase/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_comment_capture.py::test_comment_capture_is_durable_bounded_and_does_not_invent_comments
+1 failed, 1 passed, 149 deselected, 1 warning in 2.22s

@@ -1,0 +1,20 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__________ test_keyword_board_requires_content_match_and_actual_views __________
+
+    def test_keyword_board_requires_content_match_and_actual_views():
+>       from app.intelligence.ranking import keyword_board
+E       ModuleNotFoundError: No module named 'app.intelligence.ranking'
+
+tests/test_keyword_ranking.py:8: ModuleNotFoundError
+_______ test_keyword_board_numeric_top_ten_never_likes_or_provider_order _______
+
+    def test_keyword_board_numeric_top_ten_never_likes_or_provider_order():
+>       from app.intelligence.ranking import keyword_board
+E       ModuleNotFoundError: No module named 'app.intelligence.ranking'
+
+tests/test_keyword_ranking.py:17: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_keyword_ranking.py::test_keyword_board_requires_content_match_and_actual_views
+FAILED tests/test_keyword_ranking.py::test_keyword_board_numeric_top_ten_never_likes_or_provider_order
+2 failed in 0.06s

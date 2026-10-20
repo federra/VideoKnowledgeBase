@@ -1,0 +1,47 @@
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/research.test.tsx (7 tests | 2 failed) 285ms
+   × 报告material引用携带父材料版本和原段落号，点击进入来源定位 12ms
+   × 报告parsed引用携带父材料版本和原段落号，点击进入来源定位 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/research.test.tsx > 报告material引用携带父材料版本和原段落号，点击进入来源定位
+AssertionError: expected '#/2/0/work/11111111-1111-4111-8111-11…' to contain '/episodes/ep%3A120/11111111-1111-4111…'
+
+Expected: "/episodes/ep%3A120/11111111-1111-4111-8111-111111111111?paragraph=2"
+Received: "#/2/0/work/11111111-1111-4111-8111-111111111111/episodes/ep%3A120/11111111-1111-4111-8111-111111111111"
+
+ ❯ tests/research.test.tsx:76:36
+     74|  mount(p=>p.endsWith('/analysis-history')?history:p.includes('/works/'…
+     75|  const link=await screen.findByRole('link',{name:'原文段落 2'});
+     76|  expect(link.getAttribute('href')).toContain('/episodes/ep%3A120/'+id+…
+       |                                    ^
+     77|  fireEvent.click(link);
+     78|  await waitFor(()=>expect(document.activeElement?.id).toBe('source-par…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/research.test.tsx > 报告parsed引用携带父材料版本和原段落号，点击进入来源定位
+AssertionError: expected '#report-evidence-11111111-1111-4111-8…' to contain '/episodes/ep%3A120/11111111-1111-4111…'
+
+Expected: "/episodes/ep%3A120/11111111-1111-4111-8111-111111111111?paragraph=2"
+Received: "#report-evidence-11111111-1111-4111-8111-111111111111"
+
+ ❯ tests/research.test.tsx:76:36
+     74|  mount(p=>p.endsWith('/analysis-history')?history:p.includes('/works/'…
+     75|  const link=await screen.findByRole('link',{name:'原文段落 2'});
+     76|  expect(link.getAttribute('href')).toContain('/episodes/ep%3A120/'+id+…
+       |                                    ^
+     77|  fireEvent.click(link);
+     78|  await waitFor(()=>expect(document.activeElement?.id).toBe('source-par…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 5 passed (7)
+   Start at  17:41:35
+   Duration  857ms (environment 49%, tests 36%, setup 7%, import 4%, transform 3%)
+

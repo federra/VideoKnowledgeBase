@@ -1,0 +1,54 @@
+{
+  "scope": "offline canonical-byte and time examples only; not app tests, migrations or real API calls",
+  "normalization_version": 1,
+  "hash_vectors": [
+    {
+      "name": "unicode_large_id_null_zero",
+      "canonical_utf8": "{\"body_text\":\"第一行\\n第二行\",\"like_count\":0,\"platform_id\":\"9007199254740993\",\"view_count\":null}",
+      "sha256": "5e160d5cbb960b69377ec30bb6e61f15a0f26714a29b015ed495c6ffd5342a30"
+    },
+    {
+      "name": "same_keys_reordered",
+      "canonical_utf8": "{\"body_text\":\"第一行\\n第二行\",\"like_count\":0,\"platform_id\":\"9007199254740993\",\"view_count\":null}",
+      "sha256": "5e160d5cbb960b69377ec30bb6e61f15a0f26714a29b015ed495c6ffd5342a30"
+    },
+    {
+      "name": "decimal_exact",
+      "canonical_utf8": "{\"weight\":\"1.5\",\"zero\":\"0\"}",
+      "sha256": "2247e52d9e836c5548533e202fd72ab22085cd20bc8fa3e722e612d3bcea745e"
+    }
+  ],
+  "properties": {
+    "key_order_stable": true,
+    "null_differs_from_zero": true,
+    "array_order_matters": true,
+    "text_newline_preserved": true,
+    "exact_decimal_equivalent": true,
+    "large_platform_id_is_string": true
+  },
+  "invalid_value_rejections": [
+    "float",
+    "float",
+    "float",
+    "Decimal",
+    "dict",
+    "dict"
+  ],
+  "time_boundaries": [
+    {
+      "utc": "2026-10-15T15:59:59+00:00",
+      "shanghai_business_date": "2026-10-15"
+    },
+    {
+      "utc": "2026-10-15T16:00:00+00:00",
+      "shanghai_business_date": "2026-10-16"
+    }
+  ],
+  "delayed_job_example": {
+    "scheduled_business_date": "2026-10-15",
+    "execution_local_date": "2026-10-16",
+    "job_keeps_scheduled_business_date": true
+  },
+  "real_inputs_used": "public field audit structure only; vector values synthetic",
+  "new_external_calls": 0
+}

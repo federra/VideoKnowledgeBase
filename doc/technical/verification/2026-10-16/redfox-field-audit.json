@@ -1,0 +1,87 @@
+{
+  "source": "data/redfox/search-user-response.json",
+  "sha256": "d87117cdfe3dfa67492f3cceea5d9c2ac276c6b62afd07924f076125dae94158",
+  "requests": 1,
+  "rows": 20,
+  "data_fields": [
+    "hasMore",
+    "list",
+    "total"
+  ],
+  "has_more_type": "int",
+  "uid_unique_count": 20,
+  "fields": {
+    "uid": {
+      "types": [
+        "str"
+      ],
+      "missing": 0,
+      "null": 0,
+      "empty_string": 0,
+      "zero": 0
+    },
+    "accountId": {
+      "types": [
+        "str"
+      ],
+      "missing": 0,
+      "null": 0,
+      "empty_string": 0,
+      "zero": 0
+    },
+    "nickname": {
+      "types": [
+        "str"
+      ],
+      "missing": 0,
+      "null": 0,
+      "empty_string": 0,
+      "zero": 0
+    },
+    "avatarUrl": {
+      "types": [
+        "str"
+      ],
+      "missing": 0,
+      "null": 0,
+      "empty_string": 0,
+      "zero": 0
+    },
+    "followerCount": {
+      "types": [
+        "int"
+      ],
+      "missing": 0,
+      "null": 0,
+      "empty_string": 0,
+      "zero": 0
+    },
+    "awemeCount": {
+      "types": [
+        "int"
+      ],
+      "missing": 0,
+      "null": 0,
+      "empty_string": 0,
+      "zero": 1
+    },
+    "totalFavorited": {
+      "types": [
+        "int"
+      ],
+      "missing": 0,
+      "null": 0,
+      "empty_string": 0,
+      "zero": 0
+    },
+    "crawlTime": {
+      "types": [
+        "str"
+      ],
+      "missing": 0,
+      "null": 0,
+      "empty_string": 0,
+      "zero": 0
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.DS_Store
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+data/*
+!data/.gitkeep
+coverage/
+
+# Local package cache and agent execution scratch
+.pnpm-store/
+.superpowers/
+
+# Celery Beat is a dispatch clock, not the task database.
+backend/celerybeat-schedule*
+backend/celerybeat.pid

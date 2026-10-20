@@ -1,0 +1,9 @@
+$ tsc -b && eslint src tests
+
+/Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend/src/api/client.ts
+  97:41  error  Unexpected control character(s) in regular expression: \x00  no-control-regex
+  98:12  error  Unexpected control character(s) in regular expression: \x00  no-control-regex
+
+✖ 2 problems (2 errors, 0 warnings)
+
+[ELIFECYCLE] Command failed with exit code 1.

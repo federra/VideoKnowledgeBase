@@ -1,0 +1,12 @@
+{
+  "postgres": {
+    "connected": true,
+    "version": "17.11 (Debian 17.11-1.pgdg12+2)",
+    "pgvector": "0.8.7"
+  },
+  "redis": {
+    "ping": true,
+    "version": "7.4.11",
+    "aof_enabled": true
+  }
+}

@@ -1,0 +1,11 @@
+2026-10-16: independent read-only review by /root/s032_dictionary_review
+Scope: B1 field definitions, PK/FK/null/default/index consistency,
+version/evidence/review/prediction structures and stage boundaries.
+Three important findings: direct upload evidence target absent;
+independent quality evaluation review target absent;
+review-task immutable target input absent.
+Author fixed all three in the field dictionary, including concrete FK slots.
+Reviewer performed a focused follow-up and confirmed all three closed.
+No remaining important blocker to S03.2 documentation delivery reported.
+No .env or private data access, network/API requests or DDL by reviewer.
+This review is not S03.4 migration-readiness or S04 database acceptance.

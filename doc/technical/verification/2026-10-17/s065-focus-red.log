@@ -1,0 +1,33 @@
+$ vitest run --run tests/audience-feedback.test.tsx
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/audience-feedback.test.tsx (3 tests | 1 failed) 108ms
+   × 关闭抽屉后将键盘焦点还给原入口 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/audience-feedback.test.tsx > 关闭抽屉后将键盘焦点还给原入口
+AssertionError: expected <body><button></button>
+…(1)</body> to be <button></button> // Object.is equality
+
+- Expected
++ Received
+
++ <body>
+    <button />
++   <div />
++ </body>
+
+ ❯ tests/audience-feedback.test.tsx:49:51
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  14:28:14
+   Duration  442ms (environment 55%, tests 28%, setup 8%, transform 4%, import 3%)
+
+[ELIFECYCLE] Test failed. See above for more details.

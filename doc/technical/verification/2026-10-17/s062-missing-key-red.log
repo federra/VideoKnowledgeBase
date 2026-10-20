@@ -1,0 +1,53 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_missing_key_fails_before_reservation_with_safe_source_code ________
+
+self = <app.collection.handler.Collect object at 0x10927e900>, runner = None
+ticket = None
+checkpoint = <function test_missing_key_fails_before_reservation_with_safe_source_code.<locals>.<lambda> at 0x109298680>
+
+    def execute_ticket(self, runner, ticket, checkpoint):
+        try:
+>           self.connector.ready()
+
+backend/app/collection/handler.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <app.connectors.redfox.RedFox object at 0x10927ee10>
+
+    def ready(self):
+        key = self.key_provider()
+        if not isinstance(key, str) or not key or any(ord(c) < 33 for c in key):
+>           raise AdapterError("SOURCE_UNAVAILABLE")
+E           app.connectors.redfox.AdapterError: SOURCE_UNAVAILABLE
+
+backend/app/connectors/redfox.py:231: AdapterError
+
+During handling of the above exception, another exception occurred:
+
+    def test_missing_key_fails_before_reservation_with_safe_source_code():
+        from app.collection.handler import Collect
+        from app.connectors.redfox import RedFox
+        from app.tasks.service import TaskError
+        with pytest.raises(TaskError,match='SOURCE_UNAVAILABLE'):
+>           Collect(RedFox(lambda:None)).execute_ticket(None,None,lambda:None)
+
+backend/tests/test_collection.py:231: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <app.collection.handler.Collect object at 0x10927e900>, runner = None
+ticket = None
+checkpoint = <function test_missing_key_fails_before_reservation_with_safe_source_code.<locals>.<lambda> at 0x109298680>
+
+    def execute_ticket(self, runner, ticket, checkpoint):
+        try:
+            self.connector.ready()
+        except AdapterError as e:
+>           raise TaskError(e.code) from None
+                            ^^^^^^
+E           AttributeError: 'AdapterError' object has no attribute 'code'
+
+backend/app/collection/handler.py:82: AttributeError
+=========================== short test summary info ============================
+FAILED backend/tests/test_collection.py::test_missing_key_fails_before_reservation_with_safe_source_code
+1 failed, 20 deselected in 0.12s

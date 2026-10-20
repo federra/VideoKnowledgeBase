@@ -1,0 +1,19 @@
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+___________ test_dedicated_parse_queue_is_declared_and_dispatchable ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1083a0f20>
+
+    def test_dedicated_parse_queue_is_declared_and_dispatchable(monkeypatch):
+        from uuid import uuid4
+    
+        from app.tasks.celery_app import app
+>       assert "research" in app.amqp.queues
+E       AssertionError: assert 'research' in {'cip.tasks.v1': <unbound Queue cip.tasks.v1 -> <unbound Exchange cip.tasks.v1(direct)> -> cip.tasks.v1>}
+E        +  where {'cip.tasks.v1': <unbound Queue cip.tasks.v1 -> <unbound Exchange cip.tasks.v1(direct)> -> cip.tasks.v1>} = <celery.app.amqp.AMQP object at 0x1087410d0>.queues
+E        +    where <celery.app.amqp.AMQP object at 0x1087410d0> = <Celery cip at 0x1083a11c0>.amqp
+
+tests/test_research_parsing.py:42: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_research_parsing.py::test_dedicated_parse_queue_is_declared_and_dispatchable
+1 failed, 2 passed in 0.19s
