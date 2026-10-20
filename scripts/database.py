@@ -129,6 +129,7 @@ def isolated_test(url):
                         "0014_inputs",
                         "0015_novels",
                         "0016_saved_novels",
+                        "0017_browser_novels",
                     ],
                 },
                 ensure_ascii=False,

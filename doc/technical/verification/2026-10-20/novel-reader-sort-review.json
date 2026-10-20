@@ -1,0 +1,16 @@
+{
+  "reviewer": "novel_sort_review",
+  "scope": "小说题材目录匹配及番茄数值排序定向只读复核",
+  "remaining_important_or_critical": 0,
+  "fixed_boundary": "具体子榜无法匹配目录时保持空；仅明确全站/全部可回退匹配的work_genre",
+  "independent_checks": [
+    "Decimal/BigInt精确整数",
+    "同书跨榜最高人数成员选择",
+    "题材筛选保持对应成员",
+    "0在缺失前",
+    "筛选/去重/分页顺序",
+    "原rank保持"
+  ],
+  "external_calls": 0,
+  "database_writes": 0
+}

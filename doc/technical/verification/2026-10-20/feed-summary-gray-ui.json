@@ -1,0 +1,62 @@
+[
+  {
+    "background": "rgb(255, 255, 255)",
+    "color": "rgb(97, 102, 112)",
+    "count": 10,
+    "lane": "视频",
+    "titleColor": "rgb(34, 37, 44)",
+    "theme": "light",
+    "surface": "demo",
+    "contrast_ratio": 5.76
+  },
+  {
+    "background": "rgb(255, 255, 255)",
+    "color": "rgb(97, 102, 112)",
+    "count": 10,
+    "lane": "博主",
+    "titleColor": "rgb(34, 37, 44)",
+    "theme": "light",
+    "surface": "demo",
+    "contrast_ratio": 5.76
+  },
+  {
+    "background": "rgb(27, 30, 38)",
+    "color": "rgb(176, 180, 189)",
+    "count": 10,
+    "lane": "视频",
+    "titleColor": "rgb(236, 238, 242)",
+    "theme": "dark",
+    "surface": "demo",
+    "contrast_ratio": 8.02
+  },
+  {
+    "background": "rgb(27, 30, 38)",
+    "color": "rgb(176, 180, 189)",
+    "count": 10,
+    "lane": "博主",
+    "titleColor": "rgb(236, 238, 242)",
+    "theme": "dark",
+    "surface": "demo",
+    "contrast_ratio": 8.02
+  },
+  {
+    "background": "rgb(255, 255, 255)",
+    "color": "rgb(97, 102, 112)",
+    "count": 10,
+    "lane": "小说",
+    "titleColor": "rgb(34, 37, 44)",
+    "theme": "light",
+    "surface": "real",
+    "contrast_ratio": 5.76
+  },
+  {
+    "background": "rgb(27, 30, 38)",
+    "color": "rgb(176, 180, 189)",
+    "count": 10,
+    "lane": "小说",
+    "titleColor": "rgb(236, 238, 242)",
+    "theme": "dark",
+    "surface": "real",
+    "contrast_ratio": 8.02
+  }
+]

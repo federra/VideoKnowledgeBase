@@ -18,6 +18,16 @@ from app.tasks.service import Runner, TaskError
 
 class SavedQidian:
     action = "collection.run"
+    method = METHOD
+    capture_kind = "user_saved_html"
+    board_prefix = "qidian:desktop:female:"
+    input_role = "novel_saved_html"
+    audit_action = "novel.saved_html_imported"
+    discover = staticmethod(discover)
+    normalize = staticmethod(normalize)
+
+    def validate_capture(self, body):
+        return None
 
     def freeze(self, c, task, az):
         job = (
@@ -33,11 +43,11 @@ class SavedQidian:
         raw = az.read("raw_assets", UUID(board["raw_asset_id"]))
         conn = get(c, "provider_connections", task["org_id"], job["connection_id"])
         if (
-            board.get("method") != METHOD
+            board.get("method") != self.method
             or board.get("platform") != "qidian"
             or board.get("gender") != "female"
-            or board.get("capture_kind") != "user_saved_html"
-            or board.get("code") != f"qidian:desktop:female:{board.get('rank_type')}"
+            or board.get("capture_kind") != self.capture_kind
+            or board.get("code") != self.board_prefix + str(board.get("rank_type"))
             or source["platform_code"] != "qidian"
             or source["board_code"] != board["code"]
             or source["business_code"] != task["business_code"]
@@ -61,6 +71,7 @@ class SavedQidian:
             or shanghai_date(raw["captured_at"]) != job["business_date"]
         ):
             raise TaskError("INVALID_INPUT")
+        self.validate_capture(raw["body_text"])
         return {
             "job_id": str(job["id"]),
             "source_version": source["lock_version"],
@@ -84,20 +95,22 @@ class SavedQidian:
         raw = get(c, "raw_assets", task["org_id"], UUID(result["raw_asset_id"]))
         if result["raw_asset_id"] != job["safe_request"]["raw_asset_id"]:
             raise TaskError("INVALID_INPUT")
-        batch = normalize(job["safe_request"], raw["body_text"])
+        batch = self.normalize(job["safe_request"], raw["body_text"])
         publish_batch(c, task, raw, job, batch)
         audit(
             c,
             task["org_id"],
             task["requested_by"],
-            "novel.saved_html_imported",
+            self.audit_action,
             "raw_asset",
             raw["id"],
         )
 
 
-def run_saved(engine, org, task_id):
-    outcome = Runner(engine, {("collect.novels", VERSION): SavedQidian()}).run(org, task_id)
+def run_saved(engine, org, task_id, *, handler=None):
+    outcome = Runner(engine, {("collect.novels", VERSION): handler or SavedQidian()}).run(
+        org, task_id
+    )
     with engine.begin() as c:
         state = c.exec_driver_sql(
             "SELECT state FROM tasks WHERE org_id=%s AND id=%s", (org, task_id)
@@ -106,6 +119,10 @@ def run_saved(engine, org, task_id):
 
 
 def submit_saved(c, p, board, html, *, business="motion_comic"):
+    return submit_local(c, p, board, html, SavedQidian(), business=business)
+
+
+def submit_local(c, p, board, html, handler, *, business="motion_comic"):
     refresh(c, p)
     lock_org(c, p.org_id)
     az = Authorizer(c, p)
@@ -113,8 +130,9 @@ def submit_saved(c, p, board, html, *, business="motion_comic"):
         if not az.allowed(action, {("org", str(p.org_id)), ("business", business)}):
             raise TaskError("ACCESS_DENIED")
     # Only a real catalog-discovered board may be imported; normalization happens in the task.
-    if board not in discover(html):
+    if board not in handler.discover(html):
         raise TaskError("INVALID_INPUT")
+    captured_at = handler.validate_capture(html)
     sha = hashlib.sha256(html.encode()).hexdigest()
     old = (
         c.exec_driver_sql(
@@ -142,18 +160,18 @@ def submit_saved(c, p, board, html, *, business="motion_comic"):
     )
     request = {
         **board,
-        "capture_kind": "user_saved_html",
+        "capture_kind": handler.capture_kind,
         "file_sha256": sha,
         "raw_asset_id": str(raw_id),
         "imported_at": now.isoformat(),
-        "source_captured_at": None,
+        "source_captured_at": captured_at,
     }
     return submit(
         c,
         p,
         request,
-        SavedQidian(),
+        handler,
         business=business,
         external_calls=0,
-        inputs=({"role": "novel_saved_html", "raw_asset_id": raw_id},),
+        inputs=({"role": handler.input_role, "raw_asset_id": raw_id},),
     )

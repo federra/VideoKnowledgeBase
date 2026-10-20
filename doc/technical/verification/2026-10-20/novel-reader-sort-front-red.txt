@@ -1,0 +1,583 @@
+$ vitest run -- intelligence.test.tsx
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/intelligence.test.tsx (26 tests | 2 failed) 2442ms
+   × 小说题材使用筛选目录名称、子榜优先且全站不充题材 male 科幻 fanqie undefined 28ms
+   × 小说题材使用筛选目录名称、子榜优先且全站不充题材 null 目录外题材 fanqie 全站 1016ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/intelligence.test.tsx > 小说题材使用筛选目录名称、子榜优先且全站不充题材 male 科幻 fanqie undefined
+AssertionError: expected [ '男频', '科幻' ] to deeply equal [ '男频', '女频衍生' ]
+
+- Expected
++ Received
+
+  [
+    "男频",
+-   "女频衍生",
++   "科幻",
+  ]
+
+ ❯ tests/intelligence.test.tsx:153:112
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/intelligence.test.tsx > 小说题材使用筛选目录名称、子榜优先且全站不充题材 null 目录外题材 fanqie 全站
+TestingLibraryElementError: Unable to find an element with the text: 真实小说标签样本. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<h1[39m
+      [33mclass[39m=[32m"sr-only"[39m
+    [36m>[39m
+      [0m情报流[0m
+    [36m</h1>[39m
+    [36m<div[39m
+      [33maria-label[39m=[32m"AI漫剧监测概览"[39m
+      [33mclass[39m=[32m"metric-grid feed-overview"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m视频[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m博主[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m小说[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"feed-controls"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"情报类型"[39m
+        [33mclass[39m=[32m"feed-view-filter"[39m
+        [33mrole[39m=[32m"group"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"false"[39m
+          [33mclass[39m=[32m""[39m
+        [36m>[39m
+          [0m视频[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"false"[39m
+          [33mclass[39m=[32m""[39m
+        [36m>[39m
+          [0m博主[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"true"[39m
+          [33mclass[39m=[32m"active"[39m
+        [36m>[39m
+          [0m小说[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"feed-specific-filter"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rank-filter"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mfor[39m=[32m"novelBoardFilter"[39m
+          [36m>[39m
+            [0m小说平台[0m
+          [36m</label>[39m
+          [36m<select[39m
+            [33maria-label[39m=[32m"小说平台"[39m
+            [33mid[39m=[32m"novelBoardFilter"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"fanqie"[39m
+            [36m>[39m
+              [0m番茄小说[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"qidian"[39m
+            [36m>[39m
+              [0m起点中文网[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<label[39m
+        [33mclass[39m=[32m"search feed-search"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"icon"[39m
+          [33mviewBox[39m=[32m"0 0 24 24"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"10"[39m
+            [33mcy[39m=[32m"10"[39m
+            [33mr[39m=[32m"6"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"m15 15 5 5"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"sr-only"[39m
+        [36m>[39m
+          [0m搜索小说[0m
+        [36m</span>[39m
+        [36m<input[39m
+          [33maria-label[39m=[32m"搜索小说"[39m
+          [33mmaxlength[39m=[32m"100"[39m
+          [33mplaceholder[39m=[32m"搜索小说、作者或简介"[39m
+          [33mvalue[39m=[32m""[39m
+        [36m/>[39m
+      [36m</label>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"novel-filters"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"男女频"[39m
+        [33mclass[39m=[32m"novel-filter-row"[39m
+        [33mrole[39m=[32m"group"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"filter-label"[39m
+        [36m>[39m
+          [0m男女频[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"true"[39m
+          [33mclass[39m=[32m"chip active"[39m
+        [36m>[39m
+          [0m全部[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"榜单类型"[39m
+        [33mclass[39m=[32m"novel-filter-row"[39m
+        [33mrole[39m=[32m"group"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"filter-label"[39m
+        [36m>[39m
+          [0m榜单类型[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"true"[39m
+          [33mclass[39m=[32m"chip active"[39m
+        [36m>[39m
+          [0m全部[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"题材"[39m
+        [33mclass[39m=[32m"novel-filter-row"[39m
+        [33mrole[39m=[32m"group"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"filter-label"[39m
+        [36m>[39m
+          [0m题材[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"true"[39m
+          [33mclass[39m=[32m"chip active"[39m
+        [36m>[39m
+          [0m全部[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"notice"[39m
+    [36m>[39m
+      [36m<svg[39m
+        [33maria-hidden[39m=[32m"true"[39m
+        [33mclass[39m=[32m"icon"[39m
+        [33mviewBox[39m=[32m"0 0 24 24"[39m
+      [36m>[39m
+        [36m<circle[39m
+          [33mcx[39m=[32m"12"[39m
+          [33mcy[39m=[32m"12"[39m
+          [33mr[39m=[32m"9"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M12 11v6M12 7v1"[39m
+        [36m/>[39m
+      [36m</svg>[39m
+      [36m<p>[39m
+        [0m保留官方子榜顺序，每榜最多30条；全榜按书籍去重，不构造跨榜排名。简介与在读人数来自同次公开榜单，未采集章节正文。筛选仅作用已采集样本；标签优先取作品字段，缺失时取所属榜单分类（悬停可查依据）；全站不作题材。[0m
+      [36m</p>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"feed-columns feed-single insight-collapsed"[39m
+    [36m>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"feed-lane rank-lane"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lane-head"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0m小说榜单[0m
+          [36m</h2>[39m
+          [36m<span>[39m
+            [0m正在读取[0m
+            [0m · 在读人数[0m
+            [0m · 未获取[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lane-empty"[39m
+          [33mrole[39m=[32m"alert"[39m
+        [36m>[39m
+          [36m<strong>[39m
+            [0m服务响应格式异常，请稍后重试[0m
+          [36m</strong>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"btn"[39m
+          [36m>[39m
+            [0m重试[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-label[39m=[32m"小说翻页"[39m
+          [33mclass[39m=[32m"feed-pager"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [0m每页最多10条 · 第 [0m
+            [0m1[0m
+            [0m / [0m
+            [0m1[0m
+            [0m 页 · 共 [0m
+            [0m未获取[0m
+            [0m 本[0m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"pager-actions"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"小说上一页"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0m上一页[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"小说下一页"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0m下一页[0m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<h1[39m
+      [33mclass[39m=[32m"sr-only"[39m
+    [36m>[39m
+      [0m情报流[0m
+    [36m</h1>[39m
+    [36m<div[39m
+      [33maria-label[39m=[32m"AI漫剧监测概览"[39m
+      [33mclass[39m=[32m"metric-grid feed-overview"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m视频[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m博主[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"metric-card"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0m小说[0m
+        [36m</span>[39m
+        [36m<strong>[39m
+          [0m未获取[0m
+        [36m</strong>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"feed-controls"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"情报类型"[39m
+        [33mclass[39m=[32m"feed-view-filter"[39m
+        [33mrole[39m=[32m"group"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"false"[39m
+          [33mclass[39m=[32m""[39m
+        [36m>[39m
+          [0m视频[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"false"[39m
+          [33mclass[39m=[32m""[39m
+        [36m>[39m
+          [0m博主[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"true"[39m
+          [33mclass[39m=[32m"active"[39m
+        [36m>[39m
+          [0m小说[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"feed-specific-filter"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rank-filter"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mfor[39m=[32m"novelBoardFilter"[39m
+          [36m>[39m
+            [0m小说平台[0m
+          [36m</label>[39m
+          [36m<select[39m
+            [33maria-label[39m=[32m"小说平台"[39m
+            [33mid[39m=[32m"novelBoardFilter"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"fanqie"[39m
+            [36m>[39m
+              [0m番茄小说[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"qidian"[39m
+            [36m>[39m
+              [0m起点中文网[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<label[39m
+        [33mclass[39m=[32m"search feed-search"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33maria-hidden[39m=[32m"true"[39m
+          [33mclass[39m=[32m"icon"[39m
+          [33mviewBox[39m=[32m"0 0 24 24"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mcx[39m=[32m"10"[39m
+            [33mcy[39m=[32m"10"[39m
+            [33mr[39m=[32m"6"[39m
+          [36m/>[39m
+          [36m<path[39m
+            [33md[39m=[32m"m15 15 5 5"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"sr-only"[39m
+        [36m>[39m
+          [0m搜索小说[0m
+        [36m</span>[39m
+        [36m<input[39m
+          [33maria-label[39m=[32m"搜索小说"[39m
+          [33mmaxlength[39m=[32m"100"[39m
+          [33mplaceholder[39m=[32m"搜索小说、作者或简介"[39m
+          [33mvalue[39m=[32m""[39m
+        [36m/>[39m
+      [36m</label>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"novel-filters"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"男女频"[39m
+        [33mclass[39m=[32m"novel-filter-row"[39m
+        [33mrole[39m=[32m"group"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"filter-label"[39m
+        [36m>[39m
+          [0m男女频[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"true"[39m
+          [33mclass[39m=[32m"chip active"[39m
+        [36m>[39m
+          [0m全部[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"榜单类型"[39m
+        [33mclass[39m=[32m"novel-filter-row"[39m
+        [33mrole[39m=[32m"group"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"filter-label"[39m
+        [36m>[39m
+          [0m榜单类型[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"true"[39m
+          [33mclass[39m=[32m"chip active"[39m
+        [36m>[39m
+          [0m全部[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33maria-label[39m=[32m"题材"[39m
+        [33mclass[39m=[32m"novel-filter-row"[39m
+        [33mrole[39m=[32m"group"[39m
+      [36m>[39m
+        [36m<span[39m
+          [33mclass[39m=[32m"filter-label"[39m
+        [36m>[39m
+          [0m题材[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"true"[39m
+          [33mclass[39m=[32m"chip active"[39m
+        [36m>[39m
+          [0m全部[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"notice"[39m
+    [36m>[39m
+      [36m<svg[39m
+        [33maria-hidden[39m=[32m"true"[39m
+        [33mclass[39m=[32m"icon"[39m
+        [33mviewBox[39m=[32m"0 0 24 24"[39m
+      [36m>[39m
+        [36m<circle[39m
+          [33mcx[39m=[32m"12"[39m
+          [33mcy[39m=[32m"12"[39m
+          [33mr[39m=[32m"9"[39m
+        [36m/>[39m
+        [36m<path[39m
+          [33md[39m=[32m"M12 11v6M12 7v1"[39m
+        [36m/>[39m
+      [36m</svg>[39m
+      [36m<p>[39m
+        [0m保留官方子榜顺序，每榜最多30条；全榜按书籍去重，不构造跨榜排名。简介与在读人数来自同次公开榜单，未采集章节正文。筛选仅作用已采集样本；标签优先取作品字段，缺失时取所属榜单分类（悬停可查依据）；全站不作题材。[0m
+      [36m</p>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"feed-columns feed-single insight-collapsed"[39m
+    [36m>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"feed-lane rank-lane"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lane-head"[39m
+        [36m>[39m
+          [36m<h2>[39m
+            [0m小说榜单[0m
+          [36m</h2>[39m
+          [36m<span>[39m
+            [0m正在读取[0m
+            [0m · 在读人数[0m
+            [0m · 未获取[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lane-empty"[39m
+          [33mrole[39m=[32m"alert"[39m
+        [36m>[39m
+          [36m<strong>[39m
+            [0m服务响应格式异常，请稍后重试[0m
+          [36m</strong>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"btn"[39m
+          [36m>[39m
+            [0m重试[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33maria-label[39m=[32m"小说翻页"[39m
+          [33mclass[39m=[32m"feed-pager"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [0m每页最多10条 · 第 [0m
+            [0m1[0m
+            [0m / [0m
+            [0m1[0m
+            [0m 页 · 共 [0m
+            [0m未获取[0m
+            [0m 本[0m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"pager-actions"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"小说上一页"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0m上一页[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"小说下一页"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0m下一页[0m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ ../node_modules/.pnpm/@testing-library+dom@10.4.2/node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ tests/intelligence.test.tsx:152:168
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 10 passed (11)
+      Tests  2 failed | 97 passed (99)
+   Start at  17:51:35
+   Duration  5.37s (tests 51%, environment 31%, setup 12%, import 3%, transform 3%)
+
+[ELIFECYCLE] Test failed. See above for more details.

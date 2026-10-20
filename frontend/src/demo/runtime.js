@@ -1,4 +1,4 @@
-// Generated from approved Demo. SHA-256: 376cc592029d55bec30e1b853d27109d4b8eb127e6486521ed9d6fa6058d366e
+// Generated from approved Demo. SHA-256: 23c81c74c412495e1475be4eb1fadbd793a1b083eba7ab00ec29da7cf53c1f7e
 // Transitional DOM renderer: no real API, authentication or server-side writes.
 // Run pnpm demo:sync after explicitly approving a changed Demo baseline.
 export function createDemoRuntime({onChange, renderWorkspace}) {
@@ -564,6 +564,7 @@ function deferHideFeedFullText(){
   if(document.activeElement!==feedTextSource&&!box.contains(document.activeElement))hideFeedFullText();
  },150);
 }
+
 
 
 

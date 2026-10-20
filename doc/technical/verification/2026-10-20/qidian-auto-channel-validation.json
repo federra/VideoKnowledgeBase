@@ -1,0 +1,180 @@
+{
+  "url": "https://www.qdmm.com/rank/",
+  "network_route": "existing_macos_system_proxy",
+  "requests": 1,
+  "captured_at": "2026-10-20T07:13:05.539975+00:00",
+  "retries": 0,
+  "paid_calls": 0,
+  "http_status": 202,
+  "bytes": 209,
+  "sha256": "cb7851e716fe40aab682229a1b10530262264f2f958ef12d13a662ca2d198aa7",
+  "location": null,
+  "cookie_names": [
+    "x-waf-captcha-referer"
+  ],
+  "title": null,
+  "parse_error": "SOURCE_UNAVAILABLE",
+  "browser_validation": {
+    "existing_tab_id": "1730446929",
+    "https_target": "https://www.qdmm.com/rank/",
+    "selector": ".rank-nav-list",
+    "locator_timeout_ms": 5000,
+    "tool_timeout_ms": 12000,
+    "result": "content_read_timeout",
+    "metadata_title_available": true,
+    "source_view": "browser_policy_rejected_non_http_protocol",
+    "workaround_attempted_after_rejection": false
+  },
+  "accepted_monthly_board": {
+    "rank_type": "yuepiao",
+    "count": 20,
+    "changed": false,
+    "capture_kind": "user_saved_html"
+  },
+  "data_mutations": 0,
+  "fanqie_requests": 0,
+  "model_calls": 0,
+  "fresh_user_tab_probe": {
+    "browser": "Chrome",
+    "tab_id": "1730446961",
+    "url": "https://www.qdmm.com/rank/hotsales/",
+    "title": "女生小说畅销排行榜单_起点女生小说畅销排行-起点女生网",
+    "dom_read": "timeout_after_12s",
+    "browser_screenshot": "timeout_after_12s",
+    "native_ui": "readable",
+    "target_tab_switch": "interrupted_by_user",
+    "result": "native_public_capture_and_import_verified",
+    "network_requests_initiated": 0,
+    "business_data_written": 0
+  },
+  "browser_capture_result": {
+    "board_count": 13,
+    "members": 216,
+    "fanqie_unchanged": true,
+    "monthly_unchanged": true,
+    "all_sources_paused": true,
+    "unattended_http_recovered": false
+  },
+  "originally_pending_board_count": 13,
+  "unattended_http_pending_board_count": 13,
+  "remaining_browser_board_count": 0,
+  "originally_pending_boards": [
+    {
+      "rank_type": "readindex",
+      "rank_name": "阅读指数榜",
+      "url": "https://www.qdmm.com/rank/readindex/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 17
+    },
+    {
+      "rank_type": "hotsales",
+      "rank_name": "畅销榜",
+      "url": "https://www.qdmm.com/rank/hotsales/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 17
+    },
+    {
+      "rank_type": "newfans",
+      "rank_name": "书友榜",
+      "url": "https://www.qdmm.com/rank/newfans/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 16
+    },
+    {
+      "rank_type": "subscr",
+      "rank_name": "热门单订榜",
+      "url": "https://www.qdmm.com/rank/subscr/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 17
+    },
+    {
+      "rank_type": "recom",
+      "rank_name": "推荐榜",
+      "url": "https://www.qdmm.com/rank/recom/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 16
+    },
+    {
+      "rank_type": "collect",
+      "rank_name": "收藏榜",
+      "url": "https://www.qdmm.com/rank/collect/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 18
+    },
+    {
+      "rank_type": "vipsub",
+      "rank_name": "VIP单订总榜",
+      "url": "https://www.qdmm.com/rank/vipsub/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 18
+    },
+    {
+      "rank_type": "vipup",
+      "rank_name": "VIP更新字数榜",
+      "url": "https://www.qdmm.com/rank/vipup/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 16
+    },
+    {
+      "rank_type": "wordcount",
+      "rank_name": "总字数榜",
+      "url": "https://www.qdmm.com/rank/wordcount/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 17
+    },
+    {
+      "rank_type": "signnewbook",
+      "rank_name": "签约作者新书榜",
+      "url": "https://www.qdmm.com/rank/signnewbook/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 16
+    },
+    {
+      "rank_type": "pubnewbook",
+      "rank_name": "公众作者新书榜",
+      "url": "https://www.qdmm.com/rank/pubnewbook/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 16
+    },
+    {
+      "rank_type": "newsign",
+      "rank_name": "新人签约新书榜",
+      "url": "https://www.qdmm.com/rank/newsign/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 16
+    },
+    {
+      "rank_type": "newauthor",
+      "rank_name": "新人作者新书榜",
+      "url": "https://www.qdmm.com/rank/newauthor/",
+      "state": "browser_assisted_imported",
+      "max_items": 30,
+      "page": 1,
+      "imported_items": 16
+    }
+  ]
+}

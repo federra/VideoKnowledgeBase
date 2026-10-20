@@ -1,0 +1,17 @@
+{
+  "branch": "main",
+  "local_sha": "8058e9b842c911eb9aba3f8fed24d141d000e96f",
+  "remote_sha": "8058e9b842c911eb9aba3f8fed24d141d000e96f",
+  "origin_main_sha": "8058e9b842c911eb9aba3f8fed24d141d000e96f",
+  "commit_count": 1,
+  "fetch_url": "https://github.com/federra/VideoKnowledgeBase.git",
+  "push_transport": "existing_ssh_identity_via_official_443_endpoint",
+  "verified_login": "federra",
+  "tests": {
+    "ordinary_backend": 243,
+    "frontend": 93,
+    "checks_and_build": "passed"
+  },
+  "raw_data_and_env_excluded": true,
+  "existing_secret_value_matches": 0
+}

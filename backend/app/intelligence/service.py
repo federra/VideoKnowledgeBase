@@ -43,14 +43,16 @@ def wire(value):
 
 
 def novel_raw_ids(c, org, job_id):
-    """Provider responses or a narrowly identified, frozen manual HTML task input."""
+    """Provider responses or an exact frozen local HTML/browser capture input."""
     return c.exec_driver_sql(
         "SELECT id FROM raw_assets WHERE org_id=%s AND collection_job_id=%s UNION "
         "SELECT r.id FROM collection_jobs j JOIN tasks t ON t.org_id=j.org_id AND t.id=j.task_id "
-        "JOIN task_inputs i ON i.org_id=t.org_id AND i.task_id=t.id AND i.role='novel_saved_html' "
+        "JOIN task_inputs i ON i.org_id=t.org_id AND i.task_id=t.id AND i.role IN ('novel_saved_html','novel_browser_ax') "
         "JOIN raw_assets r ON r.org_id=i.org_id AND r.id=i.raw_asset_id "
-        "WHERE j.org_id=%s AND j.id=%s AND j.safe_request->>'method'='qidian-desktop-html-v1' "
-        "AND j.safe_request->>'capture_kind'='user_saved_html' AND j.capability_code='novel.qidian.board' "
+        "WHERE j.org_id=%s AND j.id=%s AND ((j.safe_request->>'method'='qidian-desktop-html-v1' "
+        "AND j.safe_request->>'capture_kind'='user_saved_html' AND i.role='novel_saved_html') OR "
+        "(j.safe_request->>'method'='qidian-browser-ax-v1' AND j.safe_request->>'capture_kind'='browser_native_accessibility' AND i.role='novel_browser_ax')) "
+        "AND j.capability_code='novel.qidian.board' "
         "AND t.max_external_calls=0 AND r.origin='manual' AND r.submitted_by=t.requested_by "
         "AND j.safe_request->>'raw_asset_id'=r.id::text AND j.safe_request->>'file_sha256'=r.sha256",
         (org, job_id, org, job_id),
@@ -208,8 +210,10 @@ def authorized(c, p, snap):
             "published_at": obs.get("published_at"),
         }
         if identity["platform_code"] in ("fanqie", "qidian"):
+            from app.connectors.novel_metrics import reader_number
+
             observation["reader_count"] = (
-                str(meta["reader_count"]) if meta["reader_count"] is not None else None
+                str(reader_number(meta["reader_count"])) if meta["reader_count"] is not None else None
             )
         for field in (
             "follower_count",

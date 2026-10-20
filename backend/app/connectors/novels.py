@@ -9,6 +9,7 @@ from urllib.parse import urlsplit
 import httpx
 
 from app.connectors.fontcodec import decode, spec
+from app.connectors.novel_metrics import reader_number
 from app.connectors.redfox import AdapterError, Batch, Reply, number
 
 VERSION = "novel-public-v1"
@@ -188,7 +189,7 @@ def normalize(board, body, *, decoder=None):
             "kind": "novel-v1",
             "title": title,
             "author": decode(b.get("author"), mapping),
-            "reader_count": number(b.get("read_count")),
+            "reader_count": reader_number(b.get("read_count")),
             "rank": rank,
             "board": board,
             "word_count": number(b.get("wordNumber")),

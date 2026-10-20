@@ -1,0 +1,35 @@
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/intelligence.test.tsx (26 tests | 1 failed) 537ms
+   × 小说题材使用筛选目录名称、子榜优先且全站不充题材 null 科幻 fanqie 目录外题材 16ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/intelligence.test.tsx > 小说题材使用筛选目录名称、子榜优先且全站不充题材 null 科幻 fanqie 目录外题材
+AssertionError: expected [ '女频', '科幻' ] to deeply equal [ '女频', '题材：—' ]
+
+- Expected
++ Received
+
+  [
+    "女频",
+-   "题材：—",
++   "科幻",
+  ]
+
+ ❯ tests/intelligence.test.tsx:155:112
+    153|  expect(document.querySelector('.novel-card .rank-number')?.textConten…
+    154|  expect(document.querySelector('.novel-card .rank-number')?.getAttribu…
+    155|  expect(Array.from(document.querySelectorAll('.novel-card .feed-card-t…
+       |                                                                                                                ^
+    156|  const tags=document.querySelectorAll('.novel-card .feed-card-tags .ge…
+    157|  if(gender==='male')expect(tags[0]?.getAttribute('title')).toContain('…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 25 passed (26)
+   Start at  18:01:46
+   Duration  1.10s (tests 52%, environment 37%, setup 6%, transform 3%, import 2%)

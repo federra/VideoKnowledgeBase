@@ -1,9 +1,31 @@
 """Same-day, authorized official novel snapshots; book memberships filter before dedup."""
 
+from app.connectors.novel_metrics import reader_number
 from app.intelligence.service import novel_raw_ids, row, selected
 from app.security.authorization import Authorizer
 from app.security.errors import Denied
 from app.security.sessions import refresh
+
+
+def rank_options(boards, gender):
+    variants = {}
+    for board in boards:
+        variants.setdefault(board["rank_type"], []).append(board)
+    names = {}
+    for kind, candidates in variants.items():
+        chosen = next((b for b in candidates if b["gender"] == gender), candidates[0])
+        names[kind] = chosen.get("rank_name") or {"read": "阅读榜", "new": "新书榜"}.get(kind, kind)
+    result = []
+    for kind, label in sorted(names.items()):
+        if list(names.values()).count(label) > 1:
+            platforms = {b["platform"] for b in variants[kind]}
+            channels = {b["gender"] for b in variants[kind]}
+            if platforms == {"qidian"} and len(channels) == 1:
+                label += " · " + {"male": "男频", "female": "女频"}.get(next(iter(channels)), "起点")
+            else:
+                label += " · " + ("番茄" if platforms == {"fanqie"} else "起点")
+        result.append({"value": kind, "label": label})
+    return result
 
 
 def feed(
@@ -39,7 +61,7 @@ def feed(
                     "_taxonomy": meta.get("taxonomy", [])
                     if board["platform"] == "qidian"
                     else None,
-                    "reader_count": str(meta["reader_count"])
+                    "reader_count": str(reader_number(meta["reader_count"]))
                     if meta["reader_count"] is not None
                     else None,
                     "rank": meta["rank"],
@@ -120,18 +142,7 @@ def feed(
             None,
         )
 
-    rank_labels = {}
-    rank_platforms = {}
-    for b in visible_boards:
-        rank_labels[b["rank_type"]] = b.get("rank_name") or {"read": "阅读榜", "new": "新书榜"}.get(
-            b["rank_type"], b["rank_type"]
-        )
-        rank_platforms[b["rank_type"]] = b["platform"]
-    rank_options = []
-    for kind, label in sorted(rank_labels.items()):
-        if list(rank_labels.values()).count(label) > 1:
-            label += " · " + ("番茄" if rank_platforms[kind] == "fanqie" else "起点")
-        rank_options.append({"value": kind, "label": label})
+    rank_filters = rank_options(visible_boards, gender)
 
     available_genders = {b["gender"] for b in visible_boards}
     gender_values = available_genders | {
@@ -174,7 +185,16 @@ def feed(
 
     matches = []
     seen_books = set()
-    for value in sorted(members, key=lambda v: (v["board"]["code"], v["rank"])):
+    def order(value):
+        board = value["board"]
+        source_order = (board["code"], value["rank"], identity(value)[1])
+        if board["platform"] == "fanqie":
+            count = reader_number(value["reader_count"])
+            return (0, count is None, -count if count is not None else 0, *source_order)
+        return (1, False, 0, *source_order)
+
+    # Sort authorized memberships before filtering, book deduplication and pagination.
+    for value in sorted(members, key=order):
         b = value["board"]
         o = value["item"]["entry"]["observation"]
         if (
@@ -220,7 +240,7 @@ def feed(
         "page_size": 10,
         "total": str(len(matches)),
         "items": matches[(page - 1) * 10 : page * 10],
-        "rank_types": rank_options,
+        "rank_types": rank_filters,
         "genders": gender_options,
         "genres": genre_options,
         "statuses": [

@@ -138,15 +138,27 @@ it('小说三项条件累加，不在请求切换后丢失已选榜型',async()=
 });
 
 it.each([
- {platform:'fanqie',url:'https://fanqienovel.com/page/123',gender:null,genre:null,expected:['男女频：—','题材：—']},
- {platform:'fanqie',url:'https://fanqienovel.com/page/123',gender:'male',genre:'科幻',expected:['男频','科幻']},
- {platform:'qidian',url:'https://www.qdmm.com/book/123/',gender:null,genre:'玄幻言情',expected:['男女频：—','玄幻言情']},
-])('小说卡片两个标签只使用作品字段，缺失不回退榜单 $gender $genre $platform',async({platform,url,gender,genre,expected})=>{
- const novel={...novelEmpty,novel_count:'1',total:'1',genres:[{value:'科幻',label:'科幻'},{value:'女频衍生',label:'女频衍生'},{value:'玄幻言情',label:'玄幻言情'}],items:[{reader_count:platform==='qidian'?null:'0',rank:1,work_gender:gender,work_genre:genre,board:{platform,method:platform==='qidian'?'qidian-desktop-html-v1':undefined,rank_type:'new',gender:'female',category_id:'8',category_name:'女频衍生',code:'fanqie:new:female:8'},item:{source_id:id,source_name:'新书榜 · 女频衍生',snapshot_version:1,account_id:null,author:'真实作者',entry:{id,created_at:'2026-10-17T01:00:00Z',snapshot_id:id,position:0,provider_rank:1,feedback_id:null,observation:{id,kind:'content',platform_code:platform,platform_id:'123',display_name:'真实小说标签样本',description:'不得从简介猜题材',original_url:url,observed_at:'2026-10-17T01:00:00Z',published_at:null,published_at_raw:null,follower_count:null,work_count:null,like_count:null,comment_count:null,share_count:null,collect_count:null,repost_count:null,view_count:null}}}}]};
+ {platform:'fanqie',url:'https://fanqienovel.com/page/123',gender:null,genre:null,expected:['女频','女频衍生']},
+ {platform:'fanqie',url:'https://fanqienovel.com/page/123',gender:'male',genre:'科幻',expected:['男频','女频衍生']},
+ {platform:'qidian',url:'https://www.qdmm.com/book/123/',gender:null,genre:'玄幻言情',categoryId:'all',categoryName:'全站',expected:['女频','玄幻言情'],method:'qidian-desktop-html-v1'},
+ {platform:'qidian',url:'https://www.qdmm.com/book/123/',gender:null,genre:'玄幻言情',categoryId:'all',categoryName:'全站',expected:['女频','玄幻言情'],method:'qidian-browser-ax-v1'},
+ {platform:'fanqie',url:'https://fanqienovel.com/page/123',gender:null,genre:null,boardGender:'male',categoryName:'传统玄幻',expected:['男频','传统玄幻']},
+ {platform:'qidian',url:'https://www.qdmm.com/book/123/',gender:null,genre:null,categoryId:'all',categoryName:'全站',expected:['女频','题材：—']},
+ {platform:'qidian',url:'https://www.qdmm.com/book/123/',gender:null,genre:null,boardGender:'all',categoryId:'all',categoryName:'全站',expected:['男女频：—','题材：—']},
+ {platform:'fanqie',url:'https://fanqienovel.com/page/123',gender:null,genre:'科幻',categoryId:'8',categoryName:'目录外题材',expected:['女频','题材：—']},
+ {platform:'fanqie',url:'https://fanqienovel.com/page/123',gender:null,genre:null,categoryId:'0',categoryName:'全部',expected:['女频','题材：—']},
+])('小说题材使用筛选目录名称、子榜优先且全站不充题材 $gender $genre $platform $categoryName',async({platform,url,gender,genre,expected,method,boardGender,categoryId,categoryName})=>{
+ const novel={...novelEmpty,novel_count:'1',total:'1',genres:[{value:'传统玄幻',label:'传统玄幻'},{value:'科幻',label:'科幻'},{value:'女频衍生',label:'女频衍生'},{value:'玄幻言情',label:'玄幻言情'}],items:[{reader_count:platform==='qidian'?null:'0',rank:13,work_gender:gender,work_genre:genre,board:{platform,method,rank_type:'new',gender:boardGender??'female',category_id:categoryId??'8',category_name:categoryName??'女频衍生',code:'fanqie:new:female:8'},item:{source_id:id,source_name:'新书榜 · 女频衍生',snapshot_version:1,account_id:null,author:'真实作者',entry:{id,created_at:'2026-10-17T01:00:00Z',snapshot_id:id,position:0,provider_rank:1,feedback_id:null,observation:{id,kind:'content',platform_code:platform,platform_id:'123',display_name:'真实小说标签样本',description:'不得从简介猜题材',original_url:url,observed_at:'2026-10-17T01:00:00Z',published_at:null,published_at_raw:null,follower_count:null,work_count:null,like_count:null,comment_count:null,share_count:null,collect_count:null,repost_count:null,view_count:null}}}}]};
  mount(path=>path.includes('/novels?')?novel:empty);await screen.findByRole('button',{name:'小说'});fireEvent.click(screen.getByRole('button',{name:'小说'}));await screen.findByText('真实小说标签样本');
+ expect(document.querySelector('.novel-card .rank-number')?.textContent).toBe(platform==='fanqie'?'01':'13');
+ expect(document.querySelector('.novel-card .rank-number')?.getAttribute('title')).toContain('来源原名次：13');
  expect(Array.from(document.querySelectorAll('.novel-card .feed-card-tags .genre-tag')).map(e=>e.textContent)).toEqual(expected);
+ const tags=document.querySelectorAll('.novel-card .feed-card-tags .genre-tag');
+ if(gender==='male')expect(tags[0]?.getAttribute('title')).toContain('作品原始标签');
+ if(gender===null&&expected[0]==='女频')expect(tags[0]?.getAttribute('title')).toContain('来源榜单');
+ if(genre==='科幻')expect(tags[1]?.getAttribute('title')).toContain(categoryName==='目录外题材'?'未获取':'来源榜单');
  expect(screen.getByRole('link',{name:/真实小说标签样本/}).getAttribute('href')).toBe(url);
- if(platform==='qidian'){expect(screen.getByText(/人工保存网页/)).toBeTruthy();expect(document.querySelector('.novel-stats strong')?.textContent).toBe('-');}
+ if(platform==='qidian'){if(method)expect(screen.getByText(method==='qidian-browser-ax-v1'?/浏览器辅助采集/:/人工保存网页/)).toBeTruthy();expect(document.querySelector('.novel-stats strong')?.textContent).toBe('-');}
 });
 
 it('起点男频已采集而女频受限时保留榜型筛选并提示部分成功',async()=>{

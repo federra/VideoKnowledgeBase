@@ -1,0 +1,106 @@
+$ vitest run --run tests/intelligence.test.tsx
+
+ RUN  v5.0.4 /Users/nathan/Codex_Projects/VideoKnowledgeBase/frontend
+
+ ❯ tests/intelligence.test.tsx (25 tests | 7 failed) 606ms
+   × 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 null null fanqie undefined 22ms
+   × 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 male 科幻 fanqie undefined 19ms
+   × 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 null 玄幻言情 qidian undefined 36ms
+   × 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 null 玄幻言情 qidian undefined 23ms
+   × 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 null null fanqie 传统玄幻 14ms
+   × 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 null null qidian 全站 14ms
+   × 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 null null fanqie 全部 14ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/intelligence.test.tsx > 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 null null fanqie undefined
+AssertionError: expected [ '男女频：—', '题材：—' ] to deeply equal [ '女频', '女频衍生' ]
+
+- Expected
++ Received
+
+  [
+-   "女频",
+-   "女频衍生",
++   "男女频：—",
++   "题材：—",
+  ]
+
+ ❯ tests/intelligence.test.tsx:152:112
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  tests/intelligence.test.tsx > 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 male 科幻 fanqie undefined
+AssertionError: the given combination of arguments (null and string) is invalid for this assertion. You can use an array, a map, an object, a set, a string, or a weakset instead of a string
+ ❯ tests/intelligence.test.tsx:154:60
+    152|  expect(Array.from(document.querySelectorAll('.novel-card .feed-card-t…
+    153|  const tags=document.querySelectorAll('.novel-card .feed-card-tags .ge…
+    154|  if(gender==='male')expect(tags[0]?.getAttribute('title')).toContain('…
+       |                                                            ^
+    155|  if(gender===null&&expected[0]==='女频')expect(tags[0]?.getAttribute('ti…
+    156|  if(genre==='科幻')expect(tags[1]?.getAttribute('title')).toContain('作品原…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  tests/intelligence.test.tsx > 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 null 玄幻言情 qidian undefined
+ FAIL  tests/intelligence.test.tsx > 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 null 玄幻言情 qidian undefined
+AssertionError: expected [ '男女频：—', '玄幻言情' ] to deeply equal [ '女频', '玄幻言情' ]
+
+- Expected
++ Received
+
+  [
+-   "女频",
++   "男女频：—",
+    "玄幻言情",
+  ]
+
+ ❯ tests/intelligence.test.tsx:152:112
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  tests/intelligence.test.tsx > 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 null null fanqie 传统玄幻
+AssertionError: expected [ '男女频：—', '题材：—' ] to deeply equal [ '男频', '传统玄幻' ]
+
+- Expected
++ Received
+
+  [
+-   "男频",
+-   "传统玄幻",
++   "男女频：—",
++   "题材：—",
+  ]
+
+ ❯ tests/intelligence.test.tsx:152:112
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  tests/intelligence.test.tsx > 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 null null qidian 全站
+ FAIL  tests/intelligence.test.tsx > 小说标签优先原始字段、缺失采用本条来源分类、全站不充题材 null null fanqie 全部
+AssertionError: expected [ '男女频：—', '题材：—' ] to deeply equal [ '女频', '题材：—' ]
+
+- Expected
++ Received
+
+  [
+-   "女频",
++   "男女频：—",
+    "题材：—",
+  ]
+
+ ❯ tests/intelligence.test.tsx:152:112
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed | 18 passed (25)
+   Start at  17:28:57
+   Duration  1.14s (tests 56%, environment 33%, setup 5%, transform 3%, import 2%)
+
+[ELIFECYCLE] Test failed. See above for more details.
