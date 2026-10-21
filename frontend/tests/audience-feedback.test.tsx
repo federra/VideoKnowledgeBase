@@ -48,3 +48,12 @@ it('关闭抽屉后将键盘焦点还给原入口',async()=>{
  await screen.findByText('该日期评论未获取');screen.getByRole('button',{name:'关闭'}).focus();
  mounted.unmount();expect(document.activeElement).toBe(opener);opener.remove();
 });
+
+it('红果原始评论可独立展示，不伪造分析版本和情绪',async()=>{
+ mount({...absent,platform_code:'hongguo',status:'sampled',sample_count:1,classified_count:0,sampling_description:'第一页预载',coverage_note:'未分析，跨集归属未验证',comments:[
+ {id:c1,created_at:stamp,content_id:id,platform_comment_id:null,body_text:'红果原始评论',username:'观众',like_count:'116',posted_at_raw:'1792339200',posted_at:stamp,captured_at:stamp}]});
+ await screen.findByText('已采集的评论原文（未分析）');
+ expect(screen.getByText('红果原始评论')).toBeTruthy();
+ expect(document.querySelectorAll('.feedback-meter')).toHaveLength(0);
+ expect(screen.getByText(/未分析，跨集归属未验证/)).toBeTruthy();
+});

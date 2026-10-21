@@ -629,7 +629,8 @@
             "enum": [
               "douyin",
               "fanqie",
-              "qidian"
+              "qidian",
+              "hongguo"
             ],
             "title": "Platform Code",
             "type": "string"
@@ -1435,6 +1436,7 @@
           "status": {
             "enum": [
               "not_acquired",
+              "sampled",
               "ready"
             ],
             "title": "Status",
@@ -2350,6 +2352,19 @@
             ],
             "title": "Author"
           },
+          "comment_sample_count": {
+            "anyOf": [
+              {
+                "maximum": 15.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment Sample Count"
+          },
           "entry": {
             "$ref": "#/components/schemas/SnapshotEntry"
           },
@@ -2360,6 +2375,60 @@
             "maxItems": 2,
             "title": "Feedback Emotions",
             "type": "array"
+          },
+          "genre_hierarchy": {
+            "items": {
+              "$ref": "#/components/schemas/VideoGenreGroup"
+            },
+            "title": "Genre Hierarchy",
+            "type": "array"
+          },
+          "genre_tags": {
+            "items": {
+              "maxLength": 1000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Genre Tags",
+            "type": "array"
+          },
+          "heat_display": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heat Display"
+          },
+          "heat_value": {
+            "anyOf": [
+              {
+                "pattern": "^(0|[1-9][0-9]{0,18})$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heat Value"
+          },
+          "score_display": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score Display"
           },
           "snapshot_version": {
             "exclusiveMinimum": 0.0,
@@ -3472,6 +3541,32 @@
             "pattern": "^(0|[1-9][0-9]{0,18})$",
             "title": "Total",
             "type": "string"
+          },
+          "video_genres": {
+            "items": {
+              "maxLength": 1000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Video Genres",
+            "type": "array"
+          },
+          "video_latest_dates": {
+            "additionalProperties": {
+              "format": "date",
+              "type": "string"
+            },
+            "title": "Video Latest Dates",
+            "type": "object"
+          },
+          "video_subgenres": {
+            "items": {
+              "maxLength": 1000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Video Subgenres",
+            "type": "array"
           }
         },
         "required": [
@@ -4989,7 +5084,8 @@
             "enum": [
               "douyin",
               "fanqie",
-              "qidian"
+              "qidian",
+              "hongguo"
             ],
             "title": "Platform Code",
             "type": "string"
@@ -7011,6 +7107,31 @@
           "parsing"
         ],
         "title": "VersionView",
+        "type": "object"
+      },
+      "VideoGenreGroup": {
+        "additionalProperties": false,
+        "properties": {
+          "genre": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Genre",
+            "type": "string"
+          },
+          "subgenres": {
+            "items": {
+              "maxLength": 1000,
+              "minLength": 1,
+              "type": "string"
+            },
+            "title": "Subgenres",
+            "type": "array"
+          }
+        },
+        "required": [
+          "genre"
+        ],
+        "title": "VideoGenreGroup",
         "type": "object"
       },
       "Work": {
@@ -10356,6 +10477,76 @@
                 }
               ],
               "title": "Accounts"
+            }
+          },
+          {
+            "in": "query",
+            "name": "video_catalog",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "pattern": "^(hongguo|tikhub)$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Video Catalog"
+            }
+          },
+          {
+            "in": "query",
+            "name": "video_board",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "pattern": "^(hot-drama|hot-real-drama|hot-ai-drama|hot-comic-drama)$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Video Board"
+            }
+          },
+          {
+            "in": "query",
+            "name": "video_genre",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 80,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Video Genre"
+            }
+          },
+          {
+            "in": "query",
+            "name": "video_subgenre",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 80,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Video Subgenre"
             }
           }
         ],

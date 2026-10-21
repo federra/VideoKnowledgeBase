@@ -107,7 +107,9 @@ def test_console_schedule_latest_slot_no_catchup_storm_and_no_duplicate(engine, 
         == "2026-10-17T01:00:00+00:00"
     )
     count = schedule(runner, now=now)
-    assert count == 1 and schedule(runner, now=now) == 0
+    # schedule scans every organization. Earlier fixtures may also become due
+    # across Shanghai 09:00; scalar_one below verifies this organization's one job.
+    assert count >= 1 and schedule(runner, now=now) == 0
     with engine.connect() as c:
         task = c.exec_driver_sql(
             "SELECT task_id FROM collection_jobs WHERE org_id=%s AND plan_id IS NOT NULL", (org,)

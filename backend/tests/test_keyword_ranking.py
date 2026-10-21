@@ -71,8 +71,9 @@ def test_legacy_board_snapshot_cannot_bypass_motion_comic_keyword_and_views(monk
     monkeypatch.setattr(feedback, "attach_previews", lambda *a: None)
     monkeypatch.setattr(insight, "latest_insight", lambda *a: None)
     monkeypatch.setattr(
-        service, "row", lambda *a: {"capability_code": "legacy", "safe_request": {}}
+        service, "row", lambda *a: {"platform_code": "douyin", "capability_code": "legacy", "safe_request": {}}
     )
+    monkeypatch.setattr(service, "latest_video_dates", lambda *a: {})
     result = service.feed(None, SimpleNamespace(org_id="org"), "motion_comic", date(2026, 10, 17))
     assert result["items"] == []
     assert result["metrics"]["videos"] is None

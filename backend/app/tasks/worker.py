@@ -22,7 +22,7 @@ def knowledge_queue(org, tid):
         ).scalar_one_or_none()
     # One-shot public novel batches run only in the explicit local CLI Runner.
     # Ignore even a stale/manual common-queue delivery, without changing task state.
-    if kind == "collect.novels":
+    if kind in ("collect.novels", "collect.hongguo"):
         return True
     if kind in ("knowledge.extract", "knowledge.review"):
         from app.knowledge.worker import dispatch_knowledge

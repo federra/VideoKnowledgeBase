@@ -50,6 +50,12 @@ class FeedQuery(m.Contract):
     q: str | None = Field(default=None, max_length=100)
     source_id: UUID | None = None
     accounts: str | None = Field(default=None, max_length=4096)
+    video_catalog: str | None = Field(default=None, pattern="^(hongguo|tikhub)$")
+    video_board: str | None = Field(
+        default=None, pattern="^(hot-drama|hot-real-drama|hot-ai-drama|hot-comic-drama)$"
+    )
+    video_genre: str | None = Field(default=None, min_length=1, max_length=80)
+    video_subgenre: str | None = Field(default=None, min_length=1, max_length=80)
 
 
 class FeedbackQuery(m.Contract):

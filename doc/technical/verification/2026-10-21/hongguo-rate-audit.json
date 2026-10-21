@@ -1,0 +1,6 @@
+{
+  "recorded_request_starts": 12,
+  "minimum_recorded_tail_interval_seconds": 10.000083,
+  "configured_interval_seconds": 10,
+  "note": "Early captures predate requested_at metadata; persistent limiter and cross-instance offline test cover the full batch. No requests by this audit."
+}

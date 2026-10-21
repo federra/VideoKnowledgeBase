@@ -80,7 +80,7 @@ function entity(value: unknown): value is Record<string, unknown> {
 }
 const parseSource: Decoder<ConsoleSource> = value => {
     if (!entity(value) || typeof value.archived !== 'boolean' || typeof value.name !== 'string' || !['motion_comic','story_short','ecommerce_video'].includes(String(value.business_code))
-        || !['douyin','fanqie','qidian'].includes(String(value.platform_code)) || typeof value.enabled !== 'boolean' || !record(value.target)
+        || !['douyin','fanqie','qidian','hongguo'].includes(String(value.platform_code)) || typeof value.enabled !== 'boolean' || !record(value.target)
         || !['keyword','account','content','board'].includes(String(value.target.kind))
         || !(value.last_state === null || states.includes(String(value.last_state))) || !(value.last_at === null || timestamp(value.last_at))) throw new Error('shape');
     const target=value.target;
@@ -113,6 +113,9 @@ const parseFeed: Decoder<IntelligenceFeed> = value => {
         || !Number.isInteger(value.page) || Number(value.page)<1 || value.page_size!==10 || !count(value.total)
         || !(value.keyword_works_count===undefined || count(value.keyword_works_count))
         || !(value.keyword_ranking_status===undefined || ['not_acquired','no_content_matches','insufficient_metrics','ready','default_order','provider_order','series_order'].includes(String(value.keyword_ranking_status)))
+        || !(value.video_latest_dates===undefined||record(value.video_latest_dates)&&Object.entries(value.video_latest_dates).every(([k,v])=>['hongguo','tikhub'].includes(k)&&typeof v==='string'&&/^\d{4}-\d\d-\d\d$/.test(v)))
+        || !(value.video_subgenres===undefined||Array.isArray(value.video_subgenres)&&value.video_subgenres.every(x=>typeof x==='string'&&x.trim()))
+        || !(value.video_genres===undefined||Array.isArray(value.video_genres)&&value.video_genres.every(x=>typeof x==='string'&&x.trim()))
         || !Array.isArray(value.items) || value.items.length>10
         || !['boards','creators'].every(k=>Array.isArray(value[k]) && (value[k] as unknown[]).every(o=>record(o)&&id(o.id)&&typeof o.name==='string'))) throw new Error('shape');
     const report=value.insight;
@@ -122,11 +125,12 @@ const parseFeed: Decoder<IntelligenceFeed> = value => {
         ||!Array.isArray(report.emotions)||!report.emotions.every(e=>record(e)&&typeof e.name==='string'&&e.name.trim()&&Number.isInteger(e.count)&&Number(e.count)>0&&Number(e.count)<=Number(report.classified_count)&&Number.isInteger(e.percent)&&Number(e.percent)>=0&&Number(e.percent)<=100)
         ||!['motif','genre'].every(k=>report[k]===null||typeof report[k]==='string')||!Array.isArray(report.suggestions)||!report.suggestions.every(x=>typeof x==='string'&&x.trim())||typeof report.coverage_note!=='string')) throw new Error('shape');
     for(const item of value.items){
-        if(!record(item)||!(item.feedback_emotions===undefined||Array.isArray(item.feedback_emotions)&&item.feedback_emotions.length<=2&&item.feedback_emotions.every(x=>typeof x==='string'&&x.trim()))||!id(item.source_id)||typeof item.source_name!=='string'||!Number.isInteger(item.snapshot_version)||Number(item.snapshot_version)<1
+        if(!record(item)||!['heat_display','score_display'].every(k=>item[k]===undefined||item[k]===null||typeof item[k]==='string'&&item[k].trim())||!(item.genre_tags===undefined||Array.isArray(item.genre_tags)&&item.genre_tags.every(x=>typeof x==='string'&&x.trim()))||!(item.feedback_emotions===undefined||Array.isArray(item.feedback_emotions)&&item.feedback_emotions.length<=2&&item.feedback_emotions.every(x=>typeof x==='string'&&x.trim()))||!id(item.source_id)||typeof item.source_name!=='string'||!Number.isInteger(item.snapshot_version)||Number(item.snapshot_version)<1
             ||!(item.account_id===null||id(item.account_id))||!(item.author===null||typeof item.author==='string')||!record(item.entry)||!id(item.entry.id)||!timestamp(item.entry.created_at))throw new Error('shape');
+        if(!(item.heat_value===undefined||item.heat_value===null||count(item.heat_value))||!(item.comment_sample_count===undefined||item.comment_sample_count===null||Number.isInteger(item.comment_sample_count)&&Number(item.comment_sample_count)>=0&&Number(item.comment_sample_count)<=15))throw new Error('shape');
         const entry=item.entry, o=entry.observation;
         if(!id(entry.snapshot_id)||!Number.isInteger(entry.position)||Number(entry.position)<0||!(entry.provider_rank===null||Number.isInteger(entry.provider_rank)&&Number(entry.provider_rank)>0)
-            ||!(entry.feedback_id===null||id(entry.feedback_id))||!record(o)||!id(o.id)||!['content','account'].includes(String(o.kind))||!['douyin','fanqie','qidian'].includes(String(o.platform_code))
+            ||!(entry.feedback_id===null||id(entry.feedback_id))||!record(o)||!id(o.id)||!['content','account'].includes(String(o.kind))||!['douyin','fanqie','qidian','hongguo'].includes(String(o.platform_code))
             ||typeof o.platform_id!=='string'||!timestamp(o.observed_at)||!(o.published_at===null||timestamp(o.published_at))
             ||!['description','display_name','original_url','published_at_raw'].every(k=>o[k]===null||typeof o[k]==='string')
             ||!['follower_count','work_count','like_count','comment_count','share_count','collect_count','repost_count','view_count'].every(k=>o[k]===null||count(o[k]))) throw new Error('shape');
@@ -149,7 +153,7 @@ export type EntryFeedback = components['schemas']['EntryFeedback'];
 const parseEntryFeedback: Decoder<EntryFeedback> = value => {
     if(!record(value)||!id(value.entry_id)||!id(value.snapshot_id)||!Number.isInteger(value.snapshot_version)||Number(value.snapshot_version)<1
         ||!['motion_comic','story_short','ecommerce_video'].includes(String(value.business_code))||typeof value.business_date!=='string'||!/^\d{4}-\d\d-\d\d$/.test(value.business_date)
-        ||typeof value.platform_code!=='string'||!['not_acquired','ready'].includes(String(value.status))
+        ||typeof value.platform_code!=='string'||!['not_acquired','sampled','ready'].includes(String(value.status))
         ||!(value.feedback_id===null||id(value.feedback_id))||!(value.feedback_version===null||Number.isInteger(value.feedback_version)&&Number(value.feedback_version)>0)
         ||!['sampling_description','coverage_note'].every(k=>value[k]===null||typeof value[k]==='string')
         ||!['sample_count','classified_count'].every(k=>value[k]===null||Number.isInteger(value[k])&&Number(value[k])>=0)
@@ -170,6 +174,7 @@ const parseEntryFeedback: Decoder<EntryFeedback> = value => {
     }
     if(value.status==='ready'&&(!id(value.feedback_id)||value.feedback_version===null||!value.sampling_description||typeof value.coverage_note!=='string'||!ids.size||value.sample_count!==ids.size||value.classified_count!==classified.size))throw new Error('shape');
     if(value.status==='not_acquired'&&(ids.size||value.claims.length||value.sample_count!==null||value.classified_count!==null||value.feedback_id!==null||value.feedback_version!==null))throw new Error('shape');
+    if(value.status==='sampled'&&(value.feedback_id!==null||value.feedback_version!==null||value.claims.length||value.classified_count!==0||value.sample_count!==ids.size||ids.size>15||typeof value.coverage_note!=='string'||!value.sampling_description))throw new Error('shape');
     return value as EntryFeedback;
 };
 export type ResearchHistory = components['schemas']['AnalysisHistory'];
@@ -355,10 +360,14 @@ export class ApiClient {
         if(result.business_code!==business||result.business_date!==date||result.page!==(options.page??1))throw new ApiError(502,'INVALID_RESPONSE');
         return result;
     }
-    async intelligenceFeed(business: ConsoleCreate['business_code'], date: string, options: {lane: 'board'|'creator';page:number;q?:string;source?:string;accounts?:string[]}, signal?:AbortSignal) {
+    async intelligenceFeed(business: ConsoleCreate['business_code'], date: string, options: {lane: 'board'|'creator';page:number;q?:string;source?:string;accounts?:string[];videoCatalog?:'hongguo'|'tikhub';videoBoard?:string;videoGenre?:string;videoSubgenre?:string}, signal?:AbortSignal) {
         const query=new URLSearchParams({business_code:business,business_date:date,lane:options.lane,page:String(options.page)});
         if(options.q)query.set('q',options.q);
         if(options.source)query.set('source_id',options.source);
+        if(options.videoCatalog)query.set('video_catalog',options.videoCatalog);
+        if(options.videoBoard)query.set('video_board',options.videoBoard);
+        if(options.videoGenre)query.set('video_genre',options.videoGenre);
+        if(options.videoSubgenre)query.set('video_subgenre',options.videoSubgenre);
         if(options.accounts?.length)query.set('accounts',options.accounts.join(','));
         const result=await this.get('/api/v1/intelligence/feed?'+query,parseFeed,signal);
         if(result.business_code!==business||result.business_date!==date||result.page!==options.page)throw new ApiError(200,'INVALID_RESPONSE');

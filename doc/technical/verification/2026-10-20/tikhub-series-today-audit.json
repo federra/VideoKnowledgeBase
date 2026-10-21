@@ -1,0 +1,161 @@
+{
+  "checked_at": "2026-10-20 13:14:25.140952+00:00",
+  "business_date": "2026-10-20",
+  "request": {
+    "offset": 0,
+    "count": 10,
+    "content_type": 0
+  },
+  "capture_task": "4f52fdb6-c087-479b-9581-8b482b6c5aad",
+  "normalization_task": "4c7dc45b-7059-4f9f-8fed-f3d4297e6e8e",
+  "source_id": "01523791-d2d4-4de6-82cd-a5cd1a2406ba",
+  "job_id": "68a26d4e-4f6d-4bc8-8398-a69f2f3b6676",
+  "raw_id": "3395f43c-41ac-4491-8b23-9fd8bd35d701",
+  "raw_sha256": "a4b5a23b693691433b9c26f5735ab6c2bb18c9c80b73d23cba9ed9301c902e6f",
+  "captured_at": "2026-10-20 13:11:35.452484+00:00",
+  "snapshot": {
+    "id": "8e028d1f-7a53-4728-97ab-30ea9aa4a4c7",
+    "business_date": "2026-10-20",
+    "entry_count": 10,
+    "sealed_at": "2026-10-20 13:12:08.240310+00:00"
+  },
+  "provider_items": 12,
+  "call_statuses": [
+    {
+      "http_status": 200,
+      "provider_code": "200",
+      "outcome": "success"
+    }
+  ],
+  "stats_keys": [
+    "collect_vv",
+    "current_episode",
+    "last_added_item_time",
+    "play_vv",
+    "total_episode",
+    "updated_to_episode"
+  ],
+  "checks": {
+    "one_external_call": true,
+    "same_day": true,
+    "ten_items": true,
+    "preserved_return_order": true,
+    "only_new_source": true,
+    "source_paused": true,
+    "raw_sha_matches": true,
+    "old_snapshot_retained": true,
+    "descriptions_and_metrics_match_raw": true
+  },
+  "items": [
+    {
+      "platform_id": "series:7687936471851862066",
+      "display_name": "我隐藏身份，找到了新妈妈",
+      "view_count": "1985349286",
+      "collect_count": "2668710",
+      "like_count": null,
+      "comment_count": null,
+      "share_count": null,
+      "description_length": 162,
+      "observed_at": "2026-10-20 13:11:35.452484+00:00"
+    },
+    {
+      "platform_id": "series:7687575380479182863",
+      "display_name": "督军府大小姐，这枪我不封了",
+      "view_count": "1794952716",
+      "collect_count": "2082340",
+      "like_count": null,
+      "comment_count": null,
+      "share_count": null,
+      "description_length": 183,
+      "observed_at": "2026-10-20 13:11:35.452484+00:00"
+    },
+    {
+      "platform_id": "series:7690483846114740250",
+      "display_name": "将军将我贬妻为妾，圣旨赐下后他慌了",
+      "view_count": "1273519792",
+      "collect_count": "1368419",
+      "like_count": null,
+      "comment_count": null,
+      "share_count": null,
+      "description_length": 177,
+      "observed_at": "2026-10-20 13:11:35.452484+00:00"
+    },
+    {
+      "platform_id": "series:7690427409062496292",
+      "display_name": "穷酸老爹是装穷",
+      "view_count": "1254824602",
+      "collect_count": "1817339",
+      "like_count": null,
+      "comment_count": null,
+      "share_count": null,
+      "description_length": 184,
+      "observed_at": "2026-10-20 13:11:35.452484+00:00"
+    },
+    {
+      "platform_id": "series:7691317120260376617",
+      "display_name": "被讹后，全村的麦子烂在地里了",
+      "view_count": "951564322",
+      "collect_count": "802458",
+      "like_count": null,
+      "comment_count": null,
+      "share_count": null,
+      "description_length": 155,
+      "observed_at": "2026-10-20 13:11:35.452484+00:00"
+    },
+    {
+      "platform_id": "series:7685245918324459562",
+      "display_name": "傅总别装了，你老婆要掀桌",
+      "view_count": "1518038073",
+      "collect_count": "2743222",
+      "like_count": null,
+      "comment_count": null,
+      "share_count": null,
+      "description_length": 169,
+      "observed_at": "2026-10-20 13:11:35.452484+00:00"
+    },
+    {
+      "platform_id": "series:7687922619446495232",
+      "display_name": "二嫁有喜",
+      "view_count": "879376174",
+      "collect_count": "1441164",
+      "like_count": null,
+      "comment_count": null,
+      "share_count": null,
+      "description_length": 184,
+      "observed_at": "2026-10-20 13:11:35.452484+00:00"
+    },
+    {
+      "platform_id": "series:7684653036278384674",
+      "display_name": "东北婆婆，笑护全家",
+      "view_count": "975921622",
+      "collect_count": "1235721",
+      "like_count": null,
+      "comment_count": null,
+      "share_count": null,
+      "description_length": 157,
+      "observed_at": "2026-10-20 13:11:35.452484+00:00"
+    },
+    {
+      "platform_id": "series:7635592888079878190",
+      "display_name": "离婚后，爸妈带我走上巅峰",
+      "view_count": "3988256055",
+      "collect_count": "5508202",
+      "like_count": null,
+      "comment_count": null,
+      "share_count": null,
+      "description_length": 149,
+      "observed_at": "2026-10-20 13:11:35.452484+00:00"
+    },
+    {
+      "platform_id": "series:7689480923183581230",
+      "display_name": "公公甩资让我离婚，前夫婚礼上我惊艳全场",
+      "view_count": "844622993",
+      "collect_count": "1174889",
+      "like_count": null,
+      "comment_count": null,
+      "share_count": null,
+      "description_length": 152,
+      "observed_at": "2026-10-20 13:11:35.452484+00:00"
+    }
+  ]
+}

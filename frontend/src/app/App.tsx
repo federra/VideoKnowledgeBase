@@ -67,7 +67,7 @@ function Application() {
         <section id="page" aria-label="当前工作区" hidden={realConsole || realFeed || realResearch || realKnowledge} />
         {realKnowledge && <section data-real-workspace aria-label="真实知识库"><KnowledgePage business={snapshot.business} tab={snapshot.tab} onSession={sessionChanged}/></section>}
         {realResearch && <section data-real-workspace aria-label="真实内容研判"><ResearchPage business={snapshot.business} onSession={sessionChanged} onWorkName={workNameChanged}/></section>}
-        {realFeed && <section data-real-workspace aria-label="真实情报流"><IntelligencePage business={snapshot.business} date={feedDate} onSession={sessionChanged}/></section>}
+        {realFeed && <section data-real-workspace aria-label="真实情报流"><IntelligencePage business={snapshot.business} date={feedDate} onDateChange={date=>{if(validDate(date)&&date<=shanghaiToday()){setFeedDate(date);try{localStorage.setItem('cip-feed-date',date);}catch{/* storage optional */}}}} onSession={sessionChanged}/></section>}
         {realConsole && <section data-real-workspace aria-label="真实控制台"><ConsolePage key={`${snapshot.business}:${snapshot.tab}`} business={snapshot.business} tab={snapshot.tab} onSession={sessionChanged} /></section>}
         <footer className="footer"><span>{realKnowledge ? "知识候选与双审发布 · 真实服务" : realFeed ? "情报流 · 真实快照 · Asia/Shanghai" : realResearch ? "研判导入与文本解析 · 真实服务" : realConsole ? "控制台采集与运行 · 真实服务" : "工程基础 v0.1 · Demo样例，不连接真实业务服务"}</span></footer>
       </div>

@@ -227,7 +227,7 @@ class SourceCreate(Contract):
 
 
 class Source(SourceCreate, MutableEntity):
-    platform_code: Literal["douyin", "fanqie", "qidian"]
+    platform_code: Literal["douyin", "fanqie", "qidian", "hongguo"]
     enabled: bool
 
 
@@ -354,7 +354,7 @@ class Snapshot(ImmutableEntity):
 class Observation(Contract):
     id: UUID
     kind: Literal["account", "content"]
-    platform_code: Literal["douyin", "fanqie", "qidian"]
+    platform_code: Literal["douyin", "fanqie", "qidian", "hongguo"]
     platform_id: NonEmpty
     reader_count: Count | None = Field(default=None, exclude_if=lambda value: value is None)
     display_name: str | None
@@ -394,7 +394,18 @@ class FeedOption(Contract):
     name: str
 
 
+class VideoGenreGroup(Contract):
+    genre: NonEmpty
+    subgenres: list[NonEmpty] = Field(default_factory=list)
+
+
 class FeedItem(Contract):
+    comment_sample_count: Annotated[int, Field(ge=0, le=15)] | None = None
+    heat_value: Count | None = None
+    genre_hierarchy: list[VideoGenreGroup] = Field(default_factory=list)
+    heat_display: NonEmpty | None = None
+    score_display: NonEmpty | None = None
+    genre_tags: list[NonEmpty] = Field(default_factory=list)
     feedback_emotions: list[str] = Field(default_factory=list, max_length=2)
     entry: SnapshotEntry
     source_id: UUID
@@ -432,6 +443,9 @@ class SampleInsight(Entity):
 
 
 class IntelligenceFeed(Contract):
+    video_latest_dates: dict[str, date] = Field(default_factory=dict)
+    video_genres: list[NonEmpty] = Field(default_factory=list)
+    video_subgenres: list[NonEmpty] = Field(default_factory=list)
     keyword_works_count: Count = "0"
     keyword_ranking_status: Literal[
         "not_acquired",
@@ -494,7 +508,7 @@ class EntryFeedback(Contract):
     business_code: Business
     business_date: date
     platform_code: str
-    status: Literal["not_acquired", "ready"]
+    status: Literal["not_acquired", "sampled", "ready"]
     feedback_id: UUID | None
     feedback_version: PositiveInt | None
     sampling_description: str | None

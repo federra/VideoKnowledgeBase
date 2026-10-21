@@ -88,6 +88,10 @@ def dispatch(
                 filters.q,
                 filters.source_id,
                 accounts,
+                video_catalog=filters.video_catalog,
+                video_board=filters.video_board,
+                video_genre=filters.video_genre,
+                video_subgenre=filters.video_subgenre,
             )
     payload = Envelope[spec.response](request_id=request.state.request_id, data=data)
     return JSONResponse(

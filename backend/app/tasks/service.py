@@ -427,7 +427,7 @@ def sweep(runner, send, *, limit=100):
     with runner.engine.connect() as c:
         queued = list(
             c.exec_driver_sql(
-                "SELECT org_id,id FROM tasks WHERE state='queued' AND kind<>'collect.novels' "
+                "SELECT org_id,id FROM tasks WHERE state='queued' AND kind NOT IN ('collect.novels','collect.hongguo') "
                 "AND available_at<=clock_timestamp() ORDER BY available_at,id LIMIT %s",
                 (limit,),
             )

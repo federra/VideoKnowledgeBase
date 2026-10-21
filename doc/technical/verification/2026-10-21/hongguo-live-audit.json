@@ -1,0 +1,552 @@
+{
+  "date": "2026-10-21",
+  "schema": "0019_hongguo_reparse",
+  "boards": {
+    "hot-drama": {
+      "name": "红果热播榜",
+      "count": 20
+    },
+    "hot-real-drama": {
+      "name": "真人剧热播榜",
+      "count": 20
+    },
+    "hot-ai-drama": {
+      "name": "AI剧热播榜",
+      "count": 20
+    },
+    "hot-comic-drama": {
+      "name": "漫剧热播榜",
+      "count": 20
+    }
+  },
+  "board_members": 80,
+  "unique_series": 60,
+  "comments": 900,
+  "minimum_sample": 15,
+  "maximum_sample": 15,
+  "all_series_sampled": true,
+  "all_order_numeric_descending": true,
+  "source_enabled_count": 0,
+  "novels_unchanged": {
+    "qidian": 274,
+    "fanqie": 2213
+  },
+  "tikhub_date": "2026-10-20",
+  "tikhub_count": 10,
+  "captures": [
+    {
+      "raw_id": "ef68e5cb-f852-4e92-a379-3c58e2eafcbb",
+      "stored_sha256": "777ad331642e6d68b8233c37e81fc4fd0ac812ce00797926b9ab5ba7aa286922",
+      "response_sha256": "19b28be893775dfca843f98840ae7bb91f4c8176dab948e0fffb9cab6b01c79e",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.board"
+    },
+    {
+      "raw_id": "89b9d078-9c7c-4604-8c4c-5a7f3e9e9554",
+      "stored_sha256": "324a4fd4d11386760f01266f067dafb5b18da746ff8dddf8e7bf6faa69c54f9a",
+      "response_sha256": "c9333fd9e2dca04d71c6037f7a592c3dbcb20c45cf5af297b821338bc56efb68",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.board"
+    },
+    {
+      "raw_id": "44547e6a-69c8-42a5-9df4-2218273ddce5",
+      "stored_sha256": "4c1ecbf685f715e875972758830872555c16f15d30b09f0cc181e886db598b75",
+      "response_sha256": "6efbd55bb406f7d8b5878c5d1f006e18c4ba26e2332e807b79d9978482b2538f",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.board"
+    },
+    {
+      "raw_id": "abaa004e-f78e-48ca-9ff4-d748298eabac",
+      "stored_sha256": "4989e7e0804a85dc134966277bbffabcb34a06b2cb989d9464a91f7b231f06c6",
+      "response_sha256": "3bf2de8e7073d71ee326b9b471ea8c02effa8e32dcb3b661d8fcfe4745d67535",
+      "http_status": 200,
+      "outcome": "invalid_shape",
+      "capability": "hongguo.board"
+    },
+    {
+      "raw_id": "ee638fb5-d872-4066-981c-81603ec34026",
+      "stored_sha256": "e1d965f499efc0beb0584135f51990f8596c39639bd2fd19e148435f007345a1",
+      "response_sha256": "f4e44f17092c501a4a40f93bf1c9f7db9944d617ab8a0c28c7431cd5e5ce3d16",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "71a04e63-2240-42d4-8a9c-c1906f1c5778",
+      "stored_sha256": "d4d1f28c412798babaac88c64921e12031949f63c8245dbfb7b75eaef28a4ef3",
+      "response_sha256": "606bd614b4f4a28d08df44767d3f3f6d13e54efb32d2b7910b1e739e4f7be514",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "8966ff8f-9878-410b-ad57-4a0f6cc3192f",
+      "stored_sha256": "8b391af771bcc4a9855034165d8ca077cf7ae2d2fb9c7d7509cd007f6dda0190",
+      "response_sha256": "54ecb70de1146df4502ade988418055aa0c2386a3b5a5a86423b13aa643c00b1",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "fac722b1-7c77-4a87-b5b4-18068334220b",
+      "stored_sha256": "dd87b2e1ed09b8db9af8712b24519a1a0ece1d98a63270df4d7aea5f42f978b6",
+      "response_sha256": "5c4d074f790e43981f0426dddc483e9973f05b4da4204d874f89136b9cedf75e",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "590bf1c2-1147-41d1-971c-b8126f4201fe",
+      "stored_sha256": "5961d6b8c49bd9c742f841ca3bb748a3379212c0810d4cf00b6904d001fc0ea6",
+      "response_sha256": "9d5cd904769337103b0800744bf4b02545448f18ac5fe287edf4e01fd318550b",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "4198a3a4-8d9a-4ade-a016-d0b4ad7dfd84",
+      "stored_sha256": "4dc4780d5ba957223d2165dd7ea11a98e7fa1ce49c732df8995e65a28d77d50e",
+      "response_sha256": "8f6e9f4365e88e9ecb990a303db2476f0daa60e374712300ba467ba5cab017df",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "f2e8ef37-8d87-41f4-8300-495f088f69e6",
+      "stored_sha256": "fabd9e818849620577ae130cb285f550385eb21fb6374e0a349366d36ce42c26",
+      "response_sha256": "fc1f5c651af3d4e8cc6b4fbfa2ae0e599746ade11f72963e4ea5014e4a832eba",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "d6afe313-91d2-49b2-94d0-ed708ad561c8",
+      "stored_sha256": "fd2fcccd5d4517cb176c96d0a5cda80c8369dbc0a817c9afb5113f7583b201d8",
+      "response_sha256": "f4501737e24f45b8600769838b62b9facdaff985dc8b686d50b767780bc9e1bd",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "54114086-07cc-415a-bf78-5b1ac988ff28",
+      "stored_sha256": "f29b59753453ab7c454a4a23c6269612f1b2375c8ed20fe29d2f1a99b4750088",
+      "response_sha256": "b2237fa02389564f53819eea43fc88300fd2de7606b512e571b4af48784c3e5f",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "f590145c-f786-4908-b6d6-edcaa73e41e3",
+      "stored_sha256": "5a7fe2f141df11836d9e14324b973a4ce7ed4bb18da37aa2325a5777e3c98e1c",
+      "response_sha256": "f4f9ec37f689c063ce70f4c39ac3af3c1d5a45190635cbf0337dda09cc944b11",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "ba784d84-4733-480d-b02c-c8f2f999e0eb",
+      "stored_sha256": "39adb4458e2e92afb49facfbadcb0b12a58bbd684c7efbfedc62a893c384fe84",
+      "response_sha256": "cf84427f9d21dd63d9237454705437839d623e7d396432305e4726700cd1d9ca",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "88f4cfab-af4b-4540-86cc-4544f1100051",
+      "stored_sha256": "9c570296e51aa33f4469b61009d1a13d45fe9854e4ab424aa140eeb00d953ddf",
+      "response_sha256": "e936d1be5d76cb3d8c7f1ee7a41cd30caa41db12e7f3e0041e3786657e673960",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "db73b59a-d711-4754-86a1-fe21a8a645c7",
+      "stored_sha256": "8a4936bfabd5586c9f69c16b8dce632f1e8dce09256f308f3983ec745cce3d8a",
+      "response_sha256": "2b55250f8f2eed17098cf9eec34988e84ccb222825b62494ac412df88a195346",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "71e0dfdd-8811-4e4e-8f59-30dba0ea8441",
+      "stored_sha256": "c72b429697e4f7122580b77757f4727295070aded7b9074d9e2ce53eda3636f6",
+      "response_sha256": "6e7ae5fbfe61a86f86cb2b0abfc4c95702a88eacae905f9d2b62a1ce4da64e1d",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "d1475b50-178b-4479-b40c-ab349e25f8ea",
+      "stored_sha256": "45d231aed19a90b7f7b82c670b75236415e897f01c6c84762f9e7f1b7a059737",
+      "response_sha256": "cecb250e74df0281df58cbc551998135c41a670506a761ae8c9a19edce4d4046",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "311ae208-7e8e-426e-a5c0-c73d0ad3548a",
+      "stored_sha256": "fbfa1c873865e8a0c44ed2faf008fb7bbb1c0f2cabc0f30fb6a38cab757e5717",
+      "response_sha256": "c690d307c13cee728c1131d9eef03621b54c2af04ee15d95966640fb1e20fe22",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "57c5f3cb-4900-4fc6-b3e1-10a8376515be",
+      "stored_sha256": "0ebd4fa664d741a33cc05fc5db1da3ac78821195cab72451f295fbeea0007974",
+      "response_sha256": "7b1a34243dbf77837d0355c5cf6ab088d90c8b86cca166a662c7261ce3a0d5b7",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "84ac8eed-efe5-4f67-ba09-5221f80674fa",
+      "stored_sha256": "711cf9e5500622320312acd0d8f7da9c9c7a2ddc08d4a00f7b6f64b15a300923",
+      "response_sha256": "357f908194c1ae4ff1e8071af6bb35fca331220ccee928545f1c6ddd20267cf0",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "6cdf3e90-0f48-42a5-8806-b76e55048784",
+      "stored_sha256": "0e29e224af6941fd25e328b451a52c0dbb7e0054bd58495ab1e8a0be6113d06a",
+      "response_sha256": "2c0c4142d9e9adc0b38c0b33d8ab05494409aa9a8e1f72d916a5bf0763281007",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "524a88ee-15e8-4ba1-a2bb-8cf602b771c1",
+      "stored_sha256": "d06cb76396f03daad42623f52b1bc9fdec600f957cf870408de3a11738de8f13",
+      "response_sha256": "ab4f9f7df0bac69380b19b014e48f406e76311197621ed213b04734168aa56fc",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "29f186f8-1deb-451e-95bb-b20e13a2a27f",
+      "stored_sha256": "8c3a795e0c2e1fdfacaaa8a78473aeae37d702962cc88ba1b5b8138f213fc29f",
+      "response_sha256": "d62318f6758d53cb3e2d692eb29e4f2a356ab338e95f7971504d500f08810fa4",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "72fab01d-ae93-44db-a871-dd5150cd0674",
+      "stored_sha256": "60b1805fe4da9cd5fd4534f83f7ec1782e33b12053fbbf05733496ec4c39153e",
+      "response_sha256": "e88f923bb00f2191863d7457e7e65e089545d047e6d0a605499d08eb1fd0db8f",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "a19b4a5c-ee9a-443e-950f-874e2813f88f",
+      "stored_sha256": "b7a1173c069fd023cdd71559c11925125338e41ffe9bde1ab95e94096c6ed8ee",
+      "response_sha256": "6d457649d95f09568566c63d2113b3542231e8d0b7f663a33a66fb9704f0aeaf",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "69db6d51-bd43-4005-a7e9-a5b9ea901c6b",
+      "stored_sha256": "da6e67c8f0bcb6a8c13881e723c806f6b81aa50200ae820a8ef5ed1222196c61",
+      "response_sha256": "be21aca91fb530c997b4b38a2ef575b3368c4284cdc7c4c19ebbb6ac875faeb4",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "71253ea4-7447-405d-9a0f-a6053aef0395",
+      "stored_sha256": "c95cf2d588156cf3c5f462a29ba546608325316fd31f1871f4b5f6a6dee17eb5",
+      "response_sha256": "860f5e4cfaa58d3f19e294a358c4314a6f24e47b9c4e277920aecfcb9d59e542",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "5d952739-f775-41f6-bd25-dd57c151a1c5",
+      "stored_sha256": "106671f10775e9a58c8054fe27001fba7299bcfb9a45dc23c81b8d35839e62df",
+      "response_sha256": "6a4b2cc33810a502a30aa19ab87da4c172a19fa5e94b51cb545ce8ce2c4baa20",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "c4174bd0-b476-4df4-9c3b-edb31bef7481",
+      "stored_sha256": "c62f0556869562408278e11d40ae31ea45d8c7c547d8a1f217f2e719f7daef23",
+      "response_sha256": "e170110326b2999f87f434743233bc473af32d2d6e85584e5d814681c675b5c8",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "79b30165-ac4c-4f2f-bb13-55e4a994f04c",
+      "stored_sha256": "05160ec6641e4564ab88cbe09066aa1d172aa8c4fdcb54c0c1c0d686cbb3ff84",
+      "response_sha256": "f44240e56882f5e759191a2d29b811464d824135f939a748ae46ee4153ddcccb",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "a53d57f4-8f6b-49d3-8f86-88b1e925aafb",
+      "stored_sha256": "43ba14ca8405c86d448c07ab7563cc2ce8cd61e497b7c08fe45feb067a5d95ea",
+      "response_sha256": "98c232918422c9d2d965644480f7f28da3309ab47fc1e26055400f21251fd0f5",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "29eced30-bb74-44cb-8c60-b5c27f9b92ca",
+      "stored_sha256": "c1049a43068a70347ec4be34e0a35352fcc11ea8b80044215e5abfbd25f0c9c8",
+      "response_sha256": "ccb996e465394c28ee80e3be4354d1002af22d4a1b8b97bffe05ee9bc71121da",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "cf1e4bb2-1fee-4ace-8ac6-61c62a0775ca",
+      "stored_sha256": "8c8b933b735a9ab9041b2d5ae9d367a3b4fcce88cefb951aaa2420e953fa0c0b",
+      "response_sha256": "c6b4642069fa2d1109994b612cdd8cacb038d28f7eb2abfa19d323520c6154fe",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "88ebc891-fe77-450b-9a96-501de3fda30f",
+      "stored_sha256": "75de6241232dbda56b0ca59db96d3626edcad60fb9ade90d3e682fa7bd1af592",
+      "response_sha256": "ebda6395ef714666d8b50c7a335e151df9d4ef8f261a518db986a75678455ee8",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "dad2d2bb-4072-4670-8e66-1b14510d3503",
+      "stored_sha256": "8967e9cbf41eeb2955335ff2e2a7c415786756902b9ddb1f3255da598a81051d",
+      "response_sha256": "d3aad2475a707597ef17b602b77e940afef1432595e82b3961ace23fa6e7480d",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "7485a2fe-0b10-4235-b91b-921e70298762",
+      "stored_sha256": "728cccbbebc847f6a503a8e414903184e70927ba73408dae3657a229275f3bce",
+      "response_sha256": "6c1189cab3c4e1003eafe611a4ba5e3ed4172e2d5e2bde1c4008500c300d7c80",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "4786df39-e6b6-4907-ae15-99cc0b1078a7",
+      "stored_sha256": "95004c091743ceabd007414b5068cf181d3c3e0c6db4cee4ca211002d886ddb2",
+      "response_sha256": "51092a086ec1d23d89de4d3ec6266e2647804466389740b6220a98cfa51313a4",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "607cff86-ae16-4da0-969b-64446b752eae",
+      "stored_sha256": "275a144578eca08bfeec061ea2730ebd81bd7c92127b69e16465f3e4505f8fc8",
+      "response_sha256": "9b38397ddf5df00e0103f19efa1f37fdf698e2ac2f2f7c4dcb903f8f4a48f1a3",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "6850da36-b0ff-48d4-9827-d2e4e7111463",
+      "stored_sha256": "4db1c29634698be58c13a819302959719b6d575c84ef6f5cbeb8fbf088039f26",
+      "response_sha256": "b1d01db0bc0b808583545f16cbcb8cbeae851a36574a32bf74b5f8fbd862eadc",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "fc57589c-50f3-4c7f-9c1d-23fed82c46c7",
+      "stored_sha256": "ce4328965c3cdc4a836906ff42caea82d28d215a13a0324084b75aacce9bd8bf",
+      "response_sha256": "ab085a2de4706e099f0a025830255bebcb9727f1944788521890101a943d5e27",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "780354df-1dd7-4933-bbed-1dc7a3680e37",
+      "stored_sha256": "3fc43d7048d044d8fa5c9c2ea0b53ac604bbeac21edce744fa95744424cc9822",
+      "response_sha256": "02cd797f3d2a3127f1fa28ac59236b21c1b8760c594f5c0b713ba56436ff479f",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "2752abf5-529c-42e1-b962-1f70269544b2",
+      "stored_sha256": "e4ef345337a0e318921d2fa595235778cd93dabc56735dfed7424cbf8413ed3c",
+      "response_sha256": "32834b8e0bf94d3c881245cf5e69940d59b22ad88f67eddbc874b5b94c608b58",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "7bb118d7-d5c2-407a-af63-6e75f57507eb",
+      "stored_sha256": "684085fdb4a620ec3e9b0dd9ab4eda95402d17902eb37671866b4c25d8a004a2",
+      "response_sha256": "4619d9be248e81e1186013c79c021ca9cf372458b4869552b94aefa0df13d1eb",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "a17d8cad-d3dd-412b-a7bc-0eae2ba9c2ea",
+      "stored_sha256": "4212e4da69a787ebc6bf5fdbd6c4e106976082c9bdb056ba9e210dd5fcd95694",
+      "response_sha256": "d657bb5b39e198f93f1895657c2e88275c72e133e4bc1540c908d15344f543f5",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "1e5961bc-abcd-420c-9107-17dd6256c3ed",
+      "stored_sha256": "3b4e5898a7be36c0ecb7bc7abd67d707a06a060cc0a191fc495bce595a59d445",
+      "response_sha256": "adb3e6b6da861e8d8a8c9fabca73ec27de868a91da04fb14a88c2ab0c1abfdcc",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "dd9b38a5-3de4-4710-bf96-e07adc7e248c",
+      "stored_sha256": "ed8c604958d85b4ea374292fb2dc7964554b65dd1295fe112a2c5ec6c50f018e",
+      "response_sha256": "38cc73df36a2802a485a16d036491a6da27946642242a0e147a10bbf984805dc",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "57d56e73-13c8-45ec-87ad-ccec3ab4f937",
+      "stored_sha256": "9621d6ae5dcdd6ec8c91a0cea04cf7f4bf3579cbc380dac2a1143266c6d1f63f",
+      "response_sha256": "117b51fb95fb80a70ebf6403168f6eeb2d158ba4230eae93d5e6b01c4f52bb41",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "3876a588-11c5-45f0-ad11-1e8b742b5d50",
+      "stored_sha256": "d9696dc6bdd8c661247695871b4e821b6ec8acfb7d1c3f56c64e01bab3f7898c",
+      "response_sha256": "288c9de5e1e5802c70447ab91694cfefe9019bbd194f00817d61026b8b5b2ad5",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "33ce5176-d9b1-4f00-870a-6ca0588ae474",
+      "stored_sha256": "5052a63d3b05db122236c84df05522b02ed3a0eff3ee28281ab809a6a481c279",
+      "response_sha256": "13ce58414f378bbfebf03b804b4784d37e15e94ace6306669250bfe1d6d4ced9",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "a46b46ce-a0d4-4887-9cfe-07c578fb5556",
+      "stored_sha256": "067f789423037cd03e79f154d93fdbc4e737b89598cbc6f2b73c83fb6c434739",
+      "response_sha256": "5e1a3329e0ca2f7701402c31dada79cfe8a91867ade29878edeebec5e45ac7c3",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "6aa03d01-78fc-4a94-82ec-48f49f70a8b2",
+      "stored_sha256": "03ef1be407e889bfa3e6451d1c04749ffe1e98d07536296657eebc64203542e4",
+      "response_sha256": "77f8c2e407032e781c38206f6d7b13e189200a44f2e199f4b8d9663ccb0d3009",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "4c73a033-dc5b-45d0-af00-c6490fd39333",
+      "stored_sha256": "1edc528c56251887fa93d0fa6f65622945e31de1b6b3c07cf19b5ec7f3acfc6c",
+      "response_sha256": "878fb197f544bac6d530377a130334f4fd1b161d4cc05e38a2c0b0d543738c35",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "10cabf68-49f5-46c3-809c-3c74b8e1ac9a",
+      "stored_sha256": "e591de5c64edfe55046d770a7425e0136636e0a38bd4f24f949d1adcc7c21378",
+      "response_sha256": "9107d8f1b4433770df30bc378e1f0346f8d9faf04300bb2e5a4d29ad63f8354a",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "feb05b5f-078c-4664-b2d9-b39d87190979",
+      "stored_sha256": "090dca02c5a43fec2162418f8dd5a3ace31e5a864d385aa11ea53b89a0b7e326",
+      "response_sha256": "26fcf4d65732a1ce5d7225d56768ac758195103bf925dad09d78bb8443623cfa",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "c4922d01-8834-4812-a1c1-7457a4201b15",
+      "stored_sha256": "7e726128cc11a189c4348aefe1c32f1ab574e2bedda80a1da39f21fe80f8ca6c",
+      "response_sha256": "4bd15c63d548831b91f734697788963f76a500bb3bd43b656bbdb8868f1a8cd2",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "4dbe619f-6864-4986-89bd-7be2e14f32c0",
+      "stored_sha256": "0cd4e19ddf0ac1ffdb9f951732ad72335583dc8a957f07656bfc726c57454454",
+      "response_sha256": "0e3e12d4b5c382a3dc28481254a1a4c1f4cc8b6d84296f30e4b038cda8e03d4e",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "3202a848-b396-41a7-99d9-0797a41a5739",
+      "stored_sha256": "b21622ab7b8ef97252872a8de74314c1db0e53c7b115b813457dc52afa0971a3",
+      "response_sha256": "0781e3a98277e6c90e06ca62298681cf77b58404d9386754c1841ce9be251171",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "7ea4166e-ee3f-49c8-ba84-dc928451c83e",
+      "stored_sha256": "6d67f927a3002bde02fae2b92dfb5b10a8b4b06d38b67fa45e87837e3a5dba5c",
+      "response_sha256": "f8b20498a7c8f4b0246a9c766d1f0bb61ae4752277eb8fcfeae05dff18243ac2",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "5897f18f-1abb-4aa5-b0d5-8b83fa27f156",
+      "stored_sha256": "a026dd60f3d054f559fdc9d82949c3d3dfd41fe4cdbc99790e8821dd6f16bc71",
+      "response_sha256": "e97d8d8edd9d599a5d4b3727cb1817054e4f0f9fef227d417740f0a710400965",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "8c55b896-01cd-4651-9f09-5f66fd11c3ae",
+      "stored_sha256": "dad1292232ef50d9f3904b7972320a7def817b8ac9626d9bdb60ac2192212cde",
+      "response_sha256": "4d78ae29409f3a69163b19df215e0356348c42252822f455ae0aa67881205e8a",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "34f0724d-b7bf-435d-b724-73646cfe4f6c",
+      "stored_sha256": "2a2fd5ad09f991da061938fded6ec23d3090422a7a7de169533e30ea52c9eee5",
+      "response_sha256": "09d4edc238ef22c0e3d558cc9b7c8da46a782394917e9e7618ea0aa9802205db",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    },
+    {
+      "raw_id": "685d9977-f2e1-4a7d-8dbc-ac6ae5eb1680",
+      "stored_sha256": "65b4c981d791da26e86b58b67ad6f0215e337e6f32cb0a792501416e82294946",
+      "response_sha256": "a951fc54e81e74d3d97e9ec5224167db6da54409e23e0c73f86f252a256d0568",
+      "http_status": 200,
+      "outcome": "success",
+      "capability": "hongguo.comments"
+    }
+  ],
+  "external_requests_by_audit": 0,
+  "model_calls_by_audit": 0
+}

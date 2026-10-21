@@ -148,6 +148,16 @@ def test_feed_http_snapshots_entries_and_cross_tenant_hidden(engine, setup):
         assert result.status_code == 200, result.text
         assert result.json()["data"]["items"][0]["entry"]["id"] == entry["id"]
         assert result.headers["cache-control"] == "no-store"
+        hongguo = client.get(
+            f"/api/v1/intelligence/feed?business_code=motion_comic&business_date={day}&video_catalog=hongguo&video_board=hot-ai-drama"
+        )
+        assert hongguo.status_code == 200, hongguo.text
+        assert hongguo.json()["data"]["items"] == []
+        assert hongguo.json()["data"]["video_genres"] == []
+        assert hongguo.json()["data"]["has_snapshot"] is False
+        assert client.get(
+            f"/api/v1/intelligence/feed?business_code=motion_comic&business_date={day}&video_catalog=hongguo&video_board=invalid"
+        ).status_code == 422
         assert (
             client.get(
                 f"/api/v1/intelligence/feed?business_code=motion_comic&business_date={day}&accounts=bad-id"

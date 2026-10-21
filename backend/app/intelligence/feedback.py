@@ -170,6 +170,15 @@ def entry_feedback(c, p, entry_id, business, day):
         "comments": [],
         "claims": [],
     }
+    if content["platform_code"] == "hongguo":
+        from app.intelligence.hongguo import sample_for_content
+
+        sample = sample_for_content(c, p, content["id"], business, day)
+        if sample is not None:
+            result.update(status="sampled", comments=sample["comments"], sample_count=len(sample["comments"]), classified_count=0,
+                          sampling_description=f"公开播放页第{sample['page_episode_number']}集上下文预载，最多15条，未翻页",
+                          coverage_note="仅为已采集评论原文，未执行AI分析；评论池跨集归属及全量覆盖未验证，平台评论ID未提供")
+        return result
     t = metadata.tables["feedback_snapshots"]
     newest = c.execute(
         select(t.c.id)

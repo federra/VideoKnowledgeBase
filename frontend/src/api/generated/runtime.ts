@@ -1273,7 +1273,7 @@ export interface components {
              * Platform Code
              * @enum {string}
              */
-            readonly platform_code: "douyin" | "fanqie" | "qidian";
+            readonly platform_code: "douyin" | "fanqie" | "qidian" | "hongguo";
             /** Target */
             readonly target: components["schemas"]["KeywordTarget"] | components["schemas"]["AccountTarget"] | components["schemas"]["ContentTarget"] | components["schemas"]["BoardTarget"];
             /**
@@ -1565,7 +1565,7 @@ export interface components {
              * Status
              * @enum {string}
              */
-            readonly status: "not_acquired" | "ready";
+            readonly status: "not_acquired" | "sampled" | "ready";
         };
         /** Envelope[Accepted] */
         readonly Envelope_Accepted_: {
@@ -1962,9 +1962,21 @@ export interface components {
             readonly account_id: string | null;
             /** Author */
             readonly author: string | null;
+            /** Comment Sample Count */
+            readonly comment_sample_count?: number | null;
             readonly entry: components["schemas"]["SnapshotEntry"];
             /** Feedback Emotions */
             readonly feedback_emotions?: readonly string[];
+            /** Genre Hierarchy */
+            readonly genre_hierarchy?: readonly components["schemas"]["VideoGenreGroup"][];
+            /** Genre Tags */
+            readonly genre_tags?: readonly string[];
+            /** Heat Display */
+            readonly heat_display?: string | null;
+            /** Heat Value */
+            readonly heat_value?: string | null;
+            /** Score Display */
+            readonly score_display?: string | null;
             /** Snapshot Version */
             readonly snapshot_version: number;
             /**
@@ -2422,6 +2434,14 @@ export interface components {
             readonly page_size: 10;
             /** Total */
             readonly total: string;
+            /** Video Genres */
+            readonly video_genres?: readonly string[];
+            /** Video Latest Dates */
+            readonly video_latest_dates?: {
+                readonly [key: string]: string;
+            };
+            /** Video Subgenres */
+            readonly video_subgenres?: readonly string[];
         };
         /** KeywordTarget */
         readonly KeywordTarget: {
@@ -2878,7 +2898,7 @@ export interface components {
              * Platform Code
              * @enum {string}
              */
-            readonly platform_code: "douyin" | "fanqie" | "qidian";
+            readonly platform_code: "douyin" | "fanqie" | "qidian" | "hongguo";
             /** Platform Id */
             readonly platform_id: string;
             /** Published At */
@@ -3607,6 +3627,13 @@ export interface components {
             readonly title: string | null;
             /** Version No */
             readonly version_no: number;
+        };
+        /** VideoGenreGroup */
+        readonly VideoGenreGroup: {
+            /** Genre */
+            readonly genre: string;
+            /** Subgenres */
+            readonly subgenres?: readonly string[];
         };
         /** Work */
         readonly Work: {
@@ -5204,6 +5231,10 @@ export interface operations {
                 readonly q?: string | null;
                 readonly source_id?: string | null;
                 readonly accounts?: string | null;
+                readonly video_catalog?: string | null;
+                readonly video_board?: string | null;
+                readonly video_genre?: string | null;
+                readonly video_subgenre?: string | null;
             };
             readonly header?: never;
             readonly path?: never;

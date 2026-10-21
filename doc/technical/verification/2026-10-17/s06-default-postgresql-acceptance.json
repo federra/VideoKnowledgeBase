@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-20T06:44:48.638487+00:00",
+  "checked_at": "2026-10-21T01:09:29.579925+00:00",
   "database": "disposable PostgreSQL",
   "external_api_calls": 0,
   "empty_upgrade": true,
@@ -9,7 +9,7 @@
   "invalid_stock_aborts_migration": true,
   "test_command": "pnpm db:test",
   "test_filter": null,
-  "pytest_summary": "221 passed, 1 warning in 269.75s (0:04:29)",
+  "pytest_summary": "226 passed, 1 warning in 309.75s (0:05:09)",
   "migrations": [
     "0001_b1",
     "0002_b1",
@@ -26,6 +26,9 @@
     "0013_research",
     "0014_inputs",
     "0015_novels",
-    "0016_saved_novels"
+    "0016_saved_novels",
+    "0017_browser_novels",
+    "0018_hongguo",
+    "0019_hongguo_reparse"
   ]
 }

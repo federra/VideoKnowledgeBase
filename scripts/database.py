@@ -130,6 +130,8 @@ def isolated_test(url):
                         "0015_novels",
                         "0016_saved_novels",
                         "0017_browser_novels",
+                        "0018_hongguo",
+                        "0019_hongguo_reparse",
                     ],
                 },
                 ensure_ascii=False,

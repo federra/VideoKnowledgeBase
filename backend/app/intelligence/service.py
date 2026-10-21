@@ -44,19 +44,23 @@ def wire(value):
 
 def novel_raw_ids(c, org, job_id):
     """Provider responses or an exact frozen local HTML/browser capture input."""
-    return c.exec_driver_sql(
-        "SELECT id FROM raw_assets WHERE org_id=%s AND collection_job_id=%s UNION "
-        "SELECT r.id FROM collection_jobs j JOIN tasks t ON t.org_id=j.org_id AND t.id=j.task_id "
-        "JOIN task_inputs i ON i.org_id=t.org_id AND i.task_id=t.id AND i.role IN ('novel_saved_html','novel_browser_ax') "
-        "JOIN raw_assets r ON r.org_id=i.org_id AND r.id=i.raw_asset_id "
-        "WHERE j.org_id=%s AND j.id=%s AND ((j.safe_request->>'method'='qidian-desktop-html-v1' "
-        "AND j.safe_request->>'capture_kind'='user_saved_html' AND i.role='novel_saved_html') OR "
-        "(j.safe_request->>'method'='qidian-browser-ax-v1' AND j.safe_request->>'capture_kind'='browser_native_accessibility' AND i.role='novel_browser_ax')) "
-        "AND j.capability_code='novel.qidian.board' "
-        "AND t.max_external_calls=0 AND r.origin='manual' AND r.submitted_by=t.requested_by "
-        "AND j.safe_request->>'raw_asset_id'=r.id::text AND j.safe_request->>'file_sha256'=r.sha256",
-        (org, job_id, org, job_id),
-    ).scalars().all()
+    return (
+        c.exec_driver_sql(
+            "SELECT id FROM raw_assets WHERE org_id=%s AND collection_job_id=%s UNION "
+            "SELECT r.id FROM collection_jobs j JOIN tasks t ON t.org_id=j.org_id AND t.id=j.task_id "
+            "JOIN task_inputs i ON i.org_id=t.org_id AND i.task_id=t.id AND i.role IN ('novel_saved_html','novel_browser_ax') "
+            "JOIN raw_assets r ON r.org_id=i.org_id AND r.id=i.raw_asset_id "
+            "WHERE j.org_id=%s AND j.id=%s AND ((j.safe_request->>'method'='qidian-desktop-html-v1' "
+            "AND j.safe_request->>'capture_kind'='user_saved_html' AND i.role='novel_saved_html') OR "
+            "(j.safe_request->>'method'='qidian-browser-ax-v1' AND j.safe_request->>'capture_kind'='browser_native_accessibility' AND i.role='novel_browser_ax')) "
+            "AND j.capability_code='novel.qidian.board' "
+            "AND t.max_external_calls=0 AND r.origin='manual' AND r.submitted_by=t.requested_by "
+            "AND j.safe_request->>'raw_asset_id'=r.id::text AND j.safe_request->>'file_sha256'=r.sha256",
+            (org, job_id, org, job_id),
+        )
+        .scalars()
+        .all()
+    )
 
 
 def authorized(c, p, snap):
@@ -119,6 +123,7 @@ def authorized(c, p, snap):
             ).mappings()
         }
     result = []
+    captured_batches = {}
     for entry in entry_rows:
         kind = "account" if entry["account_observation_id"] else "content"
         if novel:
@@ -162,25 +167,28 @@ def authorized(c, p, snap):
                 raw = row(c, "raw_assets", p.org_id, obs["raw_asset_id"])
                 job = row(c, "collection_jobs", p.org_id, raw["collection_job_id"])
                 try:
+                    from app.connectors.hongguo import normalize_board
                     from app.connectors.tikhub_series import CAPABILITY as SERIES_CAP
                     from app.connectors.tikhub_series import normalize_series
 
-                    batch = (
-                        normalize_series(json.loads(raw["body_text"]))
-                        if job["capability_code"] == SERIES_CAP
-                        else normalize(
-                            job["capability_code"],
-                            json.loads(raw["body_text"]),
-                            maximum=job["max_items"],
-                            target=job["safe_request"].get("userId"),
+                    if raw["id"] not in captured_batches:
+                        batch = (
+                            normalize_board(raw["body_text"], job["safe_request"]["board"])
+                            if job["capability_code"] == "hongguo.board"
+                            else normalize_series(json.loads(raw["body_text"]))
+                            if job["capability_code"] == SERIES_CAP
+                            else normalize(
+                                job["capability_code"],
+                                json.loads(raw["body_text"]),
+                                maximum=job["max_items"],
+                                target=job["safe_request"].get("userId"),
+                            )
                         )
-                    )
-                    captured = next(
-                        x
-                        for x in batch.records
-                        if x.get("platform_content_id") == identity["platform_content_id"]
-                    )
-                except (AdapterError, ValueError, StopIteration):
+                        captured_batches[raw["id"]] = {
+                            x["platform_content_id"]: x for x in batch.records
+                        }
+                    captured = captured_batches[raw["id"]][identity["platform_content_id"]]
+                except (AdapterError, ValueError, StopIteration, KeyError):
                     raise Denied("SOURCE_UNAVAILABLE") from None
             captured_name = captured.get("account_display_name")
             captured_title = captured.get("display_name")
@@ -213,7 +221,9 @@ def authorized(c, p, snap):
             from app.connectors.novel_metrics import reader_number
 
             observation["reader_count"] = (
-                str(reader_number(meta["reader_count"])) if meta["reader_count"] is not None else None
+                str(reader_number(meta["reader_count"]))
+                if meta["reader_count"] is not None
+                else None
             )
         for field in (
             "follower_count",
@@ -251,6 +261,13 @@ def authorized(c, p, snap):
                     if novel
                     else {}
                 ),
+                "genre_tags": captured.get("genre_tags", []) if kind == "content" else [],
+                "genre_hierarchy": captured.get("genre_hierarchy", []) if kind == "content" else [],
+                "heat_display": captured.get("heat_display") if kind == "content" else None,
+                "heat_value": str(captured["heat_value"])
+                if kind == "content" and captured.get("heat_value") is not None
+                else None,
+                "score_display": captured.get("score_display") if kind == "content" else None,
                 "source_id": snap["source_id"],
                 "source_name": source["name"],
                 "snapshot_version": snap["version_no"],
@@ -320,8 +337,53 @@ def entries(c, p, snapshot_id, page, page_size, q=None, account_id=None):
     }
 
 
-def feed(c, p, business, day, lane="board", page=1, q=None, source_id=None, accounts=None):
-    pairs = selected(c, p, business, day, platforms=("douyin",))
+def latest_video_dates(c, p, business):
+    latest_dates = {}
+    # Stable dropdown history metadata; current-day absence never relabels historical rows.
+    history = (
+        c.exec_driver_sql(
+            "SELECT DISTINCT s.source_id,s.business_date,j.capability_code FROM intelligence_snapshots s JOIN collection_jobs j ON j.org_id=s.org_id AND j.id=s.job_id WHERE s.org_id=%s AND s.business_code=%s AND s.sealed_at IS NOT NULL AND j.capability_code IN ('douyin.series.hot','hongguo.board') ORDER BY s.business_date DESC",
+            (p.org_id, business),
+        )
+        .mappings()
+        .all()
+    )
+    for value in history:
+        catalog = "tikhub" if value["capability_code"] == "douyin.series.hot" else "hongguo"
+        if catalog in latest_dates:
+            continue
+        if selected(c, p, business, value["business_date"], value["source_id"], "board"):
+            latest_dates[catalog] = value["business_date"]
+    return latest_dates
+
+
+def feed(
+    c,
+    p,
+    business,
+    day,
+    lane="board",
+    page=1,
+    q=None,
+    source_id=None,
+    accounts=None,
+    *,
+    video_catalog=None,
+    video_board=None,
+    video_genre=None,
+    video_subgenre=None,
+):
+    all_pairs = selected(c, p, business, day, platforms=("douyin", "hongguo"))
+    hongguo_pairs = [
+        (s, rows)
+        for s, rows in all_pairs
+        if row(c, "sources", p.org_id, s["source_id"])["platform_code"] == "hongguo"
+    ]
+    pairs = [
+        (s, rows)
+        for s, rows in all_pairs
+        if row(c, "sources", p.org_id, s["source_id"])["platform_code"] == "douyin"
+    ]
     from app.intelligence.feedback import attach_previews
     from app.intelligence.insight import latest_insight
 
@@ -401,7 +463,7 @@ def feed(c, p, business, day, lane="board", page=1, q=None, source_id=None, acco
             if ranking["status"] == "default_order"
             else "漫剧关键词作品 · 已采集候选播放榜"
         )
-    original_pairs = pairs
+    original_pairs = pairs + hongguo_pairs
     pairs = [
         (
             snap,
@@ -483,7 +545,7 @@ def feed(c, p, business, day, lane="board", page=1, q=None, source_id=None, acco
     # Filter before dedup again to keep a content's membership in every board selectable.
     values = []
     candidates = []
-    for snap, rows in pairs:
+    for snap, rows in original_pairs if video_catalog == "hongguo" else pairs:
         if snap["view_kind"] not in (
             ("board", "keyword_works") if lane == "board" else ("creator_works",)
         ):
@@ -509,6 +571,29 @@ def feed(c, p, business, day, lane="board", page=1, q=None, source_id=None, acco
             ):
                 continue
             candidates.append(v)
+    if video_catalog == "tikhub":
+        candidates = [
+            v
+            for v in candidates
+            if series_batch and v["entry"]["snapshot_id"] == series_batch[0]["id"]
+        ]
+    video_genres = []
+    video_subgenres = []
+    catalog_has_snapshot = False
+    if lane == "board" and video_catalog == "hongguo":
+        from app.intelligence.video_filters import filter_hongguo, filter_subgenre
+
+        catalog_rows = [
+            value
+            for snap, rows in original_pairs
+            if snap["view_kind"] in ("board", "keyword_works")
+            for value in rows
+        ]
+        catalog_has_snapshot = bool(filter_hongguo(catalog_rows, None, None)[0])
+        scoped_rows, video_genres = filter_hongguo(catalog_rows, video_board, video_genre)
+        _, video_subgenres = filter_subgenre(scoped_rows, video_genre, None)
+        candidates, _ = filter_hongguo(candidates, video_board, video_genre)
+        candidates, _ = filter_subgenre(candidates, video_genre, video_subgenre)
     seen = set()
     for v in sorted(
         candidates,
@@ -521,10 +606,42 @@ def feed(c, p, business, day, lane="board", page=1, q=None, source_id=None, acco
             seen.add(key)
             values.append(v)
     values.sort(key=lambda x: (str(x["source_id"]), x["entry"]["position"], str(x["entry"]["id"])))
-    if lane == "board" and ranking["status"] in ("default_order", "provider_order", "series_order"):
+    if video_catalog == "hongguo":
+        from app.intelligence.hongguo import sample_for_content
+
+        if not video_board:
+            values.sort(
+                key=lambda v: (
+                    v.get("heat_value") is None,
+                    -int(v.get("heat_value") or 0),
+                    v["entry"]["observation"]["platform_id"],
+                )
+            )
+        for value in values[(page - 1) * 10 : page * 10]:
+            obs = row(c, "content_observations", p.org_id, value["entry"]["observation"]["id"])
+            sample = sample_for_content(c, p, obs["content_id"], business, day)
+            value["comment_sample_count"] = len(sample["comments"]) if sample else None
+        metrics["videos"] = (
+            str(
+                len(
+                    {
+                        v["entry"]["observation"]["platform_id"]
+                        for _, rows in hongguo_pairs
+                        for v in rows
+                    }
+                )
+            )
+            if hongguo_pairs
+            else None
+        )
+    if (
+        lane == "board"
+        and video_catalog != "hongguo"
+        and ranking["status"] in ("default_order", "provider_order", "series_order")
+    ):
         ordering = {v["entry"]["id"]: i for i, v in enumerate(ranking["items"])}
         values.sort(key=lambda x: ordering[x["entry"]["id"]])
-    if lane == "board" and ranking["status"] == "ready":
+    if lane == "board" and video_catalog != "hongguo" and ranking["status"] == "ready":
         values.sort(
             key=lambda x: (
                 x["entry"]["observation"]["view_count"] is None,
@@ -533,10 +650,13 @@ def feed(c, p, business, day, lane="board", page=1, q=None, source_id=None, acco
             )
         )
     return {
+        "video_latest_dates": latest_video_dates(c, p, business),
         "business_code": business,
         "business_date": day,
-        "has_snapshot": bool(pairs),
+        "has_snapshot": catalog_has_snapshot if video_catalog == "hongguo" else bool(pairs),
         "metrics": metrics,
+        "video_genres": video_genres,
+        "video_subgenres": video_subgenres,
         "boards": [{"id": v[0], "name": v[1]} for v in boards.values()],
         "creators": [{"id": v[0], "name": v[1] or "未记录"} for v in creators.values()],
         "page": page,
@@ -546,6 +666,8 @@ def feed(c, p, business, day, lane="board", page=1, q=None, source_id=None, acco
         "keyword_works_count": str(
             sum(len(rows) for snap, rows in original_pairs if snap["view_kind"] == "keyword_works")
         ),
-        "keyword_ranking_status": ranking["status"],
-        "insight": latest_insight(c, p, business, day),
+        "keyword_ranking_status": "not_acquired"
+        if video_catalog == "hongguo"
+        else ranking["status"],
+        "insight": None if video_catalog == "hongguo" else latest_insight(c, p, business, day),
     }
