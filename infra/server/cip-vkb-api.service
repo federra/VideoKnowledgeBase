@@ -1,0 +1,20 @@
+[Unit]
+Description=Video Knowledge Base API
+After=network.target postgresql.service cip-vkb-redis.service
+Requires=cip-vkb-redis.service
+
+[Service]
+Type=simple
+User=cip-vkb
+Group=cip-vkb
+WorkingDirectory=/opt/video-knowledge-base/current/backend
+ExecStart=/opt/video-knowledge-base/venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 18090 --proxy-headers --forwarded-allow-ips=127.0.0.1
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

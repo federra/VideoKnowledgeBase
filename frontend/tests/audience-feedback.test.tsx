@@ -37,8 +37,8 @@ it('单作品情绪比例、证据高亮、原文转义，普通抽屉不显示�
  expect(document.querySelector('.feedback-comment img')).toBeNull();
  expect(screen.getByText('<img src=x onerror=alert(1)>')).toBeTruthy();
  expect(screen.getByText(/非全站排名/)).toBeTruthy();
- fireEvent.click(screen.getByRole('button',{name:'研判该内容'}));
- expect(await screen.findByText(/当前未创建研判任务/)).toBeTruthy();
+ expect(screen.queryByRole('button',{name:'研判该内容'})).toBeNull();
+ expect(screen.getByRole('button',{name:'查看TOP评论'})).toBeTruthy();
 });
 
 it('关闭抽屉后将键盘焦点还给原入口',async()=>{
@@ -56,4 +56,19 @@ it('红果原始评论可独立展示，不伪造分析版本和情绪',async()=
  expect(screen.getByText('红果原始评论')).toBeTruthy();
  expect(document.querySelectorAll('.feedback-meter')).toHaveLength(0);
  expect(screen.getByText(/未分析，跨集归属未验证/)).toBeTruthy();
+});
+
+it('无法判断倾向不进入情绪比例，原文仍可查看',async()=>{
+ mount({...absent,status:'ready',feedback_id:id,feedback_version:2,sample_count:2,classified_count:1,sampling_description:'授权样本',coverage_note:'小样本',comments:[c1,c2].map((cid,i)=>({id:cid,created_at:stamp,content_id:id,platform_comment_id:String(i),body_text:i?'看不懂上下文':'好看',username:null,like_count:'1',posted_at_raw:null,posted_at:null,captured_at:stamp})),claims:[
+ {id,kind:'emotion',text:'喜欢',support_count:1,comment_ids:[c1],details:{trigger:'人物',sentiment:'positive'}},
+ {id:c1,kind:'emotion',text:'无法判断',support_count:1,comment_ids:[c2],details:{trigger:'上下文不足',sentiment:'unclassifiable'}}]});
+ await screen.findByText('1 条 · 100%');
+ expect(screen.getByText('正面')).toBeTruthy();expect(screen.getByText('无法判断')).toBeTruthy();
+ expect(document.querySelectorAll('.feedback-meter')).toHaveLength(1);
+});
+it('无评论或没有模型配置时不会创建分析',async()=>{
+ const {fetcher}=mount({...absent,analysis_model_ready:false,sample_key:null,analysis:null,summary:null});
+ await screen.findByText('该日期评论未获取');
+ expect(screen.getByRole('button',{name:'评论分析'}).hasAttribute('disabled')).toBe(true);
+ expect(fetcher).toHaveBeenCalledOnce();
 });

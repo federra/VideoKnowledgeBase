@@ -7,7 +7,8 @@ import type { PageRenderers } from '../demo/types';
 export const workspaces = [intelligence, research, knowledge, consoleWorkspace] as const;
 export const businesses = ['AI漫剧', '故事短片', '电商短视频'] as const;
 export const getWorkspace = (id: number) => workspaces.find(workspace => workspace.id === id);
-export function renderWorkspace(module: number, tab: number, renderers: PageRenderers): string {
+export function renderWorkspace(module: number, tab: number, renderers: PageRenderers, realTopics=true): string {
+  if (realTopics && ((module === 0 && (tab === 1 || tab === 2)) || (module === 3 && tab === 5))) return "";
   if (module === 1 && (tab === 0 || tab === 2)) return "";
   if (module === 0 && tab === 0) return "";
   if (module === 2 && tab === 0) return "";

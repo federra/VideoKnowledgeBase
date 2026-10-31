@@ -15,7 +15,7 @@ from app.connectors.novels import (
     qidian_catalog,
 )
 from app.core.models import metadata
-from app.core.repository import create_task
+from app.core.repository import compare_and_swap, create_task
 from app.intelligence.service import shanghai_date
 from app.security.authorization import Authorizer
 from app.security.primitives import digest
@@ -44,7 +44,7 @@ class NovelCollect(Collect):
             else ("novel." + str(platform) + ".board")
         )
         if (
-            platform not in ("fanqie", "qidian")
+            platform not in ("fanqie", "qidian", "qimao")
             or source["platform_code"] != platform
             or source["board_code"] != request.get("code")
             or source["business_code"] != task["business_code"]
@@ -60,7 +60,7 @@ class NovelCollect(Collect):
             or job["plan_id"] is not None
             or digest(request) != job["request_sha256"]
             or job["max_requests"] != 1
-            or job["max_items"] != 30
+            or job["max_items"] != (20 if platform == "qimao" else 30)
             or task["max_external_calls"] != 1
         ):
             raise TaskError("INVALID_INPUT")
@@ -70,7 +70,7 @@ class NovelCollect(Collect):
             "connection_version": conn["lock_version"],
             "request": request,
             "capability": job["capability_code"],
-            "maximum": 30,
+            "maximum": job["max_items"],
             "business_date": str(job["business_date"]),
         }
 
@@ -125,7 +125,17 @@ class NovelCollect(Collect):
         )
 
 
-def submit(c, p, board, handler, *, business="motion_comic", external_calls=1, inputs=()):
+def submit(
+    c,
+    p,
+    board,
+    handler,
+    *,
+    business="motion_comic",
+    external_calls=1,
+    inputs=(),
+    refresh_existing=False,
+):
     refresh(c, p)
     az = Authorizer(c, p)
     for action in ("source.configure", "collection.run"):
@@ -135,7 +145,7 @@ def submit(c, p, board, handler, *, business="motion_comic", external_calls=1, i
     code = board.get("code")
     day = shanghai_date()
     if (
-        platform not in ("fanqie", "qidian")
+        platform not in ("fanqie", "qidian", "qimao")
         or not isinstance(code, str)
         or not code.startswith(platform + ":")
     ):
@@ -178,7 +188,7 @@ def submit(c, p, board, handler, *, business="motion_comic", external_calls=1, i
             )
         )
         name = (
-            ("番茄小说" if platform == "fanqie" else "起点中文网") + " · " + board.get("name", code)
+            {"fanqie": "番茄小说", "qidian": "起点中文网", "qimao": "七猫中文网"}[platform] + " · " + board.get("name", code)
         )
         existing = (
             c.exec_driver_sql(
@@ -189,21 +199,35 @@ def submit(c, p, board, handler, *, business="motion_comic", external_calls=1, i
             .one_or_none()
         )
         if existing:
-            raise TaskError(
-                "SOURCE_UNAVAILABLE"
-            )  # Re-arming a paused source is a separate explicit decision.
-        source = insert(
-            c,
-            "sources",
-            p.org_id,
-            name=name,
-            business_code=business,
-            platform_code=platform,
-            target_kind="board",
-            board_code=code,
-            enabled=True,
-            created_by=p.member_id,
-        )
+            if not refresh_existing:
+                raise TaskError("SOURCE_UNAVAILABLE")
+            az.require("sources", existing["id"], "source.configure")
+            if existing["target_kind"] != "board":
+                raise TaskError("INVALID_INPUT")
+            if not existing["enabled"]:
+                compare_and_swap(
+                    c,
+                    "sources",
+                    p.org_id,
+                    existing["id"],
+                    existing["lock_version"],
+                    {"enabled": True},
+                )
+            source = existing["id"]
+            audit(c, p.org_id, p.member_id, "novel.explicit_refresh", "source", source)
+        else:
+            source = insert(
+                c,
+                "sources",
+                p.org_id,
+                name=name,
+                business_code=business,
+                platform_code=platform,
+                target_kind="board",
+                board_code=code,
+                enabled=True,
+                created_by=p.member_id,
+            )
         tid = uuid4()
         job = insert(
             c,
@@ -219,7 +243,7 @@ def submit(c, p, board, handler, *, business="motion_comic", external_calls=1, i
             safe_request=board,
             request_sha256=digest(board),
             max_requests=1,
-            max_items=30,
+            max_items=20 if platform == "qimao" else 30,
         )
         values = {
             "id": tid,

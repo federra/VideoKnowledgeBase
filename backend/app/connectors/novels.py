@@ -15,7 +15,7 @@ from app.connectors.redfox import AdapterError, Batch, Reply, number
 VERSION = "novel-public-v1"
 CATALOG = "novel.fanqie.catalog"
 QCATALOG = "novel.qidian.catalog"
-CAPABILITIES = {CATALOG, QCATALOG, "novel.fanqie.board", "novel.qidian.board"}
+CAPABILITIES = {CATALOG, QCATALOG, "novel.fanqie.board", "novel.qidian.board", "novel.qimao.board"}
 RANK_NAMES = {"read": "阅读榜", "new": "新书榜"}
 MAX_BYTES = 3 * 1024 * 1024
 
@@ -224,7 +224,7 @@ class PublicNovels:
         pass
 
     def fetch(self, capability, request, *, maximum):
-        if capability not in CAPABILITIES or type(maximum) is not int or (not 1 <= maximum <= 30):
+        if capability not in CAPABILITIES - {"novel.qimao.board"} or type(maximum) is not int or (not 1 <= maximum <= 30):
             raise AdapterError("INVALID_INPUT")
         params = None
         if capability == CATALOG:

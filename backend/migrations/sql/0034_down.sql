@@ -1,0 +1,12 @@
+DROP TRIGGER zz_feedback_v2 ON tasks;
+DROP TRIGGER zz_feedback_v2 ON task_inputs;
+DROP TRIGGER zz_feedback_v2 ON task_outputs;
+DROP TRIGGER zz_feedback_v2 ON task_attempts;
+DROP TRIGGER zz_feedback_v2 ON ai_executions;
+DROP TRIGGER zz_feedback_v2 ON raw_assets;
+DROP TRIGGER zz_feedback_v2 ON feedback_snapshots;
+DROP TRIGGER zz_feedback_v2 ON feedback_comments;
+DROP TRIGGER zz_feedback_v2 ON feedback_claims;
+DROP TRIGGER zz_feedback_v2 ON feedback_claim_evidence;
+DROP FUNCTION cip_feedback_v2_guard();
+DO $$ DECLARE definition text; BEGIN definition:=pg_get_functiondef('cip_validate()'::regprocedure); definition:=replace(definition, ' AND (c.details->>''sentiment'' IS DISTINCT FROM ''unclassifiable'' OR NOT EXISTS(SELECT 1 FROM tasks ft WHERE ft.id=f.task_id AND ft.org_id=f.org_id AND ft.kind=''audience.feedback'' AND ft.handler_version=''2''))', ''); EXECUTE definition; END $$;

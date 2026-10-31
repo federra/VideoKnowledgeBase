@@ -120,6 +120,8 @@ def snapshot(c, p, purpose, r, v, comparisons):
                 "title": item["title"],
                 "body": item["body_text"],
                 "limitations": item["limitations"],
+                "source_text": item.get("source_text"),
+                "explanation": item.get("explanation"),
             }
         )
     return {
@@ -137,6 +139,8 @@ def snapshot(c, p, purpose, r, v, comparisons):
             "title": v.get("title"),
             "body": v.get("body_text", v.get("body")),
             "limitations": v.get("limitations"),
+            "source_text": v.get("source_text"),
+            "explanation": v.get("explanation"),
             "tags": v.get("tags", []),
             "business_codes": business,
         },

@@ -9,7 +9,7 @@ from app.contracts.models import Business, Contract, Count, FeedItem
 class NovelQuery(Contract):
     business_code: Business
     business_date: date
-    platform: Literal["all", "fanqie", "qidian"] = "all"
+    platform: Literal["all", "fanqie", "qidian", "qimao"] = "all"
     rank_type: str | None = Field(default=None, max_length=80)
     gender: Literal["male", "female", "all"] | None = None
     genre: str | None = Field(default=None, max_length=100)
@@ -25,7 +25,7 @@ class NovelOption(Contract):
 
 
 class NovelBoard(Contract):
-    platform: Literal["fanqie", "qidian"]
+    platform: Literal["fanqie", "qidian", "qimao"]
     rank_type: str
     rank_name: str | None = None
     method: str | None = None
@@ -43,12 +43,14 @@ class NovelItem(Contract):
     work_gender: Literal["male", "female"] | None
     work_genre: str | None
     reader_count: Count | None
+    heat_value: Count | None = None
+    heat_display: str | None = None
     rank: int = Field(ge=1)
     board: NovelBoard
 
 
 class NovelStatus(Contract):
-    platform: Literal["fanqie", "qidian"]
+    platform: Literal["fanqie", "qidian", "qimao"]
     board: str
     state: str
     http_status: int | None

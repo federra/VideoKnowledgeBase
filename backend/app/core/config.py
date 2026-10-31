@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     app_name: str = "content-intelligence-api"
     redfox_api_key: SecretStr | None = None
     deepseek_key: SecretStr | None = None
+    openai_api_key: SecretStr | None = None
     tikhub_api_key: SecretStr | None = None
     database_url: SecretStr | None = None
     migration_database_url: SecretStr | None = None
@@ -20,6 +21,7 @@ class Settings(BaseSettings):
 
     allowed_origins: list[str] = ["http://127.0.0.1:5173", "http://localhost:5173"]
     local_single_user: bool = False
+    passwordless_access: bool = False
     secure_cookies: bool = False
     storage_root: Path = Path(__file__).resolve().parents[3] / "data"
     max_file_bytes: int = 50 * 1024 * 1024

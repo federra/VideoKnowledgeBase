@@ -35,8 +35,9 @@ ORG_ONLY = {"member.manage", "role.manage", "model.configure", "audit.read"}
 
 
 class Authorizer:
-    def __init__(self, connection, principal):
+    def __init__(self, connection, principal, *, include_recycled=False):
         self.c, self.p = connection, principal
+        self.include_recycled = include_recycled
 
     def row(self, kind, ident):
         if kind not in SUPPORTED:
@@ -64,15 +65,7 @@ class Authorizer:
             scopes |= self.scopes("standards", self.row("standards", row["standard_id"]))
         elif kind == "knowledge_revisions":
             scopes.add(("knowledge", str(row["knowledge_id"])))
-            t = metadata.tables["knowledge_businesses"]
-            scopes |= {
-                ("business", code)
-                for code in self.c.execute(
-                    select(t.c.business_code).where(
-                        t.c.org_id == self.p.org_id, t.c.revision_id == row["id"]
-                    )
-                ).scalars()
-            }
+            scopes |= {("business", code) for code in self.knowledge_businesses(row["id"])}
         elif kind == "evidence_refs":
             for field, target in [
                 ("raw_asset_id", "raw_assets"),
@@ -97,6 +90,42 @@ class Authorizer:
             scopes.add(("business", row["business_code"]))
         return scopes
 
+    def knowledge_businesses(self, rid):
+        t = metadata.tables["knowledge_businesses"]
+        return list(
+            self.c.execute(
+                select(t.c.business_code).where(t.c.org_id == self.p.org_id, t.c.revision_id == rid)
+            ).scalars()
+        )
+
+    def knowledge_evidence(self, rid):
+        t = metadata.tables["knowledge_evidence"]
+        return list(
+            self.c.execute(
+                select(t.c.evidence_id).where(t.c.org_id == self.p.org_id, t.c.revision_id == rid)
+            ).scalars()
+        )
+
+    def publication_revision(self, pid):
+        t = metadata.tables["knowledge_publications"]
+        return self.c.execute(
+            select(t.c.revision_id).where(t.c.org_id == self.p.org_id, t.c.id == pid)
+        ).scalar_one_or_none()
+
+    def is_published(self, rid):
+        t = metadata.tables["knowledge_publications"]
+        return bool(
+            self.c.execute(
+                select(t.c.id).where(t.c.org_id == self.p.org_id, t.c.revision_id == rid)
+            ).first()
+        )
+
+    def _refresh(self):
+        return refresh(self.c, self.p)
+
+    def _grants(self):
+        return active_grants(self.c, self.p)
+
     def allowed(self, action, scopes):
         return any(
             g["action_code"] == action
@@ -115,7 +144,28 @@ class Authorizer:
                     in scopes
                 )
             )
-            for g in active_grants(self.c, self.p)
+            for g in self._grants()
+        )
+
+    def raw_asset_state(self, ident):
+        e = metadata.tables["raw_asset_events"]
+        return self.c.execute(
+            select(e.c.event_kind)
+            .where(
+                e.c.org_id == self.p.org_id,
+                e.c.raw_asset_id == ident,
+                e.c.event_kind.in_(["withdrawn", "access_revoked", "availability_restored"]),
+            )
+            .order_by(e.c.event_no.desc())
+            .limit(1)
+        ).scalar_one_or_none()
+
+    def provenance_parents(self, node):
+        return list(
+            self.c.exec_driver_sql(
+                "SELECT parent FROM cip_graph_edges(%s) WHERE child=%s",
+                (self.p.org_id, node),
+            ).scalars()
         )
 
     def check(self, kind, ident, action, path=()):
@@ -125,57 +175,61 @@ class Authorizer:
         path = (*path, node)
         row = self.row(kind, ident)
         scopes = self.scopes(kind, row)
+        if kind in ("knowledge_items", "knowledge_revisions"):
+            identity = (
+                row
+                if kind == "knowledge_items"
+                else self.row("knowledge_items", row["knowledge_id"])
+            )
+            if identity.get("purged_at") is not None or (
+                not self.include_recycled and identity.get("recycled_at") is not None
+            ):
+                raise Denied("NOT_FOUND")
         if kind == "knowledge_items":
             # Formal and candidate entry points are explicit and never substitute for
             # one another. Every subsequent action uses the exact selected Revision.
             if action == "knowledge.candidate.read":
                 revision = row["current_revision_id"]
             else:
-                pub = metadata.tables["knowledge_publications"]
-                revision = self.c.execute(
-                    select(pub.c.revision_id).where(
-                        pub.c.org_id == self.p.org_id, pub.c.id == row["published_publication_id"]
-                    )
-                ).scalar_one_or_none()
+                revision = self.publication_revision(row["published_publication_id"])
             if not revision:
                 raise Denied("NOT_FOUND")
             revision_row = self.check("knowledge_revisions", revision, action, path)
             scopes |= self.scopes("knowledge_revisions", revision_row)
             row = {**row, "title": revision_row["title"], "current_revision_id": revision}
         elif kind == "knowledge_revisions" and action != "knowledge.candidate.read":
-            pub = metadata.tables["knowledge_publications"]
-            published = self.c.execute(
-                select(pub.c.id).where(pub.c.org_id == self.p.org_id, pub.c.revision_id == ident)
-            ).first()
+            published = self.is_published(ident)
             if not published:
                 raise Denied("NOT_FOUND")
         if not self.allowed(action, scopes):
             raise Denied("NOT_FOUND")
         if kind == "file_objects" and row["validation_state"] != "accepted":
             raise Denied("NOT_FOUND")
+        if kind == "file_objects":
+            self._genre_file_sources(ident, path)
+            self._feedback_sources(ident, file=True)
         if kind == "raw_assets":
-            e = metadata.tables["raw_asset_events"]
-            state = self.c.execute(
-                select(e.c.event_kind)
-                .where(
-                    e.c.org_id == self.p.org_id,
-                    e.c.raw_asset_id == ident,
-                    e.c.event_kind.in_(["withdrawn", "access_revoked", "availability_restored"]),
-                )
-                .order_by(e.c.event_no.desc())
-                .limit(1)
-            ).scalar_one_or_none()
+            state = self.raw_asset_state(ident)
             if state in ("withdrawn", "access_revoked"):
                 raise Denied("NOT_FOUND")
+            if row["origin"] == "manual" and '"match_key"' in (row.get("body_text") or ""):
+                self._feedback_sources(ident)
+            # Genre gloss inputs/outputs retain the full knowledge dependency set.
+            # Generic raw provenance alone only follows raw/material edges.
+            dependencies = (
+                self.genre_raw_dependencies(ident, row.get("processing_task_id"))
+                if row["origin"] in ("manual", "processing")
+                and (row.get("body_text") or "").lstrip().startswith("{")
+                else ()
+            )
+            for rid in dependencies:
+                self.check("knowledge_revisions", rid, "content.read", path)
         for field in ("file_id", "cover_file_id"):
             if row.get(field):
-                self._file(row[field], scopes)
+                self._file(row[field], scopes, path=path)
         if kind in ("raw_assets", "artifact_versions"):
             prefix = "r:" if kind == "raw_assets" else "v:"
-            edges = self.c.exec_driver_sql(
-                "SELECT parent FROM cip_graph_edges(%s) WHERE child=%s",
-                (self.p.org_id, prefix + str(ident)),
-            ).scalars()
+            edges = self.provenance_parents(prefix + str(ident))
             for parent in edges:
                 self.check(
                     "raw_assets" if parent.startswith("r:") else "artifact_versions",
@@ -203,12 +257,7 @@ class Authorizer:
                 if row[field]:
                     self.check(target, row[field], "evidence.read", path)
         if kind == "knowledge_revisions":
-            links = metadata.tables["knowledge_evidence"]
-            for evidence in self.c.execute(
-                select(links.c.evidence_id).where(
-                    links.c.org_id == self.p.org_id, links.c.revision_id == ident
-                )
-            ).scalars():
+            for evidence in self.knowledge_evidence(ident):
                 self.check("evidence_refs", evidence, "evidence.read", path)
             if row["source_report_id"]:
                 self.check("analysis_reports", row["source_report_id"], "evidence.read", path)
@@ -217,7 +266,7 @@ class Authorizer:
         return row
 
     def read(self, kind, ident):
-        refresh(self.c, self.p)
+        self._refresh()
         action = {
             "file_objects": "file.read",
             "tasks": "task.read",
@@ -235,7 +284,7 @@ class Authorizer:
     def candidate(self, kind, ident):
         if kind not in ("knowledge_items", "knowledge_revisions"):
             raise Denied("VALIDATION_FAILED")
-        refresh(self.c, self.p)
+        self._refresh()
         return self.check(kind, ident, "knowledge.candidate.read")
 
     def require(self, kind, ident, action, *, candidate=False):
@@ -259,15 +308,63 @@ class Authorizer:
             raise Denied("ACCESS_DENIED")
         return row
 
-    def _file(self, ident, parent_scopes=None):
+    def _feedback_sources(self, ident, *, file=False):
+        for task in self.feedback_dependency_tasks(ident, file=file):
+            if file:
+                # The manifest itself may also be withdrawn independently.
+                self.check("raw_assets", task["raw_asset_id"], "evidence.read")
+            else:
+                from app.intelligence.feedback_v2 import frozen
+
+                frozen(self.c, self.p, task, auth=self if hasattr(self, "memo") else None)
+
+    def feedback_dependency_tasks(self, ident, *, file=False):
+        if file:
+            query = "SELECT DISTINCT t.* FROM tasks t JOIN ai_executions e ON e.org_id=t.org_id AND e.task_id=t.id WHERE t.org_id=%s AND t.kind='audience.feedback' AND t.handler_version IN ('2','3') AND (e.input_manifest_file_id=%s OR e.output_file_id=%s)"
+            params = (self.p.org_id, ident, ident)
+        else:
+            query = "SELECT * FROM tasks WHERE org_id=%s AND kind='audience.feedback' AND handler_version IN ('2','3') AND raw_asset_id=%s"
+            params = (self.p.org_id, ident)
+        return self.c.exec_driver_sql(query, params).mappings().all()
+
+    def _genre_file_sources(self, ident, path):
+        for rid in self.genre_file_dependencies(ident):
+            self.check("knowledge_revisions", rid, "content.read", path)
+
+    def genre_raw_dependencies(self, ident, processing_task_id):
+        return self.c.exec_driver_sql(
+            "SELECT DISTINCT i.knowledge_revision_id FROM tasks t JOIN task_inputs i "
+            "ON i.org_id=t.org_id AND i.task_id=t.id AND i.role='target' "
+            "WHERE t.org_id=%s AND t.kind='knowledge.genre_explain' "
+            "AND (t.raw_asset_id=%s OR t.id=%s) AND i.knowledge_revision_id IS NOT NULL",
+            (self.p.org_id, ident, processing_task_id),
+        ).scalars()
+
+    def genre_file_dependencies(self, ident):
+        return self.c.exec_driver_sql(
+            "SELECT DISTINCT i.knowledge_revision_id FROM ai_executions e "
+            "JOIN tasks t ON t.org_id=e.org_id AND t.id=e.task_id "
+            "JOIN task_inputs i ON i.org_id=t.org_id AND i.task_id=t.id AND i.role='target' "
+            "WHERE e.org_id=%s AND t.kind='knowledge.genre_explain' "
+            "AND (e.input_manifest_file_id=%s OR e.output_file_id=%s) "
+            "AND i.knowledge_revision_id IS NOT NULL",
+            (self.p.org_id, ident, ident),
+        ).scalars()
+
+    def _file(self, ident, parent_scopes=None, *, path=()):
         row = self.row("file_objects", ident)
         scopes = self.scopes("file_objects", row) | (parent_scopes or set())
         if row["validation_state"] != "accepted" or not self.allowed("file.read", scopes):
             raise Denied("NOT_FOUND")
+        node = ("file_objects", ident)
+        if node in path or len(path) >= 32:
+            raise Denied("PROVENANCE_DEPTH_EXCEEDED")
+        self._genre_file_sources(ident, (*path, node))
+        self._feedback_sources(ident, file=True)
         return row
 
     def file(self, ident, parent=None):
-        refresh(self.c, self.p)
+        self._refresh()
         scopes = None
         if parent:
             row = self.read(*parent)
@@ -289,7 +386,7 @@ class Authorizer:
         return self._file(ident, scopes)
 
     def list(self, kind, *, q=None, limit=100, offset=0, candidate=False):
-        refresh(self.c, self.p)
+        self._refresh()
         if kind not in SUPPORTED or not 1 <= limit <= 100 or offset < 0:
             raise Denied("VALIDATION_FAILED")
         if candidate and kind not in ("knowledge_items", "knowledge_revisions"):

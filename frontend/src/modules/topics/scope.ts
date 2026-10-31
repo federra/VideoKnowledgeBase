@@ -1,0 +1,3 @@
+const cleanups=new Set<(scope:string)=>void>();
+export function registerTopicCleanup(cleanup:(scope:string)=>void){cleanups.add(cleanup);}
+export function clearTopicSessionState(scope:string){for(const cleanup of cleanups)cleanup(scope);try{const keys:string[]=[];for(let i=0;i<sessionStorage.length;i++){const key=sessionStorage.key(i);if(key?.startsWith('cip-topic-draft:'+scope+':')||key?.startsWith('cip-topic-task:'+scope+':')||key?.startsWith('cip-topic-pending:'+scope+':')||key?.startsWith('cip-topic-score:'+scope+':'))keys.push(key);}for(const key of keys)sessionStorage.removeItem(key);}catch{/* optional storage */}}

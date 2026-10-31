@@ -12,7 +12,7 @@ pytest_plugins = ("tests.integration.test_security",)
 pytestmark = pytest.mark.database
 
 
-def test_series_capture_seals_one_response_and_replay_does_not_spend(engine, setup):
+def test_series_capture_seals_one_response_and_replay_does_not_spend(engine, setup, tmp_path, monkeypatch):
     from app.collection.series import CaptureSeries, submit_capture
     from app.connectors.tikhub_series import VERSION, Series
     from app.security.sessions import authenticate
@@ -77,3 +77,27 @@ def test_series_capture_seals_one_response_and_replay_does_not_spend(engine, set
         assert IntelligenceFeed.model_validate(data).keyword_ranking_status == "series_order"
         assert submit_normalization(c, p, raw_id) == tid
         assert feed(c, p, "motion_comic", shanghai_date(), "creator")["items"] == []
+
+    # Two Hongguo boards contain the same two works: global video count is
+    # 10 TikHub + 2 Hongguo, independent of selected catalog and list filters.
+    from app.collection.hongguo import CaptureHongguo
+    from app.collection.hongguo import submit as submit_hongguo
+    from app.connectors import hongguo
+    from tests.test_hongguo import html
+
+    monkeypatch.setattr(hongguo, "INTERVAL", 0)
+
+    def public_response(request):
+        board = request.url.path.rsplit("/", 1)[-1]
+        return httpx.Response(200, text=html(board, hongguo.BOARDS[board], count=2))
+
+    public = CaptureHongguo(hongguo.Hongguo(httpx.Client(transport=httpx.MockTransport(public_response)), tmp_path/"gate.json"))
+    public_runner = Runner(engine, {("collect.hongguo", hongguo.VERSION):public})
+    for code in ("hot-drama","hot-ai-drama"):
+        with engine.begin() as c:
+            job = submit_hongguo(c, authenticate(c, token), {"board":code}, public)
+        assert public_runner.run(p.org_id, UUID(job["task_id"])) == "succeeded"
+    with engine.begin() as c:
+        p = authenticate(c, token)
+        for lane, options in [("board",{"video_catalog":"tikhub"}),("board",{"video_catalog":"hongguo"}),("board",{"video_catalog":"hongguo","video_board":"hot-comic-drama"}),("creator",{}),("board",{"q":"no match","page":2})]:
+            assert feed(c,p,"motion_comic",shanghai_date(),lane,**options)["metrics"]["videos"] == "12"

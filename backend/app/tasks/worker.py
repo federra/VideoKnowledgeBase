@@ -18,11 +18,43 @@ def runtime():
 def knowledge_queue(org, tid):
     with runtime().engine.connect() as c:
         kind = c.exec_driver_sql(
-            "SELECT kind FROM tasks WHERE org_id=%s AND id=%s", (org, tid)
+            "SELECT CASE WHEN idempotency_key LIKE 'refresh/%%' THEN 'intelligence.refresh' ELSE kind END FROM tasks WHERE org_id=%s AND id=%s",
+            (org, tid),
         ).scalar_one_or_none()
     # One-shot public novel batches run only in the explicit local CLI Runner.
     # Ignore even a stale/manual common-queue delivery, without changing task state.
-    if kind in ("collect.novels", "collect.hongguo"):
+    if kind in (
+        "knowledge.genre_explain",
+        "collect.novels",
+        "collect.hongguo",
+        "collect.hongguo.saved",
+        "collect.creator-posts.resume",
+        "collect.microfilm.resume",
+        "collect.tikhub-series",
+        "series.normalize",
+        "intelligence.refresh",
+        "intelligence.refresh.resume",
+        "creator.resolve",
+        "collect.creator-series",
+        "collect.creator-posts",
+        "collect.microfilm",
+        "creator.series.reparse",
+        "creator.browser.comments",
+        "creator.browser.reparse",
+    ):
+        return True
+    if kind == "topic.score":
+        from app.topics.score_worker import dispatch_score
+        dispatch_score(org, tid)
+        return True
+    if kind == "audience.feedback":
+        from app.ai.feedback_worker import dispatch_feedback
+
+        dispatch_feedback(org, tid)
+        return True
+    if kind == "topic.generate":
+        from app.topics.worker import dispatch_generation
+        dispatch_generation(org, tid)
         return True
     if kind in ("knowledge.extract", "knowledge.review"):
         from app.knowledge.worker import dispatch_knowledge
@@ -54,3 +86,10 @@ def tick():
 
     schedule(runtime())
     sweep(runtime(), dispatch)
+
+
+@app.task(name="cip.knowledge_retention", ignore_result=True)
+def knowledge_retention():
+    from app.knowledge.retention import maintain
+
+    maintain(runtime().engine)

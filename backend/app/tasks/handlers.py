@@ -72,11 +72,22 @@ def registry():
     from app.collection.schedule import KnowledgeIntake
     from app.connectors.redfox import VERSION, RedFox
     from app.core.config import settings
+    from app.intelligence.feedback_v2 import FeedbackV2
+    from app.intelligence.feedback_v3 import FeedbackV3
     from app.knowledge.tasks import KnowledgeTask
     from app.processing.research import Parse
     from app.research.analysis_task import Analyze
+    from app.topics.generation import Generate
+    from app.topics.generation_v2 import GenerateV2
+    from app.topics.scoring import LegacyScore, Score
 
     return {
+        ("audience.feedback", "2"): FeedbackV2(),
+        ("audience.feedback", "3"): FeedbackV3(),
+        ('topic.generate', '1'): Generate(),
+        ('topic.generate', '2'): GenerateV2(),
+        ('topic.score', '1'): LegacyScore(),
+        ('topic.score', '2'): Score(),
         **{("knowledge." + p, "2"): KnowledgeTask(p) for p in ("extract", "review")},
         ("research.parse", "1"): Parse(),
         **{

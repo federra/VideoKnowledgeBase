@@ -29,13 +29,18 @@ def get_engine():
 
 def preflight(request: Request, engine: Annotated[Engine, Depends(get_engine)]):
     request.state.request_id = uuid4()
-    if not settings.secure_cookies and request.url.hostname not in ("127.0.0.1", "localhost"):
+    if (not settings.secure_cookies and not settings.passwordless_access
+            and request.url.hostname not in ("127.0.0.1", "localhost")):
         raise Denied("SERVICE_NOT_READY")
     if settings.secure_cookies and request.url.scheme != "https":
         raise Denied("SERVICE_NOT_READY")
-    if settings.local_single_user:
-        from app.security.local import check_local
-        check_local(request)
+    if settings.local_single_user or settings.passwordless_access:
+        if settings.passwordless_access:
+            from app.security.workspace_entry import check_shared_workspace
+            check_shared_workspace(request)
+        else:
+            from app.security.local import check_local
+            check_local(request)
         if request.url.path == "/api/v1/session":
             if request.method != "GET":
                 raise Denied("ACCESS_DENIED")
@@ -61,12 +66,12 @@ def preflight(request: Request, engine: Annotated[Engine, Depends(get_engine)]):
 
 
 def dispatch(*, request, engine, body=None, session=None, csrf_token=None):
-    if settings.local_single_user:
+    if settings.local_single_user or settings.passwordless_access:
         from app.security.local import enter
         with engine.begin() as c:
             raw, payload = enter(c, session)
         result = response(payload, request.state.request_id)
-        result.set_cookie("cip_session", raw, httponly=True, secure=False,
+        result.set_cookie("cip_session", raw, httponly=True, secure=settings.secure_cookies,
                           samesite="strict", max_age=8*3600, path="/api/v1")
         return result
     if request.method == "POST":

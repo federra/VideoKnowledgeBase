@@ -110,9 +110,12 @@ ErrorCode = Literal[
     "CANCEL_UNCONFIRMED",
     "STANDARD_NOT_APPROVED",
     "MODEL_NOT_CONFIGURED",
+    "ORIGINALITY_RISK",
+    "RUBRIC_UNAVAILABLE",
     "INSUFFICIENT_MATERIAL",
     "DATE_WINDOW_MISMATCH",
     "SOURCE_UNAVAILABLE",
+    "SOURCE_VERIFICATION_REQUIRED",
     "FILE_NOT_ACCEPTED",
     "UNSUPPORTED_SOURCE",
     "PROVENANCE_DEPTH_EXCEEDED",
@@ -143,9 +146,12 @@ ERROR_STATUS = {
     "CANCEL_UNCONFIRMED": 409,
     "STANDARD_NOT_APPROVED": 409,
     "MODEL_NOT_CONFIGURED": 409,
+    "ORIGINALITY_RISK": 422,
+    "RUBRIC_UNAVAILABLE": 409,
     "INSUFFICIENT_MATERIAL": 422,
     "DATE_WINDOW_MISMATCH": 409,
     "SOURCE_UNAVAILABLE": 409,
+    "SOURCE_VERIFICATION_REQUIRED": 409,
     "FILE_NOT_ACCEPTED": 409,
     "UNSUPPORTED_SOURCE": 422,
     "PROVENANCE_DEPTH_EXCEEDED": 422,
@@ -227,7 +233,7 @@ class SourceCreate(Contract):
 
 
 class Source(SourceCreate, MutableEntity):
-    platform_code: Literal["douyin", "fanqie", "qidian", "hongguo"]
+    platform_code: Literal["douyin", "fanqie", "qidian", "hongguo", "qimao"]
     enabled: bool
 
 
@@ -354,9 +360,11 @@ class Snapshot(ImmutableEntity):
 class Observation(Contract):
     id: UUID
     kind: Literal["account", "content"]
-    platform_code: Literal["douyin", "fanqie", "qidian", "hongguo"]
+    platform_code: Literal["douyin", "fanqie", "qidian", "hongguo", "qimao"]
     platform_id: NonEmpty
     reader_count: Count | None = Field(default=None, exclude_if=lambda value: value is None)
+    heat_value: Count | None = Field(default=None, exclude_if=lambda value: value is None)
+    heat_display: str | None = Field(default=None, exclude_if=lambda value: value is None)
     display_name: str | None
     description: str | None
     original_url: str | None
@@ -501,6 +509,34 @@ class Feedback(Entity):
     comments: list[CommentEvidence]
 
 
+class AnalyzeFeedbackRequest(Contract):
+    business_code: Business
+    business_date: date
+    expected_sample_key: Digest
+    retry_of: UUID | None = None
+
+
+class FeedbackAnalysisView(Contract):
+    id: UUID
+    entry_id: UUID
+    snapshot_id: UUID
+    business_code: Business
+    business_date: date
+    sample_key: Digest
+    state: TaskState
+    result_state: Literal['completed', 'insufficient_evidence'] | None
+    safe_error_code: ErrorCode | None
+    feedback_id: UUID | None
+
+    @model_validator(mode='after')
+    def successful_evidence(self):
+        if (self.state == 'succeeded') != (self.result_state is not None and self.feedback_id is not None):
+            raise ValueError('Successful analysis must bind its own sealed feedback')
+        if self.state != 'succeeded' and (self.result_state is not None or self.feedback_id is not None):
+            raise ValueError('Unfinished analysis cannot expose another result')
+        return self
+
+
 class EntryFeedback(Contract):
     entry_id: UUID
     snapshot_id: UUID
@@ -517,6 +553,10 @@ class EntryFeedback(Contract):
     classified_count: Annotated[int, Field(ge=0)] | None
     comments: list[CommentEvidence]
     claims: list[FeedbackClaim]
+    sample_key: Digest | None = None
+    analysis_model_ready: bool = False
+    analysis: FeedbackAnalysisView | None = None
+    summary: str | None = None
 
 
 class ResearchEvidenceCreate(Contract):
@@ -758,6 +798,8 @@ class Tag(Contract):
 
 
 class KnowledgeCreate(Contract):
+    source_text: str | None = Field(default=None, max_length=2000)
+    explanation: str | None = Field(default=None, max_length=12000)
     title: NonEmpty
     body_text: Annotated[
         str,

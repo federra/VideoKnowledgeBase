@@ -93,6 +93,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--execute", action="store_true")
     parser.add_argument(
+        "--refresh-existing",
+        action="store_true",
+        help="Explicitly authorize one current-day refresh of existing sources; pause after each task",
+    )
+    parser.add_argument(
         "--resume",
         action="store_true",
         help="Resume local stopped batch; completed provider calls are never repeated",
@@ -143,7 +148,9 @@ def main():
             saved = None
             try:
                 with engine.begin() as c:
-                    saved = submit(c, p, board, handler)
+                    saved = submit(
+                        c, p, board, handler, refresh_existing=args.refresh_existing
+                    )
                 with engine.begin() as c:
                     state = c.exec_driver_sql(
                         "SELECT state FROM tasks WHERE org_id=%s AND id=%s",

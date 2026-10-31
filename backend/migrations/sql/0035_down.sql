@@ -1,0 +1,23 @@
+DO $$ BEGIN IF EXISTS(SELECT 1 FROM tasks WHERE kind='audience.feedback' AND handler_version='3') THEN RAISE EXCEPTION 'cannot downgrade stored v3 batch history'; END IF; END $$;
+DROP TRIGGER zz_feedback_v3 ON tasks;
+DROP TRIGGER zz_feedback_v3 ON task_inputs;
+DROP TRIGGER zz_feedback_v3 ON task_outputs;
+DROP TRIGGER zz_feedback_v3 ON task_attempts;
+DROP TRIGGER zz_feedback_v3 ON ai_executions;
+DROP TRIGGER zz_feedback_v3 ON raw_assets;
+DROP TRIGGER zz_feedback_v3 ON feedback_snapshots;
+DROP TRIGGER zz_feedback_v3 ON feedback_comments;
+DROP TRIGGER zz_feedback_v3 ON feedback_claims;
+DROP TRIGGER zz_feedback_v3 ON feedback_claim_evidence;
+DROP FUNCTION cip_feedback_v3_guard();
+DROP TRIGGER b_feedback_entry ON feedback_snapshots;
+DROP FUNCTION cip_feedback_entry_guard();
+DROP INDEX uq_feedback_legacy_task;
+ALTER TABLE feedback_snapshots DROP CONSTRAINT uq_feedback_snapshots_1;
+ALTER TABLE feedback_snapshots ADD CONSTRAINT uq_feedback_snapshots_1 UNIQUE(org_id,task_id);
+ALTER TABLE feedback_snapshots DROP COLUMN entry_id;
+DO $$ DECLARE definition text; BEGIN
+ definition:=pg_get_functiondef('cip_validate()'::regprocedure);
+ definition:=replace(definition, 'ft.handler_version IN (''2'',''3'')', 'ft.handler_version=''2''');
+ EXECUTE definition;
+END $$;

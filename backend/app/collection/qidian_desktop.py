@@ -122,7 +122,7 @@ def submit_saved(c, p, board, html, *, business="motion_comic"):
     return submit_local(c, p, board, html, SavedQidian(), business=business)
 
 
-def submit_local(c, p, board, html, handler, *, business="motion_comic"):
+def submit_local(c, p, board, html, handler, *, business="motion_comic", refresh_existing=False):
     refresh(c, p)
     lock_org(c, p.org_id)
     az = Authorizer(c, p)
@@ -173,5 +173,6 @@ def submit_local(c, p, board, html, handler, *, business="motion_comic"):
         handler,
         business=business,
         external_calls=0,
+        refresh_existing=refresh_existing,
         inputs=({"role": handler.input_role, "raw_asset_id": raw_id},),
     )

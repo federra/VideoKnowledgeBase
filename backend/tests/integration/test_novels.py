@@ -16,23 +16,58 @@ def test_novel_reader_sort_precedes_pagination_and_membership_dedup(engine, setu
     from app.intelligence.service import shanghai_date
     from app.security.sessions import authenticate
 
-    counts = ["9.6万", "32.6万", None, 0, "1万", 999, "100万", "100万",
-              "1000000000000000000", "9千", "32万", "9.7万", None]
-    books = [{"bookId": str(i), "bookName": f"书{i}", "read_count": count,
-              "currentPos": i} for i, count in enumerate(counts, 1)]
+    counts = [
+        "9.6万",
+        "32.6万",
+        None,
+        0,
+        "1万",
+        999,
+        "100万",
+        "100万",
+        "1000000000000000000",
+        "9千",
+        "32万",
+        "9.7万",
+        None,
+    ]
+    books = [
+        {"bookId": str(i), "bookName": f"书{i}", "read_count": count, "currentPos": i}
+        for i, count in enumerate(counts, 1)
+    ]
     runner, start, _, token = prepare(engine, setup, books=books)
-    for code, cid, category in [("fanqie:read:male:8", "8", "科幻"), ("fanqie:read:male:9", "9", "都市")]:
+    for code, cid, category in [
+        ("fanqie:read:male:8", "8", "科幻"),
+        ("fanqie:read:male:9", "9", "都市"),
+    ]:
         saved = start(code, category=category, category_id=cid)
         assert runner.run(setup[0], UUID(saved["task_id"])) == "succeeded"
     with engine.begin() as c:
         p = authenticate(c, token)
+        from sqlalchemy import event
+        reads = []
+        def track(conn, cursor, statement, parameters, context, executemany):
+            reads.append(statement)
+        event.listen(c, 'before_cursor_execute', track)
         first = feed(c, p, "motion_comic", shanghai_date(), platform="fanqie", page=1)
+        event.remove(c, 'before_cursor_execute', track)
+        # Number of round trips for memberships/observations/identities is
+        # independent of how many sub-boards contain the same books.
+        for table in ('snapshot_entries','content_observations','external_contents'):
+            assert sum('FROM '+table+' ' in statement or 'FROM '+table+'\n' in statement for statement in reads) <= 1
+
         second = feed(c, p, "motion_comic", shanghai_date(), platform="fanqie", page=2)
+
         def ids(result):
             return [v["item"]["entry"]["observation"]["platform_id"] for v in result["items"]]
+
         assert first["total"] == "13"
         assert ids(first) == ["9", "7", "8", "2", "11", "12", "1", "5", "10", "6"]
-        assert ids(second) == ["4", "3", "13"]  # Real zero precedes unknown; ties preserve source order.
+        assert ids(second) == [
+            "4",
+            "3",
+            "13",
+        ]  # Real zero precedes unknown; ties preserve source order.
         assert first["items"][3]["reader_count"] == "326000"
         assert first["items"][3]["rank"] == 2  # Frozen source rank remains unchanged.
         filtered = feed(c, p, "motion_comic", shanghai_date(), platform="fanqie", genre="都市")
@@ -72,7 +107,9 @@ def prepare(engine, setup, *, work_fields=None, books=None):
             json={
                 "code": 0,
                 "data": {
-                    "book_list": books if books is not None else [
+                    "book_list": books
+                    if books is not None
+                    else [
                         {
                             "bookId": "123",
                             "bookName": "测试科幻",
@@ -363,3 +400,30 @@ def test_novel_fanqie_gender_genre_dependencies_keep_four_rank_dimensions(engine
             )["total"]
             == "0"
         )
+
+
+def test_novel_existing_source_refresh_requires_explicit_flag_and_keeps_daily_budget(engine, setup):
+    from app.collection.novels import NovelCollect, submit
+    from app.collection.service import insert
+    from app.connectors.novels import PublicNovels
+    from app.security.sessions import authenticate
+    from app.tasks.service import TaskError
+
+    _runner, _start, calls, token = prepare(engine, setup)
+    board = {"platform": "fanqie", "rank_type": "catalog", "code": "fanqie:catalog"}
+    with engine.begin() as c:
+        p = authenticate(c, token)
+        source = insert(c, "sources", p.org_id, name="Existing paused board",
+                        business_code="motion_comic", platform_code="fanqie", target_kind="board",
+                        board_code=board["code"], enabled=False, created_by=p.member_id)
+    handler = NovelCollect(PublicNovels(), min_interval=0)
+    with pytest.raises(TaskError, match="SOURCE_UNAVAILABLE"), engine.begin() as c:
+        submit(c, authenticate(c, token), board, handler)
+    with engine.begin() as c:
+        first = submit(c, authenticate(c, token), board, handler, refresh_existing=True)
+        assert first["source_id"] == str(source)
+        assert c.exec_driver_sql("SELECT enabled FROM sources WHERE id=%s", (source,)).scalar_one()
+    with engine.begin() as c:
+        assert submit(c, authenticate(c, token), board, handler, refresh_existing=True) == first
+        assert c.exec_driver_sql("SELECT count(*) FROM collection_jobs WHERE source_id=%s", (source,)).scalar_one() == 1
+    assert calls == []

@@ -26,19 +26,72 @@ def test_series_capture_is_one_exact_first_page_get_without_cookie_or_followup()
 
 
 def payload():
-    return {'code':200,'data':{'status_code':0,'card_list':[
-        {'aweme_id':str(900+i),'series':{'series_id':str(700+i),'series_name':f'短剧{i}','desc':f'完整剧情简介{i}\n第二段','author':{'uid':'123','nickname':'作者','total_favorited':999999},'stats':{'play_vv':100+i,'collect_vv':0 if i==0 else i},'share_info':{'share_url':f'https://www.iesdouyin.com/share/playlet/detail/{700+i}/'}}} for i in range(12)
-    ]}}
+    return {
+        "code": 200,
+        "data": {
+            "status_code": 0,
+            "card_list": [
+                {
+                    "aweme_id": str(900 + i),
+                    "series": {
+                        "series_id": str(700 + i),
+                        "series_name": f"短剧{i}",
+                        "desc": f"完整剧情简介{i}\n第二段",
+                        "author": {"uid": "123", "nickname": "作者", "total_favorited": 999999},
+                        "stats": {"play_vv": 100 + i, "collect_vv": 0 if i == 0 else i},
+                        "share_info": {
+                            "share_url": f"https://www.iesdouyin.com/share/playlet/detail/{700 + i}/"
+                        },
+                    },
+                }
+                for i in range(12)
+            ],
+        },
+    }
 
 
 def test_normalize_series_preserves_desc_and_separate_series_metrics_without_author_likes():
     from app.connectors.tikhub_series import normalize_series
-    result=normalize_series(payload())
-    assert len(result.records)==10 and result.view_kind=='board'
-    first=result.records[0]
-    assert first['platform_content_id']=='series:700' and first['display_name']=='短剧0'
-    assert first['content']['description']=='完整剧情简介0\n第二段'
-    assert first['content']['view_count']==100 and first['content']['collect_count']==0
-    for field in ['like_count','comment_count','share_count','repost_count']:assert first['content'][field] is None
-    body=payload();body['data']['card_list'][0]['series']['stats']={}
-    assert normalize_series(body).records[0]['content']['view_count'] is None
+
+    result = normalize_series(payload())
+    assert len(result.records) == 10 and result.view_kind == "board"
+    first = result.records[0]
+    assert first["platform_content_id"] == "series:700" and first["display_name"] == "短剧0"
+    assert first["content"]["description"] == "完整剧情简介0\n第二段"
+    assert first["content"]["view_count"] == 100 and first["content"]["collect_count"] == 0
+    for field in ["like_count", "comment_count", "share_count", "repost_count"]:
+        assert first["content"][field] is None
+    body = payload()
+    body["data"]["card_list"][0]["series"]["stats"] = {}
+    assert normalize_series(body).records[0]["content"]["view_count"] is None
+
+
+def test_provider_400_is_preserved_without_retry_or_parameter_fallback():
+    import json
+
+    from app.connectors.tikhub_series import CAPABILITY, Series
+
+    requests = []
+
+    def respond(request):
+        requests.append(request)
+        return httpx.Response(
+            400,
+            json={
+                "detail": {
+                    "code": 400,
+                    "request_id": "failed-request-id",
+                    "message": "Request failed. You won't be charged for this request.",
+                    "params": {"count": "10", "offset": "0", "content_type": "0"},
+                }
+            },
+        )
+
+    api = Series(lambda: "private-api-token", transport=httpx.MockTransport(respond))
+    reply = api.fetch(CAPABILITY, {"offset": 0, "count": 10, "content_type": 0}, maximum=10)
+    assert reply.http_status == 400 and reply.outcome == "http_error"
+    assert reply.error == "SOURCE_UNAVAILABLE" and reply.batch is None
+    assert json.loads(reply.raw_text)["detail"]["request_id"] == "failed-request-id"
+    assert "private-api-token" not in reply.raw_text
+    assert len(requests) == 1
+    assert dict(requests[0].url.params) == {"offset": "0", "count": "10", "content_type": "0"}

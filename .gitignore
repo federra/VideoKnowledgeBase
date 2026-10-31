@@ -12,6 +12,8 @@ __pycache__/
 .ruff_cache/
 data/*
 !data/.gitkeep
+# Operational evidence may contain captured business data; keep new artifacts local.
+doc/technical/verification/
 coverage/
 
 # Local package cache and agent execution scratch

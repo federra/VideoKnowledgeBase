@@ -1,5 +1,7 @@
 """Fixed public Hongguo pages. JSON is decoded, never executed; no media or paging."""
 
+import base64
+import binascii
 import fcntl
 import hashlib
 import json
@@ -27,21 +29,36 @@ BOARDS = {
 INTERVAL = 10
 
 
-def encode_html(html):
+def encode_html(html, *, capture=None):
     """PostgreSQL TEXT rejects NUL; JSON escapes it without deleting source bytes."""
-    return json.dumps(
-        {
-            "format": "hongguo-html-json-v1",
-            "response_sha256": hashlib.sha256(html.encode()).hexdigest(),
-            "html": html,
-        },
-        ensure_ascii=False,
-    )
+    value = {
+        "format": "hongguo-html-json-v1",
+        "response_sha256": hashlib.sha256(html.encode()).hexdigest(),
+        "html": html,
+    }
+    if capture is not None:
+        value["capture"] = capture
+    return json.dumps(value, ensure_ascii=False)
 
 
 def response_html(value):
     if value.startswith('{"format":'):
         data = json.loads(value)
+        if data.get("format") == "hongguo-saved-http-v1":
+            try:
+                if set(data) != {"format", "response_sha256", "html_base64", "capture"}:
+                    raise ValueError
+                body = base64.b64decode(data["html_base64"], validate=True)
+                if (
+                    not body
+                    or len(body) > 4 * 1024 * 1024
+                    or base64.b64encode(body).decode("ascii") != data["html_base64"]
+                    or hashlib.sha256(body).hexdigest() != data["response_sha256"]
+                ):
+                    raise ValueError
+                return body.decode("utf-8")
+            except (ValueError, TypeError, UnicodeError, binascii.Error):
+                raise AdapterError("INVALID_RESPONSE") from None
         if (
             data.get("format") != "hongguo-html-json-v1"
             or hashlib.sha256(data["html"].encode()).hexdigest() != data["response_sha256"]
@@ -293,33 +310,127 @@ class Hongguo:
             owned = self.client is None
             client = self.client or httpx.Client(timeout=25, follow_redirects=False)
             status, raw, batch, error, outcome = None, "", None, None, "network_error"
+            body, received = bytearray(), 0
+            stage, failure, exception_type = "receive", None, None
+            complete, decoded = False, False
+            content_type, content_encoding, content_length = None, None, None
+            response = None
             try:
                 with client.stream(
                     "GET",
                     url,
                     headers={
                         "Accept": "text/html",
+                        # Fixed small HTML pages need no content compression. This
+                        # also keeps received bytes directly observable on timeout.
+                        "Accept-Encoding": "identity",
                         "User-Agent": "ContentIntelligenceResearch/1.0",
                     },
                     follow_redirects=False,
                 ) as response:
                     status = response.status_code
-                    chunks, size = [], 0
+                    mime = response.headers.get("content-type", "").split(";", 1)[0].lower()
+                    content_type = (
+                        mime
+                        if mime
+                        in {
+                            "text/html",
+                            "application/xhtml+xml",
+                            "application/json",
+                            "text/plain",
+                            "application/octet-stream",
+                        }
+                        else "other"
+                    )
+                    encoding = response.headers.get("content-encoding", "identity").lower()
+                    content_encoding = (
+                        encoding
+                        if encoding
+                        in {
+                            "identity",
+                            "gzip",
+                            "br",
+                            "deflate",
+                            "zstd",
+                        }
+                        else "other"
+                    )
+                    length = response.headers.get("content-length", "")
+                    if re.fullmatch(r"[0-9]{1,20}", length):
+                        content_length = int(length)
                     for chunk in response.iter_bytes():
-                        size += len(chunk)
-                        if size > 4 * 1024 * 1024:
+                        received += len(chunk)
+                        remaining = 4 * 1024 * 1024 - len(body)
+                        body.extend(chunk[:remaining])
+                        if received > 4 * 1024 * 1024:
+                            failure = "body_too_large"
                             raise AdapterError("INVALID_RESPONSE")
-                        chunks.append(chunk)
-                    raw = b"".join(chunks).decode("utf-8")
-                # Preserve the received page before parsing or the DB transaction.
-                # A local processing failure must not require another website request.
+                    complete = True
+                    if not body and status == 200:
+                        failure = "empty_body"
+                        raise AdapterError("INVALID_RESPONSE")
+                    stage = "decode"
+                    raw = bytes(body).decode("utf-8")
+                    decoded = True
+                if status != 200:
+                    stage, failure = "http", "http_status"
+                    error, outcome = "SOURCE_UNAVAILABLE", "http_error"
+                elif capability == "hongguo.board":
+                    stage = "parse"
+                    batch = normalize_board(raw, request["board"])
+                    outcome = "success"
+                else:
+                    stage = "parse"
+                    parse_comments(raw, request["series_id"])
+                    outcome = "success"
+            except (httpx.HTTPError, UnicodeError, AdapterError) as exc:
+                # Only an exception class is safe: messages can include request details.
+                exception_type = type(exc).__name__
+                if isinstance(exc, httpx.DecodingError):
+                    stage, failure = "decode", "content_decode_error"
+                failure = failure or (
+                    "transfer_error"
+                    if isinstance(exc, httpx.HTTPError)
+                    else "invalid_utf8"
+                    if isinstance(exc, UnicodeError)
+                    else "invalid_shape"
+                )
+                transport_failure = isinstance(exc, httpx.HTTPError) and not isinstance(exc, httpx.DecodingError)
+                error = "SOURCE_UNAVAILABLE" if transport_failure or status != 200 else "INVALID_RESPONSE"
+                outcome = "network_error" if transport_failure or status != 200 else "invalid_shape"
+            finally:
+                # A diagnostic write failure must not undo an already known stop.
+                if error:
+                    state["blocked_until"] = time.time() + 24 * 3600
+                    state["blocked_reason"] = error
+                    state["blocked_http_status"] = status
+                    save()
+                if owned:
+                    client.close()
+                # Save bounded bytes even when reception or UTF-8 decoding failed.
+                # Partial bytes are evidence only; never publish them as a full HTML page.
                 capture = {
                     "url": url,
                     "http_status": status,
                     "captured_at": datetime.now(UTC).isoformat(),
                     "requested_at": datetime.fromtimestamp(state["last_request"], UTC).isoformat(),
-                    "sha256": hashlib.sha256(raw.encode()).hexdigest(),
+                    "sha256": hashlib.sha256(raw.encode()).hexdigest() if decoded else None,
                     "collection_job_id": getattr(self, "capture_job_id", None),
+                    "body_sha256": hashlib.sha256(body).hexdigest(),
+                    "body_representation": "httpx_decoded_bytes",
+                    "saved_bytes": len(body),
+                    "received_bytes": received,
+                    # iter_bytes() counts decoded output only: gzip may consume
+                    # a prefix and then stall before yielding any decoded bytes.
+                    "received_wire_bytes": response.num_bytes_downloaded if response else 0,
+                    "body_complete": complete,
+                    "text_available": decoded,
+                    "failure_stage": stage if error else None,
+                    "failure_kind": failure,
+                    "exception_type": exception_type,
+                    "content_type": content_type,
+                    "content_encoding": content_encoding,
+                    "content_length": content_length,
                 }
                 stem = (
                     ("board-" + request["board"])
@@ -327,38 +438,24 @@ class Hongguo:
                     else ("player-" + request["series_id"])
                 )
                 stem += "-" + datetime.now(UTC).strftime("%Y%m%dT%H%M%S%f")
-                for suffix, text in ((".html", raw), (".json", json.dumps(capture))):
+                files = [(".body", bytes(body)), (".json", json.dumps(capture).encode())]
+                if decoded:
+                    files.append((".html", raw.encode()))
+                for suffix, content in files:
                     capture_fd = os.open(
                         self.throttle_path.parent / (stem + suffix),
                         os.O_CREAT | os.O_EXCL | os.O_WRONLY,
                         0o600,
                     )
-                    with os.fdopen(capture_fd, "w") as output:
-                        output.write(text)
-                if status != 200:
-                    error, outcome = "SOURCE_UNAVAILABLE", "http_error"
-                elif capability == "hongguo.board":
-                    batch = normalize_board(raw, request["board"])
-                    outcome = "success"
-                else:
-                    parse_comments(raw, request["series_id"])
-                    outcome = "success"
-            except (httpx.HTTPError, UnicodeError, AdapterError):
-                error = "INVALID_RESPONSE" if status == 200 else "SOURCE_UNAVAILABLE"
-                outcome = "invalid_shape" if status == 200 else "network_error"
-            finally:
-                if owned:
-                    client.close()
-            if error:
-                state["blocked_until"] = time.time() + 24 * 3600
-                state["blocked_reason"] = error
-                state["blocked_http_status"] = status
-                save()
+                    with os.fdopen(capture_fd, "wb") as output:
+                        output.write(content)
             return Reply(
                 status,
                 None,
                 outcome,
-                encode_html(raw or "[empty response]"),
+                # Keep complete text envelopes byte-compatible with strict offline
+                # recovery. Their diagnostics are in the durable sidecar instead.
+                encode_html(raw) if decoded else encode_html(raw, capture=capture),
                 datetime.now(UTC),
                 batch,
                 error,

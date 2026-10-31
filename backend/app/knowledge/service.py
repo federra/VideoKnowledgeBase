@@ -1,7 +1,7 @@
 """Exact revision services; formal reads never substitute the current candidate."""
 
 import hashlib
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
 from app.collection.service import insert
@@ -60,8 +60,8 @@ def state(c, p, rid):
     return "pending_human"
 
 
-def read_candidate(c, p, rid):
-    v = Authorizer(c, p).candidate("knowledge_revisions", rid)
+def read_candidate(c, p, rid, az=None):
+    v = (az or Authorizer(c, p)).candidate("knowledge_revisions", rid)
     codes = (
         c.exec_driver_sql(
             "SELECT business_code FROM knowledge_businesses WHERE org_id=%s AND revision_id=%s ORDER BY business_code",
@@ -86,37 +86,45 @@ def read_candidate(c, p, rid):
     ).model_dump()
 
 
-def detail(c, p, kid, *, candidate=False):
-    az = Authorizer(c, p)
+def detail(c, p, kid, *, candidate=False, az=None, related=None):
+    az = az or Authorizer(c, p)
     identity = (
         az.candidate("knowledge_items", kid) if candidate else az.read("knowledge_items", kid)
     )
     rid = identity["current_revision_id"]
-    if candidate:
-        v = read_candidate(c, p, rid)
-    else:
-        v = az.read("knowledge_revisions", rid)
+    if related is not None:
         v = {
-            **v,
-            "business_codes": list(
-                c.exec_driver_sql(
-                    "SELECT business_code FROM knowledge_businesses WHERE org_id=%s AND revision_id=%s ORDER BY business_code",
-                    (p.org_id, rid),
-                ).scalars()
-            ),
-            "evidence_ids": list(
-                c.exec_driver_sql(
-                    "SELECT DISTINCT evidence_id FROM knowledge_evidence WHERE org_id=%s AND revision_id=%s ORDER BY evidence_id",
-                    (p.org_id, rid),
-                ).scalars()
-            ),
+            **az.row("knowledge_revisions", rid),
+            "business_codes": related[rid]["business_codes"],
+            "evidence_ids": related[rid]["evidence_ids"],
+        }
+    elif candidate:
+        v = read_candidate(c, p, rid, az)
+    else:
+        # Identity authorization above already traversed this published version.
+        v = {
+            **az.row("knowledge_revisions", rid),
+            "business_codes": sorted(az.knowledge_businesses(rid)),
+            "evidence_ids": sorted(set(az.knowledge_evidence(rid))),
         }
     from app.contracts.models import KnowledgeRevision
     from app.research.analysis import project
 
     v = project(KnowledgeRevision, v).model_dump()
+    ai_explanation = None
+    if not candidate:
+        if related is not None:
+            ai_explanation = related[rid].get("ai_explanation")
+        else:
+            from app.knowledge.genre_explanations import load
+
+            ai_explanation = load(c, p, [rid], az).get(rid)
     return {
         **identity,
+        "ai_explanation": ai_explanation,
+        "recycle_expires_at": identity["recycled_at"] + timedelta(days=30)
+        if identity.get("recycled_at")
+        else None,
         "lock_version": str(identity["lock_version"]),
         "revision_id": rid,
         "publication_id": identity["published_publication_id"]
@@ -125,9 +133,18 @@ def detail(c, p, kid, *, candidate=False):
         "browse_category": v["browse_category"],
         "business_codes": v["business_codes"],
         "tags": v["tags"],
-        "state": state(c, p, rid),
+        "state": state(c, p, rid) if candidate else "published",
         "revision": v,
-        "review_request_id": revision_request(c, p, rid),
+        "review_request_id": related[rid]["review_request_id"]
+        if related is not None
+        else revision_request(c, p, rid),
+        "release_mode": related[rid]["release_mode"]
+        if related is not None
+        else c.exec_driver_sql(
+            "SELECT release_mode FROM knowledge_publications WHERE org_id=%s AND revision_id=%s",
+            (p.org_id, rid),
+        ).scalar_one_or_none()
+        or "double_review",
     }
 
 
@@ -208,7 +225,7 @@ def add_revision(c, p, kid, request, version):
         )
         refs.append(eid)
         managed = {eid}
-    values = request.model_dump(mode="json", exclude={"expected_lock_version", "revision_reason"})
+    values = write_payload(request, exclude={"expected_lock_version", "revision_reason"})
     rid = insert(
         c,
         "knowledge_revisions",
@@ -217,6 +234,8 @@ def add_revision(c, p, kid, request, version):
         version_no=version,
         title=request.title,
         body_text=request.body_text,
+        source_text=request.source_text,
+        explanation=request.explanation,
         knowledge_type=request.knowledge_type,
         browse_category=request.browse_category,
         tags=values["tags"],
@@ -250,6 +269,14 @@ def add_revision(c, p, kid, request, version):
     return rid
 
 
+def write_payload(request, *, exclude=None):
+    # New absent metadata must not invalidate receipts or digests made before 0024.
+    ignored = set(exclude or ()) | {
+        k for k in ("source_text", "explanation") if getattr(request, k, None) is None
+    }
+    return request.model_dump(mode="json", exclude=ignored)
+
+
 def create(c, p, key, request):
     lock_org(c, p.org_id)
     validate(c, p, request)
@@ -268,7 +295,7 @@ def create(c, p, key, request):
         audit(c, p.org_id, p.member_id, "knowledge.created", "knowledge", kid)
         return {"id": str(kid)}
 
-    saved = receipt(c, p, "createKnowledge", key, request.model_dump(mode="json"), perform)
+    saved = receipt(c, p, "createKnowledge", key, write_payload(request), perform)
     return detail(c, p, UUID(saved["id"]), candidate=True)
 
 
@@ -306,7 +333,7 @@ def revise(c, p, key, kid, request):
         p,
         "reviseKnowledge",
         key,
-        {"knowledge_id": str(kid), **request.model_dump(mode="json")},
+        {"knowledge_id": str(kid), **write_payload(request)},
         perform,
     )
     return read_candidate(c, p, UUID(saved["id"]))
@@ -314,18 +341,32 @@ def revise(c, p, key, kid, request):
 
 def listing(c, p, business, *, candidate=False, q=None, category=None, source_report_id=None):
     refresh(c, p)
+    from app.security.read_authorizer import ReadAuthorizer
+
+    az = ReadAuthorizer(c, p)
     items = []
     ids = (
         c.exec_driver_sql(
-            "SELECT id FROM knowledge_items WHERE org_id=%s ORDER BY created_at DESC,id DESC",
-            (p.org_id,),
+            "SELECT k.id FROM knowledge_items k JOIN knowledge_revisions r ON r.org_id=k.org_id AND r.id="
+            + (
+                "k.current_revision_id"
+                if candidate
+                else "(SELECT revision_id FROM knowledge_publications WHERE org_id=k.org_id AND id=k.published_publication_id)"
+            )
+            + " WHERE k.org_id=%s AND EXISTS(SELECT 1 FROM knowledge_businesses b WHERE b.org_id=r.org_id AND b.revision_id=r.id AND b.business_code=%s)"
+            + (" AND r.browse_category=%s" if category else "")
+            + " ORDER BY k.created_at DESC,k.id DESC",
+            (p.org_id, business, category) if category else (p.org_id, business),
         )
         .scalars()
         .all()
     )
+    from app.knowledge.read_batch import prepare
+
+    related = prepare(c, p, ids, az, candidate)
     for kid in ids:
         try:
-            x = detail(c, p, kid, candidate=candidate)
+            x = detail(c, p, kid, candidate=candidate, az=az, related=related)
         except Denied as exc:
             if exc.code == "NOT_FOUND":
                 continue

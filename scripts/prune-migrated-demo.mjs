@@ -1,7 +1,7 @@
 /** Remove migrated UI paths from extracted Demo; preserve the approved source. */
 import ts from '../frontend/node_modules/typescript/lib/typescript.js';
 const obsoleteState = new Set(['feedDate','rankPage','creatorPage','feedView','insightOpen','creatorMenuOpen','rankBoard','creators','novelPage','novelPlatform']);
-const obsoleteActions = new Set(['feed-latest','feed-view','creator-menu','creator-all','creator-select','insight-toggle','feed-page','rank-board-manage','rank-board-remove','creator-manage','creator-remove','feedback-open','feedback-research','new-source','toggle-source','retry-job','job-detail']);
+const obsoleteActions = new Set(['feed-calendar-toggle','feed-calendar-month','feed-calendar-select','feed-latest','feed-view','creator-menu','creator-all','creator-select','insight-toggle','feed-page','rank-board-manage','rank-board-remove','creator-manage','creator-remove','feedback-open','feedback-research','new-source','toggle-source','retry-job','job-detail']);
 const obsoleteFunctions = new Set(['feed','feedOverview','novelFeed','feedPage','feedPager','feedDateFilter','changeFeedDate','audienceFeedbackDialog','rankBoardFilter','creatorFilter','insightAside','rankBoardDialog','creatorDialog']);
 export function pruneMigratedDemo(source) {
   let file = ts.createSourceFile('demo.js',source,ts.ScriptTarget.Latest,true,ts.ScriptKind.JS);

@@ -7,7 +7,7 @@ from app.security.authorization import Authorizer
 from app.security.errors import Denied
 
 
-def sample_for_content(c, p, content_id, business, day):
+def sample_for_content(c, p, content_id, business, day, *, auth=None):
     raw = (
         c.exec_driver_sql(
             "SELECT r.* FROM raw_assets r JOIN collection_jobs j ON j.org_id=r.org_id AND j.id=r.collection_job_id "
@@ -16,6 +16,7 @@ def sample_for_content(c, p, content_id, business, day):
             "JOIN task_outputs o ON o.org_id=t.org_id AND o.task_id=t.id AND o.raw_asset_id=r.id AND o.role='hongguo_comment_sample' "
             "WHERE r.org_id=%s AND s.content_id=%s AND s.platform_code='hongguo' AND j.business_code=%s "
             "AND j.business_date=%s AND j.capability_code='hongguo.comments' AND j.connector_version=%s "
+            "AND (t.idempotency_key NOT LIKE 'refresh/%%' OR EXISTS(SELECT 1 FROM audit_events pub WHERE pub.org_id=t.org_id AND pub.action_code='intelligence.refresh.published' AND pub.target_id::text=split_part(t.idempotency_key,'/',2) AND pub.safe_details->>'code'=split_part(t.idempotency_key,'/',3))) "
             "AND t.state='succeeded' AND cc.outcome='success' ORDER BY r.captured_at DESC,r.id DESC LIMIT 1",
             (p.org_id, content_id, business, day, VERSION),
         )
@@ -24,7 +25,7 @@ def sample_for_content(c, p, content_id, business, day):
     )
     if raw is None:
         return None
-    az = Authorizer(c, p)
+    az = auth or Authorizer(c, p)
     try:
         az.read("raw_assets", raw["id"])
         job = row(c, "collection_jobs", p.org_id, raw["collection_job_id"])

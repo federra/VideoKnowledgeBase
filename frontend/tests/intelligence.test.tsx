@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { describe, expect, it, vi } from 'vitest';
 import type { FeedItem } from '../src/api/client';
-import { VideoMetrics } from '../src/modules/intelligence/IntelligencePage';
+import { VideoMetrics, FeedbackPreview } from '../src/modules/intelligence/IntelligencePage';
 import { ApiClient } from '../src/api/client';
 import { ApiProvider } from '../src/api/provider';
 import { IntelligencePage } from '../src/modules/intelligence/IntelligencePage';
@@ -38,6 +38,13 @@ describe('真实情报流',()=>{
   expect(Array.from(document.querySelectorAll('.metric-card strong')).map(x=>x.textContent)).toEqual(['未获取','未获取','未获取']);
   expect(screen.queryByText('开学那天，我被当成传说')).toBeNull();
  });
+
+it('博主短剧显示整剧播放与收藏，缺失点赞不当零或单集播放',()=>{
+ const item={entry:{observation:{view_count:'326000',collect_count:'1200',like_count:null,share_count:null,comment_count:null}}} as unknown as FeedItem;
+ render(<VideoMetrics item={item} creator/>);
+ expect(screen.getByTitle('整剧播放量：32.6万')).toBeTruthy();
+ expect(Array.from(document.querySelectorAll('.rank-stats b')).map(x=>x.textContent)).toEqual(['播放','收藏']);
+});
  it('保留榜单达人互斥、搜索与洞察收展，查询带精确业务日期',async()=>{
   const fetcher=mount();await screen.findByText(/红果榜单尚无已入库快照/);
   fireEvent.click(screen.getByRole('button',{name:'博主'}));
@@ -51,6 +58,7 @@ describe('真实情报流',()=>{
   mount(()=>({...empty,has_snapshot:true,metrics:{videos:null,creators:'1',comments:null,likes:'0'},total:'1',items:[{source_id:id,source_name:'真实来源',snapshot_version:1,account_id:id,author:'UID:123',entry:{id,lock_version:'1',created_at:'2026-10-17T01:00:00Z',updated_at:'2026-10-17T01:00:00Z',snapshot_id:id,position:0,provider_rank:null,feedback_id:null,observation:{id,kind:'content',platform_code:'douyin',platform_id:'123',display_name:null,description:'<img src=x onerror=alert(1)>原始文案',original_url:'javascript:alert(1)',observed_at:'2026-10-17T01:00:00Z',published_at:null,published_at_raw:null,follower_count:null,work_count:null,like_count:'0',comment_count:null,share_count:null,collect_count:null,repost_count:null,view_count:null}}}]}));
   await screen.findByText('<img src=x onerror=alert(1)>原始文案');
   expect(document.querySelector('.rank-card img')).toBeNull();
+  expect(document.querySelectorAll('.rank-card .feedback-open')).toHaveLength(1);expect(document.querySelector('.rank-card .rank-research')).toBeNull();
   expect(document.querySelector('.rank-card a')).toBeNull();
   expect(document.querySelector('.rank-stats')?.textContent).toContain('赞0');
  });
@@ -166,7 +174,8 @@ it.each([
  {platform:'fanqie',url:'https://fanqienovel.com/page/123',gender:null,genre:null,categoryId:'0',categoryName:'全部',expected:['女频','题材：—']},
 ])('小说题材使用筛选目录名称、子榜优先且全站不充题材 $gender $genre $platform $categoryName',async({platform,url,gender,genre,expected,method,boardGender,categoryId,categoryName})=>{
  const novel={...novelEmpty,novel_count:'1',total:'1',genres:[{value:'传统玄幻',label:'传统玄幻'},{value:'科幻',label:'科幻'},{value:'女频衍生',label:'女频衍生'},{value:'玄幻言情',label:'玄幻言情'}],items:[{reader_count:platform==='qidian'?null:'0',rank:13,work_gender:gender,work_genre:genre,board:{platform,method,rank_type:'new',gender:boardGender??'female',category_id:categoryId??'8',category_name:categoryName??'女频衍生',code:'fanqie:new:female:8'},item:{source_id:id,source_name:'新书榜 · 女频衍生',snapshot_version:1,account_id:null,author:'真实作者',entry:{id,created_at:'2026-10-17T01:00:00Z',snapshot_id:id,position:0,provider_rank:1,feedback_id:null,observation:{id,kind:'content',platform_code:platform,platform_id:'123',display_name:'真实小说标签样本',description:'不得从简介猜题材',original_url:url,observed_at:'2026-10-17T01:00:00Z',published_at:null,published_at_raw:null,follower_count:null,work_count:null,like_count:null,comment_count:null,share_count:null,collect_count:null,repost_count:null,view_count:null}}}}]};
- mount(path=>path.includes('/novels?')?novel:empty);await screen.findByRole('button',{name:'小说'});fireEvent.click(screen.getByRole('button',{name:'小说'}));await screen.findByText('真实小说标签样本');
+ mount(path=>path.includes('/feedback?')?{entry_id:id,snapshot_id:id,snapshot_version:1,business_code:'motion_comic',business_date:'2026-10-17',platform_code:platform,status:'not_acquired',feedback_id:null,feedback_version:null,sampling_description:null,coverage_note:null,sample_count:null,classified_count:null,comments:[],claims:[],analysis_model_ready:false,sample_key:null,analysis:null,summary:null}:path.includes('/novels?')?novel:empty);await screen.findByRole('button',{name:'小说'});fireEvent.click(screen.getByRole('button',{name:'小说'}));await screen.findByText('真实小说标签样本');
+ expect(document.querySelectorAll('.novel-card .feedback-open')).toHaveLength(1);expect(document.querySelector('.novel-card .rank-research')).toBeNull();
  expect(document.querySelector('.novel-card .rank-number')?.textContent).toBe(platform==='fanqie'?'01':'13');
  expect(document.querySelector('.novel-card .rank-number')?.getAttribute('title')).toContain('来源原名次：13');
  expect(Array.from(document.querySelectorAll('.novel-card .feed-card-tags .genre-tag')).map(e=>e.textContent)).toEqual(expected);
@@ -175,6 +184,7 @@ it.each([
  if(gender===null&&expected[0]==='女频')expect(tags[0]?.getAttribute('title')).toContain('来源榜单');
  if(genre==='科幻')expect(tags[1]?.getAttribute('title')).toContain(categoryName==='目录外题材'?'未获取':'来源榜单');
  expect(screen.getByRole('link',{name:/真实小说标签样本/}).getAttribute('href')).toBe(url);
+ if(platform==='fanqie'&&gender==='male'){fireEvent.click(screen.getByRole('button',{name:'查看真实小说标签样本的观众反馈'}));await screen.findByText('该日期评论未获取');expect(screen.getByRole('button',{name:'评论分析'}).hasAttribute('disabled')).toBe(true);}
  if(platform==='qidian'){if(method)expect(screen.getByText(method==='qidian-browser-ax-v1'?/浏览器辅助采集/:/人工保存网页/)).toBeTruthy();expect(document.querySelector('.novel-stats strong')?.textContent).toBe('-');}
 });
 
@@ -189,10 +199,10 @@ it('起点男频已采集而女频受限时保留榜型筛选并提示部分成�
  await waitFor(()=>expect(fetcher.mock.calls.some(([p])=>String(p).includes('rank_type=yuepiao'))).toBe(true));
 });
 
-it('小说默认番茄且只有两个平台，三级筛选均默认全部',async()=>{
+it('小说默认番茄且提供三个平台，三级筛选均默认全部',async()=>{
  const fetcher=mount();await screen.findByRole('button',{name:'小说'});fireEvent.click(screen.getByRole('button',{name:'小说'}));await screen.findByText('暂无小说数据');
  const select=screen.getByRole('combobox',{name:'小说平台'}) as HTMLSelectElement;
- expect(select.value).toBe('fanqie');expect(Array.from(select.options).map(x=>x.value)).toEqual(['fanqie','qidian']);
+ expect(select.value).toBe('fanqie');expect(Array.from(select.options).map(x=>x.value)).toEqual(['fanqie','qidian','qimao']);
  for(const name of ['男女频','榜单类型','题材'])expect(within(screen.getByRole('group',{name})).getByRole('button',{name:'全部'}).getAttribute('aria-pressed')).toBe('true');
  expect(fetcher.mock.calls.some(([p])=>String(p).includes('/novels?')&&String(p).includes('platform=fanqie'))).toBe(true);
 });
@@ -253,3 +263,110 @@ it('默认红果独立三级筛选，榜型重置题材，空态不借用现有�
  mounted.rerender(<VideoMetrics item={item}/>);
  expect(Array.from(document.querySelectorAll('.rank-stats b')).map(x=>x.textContent)).toEqual(['赞','转','评','藏']);
  });
+
+it('故事短片博主卡片按赞评藏转展示视频指标',()=>{
+ const item={entry:{observation:{like_count:'326000',comment_count:'96000',collect_count:null,share_count:'12'}}} as unknown as FeedItem;
+ render(<VideoMetrics item={item} story/>);
+ expect(Array.from(document.querySelectorAll('.rank-stats b')).map(x=>x.textContent)).toEqual(['赞','评','藏','转']);
+ expect(screen.getByTitle('评论：9.6万')).toBeTruthy();
+ expect(screen.getByTitle('收藏：未获取')).toBeTruthy();
+});
+
+it('故事短片视频默认微电影综合榜，切博主后隐藏搜索榜说明',async()=>{
+ const fetcher=vi.fn(async(input:RequestInfo|URL)=>new Response(JSON.stringify({request_id:id,data:String(input)==='/api/v1/session'?session:String(input).includes('/novels?')?novelEmpty:empty}),{headers:{'Content-Type':'application/json','X-Request-ID':id}}));
+ render(<QueryClientProvider client={new QueryClient()}><ApiProvider client={new ApiClient({fetcher:fetcher as typeof fetch})}><IntelligencePage business="故事短片" date="2026-10-25" /></ApiProvider></QueryClientProvider>);
+ await screen.findByRole('option',{name:'微电影 · 抖音综合搜索TOP50'});
+ expect(screen.queryByRole('option',{name:'红果榜单'})).toBeNull();
+ expect(screen.queryByText(/保留接口返回顺序展示前10条/)).toBeNull();
+ expect(fetcher.mock.calls.some(([p])=>String(p).includes('source_id=microfilm'))).toBe(false);
+ fireEvent.click(screen.getByRole('button',{name:'博主'}));
+ expect(screen.queryByText(/抖音搜索“微电影”/)).toBeNull();
+ expect(screen.getByText(/监测已配置博主：北京时间T-7日00:00/)).toBeTruthy();
+});
+
+it('概览在列表筛选加载时保持同业务日期已读数量，三种视图一致',async()=>{
+ const global={...empty,has_snapshot:true,metrics:{videos:'60',creators:'3',comments:null,likes:null}};
+ mount(path=>path.includes('/novels?')?{...novelEmpty,novel_count:'2211'}:global);
+ const counts=()=>Array.from(document.querySelectorAll('.feed-overview strong')).map(x=>x.textContent);
+ await waitFor(()=>expect(counts()).toEqual(['60','3','2,211']));
+ fireEvent.click(screen.getByRole('button',{name:'博主'}));
+ expect(counts()).toEqual(['60','3','2,211']);
+ await screen.findByRole('heading',{name:'达人'});
+ fireEvent.change(screen.getByRole('textbox',{name:'搜索当前工作区'}),{target:{value:'空结果'}});
+ expect(counts()).toEqual(['60','3','2,211']);
+ fireEvent.click(screen.getByRole('button',{name:'小说'}));
+ await screen.findByRole('heading',{name:'小说榜单'});
+ expect(counts()).toEqual(['60','3','2,211']);
+});
+
+it('停留小说视图切日期及业务时概览重新加载，未知和零不串用',async()=>{
+ const api=new ApiClient({fetcher:(async(input:RequestInfo|URL)=>{
+  const u=new URL(String(input),'http://local');const b=u.searchParams.get('business_code')??'motion_comic';const d=u.searchParams.get('business_date')??'2026-10-17';
+  const metrics=b==='story_short'?{videos:'5',creators:'1',comments:null,likes:null}:b==='ecommerce_video'?empty.metrics:{videos:d==='2026-10-17'?'60':'42',creators:d==='2026-10-17'?'3':'2',comments:null,likes:null};
+  const body=u.pathname.endsWith('/session')?session:u.pathname.endsWith('/novels')?{...novelEmpty,business_code:b,business_date:d,novel_count:b==='story_short'?'0':b==='ecommerce_video'?null:'200'}:{...empty,business_code:b,business_date:d,metrics};
+  return new Response(JSON.stringify({request_id:id,data:body}),{headers:{'Content-Type':'application/json'}});
+ }) as typeof fetch});
+ const qc=new QueryClient();const app=(business:string,date:string)=><QueryClientProvider client={qc}><ApiProvider client={api}><IntelligencePage business={business} date={date}/></ApiProvider></QueryClientProvider>;
+ const view=render(app('AI漫剧','2026-10-17'));const counts=()=>Array.from(document.querySelectorAll('.feed-overview strong')).map(x=>x.textContent);
+ await waitFor(()=>expect(counts()).toEqual(['60','3','200']));
+ fireEvent.click(screen.getByRole('button',{name:'小说'}));await screen.findByRole('heading',{name:'小说榜单'});
+ view.rerender(app('AI漫剧','2026-10-18'));await waitFor(()=>expect(counts()).toEqual(['42','2','200']));
+ view.rerender(app('故事短片','2026-10-18'));await waitFor(()=>expect(counts()).toEqual(['5','1','0']));
+ view.rerender(app('电商短视频','2026-10-18'));await waitFor(()=>expect(counts()).toEqual(['未获取','未获取','未获取']));
+});
+
+it('三个指标块是唯一的类型切换入口，选中状态与对应明细同步',async()=>{
+ mount(path=>path.includes('/novels?')?{...novelEmpty,novel_count:'200'}:{...empty,metrics:{...empty.metrics,videos:'60',creators:'3'}});
+ const video=await screen.findByRole('button',{name:'视频'});
+ expect(video.classList.contains('metric-card')).toBe(true);
+ expect(document.querySelector('.feed-view-filter')).toBeNull();
+ expect(video.getAttribute('aria-pressed')).toBe('true');
+ await waitFor(()=>expect(document.getElementById(video.getAttribute('aria-describedby')!)?.textContent).toBe('60'));
+ expect(screen.getByRole('region',{name:'视频榜单明细'})).toBeTruthy();
+ fireEvent.click(screen.getByRole('button',{name:'博主'}));
+ expect(screen.getByRole('button',{name:'博主'}).getAttribute('aria-pressed')).toBe('true');
+ expect(screen.getByRole('button',{name:'视频'}).getAttribute('aria-pressed')).toBe('false');
+ expect(screen.getByRole('region',{name:'博主榜单明细'})).toBeTruthy();
+ await screen.findByRole('button',{name:'配置博主'});
+ fireEvent.click(screen.getByRole('button',{name:'全部达人'}));
+ expect(screen.getByRole('button',{name:'全部达人',expanded:true})).toBeTruthy();
+ fireEvent.click(screen.getByRole('button',{name:'视频'}));
+ fireEvent.click(screen.getByRole('button',{name:'博主'}));
+ expect(screen.getByRole('button',{name:'全部达人'}).getAttribute('aria-expanded')).toBe('false');
+ fireEvent.click(screen.getByRole('button',{name:'小说'}));
+ expect(screen.getByRole('region',{name:'小说榜单明细'})).toBeTruthy();
+ expect(screen.getByRole('button',{name:'小说'}).getAttribute('aria-pressed')).toBe('true');
+ await screen.findByRole('combobox',{name:'小说平台'});
+ expect(document.querySelectorAll('.feed-overview .metric-card')).toHaveLength(3);
+ expect(document.querySelector('.feed-view-filter')).toBeNull();
+});
+
+it.each([['96000','9.6万'],[null,'-']])('七猫平台按真实题材筛选，热度%s不填入在读人数，并保留当前日期',async(heat,display)=>{
+ const novel={...novelEmpty,novel_count:'1',total:'1',rank_types:[{value:'hot',label:'大热榜'}],genders:[{value:'male',label:'男频'},{value:'female',label:'女频'}],genres:[{value:'都市',label:'都市'}],statuses:[{platform:'qimao',board:'qimao:male:hot',state:'succeeded',http_status:200}],items:[{reader_count:null,heat_value:heat,heat_display:heat?display:null,rank:1,work_gender:null,work_genre:'都市',board:{platform:'qimao',method:'qimao-public-html-v1',rank_type:'hot',rank_name:'大热榜',gender:'male',category_id:'all',category_name:'全站',code:'qimao:male:hot'},item:{source_id:id,source_name:'七猫中文网 · 男频 · 大热榜',snapshot_version:1,account_id:null,author:'七猫作者',entry:{id,created_at:'2026-10-17T01:00:00Z',snapshot_id:id,position:0,provider_rank:1,feedback_id:null,observation:{id,kind:'content',platform_code:'qimao',platform_id:'123',display_name:'七猫真实分类作品',description:'简介原文',original_url:'https://www.qimao.com/shuku/123/',observed_at:'2026-10-17T01:00:00Z',published_at:null,published_at_raw:null,follower_count:null,work_count:null,like_count:null,comment_count:null,share_count:null,collect_count:null,repost_count:null,view_count:null,heat_value:heat,heat_display:heat?display:null}}}}]};
+ const fetcher=mount(path=>path.includes('/novels?')?(path.includes('platform=qimao')?novel:novelEmpty):empty);
+ await screen.findByRole('button',{name:'小说'});fireEvent.click(screen.getByRole('button',{name:'小说'}));
+ expect(screen.getByRole('option',{name:'七猫中文网'})).toBeTruthy();
+ fireEvent.change(screen.getByRole('combobox',{name:'小说平台'}),{target:{value:'qimao'}});
+ await screen.findByText('七猫真实分类作品');
+ expect(screen.getByRole('link',{name:'七猫真实分类作品'}).getAttribute('href')).toBe('https://www.qimao.com/shuku/123/');
+ expect(document.querySelector('.novel-stats b')?.textContent).toBe('热度值');
+ expect(document.querySelector('.novel-stats strong')?.textContent).toBe(display);
+ expect(Array.from(document.querySelectorAll('.novel-card .genre-tag')).map(e=>e.textContent)).toEqual(['男频','都市']);
+ fireEvent.click(screen.getByRole('button',{name:'都市'}));
+ await waitFor(()=>expect(fetcher.mock.calls.some(([path])=>String(path).includes('platform=qimao')&&String(path).includes('genre='))).toBe(true));
+ fireEvent.click(await screen.findByRole('button',{name:'女频'}));
+ await waitFor(()=>expect(fetcher.mock.calls.some(([path])=>String(path).includes('platform=qimao')&&String(path).includes('gender=female')&&!String(path).includes('genre='))).toBe(true));
+});
+
+it('已有分析优先于评论样本计数，情绪最多两项且保留全文提示',()=>{
+ const long='正面反馈：人物成长和叙事节奏得到认可';
+ const item={comment_sample_count:15,entry:{feedback_id:id},feedback_emotions:[long,'期待','好奇']} as unknown as FeedItem;
+ render(<FeedbackPreview item={item} title="作品" onFeedback={()=>{}}/>);
+ expect(screen.queryByText('已采集 15 条评论')).toBeNull();
+ expect(document.querySelectorAll('.emotion-tag')).toHaveLength(2);expect(screen.getByTitle(long)).toBeTruthy();
+ expect(screen.getAllByRole('button',{name:'查看作品的观众反馈'})).toHaveLength(1);
+});
+it('已分析但没有情绪标签时明确已完成，不退回已采集',()=>{
+ const item={comment_sample_count:15,entry:{feedback_id:id},feedback_emotions:[]} as unknown as FeedItem;
+ render(<FeedbackPreview item={item} title="作品" onFeedback={()=>{}}/>);expect(screen.getByText('AI分析已完成')).toBeTruthy();expect(screen.queryByText('已采集 15 条评论')).toBeNull();
+});

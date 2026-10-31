@@ -184,6 +184,70 @@ export interface paths {
         readonly patch?: never;
         readonly trace?: never;
     };
+    readonly "/api/v1/intelligence/calendar": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        /**
+         * getFeedCalendar
+         * @description 当前业务按月可见非空封存快照；不返回失败、未发布或失效证据，不触发采集。
+         */
+        readonly get: operations["getFeedCalendar"];
+        readonly put?: never;
+        readonly post?: never;
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/intelligence/creators": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        /**
+         * getCreatorLinks
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly get: operations["getCreatorLinks"];
+        readonly put?: never;
+        /**
+         * saveCreatorLinks
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["saveCreatorLinks"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/intelligence/creators/remove": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * removeCreatorLink
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["removeCreatorLink"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
     readonly "/api/v1/intelligence/entries/{entry_id}/feedback": {
         readonly parameters: {
             readonly query?: never;
@@ -198,6 +262,26 @@ export interface paths {
         readonly get: operations["getEntryFeedback"];
         readonly put?: never;
         readonly post?: never;
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/intelligence/entries/{entry_id}/feedback/analyze": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * analyzeEntryFeedback
+         * @description 显式分析当前作品/日期已保存评论，控制台feedback环节、单次调用及幂等；不触发采集。
+         */
+        readonly post: operations["analyzeEntryFeedback"];
         readonly delete?: never;
         readonly options?: never;
         readonly head?: never;
@@ -244,6 +328,26 @@ export interface paths {
         readonly patch?: never;
         readonly trace?: never;
     };
+    readonly "/api/v1/intelligence/feedback-analyses/{analysis_id}": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        /**
+         * getFeedbackAnalysis
+         * @description 只读任务进度及确切评论样本结果；不调用模型。
+         */
+        readonly get: operations["getFeedbackAnalysis"];
+        readonly put?: never;
+        readonly post?: never;
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
     readonly "/api/v1/intelligence/feedback/{feedback_id}": {
         readonly parameters: {
             readonly query?: never;
@@ -278,6 +382,30 @@ export interface paths {
         readonly get: operations["getNovelFeed"];
         readonly put?: never;
         readonly post?: never;
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/intelligence/refresh": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        /**
+         * getIntelligenceRefresh
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly get: operations["getIntelligenceRefresh"];
+        readonly put?: never;
+        /**
+         * refreshIntelligence
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["refreshIntelligence"];
         readonly delete?: never;
         readonly options?: never;
         readonly head?: never;
@@ -408,6 +536,86 @@ export interface paths {
         readonly patch?: never;
         readonly trace?: never;
     };
+    readonly "/api/v1/knowledge/purge": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * purgeKnowledge
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["purgeKnowledge"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/knowledge/recycle": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * recycleKnowledge
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["recycleKnowledge"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/knowledge/recycle-bin": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        /**
+         * listRecycledKnowledge
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly get: operations["listRecycledKnowledge"];
+        readonly put?: never;
+        readonly post?: never;
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/knowledge/restore": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * restoreKnowledge
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["restoreKnowledge"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
     readonly "/api/v1/knowledge/revisions/{revision_id}": {
         readonly parameters: {
             readonly query?: never;
@@ -502,6 +710,66 @@ export interface paths {
          * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
          */
         readonly post: operations["reviseKnowledge"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/model-config": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        /**
+         * getModelConfig
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly get: operations["getModelConfig"];
+        readonly put?: never;
+        readonly post?: never;
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/model-config/bindings": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * saveModelBindings
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["saveModelBindings"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/model-config/sources": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * saveModelSource
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["saveModelSource"];
         readonly delete?: never;
         readonly options?: never;
         readonly head?: never;
@@ -844,6 +1112,30 @@ export interface paths {
         readonly patch: operations["updateSource"];
         readonly trace?: never;
     };
+    readonly "/api/v1/sparks": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        /**
+         * listSparks
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly get: operations["listSparks"];
+        readonly put?: never;
+        /**
+         * saveSpark
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["saveSpark"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
     readonly "/api/v1/tasks": {
         readonly parameters: {
             readonly query?: never;
@@ -918,6 +1210,194 @@ export interface paths {
          * @description 还需原处理器执行权限、当前依赖与剩余预算；EXTERNAL_RESULT_UNKNOWN禁止自动重发。
          */
         readonly post: operations["retryTask"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/topics": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        /**
+         * listTopics
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly get: operations["listTopics"];
+        readonly put?: never;
+        /**
+         * createTopic
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["createTopic"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/topics/evaluations/{evaluation_id}": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        /**
+         * getTopicEvaluation
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly get: operations["getTopicEvaluation"];
+        readonly put?: never;
+        readonly post?: never;
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/topics/generate": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * generateTopics
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["generateTopics"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/topics/generations/{generation_id}": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        /**
+         * getTopicGeneration
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly get: operations["getTopicGeneration"];
+        readonly put?: never;
+        readonly post?: never;
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/topics/generations/{generation_id}/save": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * saveGeneratedTopic
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["saveGeneratedTopic"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/topics/{topic_id}": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        /**
+         * getTopic
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly get: operations["getTopic"];
+        readonly put?: never;
+        readonly post?: never;
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        /**
+         * reviseTopic
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly patch: operations["reviseTopic"];
+        readonly trace?: never;
+    };
+    readonly "/api/v1/topics/{topic_id}/evaluate": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * evaluateTopic
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["evaluateTopic"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/topics/{topic_id}/handoff": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * handoffTopic
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["handoffTopic"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
+    readonly "/api/v1/topics/{topic_id}/select": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * selectTopic
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["selectTopic"];
         readonly delete?: never;
         readonly options?: never;
         readonly head?: never;
@@ -1012,6 +1492,31 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AIExplanation */
+        readonly AIExplanation: {
+            /**
+             * Created At
+             * Format: date-time
+             */
+            readonly created_at: string;
+            /**
+             * Execution Id
+             * Format: uuid
+             */
+            readonly execution_id: string;
+            /**
+             * Revision Id
+             * Format: uuid
+             */
+            readonly revision_id: string;
+            /**
+             * Task Id
+             * Format: uuid
+             */
+            readonly task_id: string;
+            /** Text */
+            readonly text: string;
+        };
         /** Accepted */
         readonly Accepted: {
             /**
@@ -1099,6 +1604,23 @@ export interface components {
              */
             readonly purpose?: "decompose" | "evaluate" | "predict";
         };
+        /** AnalyzeFeedbackRequest */
+        readonly AnalyzeFeedbackRequest: {
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+            /**
+             * Business Date
+             * Format: date
+             */
+            readonly business_date: string;
+            /** Expected Sample Key */
+            readonly expected_sample_key: string;
+            /** Retry Of */
+            readonly retry_of?: string | null;
+        };
         /** ApprovePublish */
         readonly ApprovePublish: {
             /** Expected Head Id */
@@ -1132,6 +1654,55 @@ export interface components {
             readonly quality_grade: "S" | "A" | "B" | "C";
             /** Total Episode Count */
             readonly total_episode_count?: number | null;
+        };
+        /** AssessmentView */
+        readonly AssessmentView: {
+            /** Content Total */
+            readonly content_total: number | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            readonly created_at: string;
+            /** Dimensions */
+            readonly dimensions: readonly components["schemas"]["Dimension"][];
+            /**
+             * Id
+             * Format: uuid
+             */
+            readonly id: string;
+            /** Limitations */
+            readonly limitations?: readonly string[];
+            /**
+             * Market Basis
+             * @enum {string}
+             */
+            readonly market_basis: "ai_inference" | "unavailable";
+            /** Market Total */
+            readonly market_total: number | null;
+            /**
+             * Rubric Version
+             * @enum {string}
+             */
+            readonly rubric_version: "genre-load-v2" | "genre-load-v3-inferred";
+            /** Topic Version */
+            readonly topic_version: number;
+            /** Total */
+            readonly total: number | null;
+        };
+        /** BindingsWrite */
+        readonly BindingsWrite: {
+            /** Bindings */
+            readonly bindings: {
+                readonly [key: string]: string;
+            };
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+            /** Expected Lock Version */
+            readonly expected_lock_version: string;
         };
         /** BoardTarget */
         readonly BoardTarget: {
@@ -1239,6 +1810,17 @@ export interface components {
             /** Username */
             readonly username?: string | null;
         };
+        /** ConfigView */
+        readonly ConfigView: {
+            /** Bindings */
+            readonly bindings: {
+                readonly [key: string]: string;
+            };
+            /** Lock Version */
+            readonly lock_version: string;
+            /** Sources */
+            readonly sources: readonly components["schemas"]["SourceView"][];
+        };
         /** ConsoleSource */
         readonly ConsoleSource: {
             /** Archived */
@@ -1273,7 +1855,7 @@ export interface components {
              * Platform Code
              * @enum {string}
              */
-            readonly platform_code: "douyin" | "fanqie" | "qidian" | "hongguo";
+            readonly platform_code: "douyin" | "fanqie" | "qidian" | "hongguo" | "qimao";
             /** Target */
             readonly target: components["schemas"]["KeywordTarget"] | components["schemas"]["AccountTarget"] | components["schemas"]["ContentTarget"] | components["schemas"]["BoardTarget"];
             /**
@@ -1320,6 +1902,79 @@ export interface components {
              * @enum {string}
              */
             readonly kind: "content";
+        };
+        /** CreatorBatch */
+        readonly CreatorBatch: {
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+            /** Links */
+            readonly links: string;
+        };
+        /** CreatorConfig */
+        readonly CreatorConfig: {
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+            /** Items */
+            readonly items: readonly components["schemas"]["CreatorLink"][];
+            /** Results */
+            readonly results: readonly components["schemas"]["CreatorLine"][];
+        };
+        /** CreatorLine */
+        readonly CreatorLine: {
+            /** Line */
+            readonly line: number;
+            /** Message */
+            readonly message: string;
+            /**
+             * State
+             * @enum {string}
+             */
+            readonly state: "added" | "duplicate" | "invalid" | "limit";
+        };
+        /** CreatorLink */
+        readonly CreatorLink: {
+            /** Display Name */
+            readonly display_name?: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            readonly id: string;
+            /** Platform Uid */
+            readonly platform_uid?: string | null;
+            /** Url */
+            readonly url: string;
+        };
+        /** CreatorRemove */
+        readonly CreatorRemove: {
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+            /**
+             * Creator Id
+             * Format: uuid
+             */
+            readonly creator_id: string;
+        };
+        /** Dimension */
+        readonly Dimension: {
+            /** Analysis */
+            readonly analysis: string;
+            /**
+             * Key
+             * @enum {string}
+             */
+            readonly key: "emotion" | "conflict" | "contrast" | "antagonist" | "twist" | "audience" | "platform" | "acquisition" | "sequel" | "differentiation";
+            /** Score */
+            readonly score: number | null;
         };
         /** DirectIntake */
         readonly DirectIntake: {
@@ -1521,6 +2176,12 @@ export interface components {
         };
         /** EntryFeedback */
         readonly EntryFeedback: {
+            readonly analysis?: components["schemas"]["FeedbackAnalysisView"] | null;
+            /**
+             * Analysis Model Ready
+             * @default false
+             */
+            readonly analysis_model_ready?: boolean;
             /**
              * Business Code
              * @enum {string}
@@ -1552,6 +2213,8 @@ export interface components {
             readonly platform_code: string;
             /** Sample Count */
             readonly sample_count: number | null;
+            /** Sample Key */
+            readonly sample_key?: string | null;
             /** Sampling Description */
             readonly sampling_description: string | null;
             /**
@@ -1566,6 +2229,8 @@ export interface components {
              * @enum {string}
              */
             readonly status: "not_acquired" | "sampled" | "ready";
+            /** Summary */
+            readonly summary?: string | null;
         };
         /** Envelope[Accepted] */
         readonly Envelope_Accepted_: {
@@ -1603,9 +2268,27 @@ export interface components {
              */
             readonly request_id: string;
         };
+        /** Envelope[ConfigView] */
+        readonly Envelope_ConfigView_: {
+            readonly data: components["schemas"]["ConfigView"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
         /** Envelope[ConsoleSource] */
         readonly Envelope_ConsoleSource_: {
             readonly data: components["schemas"]["ConsoleSource"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
+        /** Envelope[CreatorConfig] */
+        readonly Envelope_CreatorConfig_: {
+            readonly data: components["schemas"]["CreatorConfig"];
             /**
              * Request Id
              * Format: uuid
@@ -1639,6 +2322,24 @@ export interface components {
              */
             readonly request_id: string;
         };
+        /** Envelope[FeedCalendar] */
+        readonly Envelope_FeedCalendar_: {
+            readonly data: components["schemas"]["FeedCalendar"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
+        /** Envelope[FeedbackAnalysisView] */
+        readonly Envelope_FeedbackAnalysisView_: {
+            readonly data: components["schemas"]["FeedbackAnalysisView"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
         /** Envelope[Feedback] */
         readonly Envelope_Feedback_: {
             readonly data: components["schemas"]["Feedback"];
@@ -1666,6 +2367,24 @@ export interface components {
              */
             readonly request_id: string;
         };
+        /** Envelope[GenerationView] */
+        readonly Envelope_GenerationView_: {
+            readonly data: components["schemas"]["GenerationView"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
+        /** Envelope[HandoffView] */
+        readonly Envelope_HandoffView_: {
+            readonly data: components["schemas"]["HandoffView"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
         /** Envelope[ImportResult] */
         readonly Envelope_ImportResult_: {
             readonly data: components["schemas"]["ImportResult"];
@@ -1687,6 +2406,15 @@ export interface components {
         /** Envelope[IntelligenceFeed] */
         readonly Envelope_IntelligenceFeed_: {
             readonly data: components["schemas"]["IntelligenceFeed"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
+        /** Envelope[KnowledgeRecycleResult] */
+        readonly Envelope_KnowledgeRecycleResult_: {
+            readonly data: components["schemas"]["KnowledgeRecycleResult"];
             /**
              * Request Id
              * Format: uuid
@@ -1765,6 +2493,15 @@ export interface components {
              */
             readonly request_id: string;
         };
+        /** Envelope[RefreshView] */
+        readonly Envelope_RefreshView_: {
+            readonly data: components["schemas"]["RefreshView"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
         /** Envelope[ReportView] */
         readonly Envelope_ReportView_: {
             readonly data: components["schemas"]["ReportView"];
@@ -1801,6 +2538,15 @@ export interface components {
              */
             readonly request_id: string;
         };
+        /** Envelope[ScoreTaskView] */
+        readonly Envelope_ScoreTaskView_: {
+            readonly data: components["schemas"]["ScoreTaskView"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
         /** Envelope[Session] */
         readonly Envelope_Session_: {
             readonly data: components["schemas"]["Session"];
@@ -1819,9 +2565,54 @@ export interface components {
              */
             readonly request_id: string;
         };
+        /** Envelope[SourceView] */
+        readonly Envelope_SourceView_: {
+            readonly data: components["schemas"]["SourceView"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
+        /** Envelope[SparkList] */
+        readonly Envelope_SparkList_: {
+            readonly data: components["schemas"]["SparkList"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
+        /** Envelope[SparkView] */
+        readonly Envelope_SparkView_: {
+            readonly data: components["schemas"]["SparkView"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
         /** Envelope[Task] */
         readonly Envelope_Task_: {
             readonly data: components["schemas"]["Task"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
+        /** Envelope[TopicList] */
+        readonly Envelope_TopicList_: {
+            readonly data: components["schemas"]["TopicList"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
+        /** Envelope[TopicView] */
+        readonly Envelope_TopicView_: {
+            readonly data: components["schemas"]["TopicView"];
             /**
              * Request Id
              * Format: uuid
@@ -1880,11 +2671,16 @@ export interface components {
              * Code
              * @enum {string}
              */
-            readonly code: "AUTH_REQUIRED" | "AUTH_INVALID" | "CSRF_INVALID" | "ACCESS_DENIED" | "NOT_FOUND" | "VALIDATION_FAILED" | "VERSION_CONFLICT" | "IDEMPOTENCY_CONFLICT" | "REVIEW_STALE" | "CURSOR_EXPIRED" | "IMMUTABLE_INPUT" | "STALE_RESULT" | "BUDGET_EXHAUSTED" | "EXTERNAL_RESULT_UNKNOWN" | "CANCEL_UNCONFIRMED" | "STANDARD_NOT_APPROVED" | "MODEL_NOT_CONFIGURED" | "INSUFFICIENT_MATERIAL" | "DATE_WINDOW_MISMATCH" | "SOURCE_UNAVAILABLE" | "FILE_NOT_ACCEPTED" | "UNSUPPORTED_SOURCE" | "PROVENANCE_DEPTH_EXCEEDED" | "RATE_LIMITED" | "SERVICE_NOT_READY" | "INTERNAL_ERROR" | "FILE_TOO_LARGE" | "INVALID_FILE" | "UNSAFE_URL" | "FETCH_FAILED" | "INVALID_RESPONSE";
+            readonly code: "AUTH_REQUIRED" | "AUTH_INVALID" | "CSRF_INVALID" | "ACCESS_DENIED" | "NOT_FOUND" | "VALIDATION_FAILED" | "VERSION_CONFLICT" | "IDEMPOTENCY_CONFLICT" | "REVIEW_STALE" | "CURSOR_EXPIRED" | "IMMUTABLE_INPUT" | "STALE_RESULT" | "BUDGET_EXHAUSTED" | "EXTERNAL_RESULT_UNKNOWN" | "CANCEL_UNCONFIRMED" | "STANDARD_NOT_APPROVED" | "MODEL_NOT_CONFIGURED" | "ORIGINALITY_RISK" | "RUBRIC_UNAVAILABLE" | "INSUFFICIENT_MATERIAL" | "DATE_WINDOW_MISMATCH" | "SOURCE_UNAVAILABLE" | "SOURCE_VERIFICATION_REQUIRED" | "FILE_NOT_ACCEPTED" | "UNSUPPORTED_SOURCE" | "PROVENANCE_DEPTH_EXCEEDED" | "RATE_LIMITED" | "SERVICE_NOT_READY" | "INTERNAL_ERROR" | "FILE_TOO_LARGE" | "INVALID_FILE" | "UNSAFE_URL" | "FETCH_FAILED" | "INVALID_RESPONSE";
             /** Field Paths */
             readonly field_paths?: readonly string[];
             /** Message */
             readonly message: string;
+        };
+        /** EvaluateRequest */
+        readonly EvaluateRequest: {
+            /** Expected Version */
+            readonly expected_version: number;
         };
         /** Evaluation */
         readonly Evaluation: {
@@ -1955,6 +2751,23 @@ export interface components {
              * @default 0
              */
             readonly max_external_calls?: number;
+        };
+        /** FeedCalendar */
+        readonly FeedCalendar: {
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+            /** Dates */
+            readonly dates: readonly string[];
+            /** Month */
+            readonly month: string;
+            /**
+             * Today
+             * Format: date
+             */
+            readonly today: string;
         };
         /** FeedItem */
         readonly FeedItem: {
@@ -2041,6 +2854,47 @@ export interface components {
             readonly summary: string | null;
             /** Version No */
             readonly version_no: number;
+        };
+        /** FeedbackAnalysisView */
+        readonly FeedbackAnalysisView: {
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+            /**
+             * Business Date
+             * Format: date
+             */
+            readonly business_date: string;
+            /**
+             * Entry Id
+             * Format: uuid
+             */
+            readonly entry_id: string;
+            /** Feedback Id */
+            readonly feedback_id: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            readonly id: string;
+            /** Result State */
+            readonly result_state: ("completed" | "insufficient_evidence") | null;
+            /** Safe Error Code */
+            readonly safe_error_code: ("AUTH_REQUIRED" | "AUTH_INVALID" | "CSRF_INVALID" | "ACCESS_DENIED" | "NOT_FOUND" | "VALIDATION_FAILED" | "VERSION_CONFLICT" | "IDEMPOTENCY_CONFLICT" | "REVIEW_STALE" | "CURSOR_EXPIRED" | "IMMUTABLE_INPUT" | "STALE_RESULT" | "BUDGET_EXHAUSTED" | "EXTERNAL_RESULT_UNKNOWN" | "CANCEL_UNCONFIRMED" | "STANDARD_NOT_APPROVED" | "MODEL_NOT_CONFIGURED" | "ORIGINALITY_RISK" | "RUBRIC_UNAVAILABLE" | "INSUFFICIENT_MATERIAL" | "DATE_WINDOW_MISMATCH" | "SOURCE_UNAVAILABLE" | "SOURCE_VERIFICATION_REQUIRED" | "FILE_NOT_ACCEPTED" | "UNSUPPORTED_SOURCE" | "PROVENANCE_DEPTH_EXCEEDED" | "RATE_LIMITED" | "SERVICE_NOT_READY" | "INTERNAL_ERROR" | "FILE_TOO_LARGE" | "INVALID_FILE" | "UNSAFE_URL" | "FETCH_FAILED" | "INVALID_RESPONSE") | null;
+            /** Sample Key */
+            readonly sample_key: string;
+            /**
+             * Snapshot Id
+             * Format: uuid
+             */
+            readonly snapshot_id: string;
+            /**
+             * State
+             * @enum {string}
+             */
+            readonly state: "queued" | "running" | "succeeded" | "failed" | "cancel_requested" | "cancelled";
         };
         /** FeedbackClaim */
         readonly FeedbackClaim: {
@@ -2216,6 +3070,101 @@ export interface components {
             readonly schema_version?: 1;
             readonly snapshot: components["schemas"]["Snapshot"];
         };
+        /** GenerateRequest */
+        readonly GenerateRequest: {
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short";
+            /**
+             * Instructions
+             * @default
+             */
+            readonly instructions?: string;
+            /**
+             * Mode
+             * @enum {string}
+             */
+            readonly mode: "batch" | "brainstorm";
+            /** Spark Ids */
+            readonly spark_ids?: readonly string[];
+        };
+        /** GenerationInput */
+        readonly GenerationInput: {
+            /** Instructions */
+            readonly instructions: string;
+            /** Spark Ids */
+            readonly spark_ids: readonly string[];
+        };
+        /** GenerationResult */
+        readonly GenerationResult: {
+            /** Topics */
+            readonly topics: readonly components["schemas"]["TopicFields"][];
+        };
+        /** GenerationSave */
+        readonly GenerationSave: {
+            readonly fields: components["schemas"]["TopicFields"];
+        };
+        /** GenerationView */
+        readonly GenerationView: {
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short";
+            /**
+             * Created At
+             * Format: date-time
+             */
+            readonly created_at: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            readonly id: string;
+            readonly input: components["schemas"]["GenerationInput"];
+            /**
+             * Mode
+             * @enum {string}
+             */
+            readonly mode: "batch" | "brainstorm";
+            readonly result: components["schemas"]["GenerationResult"] | null;
+            /** Safe Error Code */
+            readonly safe_error_code: string | null;
+            /** Saved Topic Id */
+            readonly saved_topic_id: string | null;
+            /**
+             * State
+             * @enum {string}
+             */
+            readonly state: "queued" | "running" | "succeeded" | "failed" | "cancel_requested" | "cancelled";
+            /**
+             * Task Id
+             * Format: uuid
+             */
+            readonly task_id: string;
+        };
+        /** HandoffView */
+        readonly HandoffView: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            readonly id: string;
+            /**
+             * Method
+             * @enum {string}
+             */
+            readonly method: "copy" | "export";
+            /**
+             * Topic Id
+             * Format: uuid
+             */
+            readonly topic_id: string;
+            /** Version */
+            readonly version: number;
+        };
         /** HealthResponse */
         readonly HealthResponse: {
             /** Service */
@@ -2224,6 +3173,17 @@ export interface components {
             readonly status: string;
             /** Version */
             readonly version: string;
+        };
+        /** History */
+        readonly History: {
+            /**
+             * Created At
+             * Format: date-time
+             */
+            readonly created_at: string;
+            readonly fields: components["schemas"]["TopicFields"];
+            /** Version */
+            readonly version: number;
         };
         /** HumanDecisionCreate */
         readonly HumanDecisionCreate: {
@@ -2453,6 +3413,36 @@ export interface components {
              */
             readonly kind: "keyword";
         };
+        /** KnowledgePurgeWrite */
+        readonly KnowledgePurgeWrite: {
+            /**
+             * Confirmation
+             * @constant
+             */
+            readonly confirmation: "PERMANENTLY_DELETE";
+            /** Items */
+            readonly items: readonly components["schemas"]["KnowledgeRecycleTarget"][];
+        };
+        /** KnowledgeRecycleResult */
+        readonly KnowledgeRecycleResult: {
+            /** Ids */
+            readonly ids: readonly string[];
+        };
+        /** KnowledgeRecycleTarget */
+        readonly KnowledgeRecycleTarget: {
+            /** Expected Lock Version */
+            readonly expected_lock_version: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            readonly id: string;
+        };
+        /** KnowledgeRecycleWrite */
+        readonly KnowledgeRecycleWrite: {
+            /** Items */
+            readonly items: readonly components["schemas"]["KnowledgeRecycleTarget"][];
+        };
         /** KnowledgeRevision */
         readonly KnowledgeRevision: {
             /** Body Text */
@@ -2473,6 +3463,8 @@ export interface components {
             readonly created_at: string;
             /** Evidence Ids */
             readonly evidence_ids: readonly string[];
+            /** Explanation */
+            readonly explanation?: string | null;
             /**
              * Id
              * Format: uuid
@@ -2497,6 +3489,8 @@ export interface components {
             readonly sealed_at: string;
             /** Source Report Id */
             readonly source_report_id: string | null;
+            /** Source Text */
+            readonly source_text?: string | null;
             /** Tags */
             readonly tags: readonly components["schemas"]["Tag"][];
             /** Title */
@@ -2519,6 +3513,8 @@ export interface components {
             readonly evidence_ids?: readonly string[];
             /** Expected Lock Version */
             readonly expected_lock_version: string;
+            /** Explanation */
+            readonly explanation?: string | null;
             /**
              * Knowledge Type
              * @enum {string}
@@ -2531,6 +3527,8 @@ export interface components {
             readonly revision_reason: string;
             /** Source Report Id */
             readonly source_report_id?: string | null;
+            /** Source Text */
+            readonly source_text?: string | null;
             /** Tags */
             readonly tags?: readonly components["schemas"]["Tag"][];
             /** Title */
@@ -2595,6 +3593,7 @@ export interface components {
         };
         /** KnowledgeView */
         readonly KnowledgeView: {
+            readonly ai_explanation?: components["schemas"]["AIExplanation"] | null;
             /**
              * Browse Category
              * @enum {string}
@@ -2616,6 +3615,16 @@ export interface components {
             readonly lock_version: string;
             /** Publication Id */
             readonly publication_id: string | null;
+            /** Recycle Expires At */
+            readonly recycle_expires_at?: string | null;
+            /** Recycled At */
+            readonly recycled_at?: string | null;
+            /**
+             * Release Mode
+             * @default double_review
+             * @enum {string}
+             */
+            readonly release_mode?: "double_review" | "legacy_import";
             /** Review Request Id */
             readonly review_request_id: string | null;
             readonly revision: components["schemas"]["KnowledgeRevision"];
@@ -2652,6 +3661,8 @@ export interface components {
             readonly business_codes: readonly ("motion_comic" | "story_short" | "ecommerce_video")[];
             /** Evidence Ids */
             readonly evidence_ids?: readonly string[];
+            /** Explanation */
+            readonly explanation?: string | null;
             /**
              * Knowledge Type
              * @enum {string}
@@ -2662,6 +3673,8 @@ export interface components {
             readonly manual_source?: components["schemas"]["ManualSource"] | null;
             /** Source Report Id */
             readonly source_report_id?: string | null;
+            /** Source Text */
+            readonly source_text?: string | null;
             /** Tags */
             readonly tags?: readonly components["schemas"]["Tag"][];
             /** Title */
@@ -2778,7 +3791,7 @@ export interface components {
              * Platform
              * @enum {string}
              */
-            readonly platform: "fanqie" | "qidian";
+            readonly platform: "fanqie" | "qidian" | "qimao";
             /** Rank Name */
             readonly rank_name?: string | null;
             /** Rank Type */
@@ -2825,6 +3838,10 @@ export interface components {
         /** NovelItem */
         readonly NovelItem: {
             readonly board: components["schemas"]["NovelBoard"];
+            /** Heat Display */
+            readonly heat_display?: string | null;
+            /** Heat Value */
+            readonly heat_value?: string | null;
             readonly item: components["schemas"]["FeedItem"];
             /** Rank */
             readonly rank: number;
@@ -2859,7 +3876,7 @@ export interface components {
              * Platform
              * @enum {string}
              */
-            readonly platform: "fanqie" | "qidian";
+            readonly platform: "fanqie" | "qidian" | "qimao";
             /** State */
             readonly state: string;
         };
@@ -2875,6 +3892,10 @@ export interface components {
             readonly display_name: string | null;
             /** Follower Count */
             readonly follower_count: string | null;
+            /** Heat Display */
+            readonly heat_display?: string | null;
+            /** Heat Value */
+            readonly heat_value?: string | null;
             /**
              * Id
              * Format: uuid
@@ -2898,7 +3919,7 @@ export interface components {
              * Platform Code
              * @enum {string}
              */
-            readonly platform_code: "douyin" | "fanqie" | "qidian" | "hongguo";
+            readonly platform_code: "douyin" | "fanqie" | "qidian" | "hongguo" | "qimao";
             /** Platform Id */
             readonly platform_id: string;
             /** Published At */
@@ -2915,6 +3936,20 @@ export interface components {
             readonly view_count: string | null;
             /** Work Count */
             readonly work_count: string | null;
+        };
+        /** OriginalityView */
+        readonly OriginalityView: {
+            /** Limitations */
+            readonly limitations: string;
+            /** Matches */
+            readonly matches: readonly {
+                readonly [key: string]: unknown;
+            }[];
+            /**
+             * Status
+             * @enum {string}
+             */
+            readonly status: "no_obvious_overlap" | "risk" | "unchecked";
         };
         /** OutputRef */
         readonly OutputRef: {
@@ -3107,6 +4142,57 @@ export interface components {
              * Format: uuid
              */
             readonly revision_id: string;
+        };
+        /** RefreshChannel */
+        readonly RefreshChannel: {
+            /**
+             * Code
+             * @enum {string}
+             */
+            readonly code: "hongguo" | "tikhub" | "fanqie" | "qidian" | "creators" | "microfilm" | "qimao";
+            /** Completed */
+            readonly completed: number;
+            /** Message */
+            readonly message: string;
+            /** Name */
+            readonly name: string;
+            /**
+             * State
+             * @enum {string}
+             */
+            readonly state: "queued" | "running" | "succeeded" | "partial" | "failed" | "unavailable";
+            /** Total */
+            readonly total: number;
+        };
+        /** RefreshRequest */
+        readonly RefreshRequest: {
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+        };
+        /** RefreshView */
+        readonly RefreshView: {
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+            /**
+             * Business Date
+             * Format: date
+             */
+            readonly business_date: string;
+            /** Channels */
+            readonly channels: readonly components["schemas"]["RefreshChannel"][];
+            /**
+             * State
+             * @enum {string}
+             */
+            readonly state: "idle" | "queued" | "running" | "completed" | "partial" | "failed";
+            /** Task Id */
+            readonly task_id: string | null;
         };
         /** ReportEvidence */
         readonly ReportEvidence: {
@@ -3366,6 +4452,34 @@ export interface components {
             /** Version No */
             readonly version_no: number;
         };
+        /** ScoreTaskView */
+        readonly ScoreTaskView: {
+            readonly assessment: components["schemas"]["AssessmentView"] | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            readonly id: string;
+            /** Safe Error Code */
+            readonly safe_error_code: string | null;
+            /**
+             * State
+             * @enum {string}
+             */
+            readonly state: "queued" | "running" | "succeeded" | "failed" | "cancel_requested" | "cancelled";
+            /**
+             * Task Id
+             * Format: uuid
+             */
+            readonly task_id: string;
+            /**
+             * Topic Id
+             * Format: uuid
+             */
+            readonly topic_id: string;
+            /** Topic Version */
+            readonly topic_version: number;
+        };
         /** Session */
         readonly Session: {
             /** Actions */
@@ -3491,6 +4605,145 @@ export interface components {
             /** Name */
             readonly name?: string | null;
         };
+        /** SourceView */
+        readonly SourceView: {
+            /**
+             * Capability
+             * @enum {string}
+             */
+            readonly capability: "text" | "vision";
+            /** Credential Ready */
+            readonly credential_ready: boolean;
+            /**
+             * Enabled
+             * @default true
+             */
+            readonly enabled?: boolean;
+            /** Endpoint */
+            readonly endpoint: string;
+            /** Expected Lock Version */
+            readonly expected_lock_version?: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            readonly id: string;
+            /** Lock Version */
+            readonly lock_version: string;
+            /** Max Tokens */
+            readonly max_tokens?: number | null;
+            /** Model */
+            readonly model: string;
+            /** Name */
+            readonly name: string;
+            /**
+             * Provider
+             * @enum {string}
+             */
+            readonly provider: "deepseek" | "openai" | "other";
+            /**
+             * Retries
+             * @default 0
+             * @constant
+             */
+            readonly retries?: 0;
+            /**
+             * Secret Ref
+             * @enum {string}
+             */
+            readonly secret_ref: "DEEPSEEK_KEY" | "OPENAI_API_KEY";
+            /**
+             * Timeout
+             * @default 45
+             */
+            readonly timeout?: number;
+            /** Version */
+            readonly version: number;
+        };
+        /** SourceWrite */
+        readonly SourceWrite: {
+            /**
+             * Capability
+             * @enum {string}
+             */
+            readonly capability: "text" | "vision";
+            /**
+             * Enabled
+             * @default true
+             */
+            readonly enabled?: boolean;
+            /** Endpoint */
+            readonly endpoint: string;
+            /** Expected Lock Version */
+            readonly expected_lock_version?: string | null;
+            /** Id */
+            readonly id?: string | null;
+            /** Max Tokens */
+            readonly max_tokens?: number | null;
+            /** Model */
+            readonly model: string;
+            /** Name */
+            readonly name: string;
+            /**
+             * Provider
+             * @enum {string}
+             */
+            readonly provider: "deepseek" | "openai" | "other";
+            /**
+             * Retries
+             * @default 0
+             * @constant
+             */
+            readonly retries?: 0;
+            /**
+             * Secret Ref
+             * @enum {string}
+             */
+            readonly secret_ref: "DEEPSEEK_KEY" | "OPENAI_API_KEY";
+            /**
+             * Timeout
+             * @default 45
+             */
+            readonly timeout?: number;
+        };
+        /** SparkList */
+        readonly SparkList: {
+            /** Items */
+            readonly items: readonly components["schemas"]["SparkView"][];
+        };
+        /** SparkView */
+        readonly SparkView: {
+            /**
+             * Created At
+             * Format: date-time
+             */
+            readonly created_at: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            readonly id: string;
+            /** Text */
+            readonly text: string;
+            /** Title */
+            readonly title: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            readonly updated_at: string;
+            /** Version */
+            readonly version: number;
+        };
+        /** SparkWrite */
+        readonly SparkWrite: {
+            /** Expected Version */
+            readonly expected_version?: number | null;
+            /** Id */
+            readonly id?: string | null;
+            /** Text */
+            readonly text: string;
+        };
         /** SubmissionView */
         readonly SubmissionView: {
             readonly assessment: components["schemas"]["PreliminaryView"] | null;
@@ -3552,7 +4805,7 @@ export interface components {
             /** Requested By */
             readonly requested_by: string | null;
             /** Safe Error Code */
-            readonly safe_error_code: ("AUTH_REQUIRED" | "AUTH_INVALID" | "CSRF_INVALID" | "ACCESS_DENIED" | "NOT_FOUND" | "VALIDATION_FAILED" | "VERSION_CONFLICT" | "IDEMPOTENCY_CONFLICT" | "REVIEW_STALE" | "CURSOR_EXPIRED" | "IMMUTABLE_INPUT" | "STALE_RESULT" | "BUDGET_EXHAUSTED" | "EXTERNAL_RESULT_UNKNOWN" | "CANCEL_UNCONFIRMED" | "STANDARD_NOT_APPROVED" | "MODEL_NOT_CONFIGURED" | "INSUFFICIENT_MATERIAL" | "DATE_WINDOW_MISMATCH" | "SOURCE_UNAVAILABLE" | "FILE_NOT_ACCEPTED" | "UNSUPPORTED_SOURCE" | "PROVENANCE_DEPTH_EXCEEDED" | "RATE_LIMITED" | "SERVICE_NOT_READY" | "INTERNAL_ERROR" | "FILE_TOO_LARGE" | "INVALID_FILE" | "UNSAFE_URL" | "FETCH_FAILED" | "INVALID_RESPONSE") | null;
+            readonly safe_error_code: ("AUTH_REQUIRED" | "AUTH_INVALID" | "CSRF_INVALID" | "ACCESS_DENIED" | "NOT_FOUND" | "VALIDATION_FAILED" | "VERSION_CONFLICT" | "IDEMPOTENCY_CONFLICT" | "REVIEW_STALE" | "CURSOR_EXPIRED" | "IMMUTABLE_INPUT" | "STALE_RESULT" | "BUDGET_EXHAUSTED" | "EXTERNAL_RESULT_UNKNOWN" | "CANCEL_UNCONFIRMED" | "STANDARD_NOT_APPROVED" | "MODEL_NOT_CONFIGURED" | "ORIGINALITY_RISK" | "RUBRIC_UNAVAILABLE" | "INSUFFICIENT_MATERIAL" | "DATE_WINDOW_MISMATCH" | "SOURCE_UNAVAILABLE" | "SOURCE_VERIFICATION_REQUIRED" | "FILE_NOT_ACCEPTED" | "UNSUPPORTED_SOURCE" | "PROVENANCE_DEPTH_EXCEEDED" | "RATE_LIMITED" | "SERVICE_NOT_READY" | "INTERNAL_ERROR" | "FILE_TOO_LARGE" | "INVALID_FILE" | "UNSAFE_URL" | "FETCH_FAILED" | "INVALID_RESPONSE") | null;
             /** Started At */
             readonly started_at: string | null;
             /**
@@ -3587,6 +4840,141 @@ export interface components {
              * Format: uuid
              */
             readonly task_id: string;
+        };
+        /** TopicFields */
+        readonly TopicFields: {
+            /**
+             * Audience
+             * @default
+             */
+            readonly audience?: string;
+            /**
+             * Character Settings
+             * @default
+             */
+            readonly character_settings?: string;
+            /**
+             * Global Rhythm
+             * @default
+             */
+            readonly global_rhythm?: string;
+            /** Logline */
+            readonly logline: string;
+            /** Title */
+            readonly title: string;
+        };
+        /** TopicHandoff */
+        readonly TopicHandoff: {
+            /** Expected Version */
+            readonly expected_version: number;
+            /**
+             * Method
+             * @enum {string}
+             */
+            readonly method: "copy" | "export";
+            /**
+             * Phase
+             * @default confirm
+             * @enum {string}
+             */
+            readonly phase?: "authorize" | "confirm";
+        };
+        /** TopicList */
+        readonly TopicList: {
+            /** Items */
+            readonly items: readonly components["schemas"]["TopicView"][];
+            /** Model Ready */
+            readonly model_ready: boolean;
+            /** Page */
+            readonly page: number;
+            /**
+             * Page Size
+             * @default 9
+             * @constant
+             */
+            readonly page_size?: 9;
+            /** Total */
+            readonly total: string;
+        };
+        /** TopicSelect */
+        readonly TopicSelect: {
+            /** Expected Version */
+            readonly expected_version: number;
+        };
+        /** TopicUpdate */
+        readonly TopicUpdate: {
+            /** Expected Version */
+            readonly expected_version: number;
+            readonly fields: components["schemas"]["TopicFields"];
+        };
+        /** TopicView */
+        readonly TopicView: {
+            readonly assessment?: components["schemas"]["AssessmentView"] | null;
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short";
+            /**
+             * Created At
+             * Format: date-time
+             */
+            readonly created_at: string;
+            /**
+             * Evaluation Status
+             * @enum {string}
+             */
+            readonly evaluation_status: "not_evaluated" | "needs_review" | "pending" | "scoring" | "scored" | "insufficient_evidence" | "failed";
+            readonly evaluation_task?: components["schemas"]["ScoreTaskView"] | null;
+            readonly fields: components["schemas"]["TopicFields"];
+            /**
+             * Handed Off
+             * @default false
+             */
+            readonly handed_off?: boolean;
+            /** History */
+            readonly history: readonly components["schemas"]["History"][];
+            /**
+             * Id
+             * Format: uuid
+             */
+            readonly id: string;
+            /**
+             * Origin
+             * @enum {string}
+             */
+            readonly origin: "manual" | "batch" | "brainstorm";
+            readonly originality?: components["schemas"]["OriginalityView"] | null;
+            /**
+             * Score Model Ready
+             * @default false
+             */
+            readonly score_model_ready?: boolean;
+            /** Source Refs */
+            readonly source_refs: {
+                readonly [key: string]: unknown;
+            };
+            /**
+             * Status
+             * @enum {string}
+             */
+            readonly status: "candidate" | "production";
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            readonly updated_at: string;
+            /** Version */
+            readonly version: number;
+        };
+        /** TopicWrite */
+        readonly TopicWrite: {
+            /**
+             * Business Code
+             * @enum {string}
+             */
+            readonly business_code: "motion_comic" | "story_short";
+            readonly fields: components["schemas"]["TopicFields"];
         };
         /** UnitView */
         readonly UnitView: {
@@ -4943,6 +6331,553 @@ export interface operations {
             };
         };
     };
+    readonly getFeedCalendar: {
+        readonly parameters: {
+            readonly query: {
+                readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+                readonly month: string;
+            };
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody?: never;
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_FeedCalendar_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly getCreatorLinks: {
+        readonly parameters: {
+            readonly query: {
+                readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+            };
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody?: never;
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_CreatorConfig_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly saveCreatorLinks: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["CreatorBatch"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_CreatorConfig_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly removeCreatorLink: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["CreatorRemove"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_CreatorConfig_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
     readonly getEntryFeedback: {
         readonly parameters: {
             readonly query: {
@@ -4966,6 +6901,147 @@ export interface operations {
                 };
                 content: {
                     readonly "application/json": components["schemas"]["Envelope_EntryFeedback_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly analyzeEntryFeedback: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path: {
+                readonly entry_id: string;
+            };
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["AnalyzeFeedbackRequest"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 202: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_FeedbackAnalysisView_"];
                 };
             };
             /** @description 未登录或登录失败 */
@@ -5365,6 +7441,142 @@ export interface operations {
             };
         };
     };
+    readonly getFeedbackAnalysis: {
+        readonly parameters: {
+            readonly query?: {
+                readonly entry_id?: string | null;
+            };
+            readonly header?: never;
+            readonly path: {
+                readonly analysis_id: string;
+            };
+            readonly cookie?: never;
+        };
+        readonly requestBody?: never;
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_FeedbackAnalysisView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
     readonly getFeedback: {
         readonly parameters: {
             readonly query?: never;
@@ -5504,7 +7716,7 @@ export interface operations {
             readonly query: {
                 readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
                 readonly business_date: string;
-                readonly platform?: "all" | "fanqie" | "qidian";
+                readonly platform?: "all" | "fanqie" | "qidian" | "qimao";
                 readonly rank_type?: string | null;
                 readonly gender?: ("male" | "female" | "all") | null;
                 readonly genre?: string | null;
@@ -5526,6 +7738,279 @@ export interface operations {
                 };
                 content: {
                     readonly "application/json": components["schemas"]["Envelope_NovelFeed_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly getIntelligenceRefresh: {
+        readonly parameters: {
+            readonly query: {
+                readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+            };
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody?: never;
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_RefreshView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly refreshIntelligence: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["RefreshRequest"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 202: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_RefreshView_"];
                 };
             };
             /** @description 未登录或登录失败 */
@@ -6605,6 +9090,564 @@ export interface operations {
             };
         };
     };
+    readonly purgeKnowledge: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["KnowledgePurgeWrite"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_KnowledgeRecycleResult_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly recycleKnowledge: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["KnowledgeRecycleWrite"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_KnowledgeRecycleResult_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly listRecycledKnowledge: {
+        readonly parameters: {
+            readonly query: {
+                readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+                readonly cursor?: string | null;
+                readonly limit?: number;
+                readonly q?: string | null;
+                readonly source_report_id?: string | null;
+                readonly browse_category?: string | null;
+                readonly tag?: string | null;
+                readonly mode?: string;
+            };
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody?: never;
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_Page_KnowledgeView__"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly restoreKnowledge: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["KnowledgeRecycleWrite"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_KnowledgeRecycleResult_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
     readonly getCandidateRevision: {
         readonly parameters: {
             readonly query?: never;
@@ -7175,6 +10218,418 @@ export interface operations {
                 };
                 content: {
                     readonly "application/json": components["schemas"]["Envelope_KnowledgeRevision_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly getModelConfig: {
+        readonly parameters: {
+            readonly query: {
+                readonly business_code: "motion_comic" | "story_short" | "ecommerce_video";
+            };
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody?: never;
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_ConfigView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly saveModelBindings: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["BindingsWrite"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_ConfigView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly saveModelSource: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["SourceWrite"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_SourceView_"];
                 };
             };
             /** @description 未登录或登录失败 */
@@ -10046,6 +13501,277 @@ export interface operations {
             };
         };
     };
+    readonly listSparks: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody?: never;
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_SparkList_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly saveSpark: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["SparkWrite"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_SparkView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
     readonly listTasks: {
         readonly parameters: {
             readonly query: {
@@ -10485,6 +14211,1529 @@ export interface operations {
                 };
                 content: {
                     readonly "application/json": components["schemas"]["Envelope_Task_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly listTopics: {
+        readonly parameters: {
+            readonly query: {
+                readonly business_code: "motion_comic" | "story_short";
+                readonly pool?: "candidate" | "production";
+                readonly page?: number;
+                readonly q?: string | null;
+                readonly status?: "all" | "pending" | "handed_off";
+            };
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody?: never;
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_TopicList_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly createTopic: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["TopicWrite"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_TopicView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly getTopicEvaluation: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path: {
+                readonly evaluation_id: string;
+            };
+            readonly cookie?: never;
+        };
+        readonly requestBody?: never;
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_ScoreTaskView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly generateTopics: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["GenerateRequest"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 202: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_GenerationView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly getTopicGeneration: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path: {
+                readonly generation_id: string;
+            };
+            readonly cookie?: never;
+        };
+        readonly requestBody?: never;
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_GenerationView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly saveGeneratedTopic: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path: {
+                readonly generation_id: string;
+            };
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["GenerationSave"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_TopicView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly getTopic: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path: {
+                readonly topic_id: string;
+            };
+            readonly cookie?: never;
+        };
+        readonly requestBody?: never;
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_TopicView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly reviseTopic: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path: {
+                readonly topic_id: string;
+            };
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["TopicUpdate"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_TopicView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly evaluateTopic: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path: {
+                readonly topic_id: string;
+            };
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["EvaluateRequest"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 202: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_ScoreTaskView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly handoffTopic: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path: {
+                readonly topic_id: string;
+            };
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["TopicHandoff"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_HandoffView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly selectTopic: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path: {
+                readonly topic_id: string;
+            };
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["TopicSelect"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_TopicView_"];
                 };
             };
             /** @description 未登录或登录失败 */

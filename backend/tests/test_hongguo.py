@@ -151,3 +151,171 @@ def test_interval_survives_connector_recreation(tmp_path, monkeypatch):
         is None
     )
     assert waits == [0, 10] and json.loads(path.read_text())["last_request"] == 110
+
+
+@pytest.mark.parametrize(
+    "case,expected_bytes,stage,kind,complete",
+    [
+        ("transfer", b"partial-page", "receive", "transfer_error", False),
+        ("decode", b"\xff\xfe", "decode", "invalid_utf8", True),
+        ("empty", b"", "receive", "empty_body", True),
+        ("shape", b"<html>wrong page</html>", "parse", "invalid_shape", True),
+        ("limit", b"x" * (4 * 1024 * 1024), "receive", "body_too_large", False),
+    ],
+    ids=["transfer", "decode", "empty", "shape", "limit"],
+)
+def test_failed_response_preserves_bounded_bytes_and_safe_failure_stage(
+    tmp_path, case, expected_bytes, stage, kind, complete
+):
+    class Interrupted(httpx.SyncByteStream):
+        def __iter__(self):
+            yield b"partial-page"
+            raise httpx.ReadError("secret=value-must-not-leak")
+
+    payload = expected_bytes + b"x" if case == "limit" else expected_bytes
+
+    def respond(req):
+        if case == "transfer":
+            return httpx.Response(200, stream=Interrupted())
+        return httpx.Response(200, content=payload)
+
+    client = httpx.Client(transport=httpx.MockTransport(respond))
+    adapter = Hongguo(client, tmp_path / "gate.json")
+    reply = adapter.fetch("hongguo.board", {"board": "hot-drama"}, maximum=20)
+    assert reply.error == ("SOURCE_UNAVAILABLE" if case == "transfer" else "INVALID_RESPONSE")
+    captured = list(tmp_path.glob("board-hot-drama-*.body"))
+    assert len(captured) == 1 and captured[0].read_bytes() == expected_bytes
+    meta = json.loads(captured[0].with_suffix(".json").read_text())
+    assert meta["failure_stage"] == stage and meta["failure_kind"] == kind
+    assert meta["body_complete"] is complete
+    assert meta["saved_bytes"] == len(expected_bytes)
+    assert "value-must-not-leak" not in reply.raw_text + json.dumps(meta)
+    if case == "shape":
+        # Complete UTF-8 evidence must still satisfy the existing exact-raw recovery gate.
+        assert "capture" not in json.loads(reply.raw_text)
+        assert response_html(reply.raw_text) == "<html>wrong page</html>"
+    else:
+        assert json.loads(reply.raw_text)["capture"]["failure_kind"] == kind
+    with pytest.raises(AdapterError):
+        adapter.ready()
+    with pytest.raises(AdapterError):
+        adapter.fetch("hongguo.board", {"board": "hot-drama"}, maximum=20)
+    assert len(list(tmp_path.glob("*.body"))) == 1
+
+
+def test_failed_capture_storage_error_does_not_skip_cooldown(tmp_path, monkeypatch):
+    from app.connectors import hongguo
+
+    original_open = hongguo.os.open
+
+    def deny_capture(path, *args, **kwargs):
+        if str(path).endswith(".body"):
+            raise OSError("capture storage unavailable")
+        return original_open(path, *args, **kwargs)
+
+    monkeypatch.setattr(hongguo.os, "open", deny_capture)
+    adapter = Hongguo(
+        httpx.Client(transport=httpx.MockTransport(lambda req: httpx.Response(429, text="slow"))),
+        tmp_path / "gate.json",
+    )
+    with pytest.raises(OSError):
+        adapter.fetch("hongguo.board", {"board": "hot-drama"}, maximum=20)
+    with pytest.raises(AdapterError):
+        adapter.ready()
+
+
+@pytest.mark.parametrize("status", [403, 429])
+def test_empty_http_error_keeps_http_failure_and_cooldown(tmp_path, status):
+    adapter = Hongguo(
+        httpx.Client(
+            transport=httpx.MockTransport(lambda req: httpx.Response(status, content=b""))
+        ),
+        tmp_path / "gate.json",
+    )
+    reply = adapter.fetch("hongguo.board", {"board": "hot-drama"}, maximum=20)
+    assert reply.http_status == status
+    assert reply.outcome == "http_error" and reply.error == "SOURCE_UNAVAILABLE"
+    with pytest.raises(AdapterError):
+        adapter.ready()
+
+
+def test_content_decompression_failure_is_distinguished_from_transfer(tmp_path):
+    adapter = Hongguo(
+        httpx.Client(
+            transport=httpx.MockTransport(
+                lambda req: httpx.Response(
+                    200, headers={"Content-Encoding": "gzip"}, stream=httpx.ByteStream(b"not gzip")
+                )
+            )
+        ),
+        tmp_path / "gate.json",
+    )
+    reply = adapter.fetch("hongguo.board", {"board": "hot-drama"}, maximum=20)
+    capture = json.loads(reply.raw_text)["capture"]
+    assert capture["failure_stage"] == "decode"
+    assert capture["failure_kind"] == "content_decode_error"
+    assert capture["content_encoding"] == "gzip"
+    assert capture["body_complete"] is False
+    assert capture["exception_type"] == "DecodingError"
+
+
+def test_requests_identity_body_instead_of_httpx_default_compression(tmp_path):
+    requests = []
+
+    def respond(req):
+        requests.append(req)
+        # The fixed page does not need compression; prefer the directly observable body.
+        assert req.headers["accept-encoding"] == "identity"
+        return httpx.Response(200, stream=httpx.ByteStream(html(count=1).encode()))
+
+    adapter = Hongguo(httpx.Client(transport=httpx.MockTransport(respond)), tmp_path / "gate.json")
+    reply = adapter.fetch("hongguo.board", {"board": "hot-drama"}, maximum=20)
+    assert reply.error is None and len(reply.batch.records) == 1
+    assert len(requests) == 1
+
+
+def test_compressed_prefix_timeout_reports_wire_bytes_without_claiming_decoded_body(tmp_path):
+    class GzipHeaderThenTimeout(httpx.SyncByteStream):
+        def __iter__(self):
+            # A complete gzip header has no decoded bytes. Transport still received data.
+            yield bytes.fromhex("1f8b0800000000000003")
+            raise httpx.ReadTimeout("private-proxy-details-must-not-leak")
+
+    adapter = Hongguo(
+        httpx.Client(
+            transport=httpx.MockTransport(
+                lambda req: httpx.Response(
+                    200, headers={"Content-Encoding": "gzip"}, stream=GzipHeaderThenTimeout()
+                )
+            )
+        ),
+        tmp_path / "gate.json",
+    )
+    reply = adapter.fetch("hongguo.board", {"board": "hot-drama"}, maximum=20)
+    capture = json.loads(reply.raw_text)["capture"]
+    assert reply.error == "SOURCE_UNAVAILABLE"
+    assert reply.outcome == "network_error"
+    assert capture["received_wire_bytes"] == 10
+    assert capture["received_bytes"] == 0 and capture["saved_bytes"] == 0
+    assert capture["body_complete"] is False and capture["text_available"] is False
+    assert capture["failure_kind"] == "transfer_error"
+    assert capture["exception_type"] == "ReadTimeout"
+    assert "private-proxy-details" not in reply.raw_text
+
+
+def test_saved_http_base64_read_compatibility_preserves_nul_and_rejects_tamper():
+    import base64
+    import hashlib
+
+    body = html(count=1) + "\x00"
+    envelope = {
+        "format": "hongguo-saved-http-v1",
+        "response_sha256": hashlib.sha256(body.encode()).hexdigest(),
+        "html_base64": base64.b64encode(body.encode()).decode(),
+        "capture": {},
+    }
+    assert response_html(json.dumps(envelope)) == body
+    assert len(normalize_board(json.dumps(envelope), "hot-drama").records) == 1
+    for change in ({"html_base64": "!!!"}, {"response_sha256": "0" * 64}, {"extra": True}):
+        with pytest.raises(AdapterError):
+            response_html(json.dumps({**envelope, **change}))

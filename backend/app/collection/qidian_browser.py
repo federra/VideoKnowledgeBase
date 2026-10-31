@@ -25,8 +25,10 @@ class BrowserQidian(SavedQidian):
         return value
 
 
-def submit_browser(c, p, board, body, *, business="motion_comic"):
-    return submit_local(c, p, board, body, BrowserQidian(), business=business)
+def submit_browser(c, p, board, body, *, business="motion_comic", refresh_existing=False):
+    return submit_local(
+        c, p, board, body, BrowserQidian(), business=business, refresh_existing=refresh_existing
+    )
 
 
 def run_browser(engine, org, task_id):

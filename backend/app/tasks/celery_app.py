@@ -8,7 +8,7 @@ from app.core.config import settings
 app = Celery(
     "cip",
     broker=settings.redis_url.get_secret_value(),
-    include=["app.tasks.worker", "app.research.worker", "app.knowledge.worker"],
+    include=["app.tasks.worker", "app.research.worker", "app.knowledge.worker", "app.topics.worker", "app.topics.score_worker", "app.ai.feedback_worker"],
 )
 app.conf.update(
     accept_content=["json"],
@@ -33,6 +33,8 @@ app.conf.update(
     task_default_queue=settings.task_queue,
     task_create_missing_queues=False,
     task_queues=(
+        Queue("feedback", exchange=Exchange("feedback", type="direct"), routing_key="feedback"),
+        Queue("topics", exchange=Exchange("topics", type="direct"), routing_key="topics"),
         Queue(
             "knowledge.analysis",
             exchange=Exchange("knowledge.analysis", type="direct"),
@@ -48,7 +50,10 @@ app.conf.update(
     ),
     timezone="UTC",
     enable_utc=True,
-    beat_schedule={"persistent-task-dispatch": {"task": "cip.tick", "schedule": 10.0}},
+    beat_schedule={
+        "persistent-task-dispatch": {"task": "cip.tick", "schedule": 10.0},
+        "knowledge-retention": {"task": "cip.knowledge_retention", "schedule": 60.0},
+    },
     worker_hijack_root_logger=False,
     worker_send_task_events=False,
     task_send_sent_event=False,

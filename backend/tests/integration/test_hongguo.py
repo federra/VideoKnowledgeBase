@@ -205,6 +205,17 @@ def test_hongguo_pipeline_sample_read_sort_scope_and_idempotency(
         result = feed(c, p, "motion_comic", shanghai_date(), video_catalog="hongguo")
         IntelligenceFeed.model_validate(result)
         assert result["total"] == "2"
+        assert result["metrics"]["videos"] == "2"
+        # Header counts are full-business/day, including when another catalog is empty.
+        for lane, filters in [
+            ("creator", {}),
+            ("board", {"video_catalog": "tikhub"}),
+            ("board", {"video_catalog": "hongguo", "video_board": "hot-ai-drama"}),
+            ("board", {"video_catalog": "hongguo", "video_genre": "no-match"}),
+            ("board", {"video_catalog": "hongguo", "q": "no-match", "page": 2}),
+        ]:
+            filtered = feed(c, p, "motion_comic", shanghai_date(), lane, **filters)
+            assert filtered["metrics"] == result["metrics"]
         assert [v["entry"]["observation"]["platform_id"] for v in result["items"]] == ["2", "1"]
         assert result["video_genres"] == ["脑洞"] and result["video_subgenres"] == ["逆袭"]
         assert (

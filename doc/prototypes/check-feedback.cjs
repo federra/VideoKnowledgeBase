@@ -29,7 +29,7 @@ function boot(saved = {}, hash = '#0/0') {
     console, structuredClone, URL, URLSearchParams, FormData: DemoFormData,
     location: {search: '?qa=1', hash},
     localStorage: {getItem: k => storage.get(k) ?? null, setItem: (k,v) => storage.set(k,v)},
-    document: {documentElement: {dataset: {}}, activeElement: node('focus'), getElementById: node, querySelectorAll: () => [],
+    document: {documentElement: {dataset: {}}, activeElement: node('focus'), getElementById: node, querySelector: () => null, querySelectorAll: () => [],
       addEventListener: (name,fn) => events[name] = fn},
     window: {addEventListener(name,fn) {events['window:'+name]=fn;}},
     setTimeout: fn => {timers.set(++timerId,fn);return timerId;}, clearTimeout: id => timers.delete(id), confirm: () => true
@@ -112,7 +112,7 @@ if(require.main===module)(async () => {
     }
   }
 
-  app.run('state.biz=["AI漫剧"]; changeFeedDate("2026-10-02")');
+  app.run('state.biz=["AI漫剧"]; state.rankBoard="RB-A4"; changeFeedDate("2026-10-02")');
   const originalHash = app.run('location.hash');
   const feed = app.nodes.get('page').innerHTML;
   assert.ok(feed.includes('观众反馈'));

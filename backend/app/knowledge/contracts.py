@@ -1,5 +1,7 @@
 """Review detail and same-transaction Demo approval contract."""
 
+from datetime import datetime
+from typing import Literal
 from uuid import UUID
 
 from pydantic import Field, model_validator
@@ -39,7 +41,19 @@ class ExtractCreate(Contract):
     max_external_calls: int = Field(default=0, strict=True, ge=0, le=1)
 
 
+class AIExplanation(Contract):
+    text: str = Field(min_length=1, max_length=180)
+    revision_id: UUID
+    task_id: UUID
+    execution_id: UUID
+    created_at: datetime
+
+
 class KnowledgeView(KnowledgeDetail):
+    ai_explanation: AIExplanation | None = None
+    recycled_at: datetime | None = None
+    recycle_expires_at: datetime | None = None
+    release_mode: Literal["double_review", "legacy_import"] = "double_review"
     review_request_id: UUID | None
 
 
@@ -92,3 +106,26 @@ class KnowledgeSources(Contract):
     knowledge_id: UUID
     source_report_id: UUID | None
     items: list[KnowledgeSource]
+
+
+class KnowledgeRecycleTarget(Contract):
+    id: UUID
+    expected_lock_version: Version
+
+
+class KnowledgeRecycleWrite(Contract):
+    items: list[KnowledgeRecycleTarget] = Field(min_length=1, max_length=1000)
+
+    @model_validator(mode="after")
+    def unique_targets(self):
+        if len({x.id for x in self.items}) != len(self.items):
+            raise ValueError("Duplicate knowledge targets")
+        return self
+
+
+class KnowledgeRecycleResult(Contract):
+    ids: list[UUID]
+
+
+class KnowledgePurgeWrite(KnowledgeRecycleWrite):
+    confirmation: Literal["PERMANENTLY_DELETE"]

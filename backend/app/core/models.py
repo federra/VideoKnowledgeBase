@@ -606,13 +606,14 @@ table(
 )
 table(
     "feedback_snapshots",
-    "snapshot_id:u version_no:i task_id:u ai_execution_id:u sampling_description:t "
+    "snapshot_id:u entry_id:u? version_no:i task_id:u ai_execution_id:u sampling_description:t "
     "sample_count:i classified_count:i coverage_note:t summary:t?",
     group=1,
     profile="PS",
-    unique=("org_id snapshot_id version_no", "org_id task_id"),
+    unique=("org_id snapshot_id version_no", "org_id task_id entry_id"),
     checks=("sample_count>0 AND classified_count<=sample_count", "btrim(sampling_description)<>''"),
 )
+index("feedback_snapshots", "org_id task_id", where="entry_id IS NULL", unique=True)
 table(
     "feedback_comments",
     "org_id:u feedback_id:u comment_id:u position:i",
@@ -965,15 +966,16 @@ table(
 )
 table(
     "knowledge_items",
-    "title:t owner_member_id:u current_revision_id:u? published_publication_id:u? created_by:u",
+    "title:t owner_member_id:u current_revision_id:u? published_publication_id:u? created_by:u recycled_at:z? recycled_by:u? purged_at:z?",
     group=2,
     profile="PM",
-    mutable=("title", "owner_member_id", "current_revision_id", "published_publication_id"),
+    mutable=("title", "owner_member_id", "current_revision_id", "published_publication_id", "recycled_at", "recycled_by"),
+    checks=("(recycled_at IS NULL)=(recycled_by IS NULL)", "purged_at IS NULL OR recycled_at IS NOT NULL"),
 )
 table(
     "knowledge_revisions",
     "knowledge_id:u version_no:i title:t body_text:t knowledge_type:t "
-    "browse_category:t tags:j='[]' valid_from:z? valid_until:z? limitations:t? origin:t "
+    "browse_category:t tags:j='[]' valid_from:z? valid_until:z? limitations:t? source_text:t? explanation:t? origin:t "
     "source_report_id:u? created_by:u content_sha256:h",
     group=2,
     profile="PS",
@@ -1060,8 +1062,9 @@ index(
 )
 table(
     "knowledge_publications",
-    "knowledge_id:u revision_id:u review_request_id:u ai_decision_id:u "
-    "human_decision_id:u published_by:u published_at:z=CURRENT_TIMESTAMP",
+    "knowledge_id:u revision_id:u review_request_id:u? ai_decision_id:u? "
+    "human_decision_id:u? published_by:u published_at:z=CURRENT_TIMESTAMP "
+    "release_mode:t='double_review' import_metadata:j?",
     group=2,
     unique=("org_id revision_id", "org_id id knowledge_id"),
 )
@@ -1146,6 +1149,7 @@ TARGETS = {
     "claim_id": "feedback_claims",
     "comment_id": "comment_evidence",
     "snapshot_entry_id": "snapshot_entries",
+    "entry_id": "snapshot_entries",
     "account_observation_id": "account_observations",
     "content_observation_id": "content_observations",
     "input_set_id": "input_sets",
@@ -1400,3 +1404,107 @@ sa.Index(
 )
 
 sa.ForeignKeyConstraint(["org_id", "handoff_id"], ["intelligence_handoffs.org_id", "intelligence_handoffs.id"], table=metadata.tables["research_submissions"], name="fk_submission_handoff", deferrable=True, initially="DEFERRED", ondelete="RESTRICT")
+
+sa.ForeignKeyConstraint(["org_id", "recycled_by"], ["members.org_id", "members.id"], table=metadata.tables["knowledge_items"], name="fk_knowledge_recycled_member", deferrable=True, initially="DEFERRED", ondelete="RESTRICT")
+
+# AI topic inventory is additive and does not alter the historic B1 groups.
+def _topic_table(name, fields, *, mutable=(), checks=(), unique=()):
+    obj = table(name, fields, profile='PM' if mutable else 'P', mutable=mutable,
+                checks=checks, unique=unique)
+    TABLE_GROUPS[0].remove(name)
+    obj.append_constraint(sa.ForeignKeyConstraint(
+        ['org_id'], ['organizations.id'], name=f'fk_{name}_organization',
+        deferrable=True, initially='DEFERRED', ondelete='RESTRICT', onupdate='RESTRICT',
+    ))
+    return obj
+
+
+_topic_table(
+    'topic_cards',
+    'business_code:t status:t=\'candidate\' current_revision_id:u selected_revision_id:u? created_by:u',
+    mutable=('status', 'current_revision_id', 'selected_revision_id'),
+    checks=("status IN ('candidate','production')",),
+)
+_topic_table(
+    'topic_revisions',
+    'topic_id:u version_no:i fields:j origin:t source_refs:j generation_task_id:u? '
+    'content_sha256:h created_by:u',
+    checks=("origin IN ('manual','batch','brainstorm')",),
+    unique=('org_id topic_id version_no', 'org_id topic_id id'),
+)
+_topic_table('topic_sparks', 'owner_member_id:u current_revision_id:u',
+             mutable=('current_revision_id',))
+_topic_table('topic_spark_revisions', 'spark_id:u version_no:i text:t title:t created_by:u',
+             unique=('org_id spark_id version_no', 'org_id spark_id id'))
+_topic_table('topic_saved_generations', 'task_id:u topic_id:u created_by:u',
+             unique=('org_id task_id',))
+_topic_table('topic_handoffs', 'topic_id:u topic_revision_id:u method:t created_by:u',
+             checks=("method IN ('copy','export')",))
+
+for _topic_name, _topic_keys, _topic_targets in (
+    ('topic_cards', 'business_code', 'business_lines.code'),
+    ('topic_cards', 'org_id created_by', 'members.org_id members.id'),
+    ('topic_cards', 'org_id id current_revision_id',
+     'topic_revisions.org_id topic_revisions.topic_id topic_revisions.id'),
+    ('topic_cards', 'org_id id selected_revision_id',
+     'topic_revisions.org_id topic_revisions.topic_id topic_revisions.id'),
+    ('topic_revisions', 'org_id topic_id', 'topic_cards.org_id topic_cards.id'),
+    ('topic_revisions', 'org_id created_by', 'members.org_id members.id'),
+    ('topic_revisions', 'org_id generation_task_id', 'tasks.org_id tasks.id'),
+    ('topic_sparks', 'org_id owner_member_id', 'members.org_id members.id'),
+    ('topic_sparks', 'org_id id current_revision_id',
+     'topic_spark_revisions.org_id topic_spark_revisions.spark_id topic_spark_revisions.id'),
+    ('topic_spark_revisions', 'org_id spark_id', 'topic_sparks.org_id topic_sparks.id'),
+    ('topic_spark_revisions', 'org_id created_by', 'members.org_id members.id'),
+    ('topic_saved_generations', 'org_id task_id', 'tasks.org_id tasks.id'),
+    ('topic_saved_generations', 'org_id topic_id', 'topic_cards.org_id topic_cards.id'),
+    ('topic_saved_generations', 'org_id created_by', 'members.org_id members.id'),
+    ('topic_handoffs', 'org_id topic_id', 'topic_cards.org_id topic_cards.id'),
+    ('topic_handoffs', 'org_id topic_id topic_revision_id',
+     'topic_revisions.org_id topic_revisions.topic_id topic_revisions.id'),
+    ('topic_handoffs', 'org_id created_by', 'members.org_id members.id'),
+):
+    sa.ForeignKeyConstraint(
+        _topic_keys.split(), _topic_targets.split(), table=metadata.tables[_topic_name],
+        name=f"fk_{_topic_name}_{'_'.join(_topic_keys.split()[1:] or _topic_keys.split())}",
+        deferrable=True, initially='DEFERRED', ondelete='RESTRICT', onupdate='RESTRICT',
+    )
+
+index('topic_cards', 'org_id business_code status created_at')
+index('topic_sparks', 'org_id owner_member_id created_at')
+index('topic_handoffs', 'org_id topic_id created_at')
+
+# S08 model console: mutable heads; revisions live in immutable ai_config_revisions.
+_model_sources = table(
+    'model_sources',
+    'name:t capability:t connection_id:u config_revision_id:u enabled:bool=false',
+    profile='PM', mutable=('name', 'capability', 'connection_id', 'config_revision_id', 'enabled'),
+    checks=(enum('capability', 'text vision'),), unique=('org_id name',),
+)
+_model_bindings = table(
+    'model_bindings', 'business_code:t bindings:j', profile='PM', mutable=('bindings',),
+    checks=(enum('business_code', 'motion_comic story_short ecommerce_video'),),
+    unique=('org_id business_code',),
+)
+# Keep released dictionary table group counts stable.
+TABLE_GROUPS[0].remove('model_sources')
+TABLE_GROUPS[0].remove('model_bindings')
+fk('model_sources', 'connection_id', 'provider_connections')
+fk('model_sources', 'config_revision_id', 'ai_config_revisions')
+fk('model_sources', 'org_id', 'organizations')
+fk('model_bindings', 'org_id', 'organizations')
+
+# S08.2 immutable exact-version topic scoring; outside released B1 groups.
+_topic_table('topic_assessments',
+             'topic_id:u topic_revision_id:u task_id:u ai_execution_id:u rubric_version:t body:j created_by:u',
+             checks=("rubric_version IN ('genre-load-v2','genre-load-v3-inferred')",), unique=('org_id task_id',))
+for _keys, _targets in (
+    ('org_id topic_id topic_revision_id', 'topic_revisions.org_id topic_revisions.topic_id topic_revisions.id'),
+    ('org_id task_id', 'tasks.org_id tasks.id'),
+    ('org_id ai_execution_id', 'ai_executions.org_id ai_executions.id'),
+    ('org_id created_by', 'members.org_id members.id'),
+):
+    sa.ForeignKeyConstraint(_keys.split(), _targets.split(), table=metadata.tables['topic_assessments'],
+                            name='fk_topic_assessments_' + '_'.join(_keys.split()[1:]),
+                            deferrable=True, initially='DEFERRED', ondelete='RESTRICT', onupdate='RESTRICT')
+index('topic_assessments', 'org_id topic_id topic_revision_id created_at')

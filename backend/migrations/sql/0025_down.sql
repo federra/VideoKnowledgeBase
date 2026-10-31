@@ -1,0 +1,14 @@
+DO $$ BEGIN IF EXISTS(SELECT 1 FROM knowledge_items WHERE purged_at IS NOT NULL) THEN RAISE EXCEPTION 'permanent erasure cannot be downgraded; use a consistent backup'; END IF; END $$;
+DROP FUNCTION cip_purge_knowledge(uuid,uuid,bigint,uuid,boolean);
+DROP TRIGGER z_purge_visibility ON knowledge_items;
+DROP TRIGGER z_immutable ON knowledge_items;
+CREATE TRIGGER z_immutable BEFORE UPDATE OR DELETE ON knowledge_items FOR EACH ROW EXECUTE FUNCTION cip_immutable('title,owner_member_id,current_revision_id,published_publication_id,recycled_at,recycled_by,updated_at,lock_version','ordinary');
+DROP TRIGGER z_immutable ON knowledge_revisions;
+CREATE TRIGGER z_immutable BEFORE UPDATE OR DELETE ON knowledge_revisions FOR EACH ROW EXECUTE FUNCTION cip_immutable('sealed_at','sealed');
+DROP TRIGGER z_immutable ON search_documents;
+CREATE TRIGGER z_immutable BEFORE UPDATE OR DELETE ON search_documents FOR EACH ROW EXECUTE FUNCTION cip_immutable('document_text,search_vector,indexed_at','ordinary');
+DROP TRIGGER z_immutable ON embeddings;
+CREATE TRIGGER z_immutable BEFORE UPDATE OR DELETE ON embeddings FOR EACH ROW EXECUTE FUNCTION cip_immutable('embedding,content_sha256','ordinary');
+DROP FUNCTION cip_knowledge_retention_guard();
+DROP INDEX ix_knowledge_retention_due;
+ALTER TABLE knowledge_items DROP CONSTRAINT ck_knowledge_purged_recycled, DROP COLUMN purged_at;

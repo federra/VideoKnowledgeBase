@@ -26,3 +26,22 @@ def test_celery_transport_has_no_business_results_or_unbounded_retries():
     assert app.conf.task_soft_time_limit < app.conf.task_time_limit < 90
     assert app.conf.beat_schedule["persistent-task-dispatch"]["task"] == "cip.tick"
     assert app.conf.task_publish_retry is False
+
+
+@pytest.mark.parametrize('kind',['collect.hongguo.saved','collect.creator-posts.resume','collect.microfilm.resume'])
+def test_explicit_recovery_task_is_never_claimed_by_generic_worker(monkeypatch,kind):
+    from app.tasks import worker
+    from uuid import uuid4
+
+    class Connection:
+        def __enter__(self): return self
+        def __exit__(self,*args): pass
+        def exec_driver_sql(self,*args): return self
+        def scalar_one_or_none(self): return kind
+    class Engine:
+        def connect(self): return Connection()
+    class Runtime:
+        engine=Engine()
+        def run(self,*args): raise AssertionError('generic worker must leave explicit recovery queued')
+    monkeypatch.setattr(worker,'runtime',lambda:Runtime())
+    worker.execute(str(uuid4()),str(uuid4()))

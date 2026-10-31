@@ -44,11 +44,16 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("capture")
     parser.add_argument("--execute", action="store_true")
+    parser.add_argument(
+        "--refresh-existing",
+        action="store_true",
+        help="User-authorized fresh browser capture, including monthly board; old snapshots remain immutable",
+    )
     args = parser.parse_args()
     text, sha, size = read_saved(args.capture)
     doc = document(text)
     board = next(b for b in discover(text) if b["source_url"] == doc["url"])
-    if board["rank_type"] == "yuepiao":
+    if board["rank_type"] == "yuepiao" and not args.refresh_existing:
         raise ValueError("Accepted monthly board must remain unchanged")
     batch = normalize(board, text)
     record = {
@@ -80,7 +85,9 @@ def main():
             p = MemberPrincipal(context["org_id"], context["member_id"])
             record["fanqie_before"] = fanqie_fingerprint(c, p.org_id)
             record["monthly_before"] = monthly_fingerprint(c, p.org_id)
-            saved = submit_browser(c, p, board, text)
+            saved = submit_browser(
+                c, p, board, text, refresh_existing=args.refresh_existing
+            )
         try:
             record.update(
                 **saved, **run_browser(engine, p.org_id, UUID(saved["task_id"]))

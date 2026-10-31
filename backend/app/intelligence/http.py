@@ -22,6 +22,7 @@ def dispatch(
     feedback_id=None,
     entry_id=None,
     handoff_id=None,
+    analysis_id=None,
     body=None,
     idempotency_key=None,
     csrf_token=None,
@@ -31,7 +32,14 @@ def dispatch(
         # One consistent DB view for options, metrics, count and rows; concurrent grants
         # are serialized by refresh's org lock, while collection publishes hold that lock too.
         p = authenticate(c, session)
-        if spec.name == "freezeResearchEvidence":
+        if spec.name == "analyzeEntryFeedback":
+            from app.intelligence.feedback_v2 import start
+            data = start(c, p, entry_id, body.business_code, body.business_date,
+                         body.expected_sample_key, key=str(idempotency_key), retry_of=body.retry_of)
+        elif spec.name == "getFeedbackAnalysis":
+            from app.intelligence.feedback_v2 import analysis
+            data = analysis(c, p, analysis_id, entry_id=filters.entry_id)
+        elif spec.name == "freezeResearchEvidence":
             data = create_handoff(
                 c, p, entry_id, body, str(idempotency_key), request.state.request_id
             )
@@ -41,6 +49,10 @@ def dispatch(
             data = read_feedback(c, p, feedback_id)
         elif spec.name == "getEntryFeedback":
             data = entry_feedback(c, p, entry_id, filters.business_code, filters.business_date)
+        elif spec.name == "getFeedCalendar":
+            from app.intelligence.calendar import calendar
+
+            data = calendar(c, p, filters.business_code, filters.month)
         elif spec.name == "getNovelFeed":
             from app.intelligence.novels import feed as novels
 
@@ -93,6 +105,9 @@ def dispatch(
                 video_genre=filters.video_genre,
                 video_subgenre=filters.video_subgenre,
             )
+    if spec.name == 'analyzeEntryFeedback' and data['state'] == 'queued':
+        from app.ai.feedback_worker import dispatch_feedback
+        dispatch_feedback(p.org_id, data['id'])
     payload = Envelope[spec.response](request_id=request.state.request_id, data=data)
     return JSONResponse(
         payload.model_dump(mode="json"),
@@ -105,11 +120,14 @@ def mount(app):
     for spec in OPERATIONS:
         if spec.name in (
             "getIntelligenceFeed",
+            "getFeedCalendar",
             "getNovelFeed",
             "listSnapshots",
             "listSnapshotEntries",
             "getFeedback",
             "getEntryFeedback",
+            "analyzeEntryFeedback",
+            "getFeedbackAnalysis",
             "freezeResearchEvidence",
             "getResearchEvidence",
         ):

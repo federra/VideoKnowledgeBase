@@ -59,8 +59,11 @@ def grant_application(cursor, role):
         "cip_claim_task(uuid,uuid,bigint,integer)",
         "cip_finish_task(uuid,uuid,uuid,uuid,bigint,text,text,text)",
         "cip_task_control(uuid,uuid,bigint,text,uuid,uuid,integer,text)",
+        "cip_purge_knowledge(uuid,uuid,bigint,uuid,boolean)",
         "cip_input_contains(uuid,uuid,uuid)",
         "cip_graph_edges(uuid)",
+        "cip_page_reuse_allowed(uuid,uuid,uuid)",
+        "cip_hongguo_saved_allowed(uuid,uuid,uuid)",
     ]:
         cursor.execute(
             sql.SQL("GRANT EXECUTE ON FUNCTION {} TO {}").format(

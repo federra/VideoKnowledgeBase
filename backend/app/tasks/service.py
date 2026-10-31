@@ -1,11 +1,13 @@
 """Durable task runtime; queue messages carry IDs only, all effects commit with the fence."""
 
 import logging
+import time
 from dataclasses import dataclass
 from threading import Event, Thread
 from uuid import UUID
 
 from sqlalchemy import select
+from sqlalchemy.exc import DBAPIError
 
 from app.core.models import metadata
 from app.core.repository import claim_task, create_task, finish_task
@@ -165,6 +167,18 @@ class Runner:
                 seconds=self.lease_seconds,
             )
 
+    def checked_heartbeat(self, ticket):
+        try:
+            return self.heartbeat(ticket)
+        except DBAPIError as exc:
+            if getattr(exc.orig, "sqlstate", None) != "55P03":
+                raise
+            # Lock contention is not a grant decision. No work is authorized by
+            # this result; the next successful heartbeat must still validate the
+            # live lease, member, grants and frozen inputs before proceeding.
+            log.warning("task heartbeat lock wait task=%s", ticket.task)
+            return None
+
     def _finish(self, c, task, ticket, code=None):
         cancelled = task["state"] == "cancel_requested"
         # Unresolved external effects prevent cancellation claims. Known completed calls
@@ -230,6 +244,7 @@ class Runner:
             "RATE_LIMITED",
             "MODEL_NOT_CONFIGURED",
             "SOURCE_UNAVAILABLE",
+            "SOURCE_VERIFICATION_REQUIRED",
             "INVALID_RESPONSE",
             "FETCH_FAILED",
             "DATE_WINDOW_MISMATCH",
@@ -295,7 +310,7 @@ class Runner:
         def heartbeat():
             while not stop.wait(min(15, self.lease_seconds / 3)):
                 try:
-                    if not self.heartbeat(ticket):
+                    if self.checked_heartbeat(ticket) is False:
                         lost.set()
                         return
                 except Exception:  # noqa: BLE001 - loss of DB access fences the worker
@@ -303,8 +318,17 @@ class Runner:
                     return
 
         def checkpoint():
-            if lost.is_set() or not self.heartbeat(ticket):
-                raise TaskError("ACCESS_REVOKED")
+            deadline = time.monotonic() + min(10, self.lease_seconds / 3)
+            while not lost.is_set():
+                result = self.checked_heartbeat(ticket)
+                if result is True:
+                    return
+                if result is False:
+                    break
+                if time.monotonic() >= deadline:
+                    raise TaskError("LOCAL_TRANSIENT")
+                time.sleep(0.25)
+            raise TaskError("ACCESS_REVOKED")
 
         thread = Thread(target=heartbeat, daemon=True)
         thread.start()
@@ -362,8 +386,11 @@ def unresolved_calls(c, tid):
         "SELECT (SELECT count(*) FROM collection_calls cc JOIN collection_jobs j "
         "ON j.id=cc.job_id WHERE j.task_id=%s AND (cc.completed_at IS NULL OR cc.outcome='network_error')) + "
         "(SELECT count(*) FROM ai_executions WHERE task_id=%s AND "
-        "(finished_at IS NULL OR safe_error_code='EXTERNAL_RESULT_UNKNOWN'))",
-        (tid, tid),
+        "(finished_at IS NULL OR safe_error_code='EXTERNAL_RESULT_UNKNOWN')) + "
+        "(SELECT count(*) FROM audit_events a WHERE a.target_id=%s AND a.action_code='creator.profile.requested' "
+        "AND NOT EXISTS(SELECT 1 FROM audit_events b WHERE b.target_id=a.target_id AND b.org_id=a.org_id AND b.action_code='creator.profile.completed' AND b.safe_details->>'error' IS DISTINCT FROM 'EXTERNAL_RESULT_UNKNOWN')) + "
+        "(SELECT count(*) FROM audit_events a WHERE a.target_id=%s AND a.action_code='creator.browser.requested' AND NOT EXISTS(SELECT 1 FROM audit_events b WHERE b.org_id=a.org_id AND b.target_id=a.target_id AND b.action_code='creator.browser.completed' AND b.safe_details->>'sequence'=a.safe_details->>'sequence'))",
+        (tid, tid, tid, tid),
     ).scalar_one()
 
 
@@ -371,8 +398,10 @@ def external_calls(c, tid):
     return c.exec_driver_sql(
         "SELECT (SELECT count(*) FROM collection_calls cc JOIN collection_jobs j "
         "ON j.id=cc.job_id WHERE j.task_id=%s) + "
-        "(SELECT count(*) FROM ai_executions WHERE task_id=%s)",
-        (tid, tid),
+        "(SELECT count(*) FROM ai_executions WHERE task_id=%s) + "
+        "(SELECT count(*) FROM audit_events WHERE target_id=%s AND action_code='creator.profile.requested') + "
+        "(SELECT count(*) FROM audit_events WHERE target_id=%s AND action_code='creator.browser.requested')",
+        (tid, tid, tid, tid),
     ).scalar_one()
 
 
@@ -427,8 +456,8 @@ def sweep(runner, send, *, limit=100):
     with runner.engine.connect() as c:
         queued = list(
             c.exec_driver_sql(
-                "SELECT org_id,id FROM tasks WHERE state='queued' AND kind NOT IN ('collect.novels','collect.hongguo') "
-                "AND available_at<=clock_timestamp() ORDER BY available_at,id LIMIT %s",
+                "SELECT org_id,id FROM tasks WHERE state='queued' AND kind NOT IN ('knowledge.genre_explain','collect.novels','collect.hongguo','collect.hongguo.saved','collect.creator-posts.resume','collect.microfilm.resume','collect.tikhub-series','series.normalize','intelligence.refresh','intelligence.refresh.resume','creator.resolve','collect.creator-series','collect.creator-posts','collect.microfilm','creator.series.reparse','creator.browser.comments','creator.browser.reparse') "
+                "AND idempotency_key NOT LIKE 'refresh/%%' AND available_at<=clock_timestamp() ORDER BY available_at,id LIMIT %s",
                 (limit,),
             )
         )

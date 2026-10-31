@@ -7,10 +7,21 @@ export type KnowledgeSources = components['schemas']['KnowledgeSources'];
 export type KnowledgeReview = components['schemas']['ReviewView'];
 type KnowledgeApproval = components['schemas']['ApprovePublish'];
 const parseKnowledge: Decoder<KnowledgeItem> = value => {
- if(!record(value)||!id(value.id)||!version(value.lock_version)||typeof value.title!=='string'||!id(value.revision_id)||!strings(value.business_codes)||!Array.isArray(value.tags)||!record(value.revision)||value.revision.id!==value.revision_id||typeof value.revision.body_text!=='string'||!Array.isArray(value.revision.evidence_ids)||!Array.isArray(value.revision.business_codes)||!['draft','pending_ai','ai_error','needs_changes','pending_human','ready_to_publish','published'].includes(String(value.state))||!(value.review_request_id===null||id(value.review_request_id)))throw new Error('shape');return value as KnowledgeItem;
+ if(!record(value)||!id(value.id)||!version(value.lock_version)||typeof value.title!=='string'||!id(value.revision_id)||!strings(value.business_codes)||!Array.isArray(value.tags)||!record(value.revision)||value.revision.id!==value.revision_id||typeof value.revision.body_text!=='string'||!Array.isArray(value.revision.evidence_ids)||!Array.isArray(value.revision.business_codes)||!['draft','pending_ai','ai_error','needs_changes','pending_human','ready_to_publish','published'].includes(String(value.state))||!(value.review_request_id===null||id(value.review_request_id)))throw new Error('shape');
+ const explanation=value.ai_explanation;
+ if(explanation!==undefined&&explanation!==null&&(!record(explanation)||Object.keys(explanation).some(key=>!['text','revision_id','task_id','execution_id','created_at'].includes(key))||typeof explanation.text!=='string'||!explanation.text.trim()||[...explanation.text].length>180||!id(explanation.revision_id)||explanation.revision_id!==value.revision_id||!id(explanation.task_id)||!id(explanation.execution_id)||typeof explanation.created_at!=='string'||!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d+)?(?:Z|[+-]\d\d:\d\d)$/.test(explanation.created_at)||!Number.isFinite(Date.parse(explanation.created_at))))throw new Error('shape');
+ return value as KnowledgeItem;
 };
 const parseKnowledgeReview: Decoder<KnowledgeReview> = value => {
  if(!record(value)||!id(value.id)||!id(value.target_id)||!Array.isArray(value.decisions)||!value.decisions.every(d=>record(d)&&id(d.id)&&['ai','human'].includes(String(d.reviewer_kind))&&['approved','rejected','needs_changes','error'].includes(String(d.verdict))&&typeof d.reason==='string')||!['ai_head_id','human_head_id'].every(k=>value[k]===null||id(value[k]))||!['ai_head_lock_version','human_head_lock_version'].every(k=>value[k]===null||version(value[k])))throw new Error('shape');return value as KnowledgeReview;
+};
+export type CreatorConfig = components['schemas']['CreatorConfig'];
+const parseCreators: Decoder<CreatorConfig> = v => {
+ if(!record(v)||!['motion_comic','story_short','ecommerce_video'].includes(String(v.business_code))||!Array.isArray(v.items)||v.items.length>50||!v.items.every(x=>record(x)&&id(x.id)&&(x.display_name==null||typeof x.display_name==='string')&&(x.platform_uid==null||(typeof x.platform_uid==='string'&&/^[1-9][0-9]{2,24}$/.test(x.platform_uid)))&&typeof x.url==='string'&&/^https:\/\/www\.douyin\.com\/user\/[A-Za-z0-9_-]{3,128}$/.test(x.url))||!Array.isArray(v.results)||!v.results.every(x=>record(x)&&Number.isSafeInteger(x.line)&&Number(x.line)>0&&['added','duplicate','invalid','limit'].includes(String(x.state))&&typeof x.message==='string'))throw new Error('shape');return v as CreatorConfig;
+};
+export type RefreshView = components['schemas']['RefreshView'];
+const parseRefresh: Decoder<RefreshView> = v => {
+ if(!record(v)||!(v.task_id===null||id(v.task_id))||!['idle','queued','running','completed','partial','failed'].includes(String(v.state))||typeof v.business_date!=='string'||!/^\d{4}-\d\d-\d\d$/.test(v.business_date)||!Array.isArray(v.channels)||v.channels.length>7||!v.channels.every(x=>record(x)&&['hongguo','tikhub','fanqie','qidian','creators','microfilm','qimao'].includes(String(x.code))&&typeof x.name==='string'&&typeof x.message==='string'&&['queued','running','succeeded','partial','failed','unavailable'].includes(String(x.state))&&Number.isSafeInteger(x.completed)&&Number(x.completed)>=0&&Number.isSafeInteger(x.total)&&Number(x.total)>=0))throw new Error('shape');return v as RefreshView;
 };
 export type Session = components['schemas']['Session'];
 export type FileInfo = components['schemas']['FileInfo'];
@@ -58,12 +69,14 @@ const messages: Record<ServerCode | LocalCode, string> = {
     FILE_TOO_LARGE: '文件超过大小限制', INVALID_FILE: '文件格式或内容校验未通过',
     UNSAFE_URL: '素材地址未获准访问', FETCH_FAILED: '素材获取失败',
     EXTERNAL_RESULT_UNKNOWN: '外部调用结果未知，请先核验，不要重复提交',
+    SOURCE_VERIFICATION_REQUIRED: '抖音要求人工验证，请在独立采集浏览器完成验证码；采集已停止',
     BUDGET_EXHAUSTED: '调用预算已用尽', FILE_NOT_ACCEPTED: '文件尚未通过校验',
     AUTH_CHANGE_IN_PROGRESS: '正在切换会话，请等待当前操作完成',
     REVIEW_STALE: '审核依据已更新，请重新读取', CURSOR_EXPIRED: '查询条件或权限已变化，请从第一页重新查询',
     IMMUTABLE_INPUT: '已封存的输入不可修改', STALE_RESULT: '任务结果已失效，请重新读取状态',
     CANCEL_UNCONFIRMED: '任务停止尚未确认，请先核验', STANDARD_NOT_APPROVED: '标准尚未批准',
     MODEL_NOT_CONFIGURED: '模型尚未配置', INSUFFICIENT_MATERIAL: '资料不足，请补充材料',
+    ORIGINALITY_RISK: '内容与本批来源存在明显重合，请修改后再保存', RUBRIC_UNAVAILABLE: '当前业务尚无适用的选题评分量表',
     DATE_WINDOW_MISMATCH: '资料日期与查询窗口不一致', SOURCE_UNAVAILABLE: '来源暂不可用',
     UNSUPPORTED_SOURCE: '暂不支持此来源', PROVENANCE_DEPTH_EXCEEDED: '来源依赖校验未通过',
     INVALID_RESPONSE: '服务响应格式异常，请稍后重试', INVALID_REQUEST: '请求参数或地址无效',
@@ -80,7 +93,7 @@ function entity(value: unknown): value is Record<string, unknown> {
 }
 const parseSource: Decoder<ConsoleSource> = value => {
     if (!entity(value) || typeof value.archived !== 'boolean' || typeof value.name !== 'string' || !['motion_comic','story_short','ecommerce_video'].includes(String(value.business_code))
-        || !['douyin','fanqie','qidian','hongguo'].includes(String(value.platform_code)) || typeof value.enabled !== 'boolean' || !record(value.target)
+        || !['douyin','fanqie','qidian','hongguo','qimao'].includes(String(value.platform_code)) || typeof value.enabled !== 'boolean' || !record(value.target)
         || !['keyword','account','content','board'].includes(String(value.target.kind))
         || !(value.last_state === null || states.includes(String(value.last_state))) || !(value.last_at === null || timestamp(value.last_at))) throw new Error('shape');
     const target=value.target;
@@ -130,7 +143,7 @@ const parseFeed: Decoder<IntelligenceFeed> = value => {
         if(!(item.heat_value===undefined||item.heat_value===null||count(item.heat_value))||!(item.comment_sample_count===undefined||item.comment_sample_count===null||Number.isInteger(item.comment_sample_count)&&Number(item.comment_sample_count)>=0&&Number(item.comment_sample_count)<=15))throw new Error('shape');
         const entry=item.entry, o=entry.observation;
         if(!id(entry.snapshot_id)||!Number.isInteger(entry.position)||Number(entry.position)<0||!(entry.provider_rank===null||Number.isInteger(entry.provider_rank)&&Number(entry.provider_rank)>0)
-            ||!(entry.feedback_id===null||id(entry.feedback_id))||!record(o)||!id(o.id)||!['content','account'].includes(String(o.kind))||!['douyin','fanqie','qidian','hongguo'].includes(String(o.platform_code))
+            ||!(entry.feedback_id===null||id(entry.feedback_id))||!record(o)||!id(o.id)||!['content','account'].includes(String(o.kind))||!['douyin','fanqie','qidian','hongguo','qimao'].includes(String(o.platform_code))
             ||typeof o.platform_id!=='string'||!timestamp(o.observed_at)||!(o.published_at===null||timestamp(o.published_at))
             ||!['description','display_name','original_url','published_at_raw'].every(k=>o[k]===null||typeof o[k]==='string')
             ||!['follower_count','work_count','like_count','comment_count','share_count','collect_count','repost_count','view_count'].every(k=>o[k]===null||count(o[k]))) throw new Error('shape');
@@ -142,14 +155,23 @@ export type NovelItem = components['schemas']['NovelItem'];
 const parseNovels: Decoder<NovelFeed> = value => {
  if(!record(value)||!['motion_comic','story_short','ecommerce_video'].includes(String(value.business_code))||typeof value.business_date!=='string'||!/^\d{4}-\d\d-\d\d$/.test(value.business_date)||!(value.novel_count===null||count(value.novel_count))||!Number.isInteger(value.page)||Number(value.page)<1||value.page_size!==10||!count(value.total)||!Array.isArray(value.items)||value.items.length>10
  ||!['rank_types','genders','genres'].every(k=>Array.isArray(value[k])&&(value[k] as unknown[]).every(o=>record(o)&&typeof o.value==='string'&&typeof o.label==='string'&&(o.disabled===undefined||typeof o.disabled==='boolean')&&(o.reason===undefined||o.reason===null||typeof o.reason==='string')))
- ||!Array.isArray(value.statuses)||!value.statuses.every(s=>record(s)&&['fanqie','qidian'].includes(String(s.platform))&&typeof s.board==='string'&&states.includes(String(s.state))&&(s.http_status===null||Number.isInteger(s.http_status))))throw new Error('shape');
+ ||!Array.isArray(value.statuses)||!value.statuses.every(s=>record(s)&&['fanqie','qidian','qimao'].includes(String(s.platform))&&typeof s.board==='string'&&states.includes(String(s.state))&&(s.http_status===null||Number.isInteger(s.http_status))))throw new Error('shape');
  for(const n of value.items){
-  if(!record(n)||!(n.work_gender===null||n.work_gender==='male'||n.work_gender==='female')||!(n.work_genre===null||typeof n.work_genre==='string'&&(value.genres as {value:string}[]).some(g=>g.value===n.work_genre))||!(n.reader_count===null||count(n.reader_count))||!Number.isInteger(n.rank)||Number(n.rank)<1||!record(n.board)||!['fanqie','qidian'].includes(String(n.board.platform))||!['code','rank_type','gender','category_id','category_name'].every(k=>typeof n.board==='object'&&n.board!==null&&typeof (n.board as Record<string,unknown>)[k]==='string'))throw new Error('shape');
+  if(!record(n)||!(n.heat_value===undefined||n.heat_value===null||count(n.heat_value))||!(n.heat_display===undefined||n.heat_display===null||typeof n.heat_display==='string')||!(n.work_gender===null||n.work_gender==='male'||n.work_gender==='female')||!(n.work_genre===null||typeof n.work_genre==='string'&&(value.genres as {value:string}[]).some(g=>g.value===n.work_genre))||!(n.reader_count===null||count(n.reader_count))||!Number.isInteger(n.rank)||Number(n.rank)<1||!record(n.board)||!['fanqie','qidian','qimao'].includes(String(n.board.platform))||!['code','rank_type','gender','category_id','category_name'].every(k=>typeof n.board==='object'&&n.board!==null&&typeof (n.board as Record<string,unknown>)[k]==='string'))throw new Error('shape');
  }
  parseFeed({...value,has_snapshot:true,metrics:{videos:null,creators:null,comments:null,likes:null},boards:[],creators:[],insight:null,items:value.items.map(n=>(n as Record<string,unknown>).item)});
  return value as NovelFeed;
 };
+export type FeedbackAnalysisView = components['schemas']['FeedbackAnalysisView'];
 export type EntryFeedback = components['schemas']['EntryFeedback'];
+const sampleKey=(v:unknown):v is string=>typeof v==='string'&&/^[a-f0-9]{64}$/.test(v);
+const sentiments=['positive','negative','neutral','mixed','unclassifiable'];
+const parseFeedbackAnalysis:Decoder<FeedbackAnalysisView>=v=>{
+ if(!record(v)||!['id','entry_id','snapshot_id'].every(k=>id(v[k]))||!states.includes(String(v.state))
+ ||!['motion_comic','story_short','ecommerce_video'].includes(String(v.business_code))||typeof v.business_date!=='string'||!/^\d{4}-\d\d-\d\d$/.test(v.business_date)||!sampleKey(v.sample_key)
+ ||!(v.result_state===null||['completed','insufficient_evidence'].includes(String(v.result_state)))||!(v.safe_error_code===null||typeof v.safe_error_code==='string')||!(v.feedback_id===null||id(v.feedback_id)))throw new Error('shape');
+ return v as unknown as FeedbackAnalysisView;
+};
 const parseEntryFeedback: Decoder<EntryFeedback> = value => {
     if(!record(value)||!id(value.entry_id)||!id(value.snapshot_id)||!Number.isInteger(value.snapshot_version)||Number(value.snapshot_version)<1
         ||!['motion_comic','story_short','ecommerce_video'].includes(String(value.business_code))||typeof value.business_date!=='string'||!/^\d{4}-\d\d-\d\d$/.test(value.business_date)
@@ -158,6 +180,8 @@ const parseEntryFeedback: Decoder<EntryFeedback> = value => {
         ||!['sampling_description','coverage_note'].every(k=>value[k]===null||typeof value[k]==='string')
         ||!['sample_count','classified_count'].every(k=>value[k]===null||Number.isInteger(value[k])&&Number(value[k])>=0)
         ||!Array.isArray(value.comments)||!Array.isArray(value.claims)) throw new Error('shape');
+    if(!(value.sample_key===undefined||value.sample_key===null||sampleKey(value.sample_key))||!(value.analysis_model_ready===undefined||typeof value.analysis_model_ready==='boolean')||!(value.summary===undefined||value.summary===null||typeof value.summary==='string'))throw new Error('shape');
+    if(value.analysis!==undefined&&value.analysis!==null){const a=parseFeedbackAnalysis(value.analysis);if(a.entry_id!==value.entry_id||a.snapshot_id!==value.snapshot_id||a.business_code!==value.business_code||a.business_date!==value.business_date||a.sample_key!==value.sample_key)throw new Error('shape');}
     const ids=new Set<string>();
     for(const c of value.comments){
         if(!record(c)||!id(c.id)||ids.has(String(c.id))||!id(c.content_id)||!timestamp(c.created_at)||!timestamp(c.captured_at)
@@ -170,7 +194,8 @@ const parseEntryFeedback: Decoder<EntryFeedback> = value => {
         if(!record(c)||!id(c.id)||claimIds.has(String(c.id))||!['emotion','finding','expectation','suggestion'].includes(String(c.kind))||typeof c.text!=='string'||!c.text.trim()
             ||!record(c.details)||!Array.isArray(c.comment_ids)||!c.comment_ids.length||new Set(c.comment_ids).size!==c.comment_ids.length||!c.comment_ids.every(i=>typeof i==='string'&&ids.has(i))
             ||c.support_count!==c.comment_ids.length)throw new Error('shape');
-        claimIds.add(String(c.id));if(c.kind==='emotion')c.comment_ids.forEach(i=>classified.add(String(i)));
+        if(c.kind==='emotion'&&c.details.sentiment!==undefined&&!sentiments.includes(String(c.details.sentiment)))throw new Error('shape');
+        claimIds.add(String(c.id));if(c.kind==='emotion'&&c.details.sentiment!=='unclassifiable')c.comment_ids.forEach(i=>classified.add(String(i)));
     }
     if(value.status==='ready'&&(!id(value.feedback_id)||value.feedback_version===null||!value.sampling_description||typeof value.coverage_note!=='string'||!ids.size||value.sample_count!==ids.size||value.classified_count!==classified.size))throw new Error('shape');
     if(value.status==='not_acquired'&&(ids.size||value.claims.length||value.sample_count!==null||value.classified_count!==null||value.feedback_id!==null||value.feedback_version!==null))throw new Error('shape');
@@ -195,13 +220,22 @@ export class ApiError extends Error {
         this.name = 'ApiError';
     }
 }
+/** Deployment paths remain root-relative: never turn API credentials into an external URL. */
+function applicationBase():string {
+    const base=import.meta.env.BASE_URL;
+    if(base==='/')return base;
+    if(typeof base!=='string'||!/^\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*\/?$/.test(base))throw new Error('Invalid application BASE_URL');
+    return base.endsWith('/')?base:base+'/';
+}
 /** Credentials and CSRF never enter localStorage, URL parameters or query mutation caches. */
 export class ApiClient {
+    private readonly base = applicationBase();
     private readonly fetcher: typeof fetch;
     private readonly timeoutMs: number;
     private readonly listeners = new Set<() => void>();
     private readonly boundaries = new Set<() => void>();
     private csrf?: string;
+    private sessionRead?: {promise: Promise<Session>; controller: AbortController; readers: number};
     private principal?: string;
     private epoch = 0;
     private readonly cacheId = crypto.randomUUID();
@@ -222,6 +256,7 @@ export class ApiClient {
     get accessError() { return this.boundaryError; }
     get accessBlocked() { return this.blocked; }
     private boundary(error?: ApiError, clearCredentials = false) {
+        this.sessionRead = undefined;
         if (clearCredentials) {
             this.csrf = undefined;
             this.principal = undefined;
@@ -258,10 +293,10 @@ export class ApiClient {
             || /[\\?#%]/.test(decoded) || hasControls(decoded) || decoded.includes('//')
             || decoded.split('/').some(p => p === '.' || p === '..'))
             throw new ApiError(0, 'INVALID_REQUEST');
-        return path;
+        return this.base+path.slice(1);
     }
     private async transport(path: string, options: RequestInit, decode: Decoder<unknown> | 'binary' | 'raw', signal?: AbortSignal): Promise<unknown> {
-        this.path(path);
+        const requestPath=this.path(path);
         const captured = this.epoch;
         const write = options.method !== undefined && options.method !== 'GET';
         const controller = new AbortController();
@@ -272,7 +307,7 @@ export class ApiClient {
         signal?.addEventListener('abort', cancel, { once: true });
         const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, this.timeoutMs);
         try {
-            const response = await this.fetcher(path, { ...options, credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: controller.signal });
+            const response = await this.fetcher(requestPath, { ...options, credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: controller.signal });
             if (controller.signal.aborted || captured !== this.epoch)
                 throw new ApiError(0, timedOut ? 'TIMEOUT' : 'REQUEST_CANCELLED', undefined, [], write);
             const headerId = response.headers.get('X-Request-ID');
@@ -341,6 +376,12 @@ export class ApiClient {
             throw new ApiError(0, 'AUTH_CHANGE_IN_PROGRESS');
         return await this.transport(path, { headers: { Accept: 'application/json' } }, decode, signal) as T;
     }
+    async json<T>(path: string, method: 'GET'|'POST'|'PATCH'|'DELETE', body: unknown, key: string | undefined, decoder: Decoder<T>, signal?: AbortSignal): Promise<T> {
+        if (this.authChanging) throw new ApiError(0, 'AUTH_CHANGE_IN_PROGRESS');
+        if (method === 'GET') return this.get(path, decoder, signal);
+        if (!key || !id(key)) throw new ApiError(0, 'INVALID_REQUEST');
+        return await this.transport(path, {method, headers: this.headers(key, 'application/json'), body: JSON.stringify(body)}, decoder, signal) as T;
+    }
     async health(signal?: AbortSignal): Promise<components['schemas']['HealthResponse']> {
         const value = await this.transport('/api/health', { headers: { Accept: 'application/json' } }, 'raw', signal);
         if (!record(value) || typeof value.status !== 'string' || typeof value.service !== 'string' || typeof value.version !== 'string')
@@ -353,7 +394,27 @@ export class ApiClient {
         if(value.entry_id!==entryId||value.business_code!==business||value.business_date!==date)throw new ApiError(502,'INVALID_RESPONSE');
         return value;
     }
-    async novelFeed(business:ConsoleCreate['business_code'],date:string,options:{platform?:'all'|'fanqie'|'qidian';rank_type?:string;gender?:'male'|'female'|'all';genre?:string;page?:number;q?:string}={},signal?:AbortSignal){
+    async analyzeFeedback(entryId:string,business:ConsoleCreate['business_code'],date:string,expectedSampleKey:string,retryOf:string|null,key:string,signal?:AbortSignal){
+        if(!id(entryId)||!sampleKey(expectedSampleKey)||!(retryOf===null||id(retryOf)))throw new ApiError(0,'INVALID_REQUEST');
+        const v=await this.json(`/api/v1/intelligence/entries/${entryId}/feedback/analyze`,'POST',{business_code:business,business_date:date,expected_sample_key:expectedSampleKey,retry_of:retryOf},key,parseFeedbackAnalysis,signal);
+        if(v.entry_id!==entryId||v.business_code!==business||v.business_date!==date||v.sample_key!==expectedSampleKey)throw new ApiError(502,'INVALID_RESPONSE',undefined,[],true);
+        return v;
+    }
+    async feedbackAnalysis(analysisId:string,signal?:AbortSignal,entryId?:string){
+        if(!id(analysisId)||(entryId!==undefined&&!id(entryId)))throw new ApiError(0,'INVALID_REQUEST');
+        const query=entryId===undefined?'':'?'+new URLSearchParams({entry_id:entryId});
+        const v=await this.get(`/api/v1/intelligence/feedback-analyses/${analysisId}${query}`,parseFeedbackAnalysis,signal);
+        if(v.id!==analysisId||(entryId!==undefined&&v.entry_id!==entryId))throw new ApiError(502,'INVALID_RESPONSE');return v;
+    }
+    async feedCalendar(business:ConsoleCreate['business_code'],month:string,signal?:AbortSignal){
+        const query=new URLSearchParams({business_code:business,month});
+        const realDate=(v:unknown):v is string=>typeof v==='string'&&/^\d{4}-\d\d-\d\d$/.test(v)&&Number.isFinite(Date.parse(v+'T12:00:00Z'))&&new Date(v+'T12:00:00Z').toISOString().slice(0,10)===v;
+        return this.get('/api/v1/intelligence/calendar?'+query,v=>{
+            if(!record(v)||v.business_code!==business||v.month!==month||!realDate(v.today)||!Array.isArray(v.dates)||v.dates.length>31||!v.dates.every(d=>realDate(d)&&d.startsWith(month+'-')&&d<=String(v.today))||new Set(v.dates).size!==v.dates.length)throw new Error('shape');
+            return v as components['schemas']['FeedCalendar'];
+        },signal);
+    }
+    async novelFeed(business:ConsoleCreate['business_code'],date:string,options:{platform?:'all'|'fanqie'|'qidian'|'qimao';rank_type?:string;gender?:'male'|'female'|'all';genre?:string;page?:number;q?:string}={},signal?:AbortSignal){
         const query=new URLSearchParams({business_code:business,business_date:date,platform:options.platform??'all',page:String(options.page??1)});
         for(const key of ['rank_type','gender','genre','q'] as const)if(options[key])query.set(key,options[key]);
         const result=await this.get('/api/v1/intelligence/novels?'+query,parseNovels,signal);
@@ -373,12 +434,41 @@ export class ApiClient {
         if(result.business_code!==business||result.business_date!==date||result.page!==options.page)throw new ApiError(200,'INVALID_RESPONSE');
         return result;
     }
-    async getSession(signal?: AbortSignal) {
-        const expected = this.epoch;
-        const session = await this.get('/api/v1/session', parseSession, signal);
-        if (expected !== this.epoch)
-            throw new ApiError(0, 'REQUEST_CANCELLED');
-        return this.accept(session);
+    async getSession(signal?: AbortSignal): Promise<Session> {
+        if (signal?.aborted) throw new ApiError(0, 'REQUEST_CANCELLED');
+        // Share only initial establishment; explicit revalidation stays independent.
+        let request = this.principal ? undefined : this.sessionRead;
+        if (!request) {
+            const expected = this.epoch;
+            const controller = new AbortController();
+            const promise = this.get('/api/v1/session', parseSession, controller.signal).then(session => {
+                if (expected !== this.epoch) throw new ApiError(0, 'REQUEST_CANCELLED');
+                return this.accept(session);
+            });
+            request = {promise, controller, readers: 0};
+            this.sessionRead = request;
+            const clear = () => {if (this.sessionRead === request) this.sessionRead = undefined;};
+            void promise.then(clear, clear);
+        }
+        const shared = request;
+        shared.readers += 1;
+        return new Promise<Session>((resolve, reject) => {
+            let finished = false;
+            const release = () => {
+                if (finished) return false;
+                finished = true;
+                shared.readers -= 1;
+                signal?.removeEventListener('abort', cancel);
+                return true;
+            };
+            const cancel = () => {
+                if (!release()) return;
+                if (shared.readers === 0) {shared.controller.abort();if (this.sessionRead === shared) this.sessionRead = undefined;}
+                reject(new ApiError(0, 'REQUEST_CANCELLED'));
+            };
+            signal?.addEventListener('abort', cancel, {once: true});
+            void shared.promise.then(value => {if (release()) resolve(value);}, error => {if (release()) reject(error);});
+        });
     }
     async login(body: Login, signal?: AbortSignal) {
         if (this.authChanging)
@@ -447,6 +537,11 @@ export class ApiClient {
         ][]);
         return await this.transport(`/api/v1/files/${fileId}/content${query.size ? '?' + query : ''}`, { headers: { Accept: 'application/octet-stream' } }, 'binary', signal) as Blob;
     }
+    async creatorLinks(business:string,signal?:AbortSignal){return this.get('/api/v1/intelligence/creators?'+new URLSearchParams({business_code:business}),parseCreators,signal);}
+    async saveCreatorLinks(business:string,links:string,key:string,signal?:AbortSignal){return this.transport('/api/v1/intelligence/creators',{method:'POST',headers:this.headers(key,'application/json'),body:JSON.stringify({business_code:business,links})},parseCreators,signal) as Promise<CreatorConfig>;}
+    async removeCreatorLink(business:string,creatorId:string,key:string,signal?:AbortSignal){return this.transport('/api/v1/intelligence/creators/remove',{method:'POST',headers:this.headers(key,'application/json'),body:JSON.stringify({business_code:business,creator_id:creatorId})},parseCreators,signal) as Promise<CreatorConfig>;}
+    async intelligenceRefresh(business:string,signal?:AbortSignal){return this.get('/api/v1/intelligence/refresh?'+new URLSearchParams({business_code:business}),parseRefresh,signal);}
+    async refreshIntelligence(business:string,key:string,signal?:AbortSignal){if(!id(key))throw new ApiError(0,'INVALID_REQUEST');return this.transport('/api/v1/intelligence/refresh',{method:'POST',headers:this.headers(key,'application/json'),body:JSON.stringify({business_code:business})},parseRefresh,signal) as Promise<RefreshView>;}
     async listSources(business: string, signal?: AbortSignal, cursor?: string) {
         const query=new URLSearchParams({business_code:business,limit:'100',...(cursor?{cursor}:{})});
         return this.get(`/api/v1/sources?${query}`,parsePage(parseSource),signal);
@@ -479,8 +574,16 @@ export class ApiClient {
     async submitResearch(body:DirectResearch,key:string,signal?:AbortSignal){if(!id(key))throw new ApiError(0,'INVALID_REQUEST');return this.transport('/api/v1/research/direct',{method:'POST',headers:this.headers(key,'application/json'),body:JSON.stringify(body)},parseResearchImport,signal) as Promise<ResearchImport>;}
     async submitIntelligence(body:IntelligenceResearch,key:string,signal?:AbortSignal){if(!id(key))throw new ApiError(0,'INVALID_REQUEST');return this.transport('/api/v1/research/submissions',{method:'POST',headers:this.headers(key,'application/json'),body:JSON.stringify(body)},parseResearchImport,signal) as Promise<ResearchImport>;}
     async addResearchMaterial(work:string,body:ResearchMaterial,key:string,signal?:AbortSignal){if(!id(work)||!id(key))throw new ApiError(0,'INVALID_REQUEST');return this.transport('/api/v1/works/'+work+'/materials',{method:'POST',headers:this.headers(key,'application/json'),body:JSON.stringify(body)},parseResearchImport,signal) as Promise<ResearchImport>;}
-    async knowledgeItems(business:string,candidates=false,signal?:AbortSignal,report?:string,filters?:{q?:string;category?:string}){
-      return this.allPages(cursor=>{const query=new URLSearchParams({business_code:business,limit:'100',...(cursor?{cursor}:{}),...(report?{source_report_id:report}:{}),...(filters?.q?{q:filters.q}:{}),...(filters?.category?{browse_category:filters.category}:{})});return this.get('/api/v1/knowledge'+(candidates?'/candidates':'')+'?'+query,parsePage(parseKnowledge),signal);});
+    async knowledgeItems(business:string,candidates=false,signal?:AbortSignal,report?:string,filters?:{q?:string;category?:string;recycled?:boolean}){
+      return this.allPages(cursor=>{const query=new URLSearchParams({business_code:business,limit:'5000',...(cursor?{cursor}:{}),...(report?{source_report_id:report}:{}),...(filters?.q?{q:filters.q}:{}),...(filters?.category?{browse_category:filters.category}:{})});return this.get('/api/v1/knowledge'+(filters?.recycled?'/recycle-bin':candidates?'/candidates':'')+'?'+query,parsePage(parseKnowledge),signal);});
+    }
+    async recycleKnowledge(items:{id:string;expected_lock_version:string}[],key:string,restore=false,signal?:AbortSignal){
+      if(!id(key)||!items.length||items.length>1000||!items.every(x=>id(x.id)&&version(x.expected_lock_version)))throw new ApiError(0,'INVALID_REQUEST');
+      return this.transport('/api/v1/knowledge/'+(restore?'restore':'recycle'),{method:'POST',headers:this.headers(key,'application/json'),body:JSON.stringify({items})},v=>{if(!record(v)||!Array.isArray(v.ids)||v.ids.length!==items.length||!v.ids.every(x=>id(x)&&items.some(i=>i.id===x))||new Set(v.ids).size!==v.ids.length)throw new Error('shape');return v;},signal);
+    }
+    async purgeKnowledge(items:{id:string;expected_lock_version:string}[],key:string,signal?:AbortSignal){
+      if(!id(key)||!items.length||items.length>1000||!items.every(x=>id(x.id)&&version(x.expected_lock_version)))throw new ApiError(0,'INVALID_REQUEST');
+      return this.transport('/api/v1/knowledge/purge',{method:'POST',headers:this.headers(key,'application/json'),body:JSON.stringify({items,confirmation:'PERMANENTLY_DELETE'})},v=>{if(!record(v)||!Array.isArray(v.ids)||v.ids.length!==items.length||!v.ids.every(x=>id(x)&&items.some(i=>i.id===x))||new Set(v.ids).size!==v.ids.length)throw new Error('shape');return v;},signal);
     }
     async createKnowledge(body:KnowledgeInput,key:string,signal?:AbortSignal){return this.transport('/api/v1/knowledge',{method:'POST',headers:this.headers(key,'application/json'),body:JSON.stringify(body)},parseKnowledge,signal) as Promise<KnowledgeItem>;}
     async reviseKnowledge(kid:string,body:KnowledgeRevisionInput,key:string,signal?:AbortSignal){if(!id(kid))throw new ApiError(0,'INVALID_REQUEST');return this.transport('/api/v1/knowledge/'+kid+'/revisions',{method:'POST',headers:this.headers(key,'application/json'),body:JSON.stringify(body)},value=>{if(!record(value)||!id(value.id)||value.knowledge_id!==kid)throw new Error('shape');return value;},signal);}

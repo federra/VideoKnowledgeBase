@@ -1,0 +1,5 @@
+/* Same controls as the Demo; separate attributes keep its document handlers isolated. */
+.topic-grid .row-actions .btn:is([data-real-topic-action="edit"],[data-real-topic-action="select"]){min-height:29px;padding:3px 12px;line-height:21px;font-size:13px}
+.topic-grid .row-actions .btn[data-real-topic-action="detail"]{min-height:34px;padding:4px 12px;line-height:24px;font-size:14px}
+.topic-grid .row-actions .btn[data-real-topic-action="select"]{background:var(--production-gradient);border-color:transparent;color:#fff;font-weight:500}
+.topic-grid .row-actions .btn[data-real-topic-action="select"]:hover:not(:disabled){background:var(--production-gradient-hover);color:#fff;border-color:transparent;filter:none}

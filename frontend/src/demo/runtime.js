@@ -1,4 +1,4 @@
-// Generated from approved Demo. SHA-256: 2fce76c1547e11dfbbadb4cdcaba0bab94732c33ca18a367f1e80df9dec6cf0d
+// Generated from approved Demo. SHA-256: 5fb807c40aede9f3f2ef682a634a8bdcd6b89048561fc74aaf057b88eb76e902
 // Transitional DOM renderer: no real API, authentication or server-side writes.
 // Run pnpm demo:sync after explicitly approving a changed Demo baseline.
 export function createDemoRuntime({onChange, renderWorkspace}) {
@@ -39,7 +39,7 @@ const navSolidIcons={
 const navIcon=(n,active)=>active?`<svg class="icon nav-solid" viewBox="0 0 24 24" aria-hidden="true">${navSolidIcons[n]}</svg>`:icon(n);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const modules=[{name:'情报局',icon:'radar',tabs:['情报流','选题卡','待生产']},{name:'藏经阁',icon:'book',tabs:['知识浏览','入库处理','审核队列','回收站']},{name:'研判室',icon:'research',tabs:['内容研判','发布复盘','规律验证']},{name:'控制台',icon:'settings',tabs:['采集配置','处理配置','评价标准','权限管理','运行状态','模型配置']}];
-const navOrder=[0,2,1,3];
+const navOrder=[0,1,3];
 const businesses=['AI漫剧','故事短片','电商短视频'];
 const seed={intel:[
 {id:'S-2401',title:'“身份错位”开场：让观众先知道一个秘密',summary:'三段开场样本都把身份信息先交给观众，再让角色进入误会。值得观察的是信息差如何推动第一轮冲突，而非单纯增加反转。',biz:['AI漫剧'],source:'短剧观察',type:'案例拆解',time:'09:42',tag:'叙事结构',evidence:'样本片段 00:00–00:08：主角收起工牌，转身进入面试间。观众知道身份，面试官尚不知情。'},
@@ -110,8 +110,8 @@ function topicBlueprintInput(topic){return {title:topic.title||'',logline:topicL
 function assessmentBlueprintInput(input){return topicBlueprintInput({...input,characters:{protagonist:input?.protagonist||'',antagonist:input?.antagonist||''}})}
 function comparableTopicContent(topic){const input=topicBlueprintInput(topic);for(const key of ['title','logline','characterSettings','globalRhythm'])input[key]=input[key].trim();return JSON.stringify({...input,biz:topic.biz||[]})}
 function pendingTopicScoreRequest(topic){return (topic.scoreRequests||[]).find(request=>request.topicVersion===topic.version&&request.status==='待评分')}
-function genreLoadScoreLabel(topic){const a=currentGenreLoadAssessment(topic);return a?genreLoadTotal(a)+' / 50':pendingTopicScoreRequest(topic)?'待评分':topic.genreLoadAssessment?'待重评':'待评估'}
-function requestTopicScore(topic){const requests=topic.scoreRequests??=[];if(requests.some(request=>request.topicVersion===topic.version))return;requests.push({id:`SCORE-${topic.id}-v${topic.version}`,topicId:topic.id,topicVersion:topic.version,business:topic.biz?.[0]||'',rubric:topic.biz?.[0]==='AI漫剧'?'genre-load-v2':null,status:'待评分',requestedAt:new Date().toISOString(),input:topicBlueprintInput(topic)});topic.evaluation='待评分'}
+function genreLoadScoreLabel(topic){const a=currentGenreLoadAssessment(topic);return a?(genreLoadTotal(a)??'—')+' / 50':pendingTopicScoreRequest(topic)?'待评分':topic.genreLoadAssessment?'待重评':'待评估'}
+function requestTopicScore(topic){if(topic.biz?.[0]!=='AI漫剧')return;const requests=topic.scoreRequests??=[];if(requests.some(request=>request.topicVersion===topic.version))return;requests.push({id:`SCORE-${topic.id}-v${topic.version}`,topicId:topic.id,topicVersion:topic.version,business:topic.biz?.[0]||'',rubric:topic.biz?.[0]==='AI漫剧'?'genre-load-v3-inferred':null,status:'待评分',requestedAt:new Date().toISOString(),input:topicBlueprintInput(topic)});topic.evaluation='待评分'}
 function attachTopicBlueprintSample(topic,index){const sample=topicBlueprintSamples[index];topic.logline=sample[0];topic.characters={protagonist:sample[1],antagonist:sample[2]};topic.globalRhythm=sample[3]}
 // Authored demonstration assessments, not runtime AI inference or market forecasts.
 const genreLoadSamples=[
@@ -132,23 +132,23 @@ function genreLoadMarketAnalyses(topic){return [
 ]}
 function sampleGenreLoadAssessment(topic,index){
  const market=genreLoadMarketAnalyses(topic);
- return {schemaVersion:'genre-load-v2',topicVersion:topic.version,business:'AI漫剧',scopeEpisodes:80,maxScore:50,provenance:'demo',assessedAt:topic.createdAt||new Date().toISOString(),input:topicBlueprintInput(topic),dimensions:genreLoadDimensions.map((dimension,i)=>({key:dimension.key,score:i<5?genreLoadSamples[index][i][0]:genreLoadMarketScores[index][i-5],analysis:i<5?genreLoadSamples[index][i][1]:market[i-5]}))};
+ return {schemaVersion:'genre-load-v3-inferred',marketBasis:'ai_inference',topicVersion:topic.version,business:'AI漫剧',scopeEpisodes:80,maxScore:50,provenance:'demo',assessedAt:topic.createdAt||new Date().toISOString(),input:topicBlueprintInput(topic),dimensions:genreLoadDimensions.map((dimension,i)=>({key:dimension.key,score:i<5?genreLoadSamples[index][i][0]:genreLoadMarketScores[index][i-5],analysis:i<5?genreLoadSamples[index][i][1]:market[i-5]}))};
 }
-function validGenreLoadAssessment(a){return !!(a&&a.schemaVersion==='genre-load-v2'&&a.business==='AI漫剧'&&a.scopeEpisodes===80&&a.maxScore===50&&a.dimensions?.length===10&&genreLoadDimensions.every((d,i)=>{const item=a.dimensions[i];return item.key===d.key&&Number.isInteger(item.score)&&item.score>=0&&item.score<=5&&typeof item.analysis==='string'&&item.analysis.trim()}))}
+function validGenreLoadAssessment(a){return !!(a&&(['genre-load-v2','genre-load-v3-inferred'].includes(a.schemaVersion))&&(a.schemaVersion!=='genre-load-v3-inferred'||a.marketBasis==='ai_inference')&&a.business==='AI漫剧'&&a.scopeEpisodes===80&&a.maxScore===50&&a.dimensions?.length===10&&genreLoadDimensions.every((d,i)=>{const item=a.dimensions[i];return item.key===d.key&&(item.score===null||Number.isInteger(item.score)&&item.score>=0&&item.score<=5)&&typeof item.analysis==='string'&&item.analysis.trim()}))}
 function currentGenreLoadAssessment(topic){const a=topic.genreLoadAssessment;return topic.biz?.[0]==='AI漫剧'&&validGenreLoadAssessment(a)&&a.topicVersion===topic.version&&JSON.stringify(assessmentBlueprintInput(a.input))===JSON.stringify(topicBlueprintInput(topic))?a:null}
-function genreLoadTotal(a){return a.dimensions.reduce((sum,item)=>sum+item.score,0)}
+function genreLoadTotal(a){return a.dimensions.some(item=>item.score===null)?null:a.dimensions.reduce((sum,item)=>sum+item.score,0)}
 function needsGenreLoadAssessment(topic){return topic.biz?.[0]==='AI漫剧'&&(topic.origin?.startsWith('AI选题')||!!topic.genreLoadAssessment||!!pendingTopicScoreRequest(topic))}
 function genreLoadBadge(topic){if(!needsGenreLoadAssessment(topic))return '';const a=currentGenreLoadAssessment(topic),score=genreLoadScoreLabel(topic);return `<button type="button" class="genre-load-badge" aria-label="题材承重力${a?.provenance==='demo'?'演示评分':''}：${score}" data-action="topic-detail" data-id="${esc(topic.id)}"><strong>${score}</strong></button>`}
 
 function genreLoadRow(dimension,score=null){
  const known=Number.isInteger(score)&&score>=0&&score<=5;
  const meter=known?`<span class="genre-load-meter" role="meter" aria-label="${esc(dimension.name)}评分" aria-valuemin="0" aria-valuemax="5" aria-valuenow="${score}"><i aria-hidden="true" style="width:${score*20}%"></i></span>`:'<span class="genre-load-meter is-pending" aria-hidden="true"></span>';
- return `<div class="genre-load-row"><h4>${dimension.name}</h4><span class="genre-load-question">${dimension.question}</span>${meter}<strong>${known?score+' / 5':'待评估'}</strong></div>`;
+ return `<div class="genre-load-row"><h4>${dimension.name}</h4><span class="genre-load-question">${dimension.question}</span>${meter}<strong>${known?score+' / 5':'— / 5'}</strong></div>`;
 }
 function renderGenreLoadAssessment(a,includeHeading=true){
  if(!validGenreLoadAssessment(a))return '';
- const heading=includeHeading?`<h3 class="genre-load-heading"><span>承重力评估</span><strong>${genreLoadTotal(a)} / 50</strong></h3>`:'';
- return heading+['content','market'].map(group=>`<section class="genre-load-group"><h4>${group==='content'?'内容承重维度':'市场承重维度'} <span>${a.dimensions.filter((item,i)=>genreLoadDimensions[i].group===group).reduce((sum,item)=>sum+item.score,0)} / 25</span></h4><div class="genre-load-dimensions">${genreLoadDimensions.map((d,i)=>d.group===group?genreLoadRow(d,a.dimensions[i].score):'').join('')}</div></section>`).join('');
+ const heading=includeHeading?`<h3 class="genre-load-heading"><span>承重力评估</span><strong>${genreLoadTotal(a)??'—'} / 50</strong></h3>`:'';
+ return heading+['content','market'].map(group=>`<section class="genre-load-group"><h4><span>${group==='content'?'内容承重维度':'市场承重维度'}${group==='market'&&a.schemaVersion==='genre-load-v3-inferred'&&a.marketBasis==='ai_inference'?`<small class="small muted"> 市场：AI推断${a.provenance==='demo'?'（演示）':''}</small>`:''}</span><span>${a.dimensions.filter((item,i)=>genreLoadDimensions[i].group===group).some(item=>item.score===null)?'—':a.dimensions.filter((item,i)=>genreLoadDimensions[i].group===group).reduce((sum,item)=>sum+item.score,0)} / 25</span></h4><div class="genre-load-dimensions">${genreLoadDimensions.map((d,i)=>d.group===group?genreLoadRow(d,a.dimensions[i].score):'').join('')}</div></section>`).join('');
 }
 function genreLoadDetail(topic){const a=currentGenreLoadAssessment(topic);return `<section class="detail-block"><h3 class="genre-load-heading"><span>承重力评估</span><strong id="topicAssessmentTotal">${genreLoadScoreLabel(topic)}</strong></h3><p id="topicAssessmentNotice" class="small muted" hidden>内容已编辑，保存后待重评。</p><div id="topicAssessmentResults">${a?renderGenreLoadAssessment(a,false):['content','market'].map(group=>`<section class="genre-load-group"><h4>${group==='content'?'内容承重维度':'市场承重维度'}</h4><div class="genre-load-dimensions">${genreLoadDimensions.filter(d=>d.group===group).map(d=>genreLoadRow(d)).join('')}</div></section>`).join('')}</div></section>`}
 let topicEditContext=null;
@@ -193,9 +193,9 @@ const storageKey=new URLSearchParams(location.search).has('qa')?'cip-demo-qa-v1'
 let db;try{db=JSON.parse(localStorage.getItem(storageKey))||structuredClone(seed)}catch{db=structuredClone(seed)}
 for(const item of seed.topics){if(!db.topics.some(topic=>topic.id===item.id))db.topics.push(structuredClone(item))}
 for(const item of db.topics){if(!item.createdAt){const sample=seed.topics.find(topic=>topic.id===item.id);if(sample?.createdAt)item.createdAt=sample.createdAt}}
-// Only untouched built-in AI samples receive the new demo blueprint and v2 rubric.
+// Only untouched built-in samples without a supported assessment receive the demo blueprint; preserve legacy assessments.
 for(const topic of db.topics){
- if(topic.version!==1||topic.biz?.[0]!=='AI漫剧'||!topic.origin?.startsWith('AI选题')||topic.genreLoadAssessment&&topic.genreLoadAssessment.schemaVersion==='genre-load-v2')continue;
+ if(topic.version!==1||topic.biz?.[0]!=='AI漫剧'||!topic.origin?.startsWith('AI选题')||topic.genreLoadAssessment&&['genre-load-v2','genre-load-v3-inferred'].includes(topic.genreLoadAssessment.schemaVersion))continue;
  let sample=seed.topics.find(item=>item.id===topic.id);const match=topic.id.match(/^T-DEMO-A-(\d+)-(\d+)$/);
  if(!sample&&match)sample=topicBatch('AI漫剧',Number(match[1]))[Number(match[2])-1];
  if(!sample?.genreLoadAssessment||topic.title!==sample.title||topic.summary!==sample.summary||(topic.audience||'')!==(sample.audience||''))continue;
@@ -472,11 +472,22 @@ function getFeedSnapshot(date=latestFeedDate){return date===latestFeedDate?curre
 
 function feedSource(id,date){const snapshot=getFeedSnapshot(date);return snapshot?.intel.find(v=>v.id===id)||snapshot?.novels?.find(v=>v.id===id)}
 
+let feedRefreshDemo=null;
+
+function demoRecollect(){if(feedRefreshDemo?.running)return;feedRefreshDemo={business:state.biz[0],running:true};render();setTimeout(()=>{if(!feedRefreshDemo)return;feedRefreshDemo.running=false;render();toast('演示结束，未请求真实渠道')},1200)}
+let feedCalendarDemo={open:false,month:latestFeedDate.slice(0,7),focusDay:latestFeedDate};
+let demoCalendarCleanup=null;
+
+
+
+
+
+
 
 
 const workspaceStorageKey=storageKey+'-workspace';
-let workspaceBusiness='故事短片';try{const saved=localStorage.getItem(workspaceStorageKey);if(businesses.includes(saved))workspaceBusiness=saved}catch{}
-let state={module:0,tab:0,biz:[workspaceBusiness],hongguoBoard:'',hongguoGenre:'',hongguoSubgenre:'',topicPage:1,query:'',workGenre:'全部题材',knowledgeCategory:'全部',status:'全部状态',stage:'全部环节',mode:'正常',workId:'',workView:'episodes',workUnit:'',workTaskId:'',workReportId:'',episodeNavPage:1},draftDirty=false,lastFocus=null;
+let workspaceBusiness='故事短片';try{const saved=localStorage.getItem(workspaceStorageKey);if(businesses.includes(saved)&&saved!=='电商短视频')workspaceBusiness=saved}catch{}
+let state={module:0,tab:0,biz:[workspaceBusiness],hongguoBoard:'',hongguoGenre:'',hongguoSubgenre:'',topicPage:1,query:'',workGenre:'全部题材',knowledgeCategory:'题材库',knowledgeLine:'',knowledgeGender:'',knowledgeGenreGroup:'',status:'全部状态',stage:'全部环节',mode:'正常',workId:'',workView:'episodes',workUnit:'',workTaskId:'',workReportId:'',episodeNavPage:1},draftDirty=false,lastFocus=null;
 const page=document.getElementById('page'),dialog=document.getElementById('dialog');
 const save=()=>{try{localStorage.setItem(storageKey,JSON.stringify(db))}catch{toast('浏览器存储不可用，本次修改仅保留在当前页面')}};
 let toastTimer;function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),3200)}
@@ -493,6 +504,9 @@ function filtered(items,options={}){return scoped(items).filter(x=>(!state.query
 
 
 function compactNum(n){if(n===null||n===undefined||n==='')return '未获取';return Number(n)>=10000?(Number(n)/10000).toFixed(1).replace(/\.0$/,'')+'万':Number(n).toLocaleString('zh-CN')}
+
+
+
 
 
 
@@ -570,6 +584,8 @@ function deferHideFeedFullText(){
 
 
 
+
+
 const hongguoBoards=[['hot-drama','红果热播榜'],['hot-real-drama','真人剧热播榜'],['hot-ai-drama','AI剧热播榜'],['hot-comic-drama','漫剧热播榜']];
 
 
@@ -589,15 +605,186 @@ function topicPage(){
  const tools=pool?toolbar('搜索选题、方向或选题编号',['待生产','已交接','已采用']):'';
  const intro=pool?notice('复制或导出只代表选题交接；正式内容制作与发布在外部工具完成。'):paused?notice('电商短视频的选题流程仍待讨论，暂缓展示与生成选题卡。'):notice(state.biz[0]==='AI漫剧'?'每次生成5张漫剧选题卡，附内容与市场十维承重力演示评估；未调用AI。':'每次按当前业务生成5张选题卡。此原型使用本地演示方向，不调用AI；评价状态为“未评价”。');
  const pager=!pool&&pages>1?`<div class="feed-pager topic-pagination" aria-label="选题卡翻页"><span>第 ${state.topicPage} / ${pages} 页 · 共 ${items.length} 张</span><div class="pager-actions"><button data-action="topic-page" data-id="-1" aria-label="选题卡上一页" ${state.topicPage===1?'disabled':''}>上一页</button><button data-action="topic-page" data-id="1" aria-label="选题卡下一页" ${state.topicPage===pages?'disabled':''}>下一页</button></div></div>`:'';
- return heading(pool?'待生产':'选题卡',pool?'人工确认的选题，在这里完成复制与导出交接。':'把灵感整理为有依据、可判断的创作方向。',(!paused?btn(icon('plus')+' 新增选题','new-topic'):'')+(!pool&&!paused?btn('头脑风暴','brainstorm'):'')+generate,'actions-left')+filters()+tools+intro+`<div class="cards-grid topic-grid">${rows.map(x=>`<article class="card topic-card" role="group" tabindex="0" aria-label="查看选题详情：${esc(x.title)}" data-topic-id="${esc(x.id)}" data-action="topic-detail" data-id="${esc(x.id)}"><div class="card-top"><div class="meta">${x.biz?.[0]==='AI漫剧'?genreLoadBadge(x):tags(x.biz)}<span>${x.id} · v${x.version}</span></div><span class="tag">${pool?x.status:x.origin}</span></div><button class="title-button" data-action="topic-detail" data-id="${x.id}">${esc(x.title)}</button><p class="summary">${esc(topicLogline(x))}</p><div class="detail-block small"><span class="muted">目标人群</span>　${esc(x.audience||'尚未补充')}</div><p class="topic-time"><span>生成时间</span>${x.createdAt?`<time datetime="${esc(x.createdAt)}">${esc(topicTime(x.createdAt))}</time>`:'<span>未记录</span>'}</p><div class="card-foot ${needsGenreLoadAssessment(x)?'topic-actions-only':''}">${needsGenreLoadAssessment(x)?'':`<span class="small muted">${x.evaluation==='已评价'?'评价已完成 · 可查看依据':x.evaluation==='待重评'?'内容已修改 · 旧评价待更新':'尚未评价'}</span>`}<div class="row-actions">${pool?btn('交接选题','topic-detail',x.id):btn('编辑','edit-topic',x.id)+btn('加入待生产','topic-add-production',x.id,true)}</div></div></article>`).join('')||empty(paused?'电商选题暂缓':pool?'暂无待生产内容':'没有匹配的选题',paused?'选题流程确定后再开放。':pool?'到选题卡选择一个选题，即可在这里交接。':'切换业务或记录一条灵感。')}</div>${pager}`
+ return heading(pool?'待生产':'选题卡',pool?'人工确认的选题，在这里完成复制与导出交接。':'把灵感整理为有依据、可判断的创作方向。',(!paused?btn(icon('plus')+' 新增选题','new-topic'):'')+(!pool&&!paused?btn('头脑风暴','brainstorm'):'')+generate,'actions-left')+filters()+tools+intro+`<div class="cards-grid topic-grid">${rows.map(x=>`<article class="card topic-card" role="group" tabindex="0" aria-label="查看选题详情：${esc(x.title)}" data-topic-id="${esc(x.id)}" data-action="topic-detail" data-id="${esc(x.id)}"><div class="card-top"><div class="meta">${x.biz?.[0]==='AI漫剧'?genreLoadBadge(x):tags(x.biz)}</div><span class="tag">${pool?x.status:x.origin}</span></div><button class="title-button" data-action="topic-detail" data-id="${x.id}">${esc(x.title)}</button><p class="summary">${esc(topicLogline(x))}</p><div class="topic-card-meta"><div class="detail-block small"><span class="muted">目标人群</span>　${esc(x.audience||'尚未补充')}</div><p class="topic-time"><span>生成时间</span>${x.createdAt?`<time datetime="${esc(x.createdAt)}">${esc(topicTime(x.createdAt))}</time>`:'<span>未记录</span>'}</p></div><div class="card-foot ${needsGenreLoadAssessment(x)?'topic-actions-only':''}">${needsGenreLoadAssessment(x)?'':`<span class="small muted">${x.evaluation==='已评价'?'评价已完成 · 可查看依据':x.evaluation==='待重评'?'内容已修改 · 旧评价待更新':'尚未评价'}</span>`}<div class="row-actions">${pool?btn('交接选题','topic-detail',x.id):btn('编辑','edit-topic',x.id)+btn('加入待生产','topic-add-production',x.id,true)}</div></div></article>`).join('')||empty(paused?'电商选题暂缓':pool?'暂无待生产内容':'没有匹配的选题',paused?'选题流程确定后再开放。':pool?'到选题卡选择一个选题，即可在这里交接。':'切换业务或记录一条灵感。')}</div>${pager}`
 }
 const knowledgeCategories=['题材库','金句库','爽点库','翻车点','DNA经典案例'];
 function knowledgeCategoryLabel(item){return knowledgeCategories.includes(item.category)?item.category:'未分类'}
-function knowledgeCategoryTabs(items){return `<div class="knowledge-category-tabs" role="group" aria-label="知识分类">${['全部',...knowledgeCategories].map(category=>`<button class="${state.knowledgeCategory===category?'active':''}" data-action="knowledge-category" data-id="${category}" aria-pressed="${state.knowledgeCategory===category}">${category}<span>${category==='全部'?items.length:items.filter(item=>item.category===category).length}</span></button>`).join('')}</div>`}
+function knowledgeCategoryTabs(items){return `<div class="knowledge-category-tabs" role="group" aria-label="知识分类">${knowledgeCategories.map(category=>`<button class="${state.knowledgeCategory===category?'active':''}" data-action="knowledge-category" data-id="${category}" aria-pressed="${state.knowledgeCategory===category}">${category}<span>${items.filter(item=>item.category===category).length}</span></button>`).join('')}</div>`}
+const knowledgeGenreCatalog = [
+  {
+    "line": "A",
+    "gender": "男频",
+    "label": "都市男频",
+    "source": "都市男频（15个）"
+  },
+  {
+    "line": "A",
+    "gender": "男频",
+    "label": "玄幻/古风男频",
+    "source": "玄幻/古风男频（10个）"
+  },
+  {
+    "line": "A",
+    "gender": "男频",
+    "label": "特殊题材男频",
+    "source": "特殊题材男频（10个）"
+  },
+  {
+    "line": "A",
+    "gender": "女频",
+    "label": "都市女频",
+    "source": "都市女频（15个）"
+  },
+  {
+    "line": "A",
+    "gender": "女频",
+    "label": "古风女频",
+    "source": "古风女频（10个）"
+  },
+  {
+    "line": "A",
+    "gender": "女频",
+    "label": "特殊题材女频",
+    "source": "特殊题材女频（10个）"
+  },
+  {
+    "line": "A",
+    "gender": "男女通用",
+    "label": "特别题材",
+    "source": "2.3 特别题材（10个，男女通用）"
+  },
+  {
+    "line": "B",
+    "gender": "女频",
+    "label": "Romance",
+    "source": "B线女频Romance（25个）"
+  },
+  {
+    "line": "B",
+    "gender": "女频",
+    "label": "Supernatural",
+    "source": "B线女频Supernatural（15个）"
+  },
+  {
+    "line": "B",
+    "gender": "女频",
+    "label": "Drama",
+    "source": "B线女频Drama（5个）"
+  },
+  {
+    "line": "B",
+    "gender": "男频／混合",
+    "label": "Male/Mixed",
+    "source": "3.2 Male/Mixed B线（15个）"
+  }
+];
+const knowledgeQuoteCatalog=[
+  {
+    "source": "男频 · 仇恨/复仇主题（20条）",
+    "line": "A",
+    "gender": "男频",
+    "label": "仇恨/复仇",
+    "mapped": false
+  },
+  {
+    "source": "男频 · 爽感/装逼主题（20条）",
+    "line": "A",
+    "gender": "男频",
+    "label": "爽感/装逼",
+    "mapped": false
+  },
+  {
+    "source": "男频 · 怜悯/守护主题（20条）",
+    "line": "A",
+    "gender": "男频",
+    "label": "怜悯/守护",
+    "mapped": false
+  },
+  {
+    "source": "男频 · 好奇/探索主题（20条）",
+    "line": "A",
+    "gender": "男频",
+    "label": "好奇/探索",
+    "mapped": false
+  },
+  {
+    "source": "女频 · 虐恋/抛弃主题（20条）",
+    "line": "A",
+    "gender": "女频",
+    "label": "虐恋/抛弃",
+    "mapped": false
+  },
+  {
+    "source": "女频 · 甜宠/总裁主题（20条）",
+    "line": "A",
+    "gender": "女频",
+    "label": "甜宠/总裁",
+    "mapped": false
+  },
+  {
+    "source": "女频 · 爽感/反杀主题（20条）",
+    "line": "A",
+    "gender": "女频",
+    "label": "爽感/反杀",
+    "mapped": false
+  },
+  {
+    "source": "女频 · 共情/守护主题（20条）",
+    "line": "A",
+    "gender": "女频",
+    "label": "共情/守护",
+    "mapped": false
+  },
+  {
+    "source": "B线 · Female Heartbreak (10)",
+    "line": "B",
+    "gender": "女频",
+    "label": "Female Heartbreak",
+    "mapped": false
+  },
+  {
+    "source": "B线 · Female Catharsis/Power (10)",
+    "line": "B",
+    "gender": "女频",
+    "label": "Female Catharsis/Power",
+    "mapped": false
+  },
+  {
+    "source": "B线 · Werewolf/Supernatural (10)",
+    "line": "B",
+    "gender": "女频",
+    "label": "Werewolf/Supernatural",
+    "mapped": true
+  },
+  {
+    "source": "B线 · Marriage of Convenience/Sweet (10)",
+    "line": "B",
+    "gender": "女频",
+    "label": "Marriage of Convenience/Sweet",
+    "mapped": true
+  }
+];
+function knowledgeQuoteGroups(item){return knowledgeQuoteCatalog.filter(g=>(item.tags||[]).some(t=>t.kind==='genre'&&t.code===g.source))}
+function knowledgeQuoteLines(item){return [...new Set([...knowledgeQuoteGroups(item).map(g=>g.line),...(item.tags||[]).filter(t=>t.kind==='task'&&['quote_line_A','quote_line_B'].includes(t.code)).map(t=>t.code.slice(-1))])]}
+function knowledgeQuoteSummary(item){const groups=knowledgeQuoteGroups(item);return [...knowledgeQuoteLines(item).map(l=>l+'线'),...new Set(groups.map(g=>g.gender)),...groups.map(g=>g.label),...(item.tags||[]).filter(t=>t.kind==='genre'&&!groups.some(g=>g.source===t.code)).map(t=>t.code)].join(' · ')}
+function knowledgeQuoteFilters(){return `<div class="novel-filters"><div class="novel-filter-row" role="group" aria-label="A/B线"><span class="filter-label">A/B线</span>${[['','全部'],['A','A线 · 国内'],['B','B线 · 海外']].map(([id,label])=>`<button class="chip ${state.knowledgeLine===id?'active':''}" aria-pressed="${state.knowledgeLine===id}" data-action="knowledge-line" data-id="${id}">${label}</button>`).join('')}</div></div>`}
+function resetKnowledgeGenre(){state.knowledgeLine='';state.knowledgeGender='';state.knowledgeGenreGroup=''}
+function knowledgeGenreGroup(item){const matches=knowledgeGenreCatalog.filter(g=>(item.tags||[]).some(t=>t.kind==='genre'&&t.code===g.source));return matches.length===1?matches[0]:null}
+function knowledgeGenreFilters(){const lineGroups=knowledgeGenreCatalog.filter(g=>!state.knowledgeLine||g.line===state.knowledgeLine),groups=lineGroups.filter(g=>!state.knowledgeGender||g.gender===state.knowledgeGender);return `<div class="novel-filters">${[['A/B线','knowledge-line',state.knowledgeLine,[['A','A线 · 国内'],['B','B线 · 海外']]],['男女频','knowledge-gender',state.knowledgeGender,[...new Set(lineGroups.map(g=>g.gender))].map(g=>[g,g])],['题材大类','knowledge-group',state.knowledgeGenreGroup,groups.map(g=>[g.source,g.label])]].map(([label,action,value,options])=>`<div class="novel-filter-row" role="group" aria-label="${label}"><span class="filter-label">${label}</span>${[['','全部'],...options].map(([id,name])=>`<button class="chip ${value===id?'active':''}" aria-pressed="${value===id}" data-action="${action}" data-id="${esc(id)}">${esc(name)}</button>`).join('')}</div>`).join('')}</div>`}
+
+let knowledgePaging={scope:'',page:1},knowledgePageSize=20;try{const n=Number(localStorage.getItem('knowledge-page-size'));if([20,50,100].includes(n))knowledgePageSize=n}catch{}
+let knowledgeSelection={scope:'',ids:[]},pendingKnowledgeRecycle=null;
+function knowledgeSelectionScope(){return JSON.stringify([state.biz,state.tab,state.query,state.knowledgeCategory,state.knowledgeLine,state.knowledgeGender,state.knowledgeGenreGroup])}
+function knowledgeRecycleDialog(ids,restore=false,purge=false){const items=db.knowledge.filter(x=>ids.includes(x.id)&&x.status===((restore||purge)?'回收站':'已入库'));if(!items.length)return;pendingKnowledgeRecycle={ids:items.map(x=>x.id),restore,purge};openDialog(purge?'确认永久删除？':restore?'确认恢复知识？':'确认移入回收站？',`<p>${items.length===1?esc(items[0].title):'已选择 '+items.length+' 条知识'}</p><p class="small muted" style="margin-top:10px">${purge?'永久删除后不可恢复，知识内容及检索索引将清除；历史报告和独立来源资料保留。':restore?'恢复原正式版本及适用业务。':'移入后保留30天，可在回收站恢复；到期自动清理，共享知识将从所有适用业务中隐藏。'}</p>`,btn('取消','close').replace('data-action=','autofocus data-action=')+btn(purge?'永久删除':'确认','knowledge-recycle-confirm').replace('class="btn ',purge?'class="btn danger ':'class="btn '));dialog.classList.add('knowledge-recycle-dialog')}
+function cleanupKnowledgeDemo(){let changed=false;const now=Date.now();for(const x of db.knowledge)if(x.status==='回收站'&&!x.recycledAt){x.recycledAt=new Date(now).toISOString();changed=true}const before=db.knowledge.length;db.knowledge=db.knowledge.filter(x=>x.status!=='回收站'||Date.parse(x.recycledAt)+30*86400000>now);if(changed||before!==db.knowledge.length)save()}
+
 function knowledgePage(){
+ cleanupKnowledgeDemo();
  const browse=state.tab===0,records=db.knowledge.filter(item=>browse?item.status==='已入库':state.tab===2?['待人工审核','待AI审核'].includes(item.status):item.status==='回收站');
- const counts=scoped(records),items=filtered(records,{ignoreStage:true,ignoreStatus:browse}).filter(item=>!browse||state.knowledgeCategory==='全部'||item.category===state.knowledgeCategory),name=modules[1].tabs[state.tab];
- return heading(name,'',browse?btn(icon('plus')+' 人工新增','new-knowledge'):'',browse?'actions-left':'')+(browse?knowledgeCategoryTabs(counts):'')+toolbar('搜索知识、摘要或知识编号',state.tab===2?['待AI审核','待人工审核']:[])+(state.tab===2?notice('AI审核与人工审核分别留档。修改知识内容后，应对新版本重新执行AI审核。'):state.tab===3?notice('此原型不运行自动清理任务。恢复权限、计时起点与历史引用处理仍待业务确认。'):'')+`<div class="list-head"><span>${items.length} 条${browse?'正式知识':'记录'}</span><span>${browse?'仅显示双审通过的版本':'候选知识不进入正式检索'}</span></div><div class="cards-grid">${items.map(item=>`<article class="card"><div class="card-top"><div class="meta">${tags([knowledgeCategoryLabel(item),item.type,item.stage].filter(Boolean))}</div><span class="small muted">${esc(item.id)} · v${esc(item.version)}</span></div><button class="title-button" data-action="knowledge-detail" data-id="${esc(item.id)}">${esc(item.title)}</button><p class="summary">${esc(item.summary)}</p><div class="card-foot"><div class="meta">${tags(item.biz)}</div><button class="btn small" data-action="knowledge-detail" data-id="${esc(item.id)}">${state.tab===2?'审核详情':'查看知识'} ${icon('arrow')}</button></div></article>`).join('')||empty(state.tab===3?'回收站为空':browse&&state.knowledgeCategory!=='全部'?state.knowledgeCategory+'暂无匹配的正式知识':'没有匹配的知识',state.tab===3?'正式知识删除后会出现在这里。':'调整分类或搜索条件，待审核条目请到审核队列查看。')}</div>`;
+ const counts=scoped(records),items=filtered(records,{ignoreStage:true,ignoreStatus:browse}).filter(item=>!browse||item.category===state.knowledgeCategory).filter(item=>{if(browse&&state.knowledgeCategory==='金句库')return !state.knowledgeLine||knowledgeQuoteLines(item).includes(state.knowledgeLine);if(!browse||state.knowledgeCategory!=='题材库')return true;const g=knowledgeGenreGroup(item);return (!state.knowledgeLine||g?.line===state.knowledgeLine)&&(!state.knowledgeGender||g?.gender===state.knowledgeGender)&&(!state.knowledgeGenreGroup||g?.source===state.knowledgeGenreGroup)}),name=modules[1].tabs[state.tab];
+ const scope=knowledgeSelectionScope()+state.status+knowledgePageSize,pages=Math.max(1,Math.ceil(items.length/knowledgePageSize)),page=Math.min(knowledgePaging.scope===scope?knowledgePaging.page:1,pages);knowledgePaging={scope,page};
+ const chosen=knowledgeSelection.scope===knowledgeSelectionScope()?knowledgeSelection.ids.filter(id=>items.some(x=>x.id===id)):[];
+ return heading(name,'',browse?btn(icon('plus')+' 人工新增','new-knowledge'):'',browse?'actions-left':'')+(browse?knowledgeCategoryTabs(counts):'')+(browse&&state.knowledgeCategory==='题材库'?knowledgeGenreFilters():'')+(browse&&state.knowledgeCategory==='金句库'?knowledgeQuoteFilters():'')+toolbar('搜索知识、摘要或知识编号',state.tab===2?['待AI审核','待人工审核']:[]).replace('</div>',(browse&&chosen.length>=2?'<button class="iconbtn knowledge-bulk-recycle" data-action="knowledge-bulk-recycle" aria-label="批量移入回收站" title="批量移入回收站">'+icon('close')+'</button>':state.tab===3&&chosen.length>=2?'<div class="knowledge-bulk-actions"><button class="iconbtn" data-action="knowledge-bulk-purge" aria-label="批量永久删除" title="批量永久删除">'+icon('close')+'</button><button class="btn small" data-action="knowledge-bulk-restore" aria-label="批量恢复">恢复</button></div>':'')+'</div>')+(state.tab===2?notice('AI审核与人工审核分别留档。修改知识内容后，应对新版本重新执行AI审核。'):state.tab===3?notice('移入后保留30天，到期自动清理；此Demo仅操作本地演示状态。'):'')+(browse?'':`<div class="list-head"><span>${items.length} 条记录</span><span>${state.tab===3?'移入回收站后保留30天，到期自动清理':'候选知识不进入正式检索'}</span></div>`)+`<div class="knowledge-list">${items.slice((page-1)*knowledgePageSize,page*knowledgePageSize).map(item=>`<div class="knowledge-row">${(browse||state.tab===3)?`<label class="knowledge-row-select"><input type="checkbox" data-action="knowledge-select" data-id="${esc(item.id)}" aria-label="选择知识：${esc(item.title)}" ${chosen.includes(item.id)?'checked':''}></label>`:''}<button class="knowledge-row-main" ${state.tab===3?'disabled':''} data-action="knowledge-detail" data-id="${esc(item.id)}" aria-label="${state.tab===2?'审核详情':'查看知识'}：${esc(item.title)}"><span class="tag">${esc(knowledgeCategoryLabel(item))}</span><span class="knowledge-row-copy"><span class="knowledge-row-title" title="${esc(item.title)}">${esc(item.title)}</span>${knowledgeCategoryLabel(item)==='题材库'&&item.explanation?`<span class="knowledge-row-explanation" title="${esc(item.explanation)}">${esc(item.explanation)}</span>`:''}</span><span class="knowledge-row-meta">${item.category==='金句库'?esc(knowledgeQuoteSummary(item)):knowledgeGenreGroup(item)?esc(knowledgeGenreGroup(item).line+'线 · '+knowledgeGenreGroup(item).label):''}</span><span class="knowledge-row-version">${browse?'v'+esc(item.version):state.tab===3?'剩余'+Math.max(0,Math.ceil((Date.parse(item.recycledAt)+30*86400000-Date.now())/86400000))+'天':esc(item.status)}</span>${icon('arrow')}</button>${browse?`<button class="iconbtn knowledge-row-recycle" data-action="delete-knowledge" data-id="${esc(item.id)}" aria-label="移入回收站：${esc(item.title)}" title="移入回收站">${icon('close')}</button>`:state.tab===3?btn('恢复','restore-knowledge',item.id)+`<button class="iconbtn knowledge-row-recycle" data-action="purge-knowledge" data-id="${esc(item.id)}" aria-label="永久删除知识：${esc(item.title)}" title="永久删除">${icon('close')}</button>`:''}</div>`).join('')||empty(state.tab===3?'回收站为空':browse&&state.knowledgeCategory!=='全部'?state.knowledgeCategory+'暂无匹配的正式知识':'没有匹配的知识',state.tab===3?'移入回收站的知识将在此保留30天，可恢复或永久删除。':'调整分类或搜索条件，待审核条目请到审核队列查看。')}</div><div class="pagination knowledge-pagination"><label>每页条数 <select id="knowledgePageSize" aria-label="每页条数">${[20,50,100].map(n=>`<option value="${n}" ${n===knowledgePageSize?'selected':''}>${n} 条</option>`).join('')}</select></label><span class="small muted">共 ${items.length} 条 · 第 ${page} / ${pages} 页</span><button class="btn" data-action="knowledge-page" data-id="${page-1}" ${page<=1?'disabled':''}>上一页</button><button class="btn" data-action="knowledge-page" data-id="${page+1}" ${page>=pages?'disabled':''}>下一页</button></div>`;
 }
 
 function intake(){const items=scoped(db.materials);return heading('入库处理','提交资料，跟踪解析与拆解，候选知识进入统一审核。',btn(icon('plus')+' 提交资料','new-material'))+notice('资料解析与研判共用处理能力。同一来源保留关联，解析失败不会产出正式知识。')+table(['资料','输入类型','处理状态','操作'],items.map(x=>[`<strong>${esc(x.title)}</strong><p>${esc(x.id)} · ${esc(x.biz.join('、'))}</p>`,esc(x.type),esc(x.status),x.status.startsWith('已拆解')?btn('查看审核队列','goto','1,2'):x.status.startsWith('失败')?btn('补充资料','new-material'):'等待处理服务接入']))+(items.length?'':empty('当前业务暂无入库资料','点击“提交资料”，记录本业务的资料。'))}
@@ -775,8 +962,8 @@ function modelConfigPage(){
  `<section class="detail-block model-section"><div class="model-section-head"><h2>环节使用模型源</h2><span class="small muted">${esc(state.biz[0])} · 各环节独立选择，可复用同一来源</span></div><form id="modelBindingsForm">${Object.entries(modelCapabilities).map(([kind,label])=>`<div class="model-stage-group"><h3>${label}处理环节</h3><div class="model-bindings">${modelStages.filter(item=>item[2]===kind).map(([key,name])=>`<div class="field"><label for="model-stage-${key}">${name}</label><select id="model-stage-${key}" name="binding:${key}"><option value="">暂不配置</option>${connections.filter(x=>x.capability===kind).map(x=>`<option value="${esc(x.id)}" ${bindings[key]===x.id?'selected':''}>${esc(x.name)} · ${esc(x.model)}</option>`).join('')}</select></div>`).join('')}</div></div>`).join('')}<p class="form-error" id="modelBindingError" role="alert"></p><button class="btn primary" type="submit">保存环节分配</button></form></section>`;
 }
 function modelConfigForm(id='',kind='text'){
- const x=db.modelConnections.find(x=>x.id===id)||{name:'',provider:'OpenAI兼容',endpoint:'',model:'',capability:Object.hasOwn(modelCapabilities,kind)?kind:'text',secretRef:'',timeout:60,retries:1,maxTokens:4096};
- const field=(label,name,value,type='text',extra='')=>`<div class="field"><label for="model-${name}">${label}</label><input id="model-${name}" name="${name}" type="${type}" value="${esc(value)}" ${extra} required></div>`;
+ const x=db.modelConnections.find(x=>x.id===id)||{name:'',provider:'OpenAI兼容',endpoint:'',model:'',capability:Object.hasOwn(modelCapabilities,kind)?kind:'text',secretRef:'',timeout:60,retries:1,maxTokens:null};
+ const field=(label,name,value,type='text',extra='')=>`<div class="field"><label for="model-${name}">${label}</label><input id="model-${name}" name="${name}" type="${type}" value="${esc(value)}" ${extra} ${name==='maxTokens'?'aria-describedby="model-maxTokens-help"':'required'}>${name==='maxTokens'?'<span id="model-maxTokens-help" class="small muted">留空：由供应商默认值／上限决定</span>':''}</div>`;
  openDialog(id?'编辑模型源':'新增'+modelCapabilities[x.capability]+'模型源',`<form id="modelConfigForm"><input type="hidden" name="id" value="${esc(id)}">${field('模型源名称','name',x.name,'text','maxlength="80"')}<div class="model-form-grid"><div class="field"><label for="model-provider">供应商／接口协议</label><select id="model-provider" name="provider">${['OpenAI兼容','DeepSeek','其他适配器'].map(p=>`<option ${x.provider===p?'selected':''}>${p}</option>`).join('')}</select></div><div class="field"><label for="model-capability">模型类型</label><select id="model-capability" name="capability">${Object.entries(modelCapabilities).map(([key,label])=>`<option value="${key}" ${x.capability===key?'selected':''}>${label}</option>`).join('')}</select></div></div>${field('API地址','endpoint',x.endpoint,'url','placeholder="https://api.example.com/v1" maxlength="500"')}${field('模型名称','model',x.model,'text','maxlength="120" placeholder="供应商提供的模型标识"')}${field('服务端密钥引用','secretRef',x.secretRef,'text','maxlength="100" placeholder="例如 MODEL_API_KEY，勿填密钥原文" autocomplete="off"')}<div class="model-form-grid">${field('超时（秒）','timeout',x.timeout,'number','min="1" max="600" step="1"')}${field('重试次数','retries',x.retries,'number','min="0" max="3" step="1"')}${field('最大输出长度（Token）','maxTokens',x.maxTokens,'number','min="1" max="131072" step="1"')}</div><p class="small muted">同一来源可被多个同类环节引用。仅保存配置草稿，历史任务保留原配置版本。</p><p class="form-error" id="formError" role="alert"></p></form>`,btn('取消','close')+'<button class="btn primary" type="submit" form="modelConfigForm">保存配置草稿</button>',true);
 }
 function submitModelConfig(values){
@@ -784,8 +971,8 @@ function submitModelConfig(values){
  if(!name||name.length>80||!model||model.length>120||!Object.hasOwn(modelCapabilities,capability)||!['OpenAI兼容','DeepSeek','其他适配器'].includes(provider)){error.textContent='请填写模型源名称、供应商、模型名称，并选择单文本或多模态。';return}
  if(endpoint.length>500||!safeConfigUrl(endpoint)){error.textContent='API地址须为HTTPS地址，且不能含账号、密码、查询参数或片段。';return}
  if(!/^[A-Z][A-Z0-9_]{0,99}$/.test(secretRef)){error.textContent='请填写大写字母、数字和下划线组成的服务端密钥引用，不能填写密钥原文。';return}
- const timeout=Number(values.timeout),retries=Number(values.retries),maxTokens=Number(values.maxTokens);
- if(![timeout,retries,maxTokens].every(Number.isSafeInteger)||timeout<1||timeout>600||retries<0||retries>3||maxTokens<1||maxTokens>131072||[values.timeout,values.retries,values.maxTokens].some(v=>!String(v??'').trim())){error.textContent='请检查超时、重试次数与输出长度的有效范围。';return}
+ const timeout=Number(values.timeout),retries=Number(values.retries),tokens=String(values.maxTokens??'').trim(),maxTokens=tokens?Number(tokens):null;
+ if(![timeout,retries].every(Number.isSafeInteger)||timeout<1||timeout>600||retries<0||retries>3||(maxTokens!==null&&(!Number.isSafeInteger(maxTokens)||maxTokens<1||maxTokens>131072))||[values.timeout,values.retries].some(v=>!String(v??'').trim())){error.textContent='请检查超时、重试次数与输出长度的有效范围。';return}
  let old=values.id?db.modelConnections.find(x=>x.id===values.id):null;
  if(values.id&&!old){error.textContent='原配置不存在，请关闭后重新打开。';return}
  if(db.modelConnections.some(x=>x.id!==values.id&&x.name.toLocaleLowerCase()===name.toLocaleLowerCase())){error.textContent='已有同名模型源，请修改名称。';return}
@@ -813,7 +1000,7 @@ function render(){
  hydrateWorkThumbnails();
 }
 function stateView(){if(state.mode==='加载中')return `<div class="card state-panel" role="status"><span class="muted">正在获取内容…</span><div class="skeleton"></div><div class="skeleton"></div>${btn('结束加载预览','normal')}</div>`;const messages={'空数据':['还没有内容','添加第一份资料，开始积累。'],'失败':['暂时无法获取内容','连接已中断；可以重试，不会显示伪造的成功结果。'],'无权限':['当前账号没有访问权限','请联系管理员申请当前对象的访问范围。'],'证据不足':['材料不足，暂不能判断','缺少正文或必要参考资料，请先补充。'],'评价过期':['内容版本已变化','旧评价仍保留，但不能作为新版内容的评价。']};let m=messages[state.mode];return `<div class="empty">${icon('info')}<h2>${m[0]}</h2><p>${m[1]}</p>${btn(state.mode==='失败'?'重试（恢复演示）':'返回正常页面','normal')}</div>`}
-function navigate(m,t=0){state.workId='';state.workTaskId='';state.workUnit='';state.workReportId='';state.module=m;state.tab=t;state.query='';state.workGenre='全部题材';state.knowledgeCategory='全部';state.status='全部状态';state.stage='全部环节';state.mode='正常';location.hash=`${m}/${t}`;render()}
+function navigate(m,t=0){knowledgeSelection={scope:'',ids:[]};state.workId='';state.workTaskId='';state.workUnit='';state.workReportId='';state.module=m;state.tab=t;state.query='';state.workGenre='全部题材';state.knowledgeCategory='题材库';resetKnowledgeGenre();state.status='全部状态';state.stage='全部环节';state.mode='正常';location.hash=`${m}/${t}`;render()}
 function openDialog(title,body,foot='',drawer=false){intakeWorkContext=null;sparkCapture=null;brainstormContext=null;topicEditContext=null;lastFocus=document.activeElement;draftDirty=false;dialog.className=drawer?'drawer':'';dialog.innerHTML=`<div class="dialog-head"><h2 id="dialogTitle">${title}</h2><button class="iconbtn" data-action="close" aria-label="关闭">${icon('close')}</button></div><div class="dialog-body">${body}</div>${foot?`<div class="dialog-foot">${foot}</div>`:''}`;if(!dialog.open)dialog.showModal()}
 function closeDialog(){if(draftDirty&&!confirm('有尚未保存的修改，确定放弃吗？'))return;const wasSpark=!!sparkCapture;draftDirty=false;sparkCapture=null;brainstormContext=null;intakeWorkContext=null;topicEditContext=null;dialog.close();if(wasSpark)render();if(lastFocus?.isConnected)lastFocus.focus()}
 listen(dialog,'cancel',e=>{e.preventDefault();closeDialog()});listen(dialog,'input',e=>{if(e.target.id==='sparkBody'&&sparkCapture)saveSparkText(e.target.value);else if(brainstormContext&&e.target.id.startsWith('brainstorm-'))brainstormInput(e.target);else{draftDirty=true;if([...Object.keys(topicEditorFields),'bizInput'].includes(e.target.id))refreshTopicEditorState()}});
@@ -825,14 +1012,14 @@ function topicForm(id='',sourceId=''){
  const draft=x||{id:'',title:source?.title||'',summary:source?.summary||'',biz:[source?.biz?.[0]||state.biz[0]],audience:'',version:1,origin:'手工灵感',evaluation:'未评价'};
  const pool=x&&x.status!=='候选',biz=draft.biz?.[0]||'';
  const history=x?`<section class="detail-block"><h3>版本与交接记录</h3><div class="timeline">${(x.history||[]).map(h=>`<div>${esc(h)}</div>`).join('')}</div>${(x.versions||[]).map(v=>`<details class="evidence"><summary>查看 v${esc(v.version)} 历史内容</summary><h3>${esc(v.title)}</h3><p>${esc(topicLogline(v))}</p><h4>角色设定</h4><p class="human-review-text">${esc(topicCharactersText(v)||'未记录')}</p><h4>全局节奏</h4><p class="human-review-text">${esc(v.globalRhythm||'未记录')}</p>${renderGenreLoadAssessment(v.genreLoadAssessment)}</details>`).join('')}</section>`:'';
- const body=`${x?detailIntro(x):''}<form id="topicForm"><input type="hidden" name="id" value="${esc(id)}"><input type="hidden" name="sourceId" value="${esc(x?.sourceId||sourceId)}"><div class="field"><label for="titleInput">选题标题</label><input id="titleInput" name="title" maxlength="90" required value="${esc(draft.title)}"></div><div class="review-intake-row"><div class="field"><label for="bizInput">主业务线</label><select id="bizInput" name="biz"><option value="">暂不选择（草稿）</option>${businesses.map(b=>`<option value="${b}" ${biz===b?'selected':''} ${b==='电商短视频'?'disabled':''}>${b}</option>`).join('')}</select></div><div class="field"><label for="audienceInput">目标人群</label><input id="audienceInput" name="audience" value="${esc(draft.audience||'')}" placeholder="这条内容为谁而作"></div></div><section class="topic-editor-section"><h3>Logline</h3><div class="field"><label class="sr-only" for="topicLogline">Logline</label><textarea id="topicLogline" name="logline" required placeholder="用一句话写清主角、目标、阻碍和核心情绪">${esc(topicLogline(draft))}</textarea></div></section><section class="topic-editor-section"><h3>角色设定</h3><div class="field"><label class="sr-only" for="topicCharacterSettings">角色设定</label><textarea id="topicCharacterSettings" name="characterSettings" placeholder="自由编写主角、反派、配角及人物关系">${esc(topicCharactersText(draft))}</textarea></div></section><section class="topic-editor-section"><h3>全局节奏</h3><div class="field"><label class="sr-only" for="topicGlobalRhythm">全局节奏</label><textarea id="topicGlobalRhythm" name="globalRhythm" placeholder="阶段目标、冲突升级、关键钩子与回收安排">${esc(draft.globalRhythm||'')}</textarea></div></section><p class="small muted">${x?'实质修改保存为新版本并请求重新评分；原结果留在历史版本。':'人工草稿不自动产生AI评分。'}</p><p id="formError" class="form-error" role="alert"></p></form><div id="topicAssessmentScope" ${biz==='AI漫剧'?'':'hidden'}>${genreLoadDetail(draft)}</div>${x?.ideaRefs?.length?`<section class="detail-block"><h3>来源闪念</h3>${x.ideaRefs.map(ref=>`<details class="evidence"><summary>${esc(ref.title)} · v${esc(ref.version)}</summary><p class="human-review-text">${esc(ref.text)}</p></details>`).join('')}</section>`:x?sourceEvidence(x.sourceId):''}${history}`;
- const foot=btn('取消','close')+`<button type="submit" id="topicSaveButton" ${x?'disabled':''} form="topicForm" class="btn ${pool?'':'primary'}" value="draft">${x?'保存并重新评分':'保存草稿'}</button>`+(pool?btn('复制','copy-topic',id)+btn('导出 Markdown','export-topic',id,true)+(x.status!=='已采用'?btn('标记已采用','adopt-topic',id):''):'<button type="submit" form="topicForm" class="btn" value="production">加入待生产</button>');
+ const body=`${x?detailIntro(x):''}<form id="topicForm"><input type="hidden" name="id" value="${esc(id)}"><input type="hidden" name="sourceId" value="${esc(x?.sourceId||sourceId)}"><div class="field"><label for="titleInput">选题标题</label><input id="titleInput" name="title" maxlength="90" required value="${esc(draft.title)}"></div><div class="review-intake-row"><div class="field"><label for="bizInput">主业务线</label><select id="bizInput" name="biz"><option value="">暂不选择（草稿）</option>${businesses.map(b=>`<option value="${b}" ${biz===b?'selected':''} ${b==='电商短视频'?'disabled':''}>${b}</option>`).join('')}</select></div><div class="field"><label for="audienceInput">目标人群</label><input id="audienceInput" name="audience" value="${esc(draft.audience||'')}" placeholder="这条内容为谁而作"></div></div><section class="topic-editor-section"><h3>Logline</h3><div class="field"><label class="sr-only" for="topicLogline">Logline</label><textarea id="topicLogline" name="logline" required placeholder="用一句话写清主角、目标、阻碍和核心情绪">${esc(topicLogline(draft))}</textarea></div></section><section class="topic-editor-section"><h3>角色设定</h3><div class="field"><label class="sr-only" for="topicCharacterSettings">角色设定</label><textarea id="topicCharacterSettings" name="characterSettings" placeholder="自由编写主角、反派、配角及人物关系">${esc(topicCharactersText(draft))}</textarea></div></section><section class="topic-editor-section"><h3>全局节奏</h3><div class="field"><label class="sr-only" for="topicGlobalRhythm">全局节奏</label><textarea id="topicGlobalRhythm" name="globalRhythm" placeholder="阶段目标、冲突升级、关键钩子与回收安排">${esc(draft.globalRhythm||'')}</textarea></div></section><p class="small muted">${x?'实质修改保存为新版本并请求重新评分；原结果留在历史版本。':'人工草稿不自动产生AI评分。'}</p><p id="formError" class="form-error" role="alert"></p></form><div id="topicAssessmentScope" ${biz==='AI漫剧'?'':'hidden'}>${genreLoadDetail(draft)}</div>${biz==='故事短片'?'<p class="small muted">故事短片暂无适用评分量表，不能套用AI漫剧80集量表。</p>':''}<p class="small muted">素材相似性检查仅针对实际来源的启发式筛查，不代表版权或全网原创性证明。评分需在控制台保存选题评分（topic_score）模型；原型操作不调用模型。</p>${x?.ideaRefs?.length?`<section class="detail-block"><h3>来源闪念</h3>${x.ideaRefs.map(ref=>`<details class="evidence"><summary>${esc(ref.title)} · v${esc(ref.version)}</summary><p class="human-review-text">${esc(ref.text)}</p></details>`).join('')}</section>`:x?sourceEvidence(x.sourceId):''}${history}`;
+ const foot=btn('取消','close')+(x&&biz==='AI漫剧'?btn('评分','topic-score',id):'')+`<button type="submit" id="topicSaveButton" ${x?'disabled':''} form="topicForm" class="btn ${pool?'':'primary'}" value="draft">${x?'保存并重新评分':'保存草稿'}</button>`+(pool?btn('复制','copy-topic',id)+btn('导出 Markdown','export-topic',id,true)+(x.status!=='已采用'?btn('标记已采用','adopt-topic',id):''):'<button type="submit" form="topicForm" class="btn" value="production">加入待生产</button>');
  openDialog(x?'选题详情':'新增选题',body,foot,true);
  for(const [field,key] of Object.entries(topicEditorFields))document.getElementById(field).value=topicBlueprintInput(draft)[key];document.getElementById('bizInput').value=biz;
  topicEditContext={existing:!!x,baseline:comparableTopicContent(topicEditorContent()),scoreLabel:genreLoadScoreLabel(draft)};refreshTopicEditorState();
 }
-function knowledgeDetail(id){const x=db.knowledge.find(k=>k.id===id),review=['待AI审核','待人工审核'].includes(x.status);openDialog(review?'知识审核':'知识详情',detailIntro(x)+`<div class="steps"><span class="done">候选 v${x.version}</span>→<span class="${x.ai==='通过'?'done':''}">AI审核：${x.ai}</span>→<span class="${x.status==='已入库'?'done':''}">人工审核：${x.status==='已入库'?'通过':'待完成'}</span></div><div class="detail-block"><h3>知识内容</h3><p>${esc(x.summary)}</p></div><dl class="keyvalues"><dt>知识分类</dt><dd>${esc(knowledgeCategoryLabel(x))}</dd><dt>知识类型</dt><dd>${esc(x.type)}</dd><dt>适用环节</dt><dd>${x.stage}</dd><dt>当前状态</dt><dd>${x.status}</dd><dt>责任人</dt><dd>知识编辑 · 演示身份</dd></dl><div class="detail-block"><h3>证据与适用限制</h3><div class="evidence">${esc(x.evidence)}</div></div>`+(review?`<div class="detail-block"><h3>AI审核意见（演示）</h3><p>${x.ai==='通过'?'来源支持当前表述，适用范围已标注。仍需人工核实后发布。':x.ai==='需修订'?'结论包含未经验证的效果承诺，不满足来源支持要求。':'尚未执行审核，本原型不调用模型。'}</p></div><label class="checkrow"><input id="reviewConfirm" type="checkbox">已人工核实来源、适用范围及限制，批准当前版本</label>`:''),review?`${btn('修订候选','edit-knowledge',id)}<button class="btn primary" data-action="approve-knowledge" data-id="${id}" ${x.ai!=='通过'?'disabled':''}>人工通过并入库</button>`:x.status==='已入库'?btn('移入回收站','delete-knowledge',id):btn('关闭','close'),true)}
-function knowledgeForm(id=''){const x=db.knowledge.find(k=>k.id===id);openDialog(x?'修订候选知识':'人工新增知识',`<form id="knowledgeForm"><input name="id" type="hidden" value="${id}"><div class="field"><label for="kt">知识标题</label><input id="kt" name="title" required maxlength="90" value="${esc(x?.title||'')}"></div><div class="field"><label for="kb">业务线</label><select id="kb" name="biz">${businesses.map(b=>`<option ${(x?x.biz.includes(b):state.biz[0]===b)?'selected':''}>${b}</option>`).join('')}</select></div><div class="field"><label for="ks">适用环节</label><select id="ks" name="stage">${['选题','脚本','资产','成片'].map(s=>`<option ${x?.stage===s?'selected':''}>${s}</option>`).join('')}</select></div><div class="field"><label for="knowledgeCategory">知识分类</label><select id="knowledgeCategory" name="category" required><option value="">请选择知识分类</option>${knowledgeCategories.map(category=>`<option value="${category}" ${(x?x.category:state.knowledgeCategory)===category?'selected':''}>${category}</option>`).join('')}</select></div><div class="field"><label for="kc">知识内容</label><textarea id="kc" name="summary" required>${esc(x?.summary||'')}</textarea></div><div class="field"><label for="ke">来源与适用限制</label><textarea id="ke" name="evidence" required>${esc(x?.evidence||'')}</textarea></div>${notice('提交后进入待AI审核，人工新增同样不能跳过双审。模型未接入，原型不会自动标记审核通过。')}<p class="form-error" id="formError" role="alert"></p></form>`,btn('取消','close')+`<button class="btn primary" type="submit" form="knowledgeForm">提交候选</button>`)}
+function knowledgeDetail(id){const x=db.knowledge.find(k=>k.id===id),review=['待AI审核','待人工审核'].includes(x.status);openDialog(review?'知识审核':'知识详情',detailIntro(x)+`<div class="steps"><span class="done">候选 v${x.version}</span>→<span class="${x.ai==='通过'?'done':''}">AI审核：${x.release_mode==='legacy_import'?'未执行':x.ai}</span>→<span class="${x.status==='已入库'?'done':''}">${x.release_mode==='legacy_import'?'入库依据：用户确认存量导入':'人工审核：'+(x.status==='已入库'?'通过':'待完成')}</span></div><div class="detail-block"><h3>知识内容</h3><p>${esc(x.summary)}</p></div><dl class="keyvalues"><dt>来源</dt><dd class="human-review-text">${esc(x.source_text||'未填写')}</dd><dt>解释</dt><dd class="human-review-text">${esc(x.explanation||'未填写')}</dd><dt>知识分类</dt><dd>${esc(knowledgeCategoryLabel(x))}</dd>${x.category==='金句库'?'<dt>金句标签</dt><dd>'+knowledgeQuoteGroups(x).map(g=>esc(g.line+'线 · '+g.gender+' · '+g.label)+(g.mapped?'<p class="small muted">女频归类为用户确认映射（2026-10-22），主题沿用K09原文。</p>':'')).join('<br>')+'</dd>':''}<dt>知识类型</dt><dd>${esc(x.type)}</dd><dt>适用环节</dt><dd>${x.stage}</dd><dt>当前状态</dt><dd>${x.status}</dd><dt>责任人</dt><dd>知识编辑 · 演示身份</dd></dl><div class="detail-block"><h3>证据与适用限制</h3><div class="evidence">${esc(x.evidence)}</div></div>`+(review?`<div class="detail-block"><h3>AI审核意见（演示）</h3><p>${x.ai==='通过'?'来源支持当前表述，适用范围已标注。仍需人工核实后发布。':x.ai==='需修订'?'结论包含未经验证的效果承诺，不满足来源支持要求。':'尚未执行审核，本原型不调用模型。'}</p></div><label class="checkrow"><input id="reviewConfirm" type="checkbox">已人工核实来源、适用范围及限制，批准当前版本</label>`:''),review?`${btn('修订候选','edit-knowledge',id)}<button class="btn primary" data-action="approve-knowledge" data-id="${id}" ${x.ai!=='通过'?'disabled':''}>人工通过并入库</button>`:x.status==='已入库'?btn('移入回收站','delete-knowledge',id):btn('关闭','close'),true)}
+function knowledgeForm(id=''){const x=db.knowledge.find(k=>k.id===id);openDialog(x?'修订候选知识':'人工新增知识',`<form id="knowledgeForm"><input name="id" type="hidden" value="${id}"><div class="field"><label for="kt">知识标题</label><input id="kt" name="title" required maxlength="90" value="${esc(x?.title||'')}"></div><div class="field"><label for="kb">业务线</label><select id="kb" name="biz">${businesses.map(b=>`<option ${(x?x.biz.includes(b):state.biz[0]===b)?'selected':''}>${b}</option>`).join('')}</select></div><div class="field"><label for="ks">适用环节</label><select id="ks" name="stage">${['选题','脚本','资产','成片'].map(s=>`<option ${x?.stage===s?'selected':''}>${s}</option>`).join('')}</select></div><div class="field"><label for="knowledgeCategory">知识分类</label><select id="knowledgeCategory" name="category" required><option value="">请选择知识分类</option>${knowledgeCategories.map(category=>`<option value="${category}" ${(x?x.category:state.knowledgeCategory)===category?'selected':''}>${category}</option>`).join('')}</select></div><div class="field"><label for="kc">知识内容</label><textarea id="kc" name="summary" required>${esc(x?.summary||'')}</textarea></div><div class="field"><label for="kSource">来源</label><input id="kSource" name="source_text" maxlength="2000" value="${esc(x?.source_text||'')}" placeholder="可不填写"></div><div class="field"><label for="kExplanation">解释</label><textarea id="kExplanation" name="explanation" maxlength="12000" placeholder="可不填写">${esc(x?.explanation||'')}</textarea></div><div class="field"><label for="ke">来源与适用限制</label><textarea id="ke" name="evidence" required>${esc(x?.evidence||'')}</textarea></div>${notice('提交后进入待AI审核，人工新增同样不能跳过双审。模型未接入，原型不会自动标记审核通过。')}<p class="form-error" id="formError" role="alert"></p></form>`,btn('取消','close')+`<button class="btn primary" type="submit" form="knowledgeForm">提交候选</button>`)}
 let intakeWorkContext=null;
 function normalizedWorkName(value){return (value||'').normalize('NFKC').trim().toLocaleLowerCase()}
 function suggestedIntakeWork(video,pending,biz){
@@ -906,7 +1093,7 @@ function researchIntake(id,sourceDate=state.module===0&&state.tab===0?latestFeed
  const stat=(label,value)=>`<div><dt>${label}</dt><dd>${compactNum(value)}</dd></div>`;
  const source=video.url?`<a href="${esc(video.url)}" target="_blank" rel="noopener noreferrer">${esc(video.title)} ${icon('out')}</a>`:esc(video.title);
  const novel=video.sourceType==='novel';
- const body=`<div class="review-summary"><h3 class="detail-title">${source}</h3><div class="meta">${tags(video.biz||[])}${video.genre?`<span class="tag">${esc(video.genre)}</span>`:''}<span>${esc(video.platform||'平台未记录')} · ${esc(video.source||'博主未记录')} · ${esc(video.time||'时间未记录')}</span></div><p class="rank-plot">${esc(video.plot||video.summary||'剧情简介未获取')}</p><dl class="review-stats ${novel?'novel-review-stats':''}">${novel?stat('在读人数',video.readers):stat('赞',video.likes)+stat('评',video.comments)+stat('转',video.shares)+stat('藏',video.saves)}</dl></div>${notice('原始内容和互动数据为演示快照。提交后只记录人工判断与待分析任务，原型不会调用AI生成报告。')}${novel?'':researchFeedbackBlock(video.audienceFeedback)}<form id="researchIntakeForm" class="review-form"><input type="hidden" name="sourceId" value="${esc(id)}"><input type="hidden" name="sourceDate" value="${esc(sourceDate)}"><p class="small muted">情报日期：${esc(sourceDate)} · 演示快照</p><fieldset><legend>人工评级 · S / A / B / C</legend><div class="review-options">${['S','A','B','C'].map(grade=>`<label class="review-option"><input type="radio" name="grade" value="${grade}" ${pending?.rating===grade?'checked':''}><span>${grade}</span></label>`).join('')}</div></fieldset><div class="review-intake-row"><div class="field"><label for="reviewBiz">业务类型标签</label><select id="reviewBiz" name="biz">${businesses.map(b=>`<option value="${b}" ${(pending?.biz?.[0]||video.biz?.[0])===b?'selected':''}>${b}</option>`).join('')}</select></div><div class="field" id="reviewWorkField" ${reviewBusiness==='AI漫剧'?'':'hidden'}><label for="reviewWorkName">作品名称</label><div class="review-work-combobox"><input id="reviewWorkName" name="workName" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="reviewWorkOptions" aria-describedby="reviewWorkHint" autocomplete="off" maxlength="100" value="${esc(workName)}" placeholder="搜索已有作品或输入新作品名称" ${reviewBusiness==='AI漫剧'?'required':'disabled'}><input id="reviewWorkId" name="workId" type="hidden" value="${esc(associatedWork?.id||'')}" ${reviewBusiness==='AI漫剧'?'':'disabled'}><div id="reviewWorkOptions" class="review-work-options" role="listbox" aria-label="匹配的作品" hidden></div></div><small id="reviewWorkHint">${associatedWork?'已匹配已有作品，请确认归属':'选择已有作品，或输入新作品名称'}</small></div></div><div class="review-intake-row" id="reviewEpisodeFields" ${reviewBusiness==='AI漫剧'?'':'hidden'}><div class="field"><label for="reviewTotalEpisodes">总集数</label><input id="reviewTotalEpisodes" name="totalEpisodes" type="number" min="1" step="1" inputmode="numeric" value="${esc(totalEpisodes??'')}" placeholder="例如：80" aria-describedby="reviewTotalEpisodesHint" ${reviewBusiness==='AI漫剧'?'':'disabled'}><small id="reviewTotalEpisodesHint">留空表示未知</small></div><div class="field"><label for="reviewEpisodeNumber">当前第几集</label><input id="reviewEpisodeNumber" name="episodeNumber" type="number" min="1" step="1" inputmode="numeric" value="${esc(episodeNumber)}" placeholder="例如：10" aria-describedby="reviewEpisodeNumberHint" ${reviewBusiness==='AI漫剧'?'':'disabled'}><small id="reviewEpisodeNumberHint">留空表示未知</small></div></div><div class="field"><label for="reviewGenre">题材标签</label><input id="reviewGenre" name="genre" maxlength="30" required value="${esc(pending?.genre||video.genre||'')}" placeholder="例如：科幻、悬疑"></div><fieldset><legend>你认为它好在哪里？</legend><div class="review-options">${learningPointOptions.map(tag=>`<label class="review-option"><input type="checkbox" name="learningTag" value="${tag}" ${selected.has(tag)?'checked':''}><span>${tag}</span></label>`).join('')}</div></fieldset><div class="field"><label for="learningText">补充学习点</label><textarea id="learningText" name="learningText" maxlength="1000" placeholder="也可以用自己的话写出值得学习的具体做法">${esc(pending?.learningText||'')}</textarea><small>选择至少一个默认标签，或填写文字。</small></div><p id="formError" class="form-error" role="alert"></p></form>`;
+ const body=`<div class="review-summary"><h3 class="detail-title">${source}</h3><div class="meta">${tags(video.biz||[])}${video.genre?`<span class="tag">${esc(video.genre)}</span>`:''}<span>${esc(video.platform||'平台未记录')} · ${esc(video.source||'博主未记录')} · ${esc(video.time||'时间未记录')}</span></div><p class="rank-plot">${esc(video.plot||video.summary||'剧情简介未获取')}</p><dl class="review-stats ${novel?'novel-review-stats':''}">${novel?stat(video.platformCode==='qimao'?'热度值':'在读人数',video.platformCode==='qimao'?(video.heatDisplay??video.heatValue):video.readers):stat('赞',video.likes)+stat('评',video.comments)+stat('转',video.shares)+stat('藏',video.saves)}</dl></div>${notice('原始内容和互动数据为演示快照。提交后只记录人工判断与待分析任务，原型不会调用AI生成报告。')}${novel?'':researchFeedbackBlock(video.audienceFeedback)}<form id="researchIntakeForm" class="review-form"><input type="hidden" name="sourceId" value="${esc(id)}"><input type="hidden" name="sourceDate" value="${esc(sourceDate)}"><p class="small muted">情报日期：${esc(sourceDate)} · 演示快照</p><fieldset><legend>人工评级 · S / A / B / C</legend><div class="review-options">${['S','A','B','C'].map(grade=>`<label class="review-option"><input type="radio" name="grade" value="${grade}" ${pending?.rating===grade?'checked':''}><span>${grade}</span></label>`).join('')}</div></fieldset><div class="review-intake-row"><div class="field"><label for="reviewBiz">业务类型标签</label><select id="reviewBiz" name="biz">${businesses.map(b=>`<option value="${b}" ${(pending?.biz?.[0]||video.biz?.[0])===b?'selected':''}>${b}</option>`).join('')}</select></div><div class="field" id="reviewWorkField" ${reviewBusiness==='AI漫剧'?'':'hidden'}><label for="reviewWorkName">作品名称</label><div class="review-work-combobox"><input id="reviewWorkName" name="workName" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="reviewWorkOptions" aria-describedby="reviewWorkHint" autocomplete="off" maxlength="100" value="${esc(workName)}" placeholder="搜索已有作品或输入新作品名称" ${reviewBusiness==='AI漫剧'?'required':'disabled'}><input id="reviewWorkId" name="workId" type="hidden" value="${esc(associatedWork?.id||'')}" ${reviewBusiness==='AI漫剧'?'':'disabled'}><div id="reviewWorkOptions" class="review-work-options" role="listbox" aria-label="匹配的作品" hidden></div></div><small id="reviewWorkHint">${associatedWork?'已匹配已有作品，请确认归属':'选择已有作品，或输入新作品名称'}</small></div></div><div class="review-intake-row" id="reviewEpisodeFields" ${reviewBusiness==='AI漫剧'?'':'hidden'}><div class="field"><label for="reviewTotalEpisodes">总集数</label><input id="reviewTotalEpisodes" name="totalEpisodes" type="number" min="1" step="1" inputmode="numeric" value="${esc(totalEpisodes??'')}" placeholder="例如：80" aria-describedby="reviewTotalEpisodesHint" ${reviewBusiness==='AI漫剧'?'':'disabled'}><small id="reviewTotalEpisodesHint">留空表示未知</small></div><div class="field"><label for="reviewEpisodeNumber">当前第几集</label><input id="reviewEpisodeNumber" name="episodeNumber" type="number" min="1" step="1" inputmode="numeric" value="${esc(episodeNumber)}" placeholder="例如：10" aria-describedby="reviewEpisodeNumberHint" ${reviewBusiness==='AI漫剧'?'':'disabled'}><small id="reviewEpisodeNumberHint">留空表示未知</small></div></div><div class="field"><label for="reviewGenre">题材标签</label><input id="reviewGenre" name="genre" maxlength="30" required value="${esc(pending?.genre||video.genre||'')}" placeholder="例如：科幻、悬疑"></div><fieldset><legend>你认为它好在哪里？</legend><div class="review-options">${learningPointOptions.map(tag=>`<label class="review-option"><input type="checkbox" name="learningTag" value="${tag}" ${selected.has(tag)?'checked':''}><span>${tag}</span></label>`).join('')}</div></fieldset><div class="field"><label for="learningText">补充学习点</label><textarea id="learningText" name="learningText" maxlength="1000" placeholder="也可以用自己的话写出值得学习的具体做法">${esc(pending?.learningText||'')}</textarea><small>选择至少一个默认标签，或填写文字。</small></div><p id="formError" class="form-error" role="alert"></p></form>`;
  openDialog('提交内容研判',body,btn('取消','close')+'<button class="btn primary" type="submit" form="researchIntakeForm">提交研判</button>',true);
  intakeWorkContext={options:[],active:-1,video,pending};
  for(const [key,value] of [['reviewBiz',reviewBusiness],['reviewWorkName',workName],['reviewWorkId',associatedWork?.id||''],['reviewTotalEpisodes',totalEpisodes??''],['reviewEpisodeNumber',episodeNumber]])document.getElementById(key).value=value;
@@ -1135,7 +1322,7 @@ function downloadTopic(x){const text=topicText(x),a=document.createElement('a'),
 function topicText(x){const a=currentGenreLoadAssessment(x);return `# ${x.title}\n\n> 交互原型演示数据\n\n选题：${x.id} v${x.version}\n主业务线：${x.biz.join('、')}\n目标人群：${x.audience||'未补充'}\n\n## Logline\n${topicLogline(x)}\n\n## 角色设定\n${topicCharactersText(x)||'未补充'}\n\n## 全局节奏\n${x.globalRhythm||'未补充'}\n\n来源：${x.origin==='头脑风暴 · 演示'?'头脑风暴（演示）':x.sourceId||'人工灵感'}${x.ideaRefs?.length?'\n\n来源闪念快照：\n'+x.ideaRefs.map(ref=>ref.title+' · v'+ref.version+'\n'+ref.text).join('\n\n'):''}\n评价：${topicAssessmentStatus(x)}\n${a?'\n承重力总分：'+genreLoadTotal(a)+' / 50（演示）\n'+genreLoadDimensions.map((d,i)=>d.name+'：'+a.dimensions[i].score+' / 5 — '+a.dimensions[i].analysis).join('\n'):''}\n\n此交接不代表内容已制作或发布。\n`}
 
 function recordHandoff(x,type){if(x.status!=='已采用')x.status='已交接';x.history.push(`v${x.version} · ${type} · ${new Date().toLocaleString('zh-CN')}`);db.handoffs.push({topic:x.id,version:x.version,type});save();render();topicDetail(x.id)}
-async function action(a,id){switch(a){case 'module':navigate(+id);break;case 'tab':navigate(state.module,+id);break;case 'goto':{const [m,t]=id.split(',').map(Number);if(dialog.open)closeDialog();navigate(m,t);break}case 'biz':if(!businesses.includes(id)||state.biz[0]===id)break;if(dialog.open){closeDialog();if(dialog.open)break}state.biz=[id];state.workId='';state.workTaskId='';state.workUnit='';state.workReportId='';location.hash=`${state.module}/${state.tab}`;state.topicPage=1;state.query='';state.workGenre='全部题材';state.knowledgeCategory='全部';state.status='全部状态';state.stage='全部环节';state.mode='正常';state.hongguoBoard='';state.hongguoGenre='';state.hongguoSubgenre='';try{localStorage.setItem(workspaceStorageKey,id)}catch{}render();toast('已切换至'+id+'业务空间');break;case 'hongguo-board':state.hongguoBoard=id;state.hongguoGenre='';state.hongguoSubgenre='';render();break;case 'hongguo-subgenre':state.hongguoSubgenre=id;render();break;case 'hongguo-genre':state.hongguoGenre=id;state.hongguoSubgenre='';render();break;case 'stage':state.stage=id;render();break;case 'work-status':state.status=id;render();break;case 'work-detail':workDetail(id);break;
+async function action(a,id){switch(a){case 'module':navigate(+id);break;case 'tab':navigate(state.module,+id);break;case 'goto':{const [m,t]=id.split(',').map(Number);if(dialog.open)closeDialog();navigate(m,t);break}case 'biz':if(id==='电商短视频'||!businesses.includes(id)||state.biz[0]===id)break;if(dialog.open){closeDialog();if(dialog.open)break}state.biz=[id];state.workId='';state.workTaskId='';state.workUnit='';state.workReportId='';location.hash=`${state.module}/${state.tab}`;state.topicPage=1;state.query='';state.workGenre='全部题材';state.knowledgeCategory='题材库';resetKnowledgeGenre();state.status='全部状态';state.stage='全部环节';state.mode='正常';state.hongguoBoard='';state.hongguoGenre='';state.hongguoSubgenre='';try{localStorage.setItem(workspaceStorageKey,id)}catch{}render();toast('已切换至'+id+'业务空间');break;case 'hongguo-board':state.hongguoBoard=id;state.hongguoGenre='';state.hongguoSubgenre='';render();break;case 'hongguo-subgenre':state.hongguoSubgenre=id;render();break;case 'hongguo-genre':state.hongguoGenre=id;state.hongguoSubgenre='';render();break;case 'feed-recollect':demoRecollect();break;case 'feed-refresh-close':feedRefreshDemo=null;render();break;case 'stage':state.stage=id;render();break;case 'work-status':state.status=id;render();break;case 'work-detail':workDetail(id);break;
 case 'work-report':workDetail(id,'analysis');break;
 case 'work-back':state.workId='';state.workTaskId='';state.workUnit='';state.workReportId='';location.hash='2/0';render();break;
 case 'work-view':if(selectedWork()&&['episodes','analysis','materials'].includes(id)){state.workView=id;updateWorkRoute();render();[...document.querySelectorAll('[data-action=work-view]')].find(button=>button.dataset?.id===id)?.focus({preventScroll:true})}break;
@@ -1149,10 +1336,11 @@ case 'unit-evidence':focusUnitEvidence();break;
 case 'submit-unit-knowledge':submitWorkKnowledge('unit',id);break;
 case 'submit-work-knowledge':submitWorkKnowledge('work',id);break;
 case 'open-work-knowledge':{const work=selectedWork();if(work&&relatedKnowledge(work).some(item=>item.id===id))knowledgeDetail(id);break}
-case 'retry-work-task':retryWorkTask(id);break;case 'review-work-select':chooseIntakeWork(id);break;case 'clear':state.topicPage=1;state.query='';state.workGenre='全部题材';state.knowledgeCategory='全部';state.hongguoBoard='';state.hongguoGenre='';state.hongguoSubgenre='';state.status='全部状态';state.stage='全部环节';render();break;case 'close':closeDialog();break;case 'guide':guide();break;case 'theme':theme=theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;try{localStorage.setItem('cip-demo-theme',theme)}catch{}render();toast(`已切换为${theme==='dark'?'深色':'浅色'}主题`);break;case 'brainstorm':brainstormDialog();break;case 'brainstorm-add':selectBrainstorm(id);break;case 'brainstorm-remove':selectBrainstorm(id,true);break;case 'brainstorm-generate':generateBrainstorm();break;case 'brainstorm-save':saveBrainstormTopic();break;case 'brainstorm-view':{const topicId=brainstormContext.savedTopicId;closeDialog();topicDetail(topicId);break}case 'spark':sparkDialog();break;case 'spark-edit':sparkDialog(id);break;case 'spark-new':sparkDialog();break;case 'spark-topics':draftDirty=false;closeDialog();navigate(0,1);break;case 'preview-state':state.mode=id;closeDialog();render();break;case 'normal':state.mode='正常';render();break;case 'reset':if(confirm('重置后将清除本原型的本地修改，恢复演示样例。确定重置吗？')){db=structuredClone(seed);db.rankBoards=structuredClone(defaultRankBoards);db.creators=structuredClone(defaultCreators);prepareIntel();initializeFeedArchive();state.biz=['故事短片'];try{localStorage.setItem(workspaceStorageKey,state.biz[0])}catch{}state.topicPage=1;state.hongguoBoard='';state.hongguoGenre='';state.hongguoSubgenre='';save();closeDialog();navigate(0);toast('已恢复初始演示数据')}break;
+case 'retry-work-task':retryWorkTask(id);break;case 'review-work-select':chooseIntakeWork(id);break;case 'clear':state.topicPage=1;state.query='';state.workGenre='全部题材';state.knowledgeCategory='题材库';resetKnowledgeGenre();state.hongguoBoard='';state.hongguoGenre='';state.hongguoSubgenre='';state.status='全部状态';state.stage='全部环节';render();break;case 'close':closeDialog();break;case 'guide':guide();break;case 'theme':theme=theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;try{localStorage.setItem('cip-demo-theme',theme)}catch{}render();toast(`已切换为${theme==='dark'?'深色':'浅色'}主题`);break;case 'brainstorm':brainstormDialog();break;case 'brainstorm-add':selectBrainstorm(id);break;case 'brainstorm-remove':selectBrainstorm(id,true);break;case 'brainstorm-generate':generateBrainstorm();break;case 'brainstorm-save':saveBrainstormTopic();break;case 'brainstorm-view':{const topicId=brainstormContext.savedTopicId;closeDialog();topicDetail(topicId);break}case 'spark':sparkDialog();break;case 'spark-edit':sparkDialog(id);break;case 'spark-new':sparkDialog();break;case 'spark-topics':draftDirty=false;closeDialog();navigate(0,1);break;case 'preview-state':state.mode=id;closeDialog();render();break;case 'normal':state.mode='正常';render();break;case 'reset':if(confirm('重置后将清除本原型的本地修改，恢复演示样例。确定重置吗？')){db=structuredClone(seed);db.rankBoards=structuredClone(defaultRankBoards);db.creators=structuredClone(defaultCreators);prepareIntel();initializeFeedArchive();state.biz=['故事短片'];try{localStorage.setItem(workspaceStorageKey,state.biz[0])}catch{}state.topicPage=1;state.hongguoBoard='';state.hongguoGenre='';state.hongguoSubgenre='';save();closeDialog();navigate(0);toast('已恢复初始演示数据')}break;
 case 'intel-detail':{const x=db.intel.find(i=>i.id===id);openDialog('情报详情',detailIntro(x)+`<div class="detail-block"><h3>情报摘要</h3><p>${x.summary}</p></div>`+sourceEvidence(id)+notice(x.failed?'原文获取不完整，请补充资料；不能仅凭标题做完整分析。':'适用业务由AI初标（样例），正式交互可人工修正；研究意图不等于质量结论。'),btn('转为选题','derive-topic',id)+btn('查看 / 发起研判','research-send',id,true),true);break}
 case 'derive-topic':topicForm('',id);break;case 'new-topic':topicForm();break;case 'edit-topic':topicForm(id);break;case 'topic-detail':topicDetail(id);break;
 case 'topic-page':if(state.module===0&&state.tab===1){state.topicPage=Math.max(1,state.topicPage+Number(id));render()}break;case 'topic-more':{if(state.module!==0||state.tab!==1||state.biz[0]!==id||!topicIdeas[id])break;state.topicPage=1;const round=(db.topicBatchCounts[id]||1)+1;db.topicBatchCounts[id]=round;db.topics.unshift(...topicBatch(id,round));save();render();toast(`已新增5张${id}演示选题卡；未调用AI`);break}
+case 'topic-score':{const x=db.topics.find(t=>t.id===id);if(!x||x.biz?.[0]!=='AI漫剧')break;requestTopicScore(x);save();topicForm(id);toast('评分待处理（原型未调用AI）');break}
 case 'topic-add-production':{const x=db.topics.find(t=>t.id===id);if(!x||x.status!=='候选')break;if(!x.biz.length){topicForm(id);toast('请先明确主业务线');break}if(x.biz[0]==='电商短视频'){toast('电商短视频选题流程暂缓');break}x.status='待生产';x.history.push(`v${x.version} · 人工选择加入待生产${currentGenreLoadAssessment(x)?'（附题材承重力演示评估）':x.evaluation!=='已评价'?'（当前版本暂无有效评价）':''}`);save();draftDirty=false;if(dialog.open)closeDialog();navigate(0,2);toast('选题已加入待生产');break}
 
 
@@ -1160,11 +1348,19 @@ case 'copy-topic':{const x=db.topics.find(t=>t.id===id);try{await navigator.clip
 case 'manual-copy':recordHandoff(db.topics.find(t=>t.id===id),'人工确认复制');break;case 'export-topic':downloadTopic(db.topics.find(t=>t.id===id));break;case 'adopt-topic':{const x=db.topics.find(t=>t.id===id);x.status='已采用';x.history.push('人工标记已采用；不代表生产完成');save();render();topicDetail(id);toast('已记录人工采用状态');break}
 
 case 'feedback-evidence':revealFeedbackEvidence(id);break;
+case 'feedback-analyze-demo':{toast('演示模式：展示固定虚构反馈，未提交分析或调用AI');break}
 
 case 'research-send':researchIntake(id);break;
-case 'knowledge-category':if(id==='全部'||knowledgeCategories.includes(id)){state.knowledgeCategory=id;render()}break;case 'knowledge-detail':knowledgeDetail(id);break;case 'new-knowledge':knowledgeForm();break;case 'edit-knowledge':knowledgeForm(id);break;
+case 'knowledge-page':knowledgePaging.page=Number(id);knowledgeSelection={scope:'',ids:[]};render();break;case 'knowledge-line':knowledgeSelection={scope:'',ids:[]};state.knowledgeLine=id;state.knowledgeGender='';state.knowledgeGenreGroup='';render();break;case 'knowledge-gender':knowledgeSelection={scope:'',ids:[]};state.knowledgeGender=id;state.knowledgeGenreGroup='';render();break;case 'knowledge-group':knowledgeSelection={scope:'',ids:[]};state.knowledgeGenreGroup=id;render();break;case 'knowledge-category':knowledgeSelection={scope:'',ids:[]};if(knowledgeCategories.includes(id)){state.knowledgeCategory=id;resetKnowledgeGenre();render()}break;case 'knowledge-detail':knowledgeDetail(id);break;case 'new-knowledge':knowledgeForm();break;case 'edit-knowledge':knowledgeForm(id);break;
 case 'approve-knowledge':{const x=db.knowledge.find(k=>k.id===id);if(x.ai!=='通过'){toast('AI审核尚未通过');break}if(!document.getElementById('reviewConfirm')?.checked){toast('请先勾选人工核实确认');break}x.status='已入库';x.reviewedAt=new Date().toISOString();save();draftDirty=false;closeDialog();navigate(1,0);toast('当前版本已完成双审，进入正式知识');break}
-case 'delete-knowledge':if(confirm('将这条演示知识移入回收站？30天清理规则仅展示，原型不会自动永久删除。')){db.knowledge.find(k=>k.id===id).status='回收站';save();closeDialog();render();toast('已移入回收站')}break;
+case 'knowledge-select':{const scope=knowledgeSelectionScope(),ids=knowledgeSelection.scope===scope?knowledgeSelection.ids:[];knowledgeSelection={scope,ids:ids.includes(id)?ids.filter(x=>x!==id):[...ids,id]};render();break}
+case 'knowledge-bulk-recycle':if(knowledgeSelection.scope===knowledgeSelectionScope()&&knowledgeSelection.ids.length>=2)knowledgeRecycleDialog(knowledgeSelection.ids);break;
+case 'delete-knowledge':knowledgeRecycleDialog([id]);break;
+case 'restore-knowledge':knowledgeRecycleDialog([id],true);break;
+case 'purge-knowledge':knowledgeRecycleDialog([id],false,true);break;
+case 'knowledge-bulk-purge':if(knowledgeSelection.scope===knowledgeSelectionScope()&&knowledgeSelection.ids.length>=2)knowledgeRecycleDialog(knowledgeSelection.ids,false,true);break;
+case 'knowledge-bulk-restore':if(knowledgeSelection.scope===knowledgeSelectionScope()&&knowledgeSelection.ids.length>=2)knowledgeRecycleDialog(knowledgeSelection.ids,true);break;
+case 'knowledge-recycle-confirm':if(pendingKnowledgeRecycle){const {ids,restore,purge}=pendingKnowledgeRecycle;cleanupKnowledgeDemo();if(purge)db.knowledge=db.knowledge.filter(x=>!ids.includes(x.id)||x.status!=='回收站');else db.knowledge.filter(x=>ids.includes(x.id)&&x.status===(restore?'回收站':'已入库')).forEach(x=>{x.status=restore?'已入库':'回收站';x.recycledAt=restore?null:new Date().toISOString()});pendingKnowledgeRecycle=null;knowledgeSelection={scope:'',ids:[]};save();closeDialog();render();toast(purge?'已永久删除':restore?'知识已恢复':'已移入回收站')}break;
 case 'research-detail':researchDetail(id);break;
 case 'extract-knowledge':{const x=db.research.find(r=>r.id===id);const exists=db.knowledge.find(k=>k.researchId===id);if(exists){navigate(1,2);knowledgeDetail(exists.id);break}const k={id:'K-'+Date.now(),title:'日常动作的重复与情绪递进',summary:'重复日常动作并改变其细节，可以作为表达人物关系变化的候选方法。当前仅一个样例，不能推广为已验证规律。',biz:x.biz,stage:'脚本',type:'案例经验',status:'待AI审核',version:1,ai:'待审核',sourceId:x.sourceId,researchId:id,evidence:`${x.id} v${x.version} · 片段00:12–00:24；固定演示提炼结果，等待AI与人工审核。`};db.knowledge.unshift(k);save();navigate(1,2);knowledgeDetail(k.id);toast('已创建候选草稿，尚未正式入库');break}
 case 'new-research':simpleForm('research');break;case 'new-material':simpleForm('material',id);break;case 'new-publication':simpleForm('publication');break;case 'publication-detail':publicationDetail(id);break;
@@ -1202,7 +1398,8 @@ listen(document,'keydown',e=>{if(e.target?.dataset?.workId&&['Enter',' '].includ
 listen(window,'resize',hideFeedFullText);
 listen(window,'scroll',e=>{if(!document.getElementById('feedTextPopover').contains(e.target))hideFeedFullText()},true);
 listen(document,'click',e=>{if(intakeWorkContext&&!e.target.closest('.review-work-combobox'))closeIntakeWorkOptions();const b=e.target.closest('[data-action]');if(b&&!b.disabled){hideFeedFullText();action(b.dataset.action,b.dataset.id||'')}});
-listen(document,'input',e=>{if(e.target.id==='reviewWorkName'){document.getElementById('reviewWorkId').value='';document.getElementById('reviewWorkHint').textContent='请选择匹配作品，或使用此名称新建';renderIntakeWorkOptions(e.target.value);return}if(e.target.id==='search'){let pos=e.target.selectionStart;state.query=e.target.value;render();let el=document.getElementById('search');el.focus();el.setSelectionRange(pos,pos)}});
+listen(document,'change',e=>{if(e.target.id==='knowledgePageSize'){knowledgePageSize=Number(e.target.value);knowledgePaging={scope:'',page:1};knowledgeSelection={scope:'',ids:[]};try{localStorage.setItem('knowledge-page-size',String(knowledgePageSize))}catch{}render()}});
+listen(document,'input',e=>{if(state.module===1&&state.tab===0&&e.target.id==='search')knowledgeSelection={scope:'',ids:[]};if(e.target.id==='reviewWorkName'){document.getElementById('reviewWorkId').value='';document.getElementById('reviewWorkHint').textContent='请选择匹配作品，或使用此名称新建';renderIntakeWorkOptions(e.target.value);return}if(e.target.id==='search'){let pos=e.target.selectionStart;state.query=e.target.value;render();let el=document.getElementById('search');el.focus();el.setSelectionRange(pos,pos)}});
 listen(document,'change',e=>{if(e.target.id==='materialScope'){toggleMaterialScope(e.target.value);return}if(e.target.id==='unitVersion'){action('unit-version',e.target.value);return}if(e.target.id==='workReportVersion'){action('work-report-version',e.target.value);return}if(e.target.id==='bizInput'){refreshTopicEditorState();return}if(e.target.id==='reviewBiz'){toggleIntakeComicFields(e.target.value);return}if(e.target.id==='workGenreFilter'){state.workGenre=e.target.value;render();return}if(e.target.id==='statusFilter'){state.status=e.target.value;render()}});
 listen(document,'submit',e=>{e.preventDefault();const f=e.target,formData=new FormData(f),values=Object.fromEntries(formData);for(const v of f.querySelectorAll('[required]')){if(!v.value.trim()){document.getElementById('formError').textContent='请补充完整的必填信息。';v.focus();return}}
 if(f.getAttribute('id')==='researchIntakeForm'){
@@ -1263,13 +1460,13 @@ if(f.getAttribute('id')==='topicForm'){
  state.topicPage=1;save();draftDirty=false;closeDialog();navigate(0,production?2:x.status==='候选'?1:2);toast(production?'选题已加入待生产':pendingTopicScoreRequest(x)?'已保存，重新评分待处理（AI未接入）':'选题已保存')
 }
 
-if(f.getAttribute('id')==='knowledgeForm'){if(!knowledgeCategories.includes(values.category)){document.getElementById('formError').textContent='请选择知识分类。';return}let x=db.knowledge.find(k=>k.id===values.id);if(x){(x.versions??=[]).push({version:x.version,title:x.title,summary:x.summary,evidence:x.evidence,ai:x.ai,category:x.category??null,type:x.type,biz:[...x.biz],stage:x.stage});Object.assign(x,{title:values.title,summary:values.summary,evidence:values.evidence,biz:[values.biz],stage:values.stage,category:values.category,version:x.version+1,status:'待AI审核',ai:'待审核'})}else db.knowledge.unshift({id:'K-'+Date.now(),title:values.title,summary:values.summary,evidence:values.evidence,biz:[values.biz],stage:values.stage,category:values.category,type:'方法规则',version:1,status:'待AI审核',ai:'待审核'});save();draftDirty=false;closeDialog();navigate(1,2);toast('候选已提交，当前版本等待AI审核')}
+if(f.getAttribute('id')==='knowledgeForm'){if(!knowledgeCategories.includes(values.category)){document.getElementById('formError').textContent='请选择知识分类。';return}let x=db.knowledge.find(k=>k.id===values.id);if(x){(x.versions??=[]).push({version:x.version,title:x.title,summary:x.summary,source_text:x.source_text,explanation:x.explanation,evidence:x.evidence,ai:x.ai,category:x.category??null,type:x.type,biz:[...x.biz],stage:x.stage});Object.assign(x,{title:values.title,summary:values.summary,source_text:values.source_text||null,explanation:values.explanation||null,evidence:values.evidence,biz:[values.biz],stage:values.stage,category:values.category,version:x.version+1,status:'待AI审核',ai:'待审核'})}else db.knowledge.unshift({id:'K-'+Date.now(),title:values.title,summary:values.summary,source_text:values.source_text||null,explanation:values.explanation||null,evidence:values.evidence,biz:[values.biz],stage:values.stage,category:values.category,type:'方法规则',version:1,status:'待AI审核',ai:'待审核'});save();draftDirty=false;closeDialog();navigate(1,2);toast('候选已提交，当前版本等待AI审核')}
 if(f.getAttribute('id')==='simpleForm'){let kind=f.dataset.kind;if(!['research','material','publication'].includes(kind))return;if(kind==='material'){submitWorkMaterial(values);return}if(['source','publication'].includes(kind)){try{const url=new URL(values.value);if(!['https:','http:'].includes(url.protocol))throw Error()}catch{document.getElementById('formError').textContent='请填写有效的 http 或 https 地址。';return}}
 if(kind==='publication'){const c=scoped(db.research).find(r=>r.id===values.content);if(!c){document.getElementById('formError').textContent='请选择当前业务空间内的内容版本。';return}db.publications.unshift({id:'P-'+Date.now(),title:values.title,content:c.id,version:c.version,biz:c.biz,likes:null,comments:null,shares:null,saves:null,window:'发布后 24 小时',source:'尚未采集',history:[],url:values.value,publishedAt:values.publishedAt,platform:values.platform})}else{const work={id:'WORK-'+Date.now(),title:values.title.trim(),biz:[values.biz],genre:'',collectedCount:1,analyzedCount:0,totalEpisodes:null};db.works.unshift(work);db.research.unshift({id:'C-'+Date.now(),workId:work.id,title:values.title.trim(),biz:[values.biz],status:'待研判',sourceId:'人工提交',version:1,input:values.value})};save();draftDirty=false;closeDialog();navigate(kind==='source'?3:kind==='material'?1:2,['publication','material'].includes(kind)?1:0);toast(kind==='source'?'来源草稿已保存为暂停状态':kind==='publication'?'发布已登记，实绩未获取':'已记录资料，等待后端解析与研判')}
 if(f.getAttribute('id')==='performanceForm'){const x=db.publications.find(p=>p.id===values.id);const count=values.likes.trim()===''?null:Number(values.likes);if(count!==null&&(!Number.isSafeInteger(count)||count<0)){document.getElementById('formError').textContent='累计数须为非负整数；未知请留空。';return}x.history.push(`${new Date().toLocaleString('zh-CN')} · 点赞 ${x.likes??'未获取'} → ${count??'未获取'} · 依据：${values.evidence}`);x.likes=count;x.source='手工补录';save();draftDirty=false;render();publicationDetail(x.id);toast('已保存独立快照与更正依据')}
 });
 listen(window,'beforeunload',e=>{if(draftDirty){e.preventDefault();e.returnValue=''}});
-listen(window,'hashchange',()=>{const before=JSON.stringify([state.module,state.tab,state.workId,state.workView,state.workUnit,state.workTaskId,state.workReportId]);const oldModule=state.module,oldTab=state.tab;if(restoreWorkspaceRoute()){const after=JSON.stringify([state.module,state.tab,state.workId,state.workView,state.workUnit,state.workTaskId,state.workReportId]);if(before===after)return;if(state.module!==oldModule||state.tab!==oldTab){state.query='';state.workGenre='全部题材';state.knowledgeCategory='全部';state.status='全部状态';state.mode='正常'}render()}});
+listen(window,'hashchange',()=>{const before=JSON.stringify([state.module,state.tab,state.workId,state.workView,state.workUnit,state.workTaskId,state.workReportId]);const oldModule=state.module,oldTab=state.tab;if(restoreWorkspaceRoute()){const after=JSON.stringify([state.module,state.tab,state.workId,state.workView,state.workUnit,state.workTaskId,state.workReportId]);if(before===after)return;if(state.module!==oldModule||state.tab!==oldTab){state.query='';state.workGenre='全部题材';state.knowledgeCategory='题材库';resetKnowledgeGenre();state.status='全部状态';state.mode='正常'}render()}});
 for(const work of [seed.works.find(work=>work.id===demoWorkId),db.works.find(work=>work.id===demoWorkId)].filter(Boolean)){
  if(!Object.hasOwn(work,'performanceSnapshot'))work.performanceSnapshot={id:'DEMO-PERFORMANCE-A080',provenance:'demo',platform:'演示平台',scope:'collected-episodes',coverageEpisodes:Array.from({length:55},(_,index)=>index+1),capturedAt:'2026-10-12 11:00',views:1234800,likes:23400,comments:1870,shares:940,saves:6500};
  for(const report of work.reports||[])if(demoReports.some(sample=>sample.id===report.id&&report.provenance==='demo'&&JSON.stringify(sample.sections)===JSON.stringify(report.sections)&&JSON.stringify(sample.coverage)===JSON.stringify(report.coverage))){

@@ -1,0 +1,20 @@
+[Unit]
+Description=Video Knowledge Base background worker
+After=network.target cip-vkb-api.service
+Requires=cip-vkb-redis.service
+
+[Service]
+Type=simple
+User=cip-vkb
+Group=cip-vkb
+WorkingDirectory=/opt/video-knowledge-base/current/backend
+ExecStart=/opt/video-knowledge-base/venv/bin/celery -A app.tasks.celery_app:app worker -Q cip.tasks.v1,topics,feedback,knowledge.analysis,research,research.analysis --pool=prefork --concurrency=2 --loglevel=WARNING --without-gossip --without-mingle
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

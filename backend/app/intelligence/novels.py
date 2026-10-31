@@ -2,7 +2,6 @@
 
 from app.connectors.novel_metrics import reader_number
 from app.intelligence.service import novel_raw_ids, row, selected
-from app.security.authorization import Authorizer
 from app.security.errors import Denied
 from app.security.sessions import refresh
 
@@ -21,7 +20,9 @@ def rank_options(boards, gender):
             platforms = {b["platform"] for b in variants[kind]}
             channels = {b["gender"] for b in variants[kind]}
             if platforms == {"qidian"} and len(channels) == 1:
-                label += " · " + {"male": "男频", "female": "女频"}.get(next(iter(channels)), "起点")
+                label += " · " + {"male": "男频", "female": "女频"}.get(
+                    next(iter(channels)), "起点"
+                )
             else:
                 label += " · " + ("番茄" if platforms == {"fanqie"} else "起点")
         result.append({"value": kind, "label": label})
@@ -32,17 +33,19 @@ def feed(
     c, p, business, day, *, platform="all", rank_type=None, gender=None, genre=None, page=1, q=None
 ):
     refresh(c, p)
-    pairs = selected(c, p, business, day, platforms=("fanqie", "qidian"))
+    from app.security.read_authorizer import ReadAuthorizer
+
+    az = ReadAuthorizer(c, p)
+    pairs = selected(c, p, business, day, platforms=("fanqie", "qidian", "qimao"), auth=az)
     statistics_note = None
     members = []
     boards = {}
-    genre_by_platform = {"fanqie": set(), "qidian": set()}
+    genre_by_platform = {"fanqie": set(), "qidian": set(), "qimao": set()}
     taxonomy_by_board = {}
     catalog_genders = {}
     statuses = []
-    az = Authorizer(c, p)
     for snap, values in pairs:
-        job = row(c, "collection_jobs", p.org_id, snap["job_id"])
+        job = row(c, "collection_jobs", p.org_id, snap["job_id"], auth=az)
         board = job["safe_request"]
         boards[board["code"]] = board
         if board["platform"] == "fanqie":
@@ -51,26 +54,28 @@ def feed(
             meta = value.pop("_novel", None)
             if not meta:
                 raise Denied("SOURCE_UNAVAILABLE")
-            if board["platform"] == "qidian":
-                genre_by_platform["qidian"].update(meta.get("taxonomy", []))
+            if board["platform"] in ("qidian", "qimao"):
+                genre_by_platform[board["platform"]].update(meta.get("taxonomy", []))
                 taxonomy_by_board.setdefault(board["code"], set()).update(meta.get("taxonomy", []))
             members.append(
                 {
                     "item": value,
                     "_work_fields": value.pop("_novel_work_fields", {"gender": None, "genres": []}),
                     "_taxonomy": meta.get("taxonomy", [])
-                    if board["platform"] == "qidian"
+                    if board["platform"] in ("qidian", "qimao")
                     else None,
                     "reader_count": str(reader_number(meta["reader_count"]))
                     if meta["reader_count"] is not None
                     else None,
+                    "heat_value": str(meta["heat_value"]) if meta.get("heat_value") is not None else None,
+                    "heat_display": meta.get("heat_display"),
                     "rank": meta["rank"],
                     "board": board,
                 }
             )
     # Report actual task/HTTP outcomes. Paused sources remain readable; withdrawn evidence does not.
     jobs = c.exec_driver_sql(
-        "SELECT j.*,t.state,cc.http_status FROM collection_jobs j JOIN sources s ON s.org_id=j.org_id AND s.id=j.source_id JOIN tasks t ON t.org_id=j.org_id AND t.id=j.task_id LEFT JOIN collection_calls cc ON cc.org_id=j.org_id AND cc.job_id=j.id WHERE j.org_id=%s AND j.business_code=%s AND j.business_date=%s AND s.platform_code IN ('fanqie','qidian') ORDER BY j.created_at DESC",
+        "SELECT j.*,t.state,cc.http_status FROM collection_jobs j JOIN sources s ON s.org_id=j.org_id AND s.id=j.source_id JOIN tasks t ON t.org_id=j.org_id AND t.id=j.task_id LEFT JOIN collection_calls cc ON cc.org_id=j.org_id AND cc.job_id=j.id WHERE j.org_id=%s AND j.business_code=%s AND j.business_date=%s AND s.platform_code IN ('fanqie','qidian','qimao') ORDER BY j.created_at DESC",
         (p.org_id, business, day),
     ).mappings()
     seen = set()
@@ -81,7 +86,7 @@ def feed(
         seen.add(source_id)
         try:
             source = az.require("sources", source_id, "content.read")
-            raws = novel_raw_ids(c, p.org_id, job["id"])
+            raws = novel_raw_ids(c, p.org_id, job["id"], auth=az)
             for raw in raws:
                 az.read("raw_assets", raw)
         except Denied as exc:
@@ -185,6 +190,7 @@ def feed(
 
     matches = []
     seen_books = set()
+
     def order(value):
         board = value["board"]
         source_order = (board["code"], value["rank"], identity(value)[1])
@@ -205,7 +211,7 @@ def feed(
             or gender
             and b["gender"] != gender
             or genre
-            and (value["work_genre"] if b["platform"] == "qidian" else b["category_name"]) != genre
+            and (value["work_genre"] if b["platform"] in ("qidian", "qimao") else b["category_name"]) != genre
         ):
             continue
         if (
@@ -235,7 +241,7 @@ def feed(
         "business_code": business,
         "business_date": day,
         "novel_count": novel_count,
-        "statistics_note": statistics_note if platform != "qidian" else None,
+        "statistics_note": statistics_note if platform in ("all", "fanqie") else None,
         "page": page,
         "page_size": 10,
         "total": str(len(matches)),

@@ -1,0 +1,17 @@
+[Unit]
+Description=Video Knowledge Base private Redis
+After=network.target
+
+[Service]
+Type=simple
+User=cip-vkb
+Group=cip-vkb
+ExecStart=/usr/bin/redis-server /opt/video-knowledge-base/shared/redis.conf --daemonize no
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

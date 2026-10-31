@@ -13,6 +13,10 @@ from app.security.sessions import authenticate
 
 NAMES = {
     "getKnowledgeSources",
+    "listRecycledKnowledge",
+    "recycleKnowledge",
+    "restoreKnowledge",
+    "purgeKnowledge",
     "searchKnowledge",
     "listKnowledgeCandidates",
     "getKnowledgeCandidate",
@@ -53,17 +57,34 @@ def dispatch(
     name = spec.name
     with engine.begin() as c:
         p = authenticate(c, session)
-        if name in ("searchKnowledge", "listKnowledgeCandidates"):
+        if name == "purgeKnowledge":
+            from app.knowledge.purge import purge
+
+            data = purge(c, p, idempotency_key, body)
+        elif name in ("recycleKnowledge", "restoreKnowledge"):
+            from app.knowledge.recycle import change
+
+            data = change(c, p, idempotency_key, body, restore=name == "restoreKnowledge")
+        elif name in ("searchKnowledge", "listKnowledgeCandidates", "listRecycledKnowledge"):
             if filters.mode != "keyword":
                 raise Denied("SERVICE_NOT_READY")
-            data = service.listing(
+            from app.knowledge.recycle import listing as recycled_listing
+
+            load = recycled_listing if name == "listRecycledKnowledge" else service.listing
+            data = load(
                 c,
                 p,
                 filters.business_code,
-                candidate=name == "listKnowledgeCandidates",
+                **(
+                    {
+                        "candidate": name == "listKnowledgeCandidates",
+                        "source_report_id": filters.source_report_id,
+                    }
+                    if name != "listRecycledKnowledge"
+                    else {}
+                ),
                 q=filters.q,
                 category=filters.browse_category,
-                source_report_id=filters.source_report_id,
             )
             if filters.tag:
                 kind, code = filters.tag.split(":", 1)

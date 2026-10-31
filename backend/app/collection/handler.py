@@ -209,7 +209,7 @@ class Collect:
         publish_batch(c, task, raw, job, batch)
 
 
-def publish_batch(c, task, raw, job, batch, *, record_output=True):
+def publish_batch(c, task, raw, job, batch, *, record_output=True, record_assets=None):
     """Persist an already authorized batch; no external I/O."""
     org = task["org_id"]
     platform = get(c, "sources", org, job["source_id"])["platform_code"]
@@ -231,6 +231,15 @@ def publish_batch(c, task, raw, job, batch, *, record_output=True):
     )
     aliases_seen = set()
     for position, record in enumerate(batch.records):
+        if record_assets is not None:
+            raw = record_assets[record['platform_content_id']]
+            if raw["org_id"] != org or (
+                raw["collection_job_id"] != job["id"]
+                and not c.exec_driver_sql(
+                    "SELECT cip_page_reuse_allowed(%s,%s,%s)", (org, job["id"], raw["id"])
+                ).scalar_one()
+            ):
+                raise TaskError("INVALID_INPUT")
         account = None
         if record.get("platform_uid"):
             account = identity(
@@ -278,15 +287,28 @@ def publish_batch(c, task, raw, job, batch, *, record_output=True):
                 account_id=account,
                 platform=platform,
             )
-            obs = insert(
-                c,
-                "content_observations",
-                org,
-                content_id=content,
-                raw_asset_id=raw["id"],
-                observed_at=raw["captured_at"],
-                **record["content"],
-            )
+            prior = None
+            if raw["collection_job_id"] != job["id"]:
+                prior = c.exec_driver_sql(
+                    "SELECT * FROM content_observations WHERE org_id=%s AND content_id=%s AND raw_asset_id=%s",
+                    (org, content, raw["id"]),
+                ).mappings().one_or_none()
+            if prior:
+                if prior["observed_at"] != raw["captured_at"] or any(
+                    prior[key] != value for key, value in record["content"].items()
+                ):
+                    raise TaskError("INVALID_INPUT")
+                obs = prior["id"]
+            else:
+                obs = insert(
+                    c,
+                    "content_observations",
+                    org,
+                    content_id=content,
+                    raw_asset_id=raw["id"],
+                    observed_at=raw["captured_at"],
+                    **record["content"],
+                )
             field = "content_observation_id"
         insert(
             c,

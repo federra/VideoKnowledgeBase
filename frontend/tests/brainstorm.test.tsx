@@ -3,7 +3,7 @@ import {beforeEach,expect,it} from 'vitest';
 import {App} from '../src/app/App';
 beforeEach(()=>{localStorage.clear();localStorage.setItem('cip-demo-v1-workspace','AI漫剧');window.location.hash='#0/1'});
 it('闪念历史可浏览，拖入组合后仅显式保存才新增选题',async()=>{
- render(<App/>);await screen.findByRole('button',{name:'头脑风暴'});
+ render(<App realTopics={false}/>);await screen.findByRole('button',{name:'头脑风暴'});
  fireEvent.click(screen.getByRole('button',{name:'打开闪念胶囊'}));
  fireEvent.input(screen.getByRole('textbox',{name:'记录灵感，输入后自动保存'}),{target:{value:'影子先回家\n人却仍在地铁'}});
  fireEvent.click(screen.getByRole('button',{name:'新记录'}));
@@ -25,7 +25,7 @@ it('闪念历史可浏览，拖入组合后仅显式保存才新增选题',async
  expect(within(screen.getByRole('dialog')).getByText('来源闪念')).toBeTruthy();
 });
 it('修改生成方向会清除旧结果，重复添加不会重复计入',async()=>{
- render(<App/>);await screen.findByRole('button',{name:'头脑风暴'});
+ render(<App realTopics={false}/>);await screen.findByRole('button',{name:'头脑风暴'});
  fireEvent.click(screen.getByRole('button',{name:'打开闪念胶囊'}));
  fireEvent.input(screen.getByRole('textbox',{name:'记录灵感，输入后自动保存'}),{target:{value:'月亮失踪'}});
  fireEvent.click(screen.getByRole('button',{name:'关闭'}));fireEvent.click(screen.getByRole('button',{name:'头脑风暴'}));

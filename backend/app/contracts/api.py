@@ -19,7 +19,10 @@ from pydantic import Field
 
 from app.api.health import router as health_router
 from app.contracts import models as m
+from app.intelligence import creator_contracts as cr
 from app.intelligence import novel_contracts as n
+from app.intelligence import refresh_contracts as rf
+from app.intelligence.calendar import CalendarQuery, FeedCalendar
 from app.knowledge import contracts as k
 from app.research import analysis_contracts as a
 from app.research import contracts as r
@@ -58,6 +61,10 @@ class FeedQuery(m.Contract):
     video_subgenre: str | None = Field(default=None, min_length=1, max_length=80)
 
 
+class FeedbackAnalysisQuery(m.Contract):
+    entry_id: UUID | None = None
+
+
 class FeedbackQuery(m.Contract):
     business_code: m.Business
     business_date: date
@@ -71,6 +78,8 @@ class EntryQuery(m.Contract):
 
 
 class KnowledgeQuery(BusinessQuery):
+    # Bounded bulk reads feed the client-side category counts and display pages.
+    limit: int = Field(default=20, ge=1, le=5000)
     source_report_id: UUID | None = None
     browse_category: str | None = Field(
         default=None, pattern="^(genre|quote|payoff|failure|dna_case)$"
@@ -100,6 +109,11 @@ class Operation:
 
 
 OPERATIONS = [
+    Operation("GET", "/intelligence/creators", "getCreatorLinks", cr.CreatorConfig, ("source.configure",), "S08.5", query=cr.CreatorQuery, implementation="implemented"),
+    Operation("POST", "/intelligence/creators", "saveCreatorLinks", cr.CreatorConfig, ("source.configure",), "S08.5", request=cr.CreatorBatch, implementation="implemented"),
+    Operation("POST", "/intelligence/creators/remove", "removeCreatorLink", cr.CreatorConfig, ("source.configure",), "S08.5", request=cr.CreatorRemove, implementation="implemented"),
+    Operation("POST", "/intelligence/refresh", "refreshIntelligence", rf.RefreshView, ("collection.run", "source.configure"), "S08.5", request=rf.RefreshRequest, status=202, implementation="implemented"),
+    Operation("GET", "/intelligence/refresh", "getIntelligenceRefresh", rf.RefreshView, ("task.read", "collection.run"), "S08.5", query=rf.RefreshRequest, implementation="implemented"),
     Operation(
         "POST",
         "/files",
@@ -212,6 +226,7 @@ OPERATIONS = [
         status=202,
         permission_note="来源、连接能力及执行授权重检；总付费预算默认1，供应商分页不可自动扩散。",
     ),
+    Operation("GET", "/intelligence/calendar", "getFeedCalendar", FeedCalendar, ("content.read",), "S06", query=CalendarQuery, implementation="implemented", permission_note="当前业务按月可见非空封存快照；不返回失败、未发布或失效证据，不触发采集。"),
     Operation(
         "GET",
         "/intelligence/novels",
@@ -272,6 +287,29 @@ OPERATIONS = [
         "S06.4",
         query=FeedbackQuery,
         implementation="implemented",
+    ),
+    Operation(
+        "POST",
+        "/intelligence/entries/{entry_id}/feedback/analyze",
+        "analyzeEntryFeedback",
+        m.FeedbackAnalysisView,
+        ("research.run",),
+        "S06.4",
+        request=m.AnalyzeFeedbackRequest,
+        status=202,
+        implementation="implemented",
+        permission_note="显式分析当前作品/日期已保存评论，控制台feedback环节、单次调用及幂等；不触发采集。",
+    ),
+    Operation(
+        "GET",
+        "/intelligence/feedback-analyses/{analysis_id}",
+        "getFeedbackAnalysis",
+        m.FeedbackAnalysisView,
+        ("content.read",),
+        "S06.4",
+        implementation="implemented",
+        query=FeedbackAnalysisQuery,
+        permission_note="只读任务进度及确切评论样本结果；不调用模型。",
     ),
     Operation(
         "POST",
@@ -540,6 +578,10 @@ OPERATIONS = [
         status=201,
         implementation="implemented",
     ),
+    Operation("GET", "/knowledge/recycle-bin", "listRecycledKnowledge", m.Page[k.KnowledgeView], ("knowledge.edit", "content.read"), "S08.3", query=KnowledgeQuery, implementation="implemented"),
+    Operation("POST", "/knowledge/recycle", "recycleKnowledge", k.KnowledgeRecycleResult, ("knowledge.edit",), "S08.3", request=k.KnowledgeRecycleWrite, implementation="implemented"),
+    Operation("POST", "/knowledge/purge", "purgeKnowledge", k.KnowledgeRecycleResult, ("knowledge.edit",), "S08.3", request=k.KnowledgePurgeWrite, implementation="implemented"),
+    Operation("POST", "/knowledge/restore", "restoreKnowledge", k.KnowledgeRecycleResult, ("knowledge.edit",), "S08.3", request=k.KnowledgeRecycleWrite, implementation="implemented"),
     Operation(
         "GET",
         "/knowledge",
