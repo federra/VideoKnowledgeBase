@@ -32,6 +32,7 @@ describe('Demo 基线与工程导航', () => {
     }
   });
   it('React日期控件每次只处理一次变更，不重复进入原生事件层', async () => {
+    localStorage.setItem('cip-feed-date','2026-10-30');
     render(<App realTopics={false} />);
     await screen.findByRole('heading', {name: '情报流'});
     const save = vi.spyOn(Storage.prototype, 'setItem');

@@ -6,7 +6,7 @@ import { businesses, getWorkspace, workspaces } from './workspaces';
 import type { DemoSnapshot } from '../demo/types';
 export type Dispatch = (action: string, id?: string) => void;
 
-export function Sidebar({snapshot, dispatch, identity}: {snapshot: DemoSnapshot; dispatch: Dispatch; identity?: string}) {
+export function Sidebar({snapshot, dispatch}: {snapshot: DemoSnapshot; dispatch: Dispatch}) {
   return <aside className="sidebar">
     <div className="brand"><span className="brand-mark" id="brandIcon"><Icon name="book" /></span>内容智库</div>
     <nav className="nav" id="nav" aria-label="一级导航">{workspaces.filter(workspace => workspace.id !== 2).map(workspace =>
@@ -17,7 +17,6 @@ export function Sidebar({snapshot, dispatch, identity}: {snapshot: DemoSnapshot;
       </button>)}
     </nav>
     <div className="sidebar-bottom"><div className="side-note">把信息变成判断<br />让经验成为知识</div>
-      <div className="profile"><span className="avatar">南</span><div>{identity ?? "南哥"}<div className="small muted">{identity !== undefined ? "本地工作区 · 当前权限" : "全权限演示身份"}</div></div></div>
     </div>
   </aside>;
 }

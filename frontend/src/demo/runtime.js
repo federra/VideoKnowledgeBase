@@ -1,4 +1,4 @@
-// Generated from approved Demo. SHA-256: 5fb807c40aede9f3f2ef682a634a8bdcd6b89048561fc74aaf057b88eb76e902
+// Generated from approved Demo. SHA-256: fa7cf71521c96f7a517a43e6098f2e9c500624f1c67cef5f62414f085fd4b26f
 // Transitional DOM renderer: no real API, authentication or server-side writes.
 // Run pnpm demo:sync after explicitly approving a changed Demo baseline.
 export function createDemoRuntime({onChange, renderWorkspace}) {

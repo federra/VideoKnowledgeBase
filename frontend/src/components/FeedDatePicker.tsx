@@ -33,10 +33,22 @@ function Calendar({business,value,today,onChange,id,close}:Props&{id:string;clos
  const api=useApi();
  const query=useApiQuery(['feed-calendar',business,month],signal=>api.feedCalendar(business,month,signal),()=>false);
  const cutoff=query.data?.today??today;
- const days=new Set(query.data?.dates??[]);
  const first=date(month+'-01'),next=date(month+'-01');next.setUTCMonth(next.getUTCMonth()+1);next.setUTCDate(0);
  const count=next.getUTCDate(),offset=(first.getUTCDay()+6)%7;
- const state=(day:string)=>day>cutoff?'future':query.data?days.has(day)?'has-data':'no-data':'unknown';
+ const size=Math.ceil((offset+count)/7)*7;
+ const previousMonth=month==='0001-01'?month:nextMonth(month,-1),followingMonth=month==='9999-12'?month:nextMonth(month,1);
+ const readPrevious=offset>0&&previousMonth!==month&&previousMonth+'-01'<=cutoff;
+ const readFollowing=size>offset+count&&followingMonth!==month&&followingMonth+'-01'<=cutoff;
+ const previous=useApiQuery(['feed-calendar',business,previousMonth],signal=>api.feedCalendar(business,previousMonth,signal),()=>false,{enabled:readPrevious});
+ const following=useApiQuery(['feed-calendar',business,followingMonth],signal=>api.feedCalendar(business,followingMonth,signal),()=>false,{enabled:readFollowing});
+ const reads=[query,...(readPrevious?[previous]:[]),...(readFollowing?[following]:[])];
+ const pending=reads.filter(read=>!read.data);
+ const cells=Array.from({length:size},(_,i)=>{const d=date(month+'-01');d.setUTCDate(1-offset+i);return d.getUTCFullYear()<1||d.getUTCFullYear()>9999?null:iso(d);});
+ const state=(day:string)=>{
+  if(day>cutoff)return 'future';
+  const owner=day.slice(0,7)===month?query:day.slice(0,7)===previousMonth?previous:following;
+  return owner.data?owner.data.dates.includes(day)?'has-data':'no-data':'unknown';
+ };
  useEffect(()=>{grid.current?.querySelector<HTMLButtonElement>(`[data-day="${focusDay}"]`)?.focus();},[focusDay]);
  function moveMonth(step:number){if(step<0&&month==='0001-01'||step>0&&month==='9999-12')return;const target=nextMonth(month,step);setMonth(target);setFocusDay(target+'-01');}
  function keyboard(e:KeyboardEvent<HTMLButtonElement>,day:string){
@@ -53,11 +65,10 @@ function Calendar({business,value,today,onChange,id,close}:Props&{id:string;clos
   <p id={id+'-scope'} className="feed-calendar-scope">当前业务线 · 北京时间</p>
   <div className="feed-calendar-week" aria-hidden="true">{['一','二','三','四','五','六','日'].map(w=><span key={w}>{w}</span>)}</div>
   <div className="feed-calendar-days" ref={grid} role="group" aria-label="选择日期">
-   {Array.from({length:offset},(_,i)=><span key={'blank'+i}/>)}
-   {Array.from({length:count},(_,i)=>{const day=month+'-'+String(i+1).padStart(2,'0'),status=state(day);return <button key={day} data-day={day} type="button" className={`feed-calendar-day ${status}${day===value?' selected':''}${day===cutoff?' today':''}`} disabled={status==='future'} aria-label={`${day}，${labels[status]}${day===cutoff?'，今天':''}`} aria-pressed={day===value} aria-current={day===cutoff?'date':undefined} tabIndex={day===focusDay?0:-1} title={`${day} · ${labels[status]}`} onKeyDown={e=>keyboard(e,day)} onClick={()=>{onChange(day);close();}}><span>{i+1}</span><i aria-hidden="true"/></button>;})}
+   {cells.map((day,i)=>{if(!day)return <span key={'boundary'+i} aria-hidden="true"/>;const status=state(day);return <button key={day} data-day={day} type="button" className={`feed-calendar-day ${status}${day===value?' selected':''}${day===cutoff?' today':''}`} disabled={status==='future'} aria-label={`${day}，${labels[status]}${day===cutoff?'，今天':''}`} aria-pressed={day===value} aria-current={day===cutoff?'date':undefined} tabIndex={day===focusDay?0:-1} title={`${day} · ${labels[status]}`} onKeyDown={e=>keyboard(e,day)} onClick={()=>{onChange(day);close();}}><span>{Number(day.slice(-2))}</span><i aria-hidden="true"/></button>;})}
   </div>
   <div className="feed-calendar-footer"><div className="feed-calendar-legend" aria-label="采集状态图例"><span className="no-data">未采集／未来</span><span className="has-data">已采集</span></div><button type="button" onClick={()=>{onChange(cutoff);close();}}>今天</button></div>
-  {!query.data&&<div className="feed-calendar-status"><span role="status">{query.status==='loading'?'正在查询采集状态…':'采集状态暂不可用'}</span>{query.status!=='loading'&&<button type="button" onClick={()=>void query.refetch()}>重试</button>}</div>}
+  {!!pending.length&&<div className="feed-calendar-status"><span role="status">{pending.some(read=>read.status==='loading')?'正在查询采集状态…':'采集状态暂不可用'}</span>{pending.some(read=>read.status!=='loading')&&<button type="button" onClick={()=>void Promise.allSettled(pending.map(read=>read.refetch()))}>重试</button>}</div>}
 
  </section>;
 }

@@ -65,7 +65,7 @@ function Application({realTopics=true}:{realTopics?:boolean}) {
     });
   };
   return <>
-    <div className="app"><Sidebar snapshot={snapshot} dispatch={dispatch} identity={realModel || realTopicPage || realConsole || realFeed || realResearch || realKnowledge ? session?.display_name ?? "本地工作区" : undefined} /><main className="main">
+    <div className="app"><Sidebar snapshot={snapshot} dispatch={dispatch} /><main className="main">
       <Topbar snapshot={displaySnapshot} dispatch={dispatch} />
       <div className="workspace"><WorkspaceTabs snapshot={snapshot} feedDate={feedDate} latestFeedDate={shanghaiToday()} dispatch={dispatch} feedAction={<RefreshControl key={snapshot.business} business={snapshot.business==='AI漫剧'?'motion_comic':snapshot.business==='故事短片'?'story_short':'ecommerce_video'} allowed={!!session?.actions.includes('collection.run')&&!!session?.actions.includes('source.configure')} onDateChange={date=>{setFeedDate(date);try{localStorage.setItem('cip-feed-date',date);}catch{/* storage optional */}}}/> }
         changeDate={date => {if(validDate(date)&&date<=shanghaiToday()){setFeedDate(date);try{localStorage.setItem('cip-feed-date',date);}catch{/* storage optional */}}}} />
