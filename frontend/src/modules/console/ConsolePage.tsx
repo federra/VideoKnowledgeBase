@@ -42,8 +42,9 @@ function ConsoleBody({tab,business}:{tab:number;business:string}){
  const [modal,setModal]=useState<'source'|'boards'|'creators'|'task'|null>(null);
  const [task,setTask]=useState<ConsoleTask>();const [error,setError]=useState('');const [busy,setBusy]=useState(false);
  const operation=useRef<{intent:string;key:string} | undefined>(undefined);
- const query=useApiQuery<ConsolePageData<ConsoleSource | ConsoleTask>>(['console',tab,code],signal=>tab===0?api.listAllSources(code,signal):api.listAllTasks(code,signal),data=>data.items.length===0);
- useEffect(()=>{const timer=setInterval(()=>{void query.refetch();},10000);return()=>clearInterval(timer);},[query.refetch]);
+ const query=useApiQuery<ConsolePageData<ConsoleSource | ConsoleTask>>(['console',tab,code],signal=>tab===0?api.listAllSources(code,signal):api.listTasks(code,signal),data=>data.items.length===0,{
+  refetchInterval:data=>tab===4&&data.items.some(item=>'state' in item&&['queued','running','cancel_requested'].includes(item.state??''))?10000:false,
+ });
  const refresh=()=>{void queries.invalidateQueries({queryKey:['api']});};
  const close=()=>{if(!busy){setModal(null);setError('');operation.current=undefined;}};
  const key=(intent:string)=>{if(operation.current?.intent!==intent)operation.current={intent,key:crypto.randomUUID()};return operation.current.key;};

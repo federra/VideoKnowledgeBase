@@ -58,6 +58,7 @@ def limit_login(engine, org, name, client):
 
 
 def login(engine, org, name, password, client, *, request_id=None):
+    name = name.strip().lower()
     limit_login(engine, org, name, client)
     members = metadata.tables["members"]
     # KDF occurs outside tenant locks; recheck exact credential under the lock afterwards.
@@ -186,11 +187,13 @@ def active_grants(c, p):
 
 
 def session_view(c, p, raw):
+    from app.core.config import settings
     row = refresh(c, p)
     version = c.exec_driver_sql(
         "SELECT authz_version FROM organizations WHERE id=%s", (p.org_id,)
     ).scalar_one()
     return {
+        "user_accounts_enabled": settings.user_accounts_enabled,
         "org_id": p.org_id,
         "member_id": p.member_id,
         "display_name": row["display_name"],

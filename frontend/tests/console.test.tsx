@@ -92,3 +92,12 @@ it('任务记录随服务端状态刷新，不停留在打开时的处理中',as
  done=true;await queries.invalidateQueries({queryKey:['api']});
  await waitFor(()=>expect(document.querySelector('dialog')?.textContent).toContain('成功'));
 });
+
+it('运行状态仅显示最近100条，不自动逐页重扫全部任务历史',async()=>{
+ const requests:string[]=[];
+ const fetcher=async(input:RequestInfo|URL)=>{const path=String(input);requests.push(path);return new Response(JSON.stringify({request_id:uuid,data:path==='/api/v1/session'?session:{items:[],next_cursor:'older-page',total:'1986'}}),{headers:{'Content-Type':'application/json'}});};
+ render(<QueryClientProvider client={new QueryClient()}><ApiProvider client={new ApiClient({fetcher:fetcher as typeof fetch})}><ConsolePage tab={4} business="AI漫剧"/></ApiProvider></QueryClientProvider>);
+ await screen.findByText('当前显示最近100条，后续记录可通过接口分页检查。');
+ expect(requests.filter(p=>p.includes('/tasks?'))).toHaveLength(1);
+ expect(requests.some(p=>p.includes('cursor='))).toBe(false);
+});

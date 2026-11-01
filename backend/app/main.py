@@ -1,5 +1,9 @@
 from fastapi import FastAPI
 
+from app.accounts.http import OPERATIONS as ACCOUNT_OPERATIONS
+from app.accounts.http import mount as mount_accounts
+from app.accounts.personal_http import OPERATIONS as PERSONAL_OPERATIONS
+from app.accounts.personal_http import mount as mount_personal
 from app.api.health import router as health_router
 from app.collection.http import mount as mount_collection
 from app.contracts.api import OPERATIONS, add_operation
@@ -39,10 +43,20 @@ mount_refresh(app)
 mount_creators(app)
 
 # Register implemented topic/model contracts in both design and runtime inventories.
-for spec in [*MODEL_OPERATIONS, *TOPIC_OPERATIONS, *SCORE_OPERATIONS]:
+for spec in [
+    *MODEL_OPERATIONS,
+    *TOPIC_OPERATIONS,
+    *SCORE_OPERATIONS,
+    *ACCOUNT_OPERATIONS,
+    *PERSONAL_OPERATIONS,
+]:
     if not any(old.name == spec.name for old in OPERATIONS):
         OPERATIONS.append(spec)
         add_operation(spec)
 mount_models(app)
 mount_topics(app)
 mount_topic_scores(app)
+
+mount_accounts(app)
+
+mount_personal(app)

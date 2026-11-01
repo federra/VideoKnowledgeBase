@@ -29,31 +29,68 @@ def get_engine():
 
 def preflight(request: Request, engine: Annotated[Engine, Depends(get_engine)]):
     request.state.request_id = uuid4()
-    if (not settings.secure_cookies and not settings.passwordless_access
-            and request.url.hostname not in ("127.0.0.1", "localhost")):
+    if (
+        not settings.secure_cookies
+        and not settings.passwordless_access
+        and request.url.hostname not in ("127.0.0.1", "localhost")
+    ):
         raise Denied("SERVICE_NOT_READY")
     if settings.secure_cookies and request.url.scheme != "https":
         raise Denied("SERVICE_NOT_READY")
-    if settings.local_single_user or settings.passwordless_access:
+    if not settings.user_accounts_enabled and (
+        settings.local_single_user or settings.passwordless_access
+    ):
         if settings.passwordless_access:
             from app.security.workspace_entry import check_shared_workspace
+
             check_shared_workspace(request)
         else:
             from app.security.local import check_local
+
             check_local(request)
         if request.url.path == "/api/v1/session":
             if request.method != "GET":
                 raise Denied("ACCESS_DENIED")
             return engine
     is_login = request.method == "POST" and request.url.path == "/api/v1/session"
+    if settings.user_accounts_enabled:
+        from app.accounts.service import require_installation
+
+        with engine.begin() as c:
+            require_installation(c)
     if not is_login:
         with engine.begin() as c:
             raw = request.cookies.get("cip_session")
-            authenticate(
+            p = authenticate(
                 c,
                 raw,
                 allow_revoked=request.method == "DELETE" and request.url.path == "/api/v1/session",
             )
+            if settings.user_accounts_enabled:
+                from app.accounts.policy import require_administrator
+                from app.accounts.service import require_installation
+
+                require_installation(c, p.org_id)
+                spec = next(
+                    (s for s in OPERATIONS if s.name == request.scope["route"].operation_id), None
+                )
+                console_actions = {
+                    "source.configure",
+                    "collection.run",
+                    "model.configure",
+                    "member.manage",
+                    "role.manage",
+                    "grant.manage",
+                    "audit.read",
+                    "standard.edit",
+                    "standard.approve",
+                    "standard.activate",
+                    "task.manage",
+                }
+                if spec and (
+                    spec.name == "listTasks" or console_actions.intersection(spec.actions)
+                ):
+                    require_administrator(c, p)
             if request.method != "GET" and not valid_csrf(
                 raw, request.headers.get("X-CSRF-Token", "")
             ):
@@ -66,13 +103,23 @@ def preflight(request: Request, engine: Annotated[Engine, Depends(get_engine)]):
 
 
 def dispatch(*, request, engine, body=None, session=None, csrf_token=None):
-    if settings.local_single_user or settings.passwordless_access:
+    if not settings.user_accounts_enabled and (
+        settings.local_single_user or settings.passwordless_access
+    ):
         from app.security.local import enter
+
         with engine.begin() as c:
             raw, payload = enter(c, session)
         result = response(payload, request.state.request_id)
-        result.set_cookie("cip_session", raw, httponly=True, secure=settings.secure_cookies,
-                          samesite="strict", max_age=8*3600, path="/api/v1")
+        result.set_cookie(
+            "cip_session",
+            raw,
+            httponly=True,
+            secure=settings.secure_cookies,
+            samesite="strict",
+            max_age=8 * 3600,
+            path="/api/v1",
+        )
         return result
     if request.method == "POST":
         if not check_origin(request.headers.get("origin"), settings.allowed_origins):
@@ -83,6 +130,11 @@ def dispatch(*, request, engine, body=None, session=None, csrf_token=None):
             raise Denied("SERVICE_NOT_READY")
         if settings.secure_cookies and request.url.scheme != "https":
             raise Denied("SERVICE_NOT_READY")
+        if settings.user_accounts_enabled:
+            from app.accounts.service import require_installation
+
+            with engine.begin() as c:
+                require_installation(c, body.org_id)
         raw, payload = login(
             engine,
             body.org_id,

@@ -240,7 +240,7 @@ def test_edit_during_score_call_cannot_publish_to_new_head(engine, setup, monkey
         )
 
 
-def test_score_readiness_and_result_allow_content_read_only(engine, setup, monkeypatch, tmp_path):
+def test_score_readiness_and_result_allow_admin_read_only(engine, setup, monkeypatch, tmp_path):
     from app.security.sessions import MemberPrincipal
     from app.tasks.service import Runner
     from tests.integration.test_security import grant
@@ -261,6 +261,12 @@ def test_score_readiness_and_result_allow_content_read_only(engine, setup, monke
         )
         grant(c, p.org_id, p.member_id, member, ["content.read"])
         readonly = MemberPrincipal(p.org_id, member)
+        # Organization content.read no longer grants another user's personal card.
+        with pytest.raises(Denied, match="NOT_FOUND"):
+            service.topic(c, readonly, t["id"])
+        with pytest.raises(Denied, match="NOT_FOUND"):
+            scoring.read(c, readonly, v["id"])
+        grant(c, p.org_id, p.member_id, member, ["member.manage"])
         value = service.topic(c, readonly, t["id"])
         assert value["score_model_ready"]
         assert value["assessment"]["content_total"] == 15

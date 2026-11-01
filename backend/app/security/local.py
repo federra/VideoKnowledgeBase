@@ -2,6 +2,8 @@
 
 from datetime import timedelta
 from secrets import token_urlsafe
+from typing import NamedTuple
+from uuid import UUID
 
 from sqlalchemy import select
 
@@ -29,9 +31,32 @@ def check_local(request):
         raise Denied("CSRF_INVALID")
 
 
-def enter(c, raw=None):
-    # Serialize first-open and avoid choosing an arbitrary existing organization/user.
-    c.exec_driver_sql("SELECT pg_advisory_xact_lock(634930631)")
+class OwnerIdentity(NamedTuple):
+    org_id: UUID
+    id: UUID
+
+
+def _owner_row(c):
+    from app.core.config import settings
+
+    m = metadata.tables["members"]
+    installed = c.execute(select(metadata.tables["account_installations"])).mappings().one_or_none()
+    if installed:
+        row = (
+            c.execute(
+                select(m).where(
+                    m.c.org_id == installed["org_id"], m.c.id == installed["owner_member_id"]
+                )
+            )
+            .mappings()
+            .one_or_none()
+        )
+        if row is None or row["disabled_at"] is not None:
+            raise Denied("AUTH_REQUIRED")
+        return row
+    # CLI may reuse an installed owner, but must never initialize account mode.
+    if settings.user_accounts_enabled:
+        raise Denied("AUTH_REQUIRED")
     m, o = metadata.tables["members"], metadata.tables["organizations"]
     row = (
         c.execute(
@@ -42,6 +67,24 @@ def enter(c, raw=None):
         .mappings()
         .one_or_none()
     )
+    if row is not None and row["disabled_at"] is not None:
+        raise Denied("AUTH_REQUIRED")
+    return row
+
+
+def owner_identity(c):
+    """Stable local CLI owner only; does not create a session or workspace."""
+    row = _owner_row(c)
+    if row is None:
+        raise Denied("AUTH_REQUIRED")
+    return OwnerIdentity(row["org_id"], row["id"])
+
+
+def enter(c, raw=None):
+    # Serialize first-open and avoid choosing an arbitrary existing organization/user.
+    c.exec_driver_sql("SELECT pg_advisory_xact_lock(634930631)")
+    m = metadata.tables["members"]
+    row = _owner_row(c)
     if row is None:
         org, member = bootstrap(c, "本地单人工作区", "__local_owner__", token_urlsafe(40))
         from app.core.repository import compare_and_swap

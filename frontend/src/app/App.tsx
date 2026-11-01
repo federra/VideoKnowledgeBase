@@ -9,6 +9,8 @@ import {TopicsPage} from '../modules/topics/TopicsPage';
 import {SparkEntry} from '../modules/topics/Sparks';
 import {ModelConfigPage} from '../modules/console/ModelConfigPage';
 import { ConsolePage } from '../modules/console/ConsolePage';
+import {AccountBoundary,accountsEnabled,administrator,useAccount} from '../modules/accounts/AccountBoundary';
+import {UsersPage} from '../modules/accounts/UsersPage';
 import type { Session } from '../api/client';
 import { ApiProvider } from '../api/provider';
 import { createDemoRuntime } from '../demo/runtime.js';
@@ -23,6 +25,8 @@ const initialSnapshot: DemoSnapshot = {
 };
 
 function Application({realTopics=true}:{realTopics?:boolean}) {
+  const account = useAccount();
+  const canConfigure = !accountsEnabled(account.session) || administrator(account.session);
   const [snapshot, setSnapshot] = useState(initialSnapshot);
   const runtime = useRef<DemoRuntime | null>(null);
   const location = useLocation();
@@ -42,6 +46,8 @@ function Application({realTopics=true}:{realTopics?:boolean}) {
   const realFeed = snapshot.module === 0 && snapshot.tab === 0;
   const realTopicPage = realTopics && snapshot.module === 0 && (snapshot.tab === 1 || snapshot.tab === 2);
   const realModel = realTopics && snapshot.module === 3 && snapshot.tab === 5;
+  const realUsers = realTopics && snapshot.module === 3 && snapshot.tab === 3;
+  const blockedConsole = snapshot.module === 3 && !canConfigure;
   const realConsole = snapshot.module === 3 && (snapshot.tab === 0 || snapshot.tab === 4);
   useLayoutEffect(() => {
     const instance = createDemoRuntime({onChange: setSnapshot, renderWorkspace:(module,tab,renderers)=>renderWorkspace(module,tab,renderers,realTopics)});
@@ -65,19 +71,21 @@ function Application({realTopics=true}:{realTopics?:boolean}) {
     });
   };
   return <>
-    <div className="app"><Sidebar snapshot={snapshot} dispatch={dispatch} /><main className="main">
+    <div className="app"><Sidebar snapshot={snapshot} dispatch={dispatch} canConfigure={canConfigure} account={accountsEnabled(account.session)?{name:account.session!.display_name,logout:account.logout}:undefined} /><main className="main">
       <Topbar snapshot={displaySnapshot} dispatch={dispatch} />
       <div className="workspace"><WorkspaceTabs snapshot={snapshot} feedDate={feedDate} latestFeedDate={shanghaiToday()} dispatch={dispatch} feedAction={<RefreshControl key={snapshot.business} business={snapshot.business==='AI漫剧'?'motion_comic':snapshot.business==='故事短片'?'story_short':'ecommerce_video'} allowed={!!session?.actions.includes('collection.run')&&!!session?.actions.includes('source.configure')} onDateChange={date=>{setFeedDate(date);try{localStorage.setItem('cip-feed-date',date);}catch{/* storage optional */}}}/> }
         changeDate={date => {if(validDate(date)&&date<=shanghaiToday()){setFeedDate(date);try{localStorage.setItem('cip-feed-date',date);}catch{/* storage optional */}}}} />
         {/* This bounded DOM island is the temporary, removable Demo page adapter. */}
-        <section id="page" aria-label="当前工作区" hidden={realModel || realTopicPage || realConsole || realFeed || realResearch || realKnowledge} />
+        <section id="page" aria-label="当前工作区" hidden={blockedConsole || realUsers || realModel || realTopicPage || realConsole || realFeed || realResearch || realKnowledge} />
+        {blockedConsole && <div className="empty"><h2>仅管理员可访问控制台。</h2><a className="btn" href="#/0/0">返回情报流</a></div>}
+        {realUsers && !blockedConsole && <section data-real-workspace aria-label="真实用户管理"><UsersPage business={snapshot.business}/></section>}
         {realTopicPage && <section data-real-workspace aria-label="真实选题"><TopicsPage business={snapshot.business} tab={snapshot.tab} onSession={sessionChanged}/></section>}
-        {realModel && <section data-real-workspace aria-label="真实模型配置"><ModelConfigPage business={snapshot.business} onSession={sessionChanged}/></section>}
+        {realModel && !blockedConsole && <section data-real-workspace aria-label="真实模型配置"><ModelConfigPage business={snapshot.business} onSession={sessionChanged}/></section>}
         {realKnowledge && <section data-real-workspace aria-label="真实知识库"><KnowledgePage business={snapshot.business} tab={snapshot.tab} onSession={sessionChanged}/></section>}
         {realResearch && <section data-real-workspace aria-label="真实内容研判"><ResearchPage business={snapshot.business} onSession={sessionChanged} onWorkName={workNameChanged}/></section>}
         {realFeed && <section data-real-workspace aria-label="真实情报流"><IntelligencePage business={snapshot.business} date={feedDate} onSession={sessionChanged}/></section>}
-        {realConsole && <section data-real-workspace aria-label="真实控制台"><ConsolePage key={`${snapshot.business}:${snapshot.tab}`} business={snapshot.business} tab={snapshot.tab} onSession={sessionChanged} /></section>}
-        <footer className="footer"><span>{realTopicPage ? "选题与版本交接 · 真实服务" : realModel ? "模型配置 · 真实服务" : realKnowledge ? "知识候选与双审发布 · 真实服务" : realFeed ? "情报流 · 真实快照 · Asia/Shanghai" : realResearch ? "研判导入与文本解析 · 真实服务" : realConsole ? "控制台采集与运行 · 真实服务" : "工程基础 v0.1 · Demo样例，不连接真实业务服务"}</span></footer>
+        {realConsole && !blockedConsole && <section data-real-workspace aria-label="真实控制台"><ConsolePage key={`${snapshot.business}:${snapshot.tab}`} business={snapshot.business} tab={snapshot.tab} onSession={sessionChanged} /></section>}
+        <footer className="footer"><span>{realUsers ? "用户管理 · 真实服务" : realTopicPage ? "选题与版本交接 · 真实服务" : realModel ? "模型配置 · 真实服务" : realKnowledge ? "知识候选与双审发布 · 真实服务" : realFeed ? "情报流 · 真实快照 · Asia/Shanghai" : realResearch ? "研判导入与文本解析 · 真实服务" : realConsole ? "控制台采集与运行 · 真实服务" : "工程基础 v0.1 · Demo样例，不连接真实业务服务"}</span></footer>
       </div>
     </main></div>
     {realTopics ? <SparkEntry/> : <button id="sparkFloat" className="spark-float" aria-label="打开闪念胶囊" onClick={() => dispatch('spark')}>
@@ -98,6 +106,6 @@ function WorkspaceRoute({realTopics}:{realTopics:boolean}) {
 export function App({realTopics=true}:{realTopics?:boolean}={}) {
   const [queryClient] = useState(() => new QueryClient({defaultOptions: {queries: {retry: false, staleTime: 30_000}}}));
   return <QueryClientProvider client={queryClient}><ApiProvider><HashRouter>
-    <Routes><Route path="*" element={<WorkspaceRoute realTopics={realTopics} />} /></Routes>
+    {realTopics?<AccountBoundary><Routes><Route path="*" element={<WorkspaceRoute realTopics={realTopics}/>} /></Routes></AccountBoundary>:<Routes><Route path="*" element={<WorkspaceRoute realTopics={realTopics}/>} /></Routes>}
   </HashRouter></ApiProvider></QueryClientProvider>;
 }

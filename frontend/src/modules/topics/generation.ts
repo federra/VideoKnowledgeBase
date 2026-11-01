@@ -20,7 +20,7 @@ function readPending(slot:string,business:Business,mode:Request['mode']):{operat
 }
 function forgetPending(slot:string){pending.delete(slot);try{sessionStorage.removeItem(pendingSlot(slot));}catch{/* retained disk key is safer than a new paid request */}}
 
-registerTopicCleanup(scope=>{for(const key of pending.keys())if(key.startsWith('cip-topic-task:'+scope+':'))pending.delete(key);for(const key of known.keys())if(key.startsWith('cip-topic-task:'+scope+':'))known.delete(key);});
+registerTopicCleanup(scope=>{if(scope===null){pending.clear();known.clear();return;}for(const key of pending.keys())if(key.startsWith('cip-topic-task:'+scope+':'))pending.delete(key);for(const key of known.keys())if(key.startsWith('cip-topic-task:'+scope+':'))known.delete(key);});
 /** Pending requests persist before POST under the same private scope as drafts; recovery never automatically posts. */
 export function useGeneration(scope:string,business:Business,mode:Request['mode'],onSuccess:()=>void){
  const api=useApi();const slot=`cip-topic-task:${scope}:${business}:${mode}`;const persisted=readPending(slot,business,mode);

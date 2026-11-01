@@ -107,7 +107,7 @@ def org_action(c, p, action):
 def create_member(c, p, key, login_name, display_name, password):
     lock_org(c, p.org_id)
     org_action(c, p, "member.manage")
-    if not login_name.strip() or not display_name.strip() or not 15 <= len(password) <= 1024:
+    if not login_name.strip() or not display_name.strip() or not 8 <= len(password) <= 1024:
         raise Denied("VALIDATION_FAILED")
     payload = {
         "login": login_name,

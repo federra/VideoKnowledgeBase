@@ -1,3 +1,5 @@
-const cleanups=new Set<(scope:string)=>void>();
-export function registerTopicCleanup(cleanup:(scope:string)=>void){cleanups.add(cleanup);}
+const cleanups=new Set<(scope:string|null)=>void>();
+export function registerTopicCleanup(cleanup:(scope:string|null)=>void){cleanups.add(cleanup);}
 export function clearTopicSessionState(scope:string){for(const cleanup of cleanups)cleanup(scope);try{const keys:string[]=[];for(let i=0;i<sessionStorage.length;i++){const key=sessionStorage.key(i);if(key?.startsWith('cip-topic-draft:'+scope+':')||key?.startsWith('cip-topic-task:'+scope+':')||key?.startsWith('cip-topic-pending:'+scope+':')||key?.startsWith('cip-topic-score:'+scope+':'))keys.push(key);}for(const key of keys)sessionStorage.removeItem(key);}catch{/* optional storage */}}
+
+export function clearAllTopicSessionState(){for(const cleanup of cleanups)cleanup(null);try{for(const storage of [sessionStorage,localStorage]){const keys:string[]=[];for(let i=0;i<storage.length;i++){const key=storage.key(i);if(key&&/^cip-topic-(draft|task|pending|score):/.test(key))keys.push(key);}keys.forEach(k=>storage.removeItem(k));}}catch{/* optional storage */}}

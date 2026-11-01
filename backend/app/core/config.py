@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     application_database_url: SecretStr | None = None
 
     allowed_origins: list[str] = ["http://127.0.0.1:5173", "http://localhost:5173"]
+    user_accounts_enabled: bool = False
     local_single_user: bool = False
     passwordless_access: bool = False
     secure_cookies: bool = False

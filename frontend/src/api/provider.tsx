@@ -33,12 +33,15 @@ export function feedback(error: unknown): {
     const status: ApiStatus = error.status === 401 ? 'unauthenticated' : error.status === 403 ? 'forbidden' : error.status === 404 ? 'not-found' : error.code === 'REQUEST_CANCELLED' ? 'cancelled' : 'error';
     return { status, message: error.message };
 }
-export function useApiQuery<T>(key: readonly unknown[], load: (signal: AbortSignal) => Promise<T>, isEmpty: (data: T) => boolean, options: {enabled?:boolean} = {}) {
+export function useApiQuery<T>(key: readonly unknown[], load: (signal: AbortSignal) => Promise<T>, isEmpty: (data: T) => boolean, options: {enabled?:boolean; refetchInterval?:(data:T)=>number|false} = {}) {
     const client = useApi();
     const scope = useSyncExternalStore(client.subscribe, client.snapshot, client.snapshot);
     const query = useQuery({
         queryKey: ['api', scope, ...key], queryFn: ({ signal }) => load(signal), enabled: !client.accessBlocked && options.enabled !== false,
         retry: false, retryOnMount: false, staleTime: 0, gcTime: 0, refetchOnWindowFocus: true,
+        refetchInterval: query => !client.accessBlocked && query.state.status === 'success' && query.state.data !== undefined
+            ? options.refetchInterval?.(query.state.data) ?? false : false,
+        refetchIntervalInBackground: false,
     });
     const error = client.accessError ?? query.error;
     const data = error || client.accessBlocked ? undefined : query.data;

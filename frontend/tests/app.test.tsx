@@ -57,7 +57,7 @@ describe('Demo 基线与工程导航', () => {
     const groups = [
       ['情报局', ['情报流', '选题卡', '待生产']],
       ['藏经阁', ['知识浏览', '回收站']],
-      ['控制台', ['采集配置', '处理配置', '评价标准', '权限管理', '运行状态', '模型配置']],
+      ['控制台', ['采集配置', '处理配置', '评价标准', '用户管理', '运行状态', '模型配置']],
     ] as const;
     for (const [name, tabs] of groups) {
       fireEvent.click(screen.getByRole('button', {name}));

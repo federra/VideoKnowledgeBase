@@ -168,12 +168,47 @@ class Authorizer:
             ).scalars()
         )
 
+    def personal_dependencies(self, kind, ident):
+        """Only private topic manifests/results; shared collection evidence stays public."""
+        if kind == "tasks":
+            sql = "SELECT requested_by FROM tasks WHERE org_id=%s AND id=%s AND kind IN ('topic.generate','topic.score')"
+            args = (self.p.org_id, ident)
+        elif kind == "raw_assets":
+            sql = """SELECT DISTINCT t.requested_by FROM tasks t
+                WHERE t.org_id=%s AND t.kind IN ('topic.generate','topic.score') AND
+                (t.raw_asset_id=%s OR t.id=(SELECT processing_task_id FROM raw_assets WHERE org_id=t.org_id AND id=%s)
+                 OR EXISTS (SELECT 1 FROM task_outputs o WHERE o.org_id=t.org_id AND o.task_id=t.id AND o.raw_asset_id=%s))"""
+            args = (self.p.org_id, ident, ident, ident)
+        elif kind == "file_objects":
+            sql = """SELECT DISTINCT t.requested_by FROM tasks t
+                WHERE t.org_id=%s AND t.kind IN ('topic.generate','topic.score') AND
+                (t.file_id=%s OR EXISTS (SELECT 1 FROM ai_executions e WHERE e.org_id=t.org_id AND e.task_id=t.id AND (e.input_manifest_file_id=%s OR e.output_file_id=%s))
+                 OR EXISTS (SELECT 1 FROM raw_assets r WHERE r.org_id=t.org_id AND r.file_id=%s AND (r.id=t.raw_asset_id OR r.processing_task_id=t.id
+                    OR EXISTS (SELECT 1 FROM task_outputs o WHERE o.org_id=t.org_id AND o.task_id=t.id AND o.raw_asset_id=r.id))))"""
+            args = (self.p.org_id, ident, ident, ident, ident)
+        else:
+            return ()
+        return self.c.exec_driver_sql(sql, args).scalars()
+
+    def personal(self, kind, ident, *, readonly=True):
+        for owner in self.personal_dependencies(kind, ident):
+            if owner != self.p.member_id:
+                from app.accounts.policy import is_administrator
+
+                if not readonly or not is_administrator(self.c, self.p):
+                    raise Denied("NOT_FOUND")
+
     def check(self, kind, ident, action, path=()):
         node = (kind, ident)
         if node in path or len(path) >= 32:
             raise Denied("PROVENANCE_DEPTH_EXCEEDED")
         path = (*path, node)
         row = self.row(kind, ident)
+        self.personal(
+            kind,
+            ident,
+            readonly=action in {"content.read", "task.read", "file.read", "evidence.read"},
+        )
         scopes = self.scopes(kind, row)
         if kind in ("knowledge_items", "knowledge_revisions"):
             identity = (
@@ -298,6 +333,11 @@ class Authorizer:
             and not candidate
         ):
             raise Denied("VALIDATION_FAILED")
+        self.personal(
+            kind,
+            ident,
+            readonly=action in {"content.read", "task.read", "file.read", "evidence.read"},
+        )
         row = self.candidate(kind, ident) if candidate else self.read(kind, ident)
         scopes = self.scopes(kind, row)
         if kind == "knowledge_items":
@@ -353,6 +393,7 @@ class Authorizer:
 
     def _file(self, ident, parent_scopes=None, *, path=()):
         row = self.row("file_objects", ident)
+        self.personal("file_objects", ident)
         scopes = self.scopes("file_objects", row) | (parent_scopes or set())
         if row["validation_state"] != "accepted" or not self.allowed("file.read", scopes):
             raise Denied("NOT_FOUND")

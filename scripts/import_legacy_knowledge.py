@@ -13,11 +13,12 @@ sys.path.insert(0, str(ROOT))
 from app.core.database import build_engine
 from app.knowledge.legacy_import import (
     import_rows,
-    parse_genres,
-    parse_quotes,
     parse_failures,
+    parse_genres,
     parse_payoffs,
+    parse_quotes,
 )
+from app.security.local import owner_identity
 from app.security.sessions import MemberPrincipal
 
 from scripts.database import local_url
@@ -77,9 +78,7 @@ def main():
     }
     try:
         with engine.begin() as c:
-            member = c.exec_driver_sql(
-                "SELECT m.org_id,m.id FROM members m JOIN organizations o ON o.id=m.org_id WHERE o.name='本地单人工作区' AND m.login_name='__local_owner__' AND m.disabled_at IS NULL"
-            ).one()
+            member = owner_identity(c)
             p = MemberPrincipal(member.org_id, member.id)
             for path, category, text, rows in batches:
                 result = import_rows(

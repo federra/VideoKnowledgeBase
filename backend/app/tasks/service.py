@@ -411,6 +411,7 @@ def manage(c, p, ident, expected):
     if not task:
         raise Denied("NOT_FOUND")
     az = Authorizer(c, p)
+    az.personal("tasks", ident, readonly=False)
     scopes = az.scopes("tasks", task)
     for field, kind in [
         ("work_id", "works"),

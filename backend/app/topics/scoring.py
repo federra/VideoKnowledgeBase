@@ -78,6 +78,7 @@ class Score:
         data = json.loads(raw["body_text"])
         if (
             task["kind"] != KIND
+            or task["requested_by"] != az.p.member_id
             or task["handler_version"] != self.version
             or task["max_attempts"] != 1
             or task["max_external_calls"] != 1
@@ -89,6 +90,7 @@ class Score:
             raise TaskError("INVALID_INPUT")
         card = service.row(c, az.p, "topic_cards", UUID(data["topic_id"]))
         revision = service.row(c, az.p, "topic_revisions", UUID(data["revision_id"]))
+        service.require_owner(az.p, card)
         if card["current_revision_id"] != revision["id"]:
             raise TaskError("INVALID_INPUT")
         if (
@@ -162,6 +164,7 @@ def start(c, p, key, ident, request, handler=None):
     from app.model_config import resolve
 
     card = service.row(c, p, "topic_cards", ident)
+    service.require_owner(p, card)
     service.authorize(c, p, card["business_code"], "content.write")
     if card["business_code"] != "motion_comic":
         raise Denied("RUBRIC_UNAVAILABLE")
@@ -249,13 +252,13 @@ def assessment_view(c, p, assessment):
 
 def read(c, p, ident):
     task = service.row(c, p, "tasks", ident)
-    if task["kind"] != KIND:
+    if task["kind"] != KIND or not service.can_read_personal(c, p, task["requested_by"]):
         raise Denied("NOT_FOUND")
     service.authorize(c, p, task["business_code"])
     data = json.loads(
         Authorizer(c, p).check("raw_assets", task["raw_asset_id"], "content.read")["body_text"]
     )
-    service.check_sources(c, p, data["source_refs"])
+    service.check_sources(c, p, data["source_refs"], allow_admin=True)
     a = (
         c.exec_driver_sql(
             "SELECT * FROM topic_assessments WHERE org_id=%s AND task_id=%s", (p.org_id, ident)

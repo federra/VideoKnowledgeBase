@@ -237,6 +237,7 @@ export class ApiClient {
     private csrf?: string;
     private sessionRead?: {promise: Promise<Session>; controller: AbortController; readers: number};
     private principal?: string;
+    private currentView?: Session;
     private epoch = 0;
     private readonly cacheId = crypto.randomUUID();
     private boundaryError?: ApiError;
@@ -255,10 +256,13 @@ export class ApiClient {
     onBoundary(fn: () => void) { this.boundaries.add(fn); return () => { this.boundaries.delete(fn); }; }
     get accessError() { return this.boundaryError; }
     get accessBlocked() { return this.blocked; }
+    get currentSession() { return this.currentView; }
+    invalidateIdentity() { this.boundary(undefined,true); }
     private boundary(error?: ApiError, clearCredentials = false) {
         this.sessionRead = undefined;
         if (clearCredentials) {
             this.csrf = undefined;
+            this.currentView = undefined;
             this.principal = undefined;
         }
         this.blocked = true;
@@ -274,6 +278,7 @@ export class ApiClient {
         if (principal !== this.principal || this.blocked)
             this.boundary(undefined, true);
         this.principal = principal;
+        this.currentView = session;
         this.csrf = session.csrf_token;
         this.blocked = false;
         this.boundaryError = undefined;
@@ -486,6 +491,25 @@ export class ApiClient {
         finally {
             this.authChanging = false;
         }
+    }
+    async setupAccount(body: {login_name:string;display_name:string;password:string}, signal?:AbortSignal) {
+        if (this.authChanging) throw new ApiError(0,'AUTH_CHANGE_IN_PROGRESS');
+        this.authChanging=true;
+        this.boundary(undefined,true);
+        try {
+            const session=await this.transport('/api/v1/access/setup',{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:JSON.stringify(body)},parseSession,signal) as Session;
+            return this.accept(session);
+        } catch(error) {
+            this.boundary(error instanceof ApiError?error:new ApiError(0,'NETWORK_ERROR'),true);
+            throw error;
+        } finally {this.authChanging=false;}
+    }
+    async registerAccount(body:{email:string;password:string},signal?:AbortSignal) {
+        if(this.authChanging)throw new ApiError(0,'AUTH_CHANGE_IN_PROGRESS');
+        this.authChanging=true;this.boundary(undefined,true);
+        try {const session=await this.transport('/api/v1/access/register',{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:JSON.stringify(body)},parseSession,signal) as Session;return this.accept(session);}
+        catch(error){this.boundary(error instanceof ApiError?error:new ApiError(0,'NETWORK_ERROR'),true);throw error;}
+        finally{this.authChanging=false;}
     }
     private headers(key?: string, contentType?: string) {
         if (!this.csrf || this.blocked)

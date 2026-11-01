@@ -1508,3 +1508,16 @@ for _keys, _targets in (
                             name='fk_topic_assessments_' + '_'.join(_keys.split()[1:]),
                             deferrable=True, initially='DEFERRED', ondelete='RESTRICT', onupdate='RESTRICT')
 index('topic_assessments', 'org_id topic_id topic_revision_id created_at')
+
+# One immutable local account installation; no ownership backfill or business changes.
+_account_installation = sa.Table(
+    'account_installations', metadata,
+    sa.Column('id', sa.SmallInteger(), primary_key=True),
+    sa.Column('org_id', UUID(as_uuid=True), nullable=False),
+    sa.Column('owner_member_id', UUID(as_uuid=True), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), nullable=False, server_default=sa.text('clock_timestamp()')),
+    sa.CheckConstraint('id=1', name='ck_account_installations_singleton'),
+    sa.ForeignKeyConstraint(['org_id','owner_member_id'],['members.org_id','members.id'],
+                            name='fk_account_installations_owner', ondelete='RESTRICT',
+                            deferrable=True, initially='DEFERRED'),
+)

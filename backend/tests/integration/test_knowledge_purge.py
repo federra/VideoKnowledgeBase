@@ -1,6 +1,6 @@
 """Permanent erasure runs only against disposable acceptance databases."""
 
-from datetime import UTC, datetime, timedelta
+from datetime import timedelta
 from uuid import uuid4
 
 import pytest
@@ -98,8 +98,8 @@ def test_retention_only_at_30_days_expired_hidden_and_not_restorable(engine, set
     from app.knowledge.recycle import change, listing
 
     p, _, rows = recycled(engine, setup)
-    now = datetime.now(UTC)
     with engine.begin() as c:
+        now = c.exec_driver_sql("SELECT clock_timestamp()").scalar_one()
         compare_and_swap(
             c,
             "knowledge_items",
@@ -244,7 +244,7 @@ def test_restore_batch_with_one_expired_is_atomic_and_stale_cleanup_skips_restor
             p.org_id,
             rows[1]["id"],
             int(rows[1]["lock_version"]),
-            {"recycled_at": datetime.now(UTC) - timedelta(days=30)},
+            {"recycled_at": c.exec_driver_sql("SELECT clock_timestamp()").scalar_one() - timedelta(days=30)},
         )
     body = request(rows)
     body.items[1].expected_lock_version = str(int(rows[1]["lock_version"]) + 1)

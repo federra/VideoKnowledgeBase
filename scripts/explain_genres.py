@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT / "backend"))
 from app.core.database import application_engine
 from app.knowledge.genre_explanations import KIND, VERSION, Explain, load, start
 from app.security.authorization import Authorizer
+from app.security.local import owner_identity
 from app.security.sessions import MemberPrincipal
 from app.tasks.service import Runner
 
@@ -23,9 +24,7 @@ def main():
     args = parser.parse_args()
     engine = application_engine()
     with engine.begin() as c:
-        member = c.exec_driver_sql(
-            "SELECT m.org_id,m.id FROM members m JOIN organizations o ON o.id=m.org_id WHERE o.name='本地单人工作区' AND m.login_name='__local_owner__' AND m.disabled_at IS NULL"
-        ).one()
+        member = owner_identity(c)
         p = MemberPrincipal(member.org_id, member.id)
         ids = (
             c.exec_driver_sql(

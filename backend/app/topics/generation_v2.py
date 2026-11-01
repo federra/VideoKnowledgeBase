@@ -110,6 +110,7 @@ class GenerateV2(Generate):
         raw = az.read("raw_assets", task["raw_asset_id"])
         if (
             task["kind"] != KIND
+            or task["requested_by"] != az.p.member_id
             or str(task["handler_version"]) != VERSION
             or task["max_external_calls"] != 2
             or task["max_attempts"] != 1

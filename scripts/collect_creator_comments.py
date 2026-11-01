@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
 from app.collection.creator_browser_comments import BrowserComments, run
 from app.core.database import application_engine
+from app.security.local import owner_identity
 from app.security.sessions import MemberPrincipal
 
 
@@ -22,9 +23,7 @@ def main():
     args = parser.parse_args()
     engine = application_engine()
     with engine.begin() as c:
-        m = c.exec_driver_sql(
-            "SELECT m.org_id,m.id FROM members m JOIN organizations o ON o.id=m.org_id WHERE o.name='本地单人工作区' AND m.login_name='__local_owner__' AND m.disabled_at IS NULL"
-        ).one()
+        m = owner_identity(c)
         p = MemberPrincipal(m.org_id, m.id)
     result = run(
         engine,

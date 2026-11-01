@@ -25,7 +25,7 @@ def grant_application(cursor, role):
         cursor.execute(
             sql.SQL("GRANT INSERT ON {} TO {}").format(sql.Identifier(name), sql.Identifier(role))
         )
-        if name in ("http_receipts", "file_intakes"):
+        if name in ("http_receipts", "file_intakes", "account_installations"):
             continue
         if name == "auth_sessions":
             columns = ["revoked_at"]

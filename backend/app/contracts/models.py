@@ -186,6 +186,7 @@ class Login(Contract):
 
 
 class Session(Contract):
+    user_accounts_enabled: bool = False
     org_id: UUID
     member_id: UUID
     display_name: NonEmpty

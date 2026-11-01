@@ -6,10 +6,10 @@ import { businesses, getWorkspace, workspaces } from './workspaces';
 import type { DemoSnapshot } from '../demo/types';
 export type Dispatch = (action: string, id?: string) => void;
 
-export function Sidebar({snapshot, dispatch}: {snapshot: DemoSnapshot; dispatch: Dispatch}) {
+export function Sidebar({snapshot, dispatch, canConfigure=true, account}: {snapshot: DemoSnapshot; dispatch: Dispatch; canConfigure?:boolean; account?:{name:string;logout:()=>Promise<void>}}) {
   return <aside className="sidebar">
     <div className="brand"><span className="brand-mark" id="brandIcon"><Icon name="book" /></span>内容智库</div>
-    <nav className="nav" id="nav" aria-label="一级导航">{workspaces.filter(workspace => workspace.id !== 2).map(workspace =>
+    <nav className="nav" id="nav" aria-label="一级导航">{workspaces.filter(workspace => workspace.id !== 2 && (workspace.id !== 3 || canConfigure)).map(workspace =>
       <button key={workspace.id} className={snapshot.module === workspace.id ? 'active' : ''}
         aria-current={snapshot.module === workspace.id ? 'page' : undefined}
         onClick={() => dispatch('module', String(workspace.id))}>
@@ -17,6 +17,7 @@ export function Sidebar({snapshot, dispatch}: {snapshot: DemoSnapshot; dispatch:
       </button>)}
     </nav>
     <div className="sidebar-bottom"><div className="side-note">把信息变成判断<br />让经验成为知识</div>
+    {account&&<div className="account-menu"><span title={account.name}>{account.name}</span><button className="btn small" onClick={()=>void account.logout()}>退出</button></div>}
     </div>
   </aside>;
 }

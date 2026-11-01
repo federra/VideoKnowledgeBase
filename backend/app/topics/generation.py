@@ -108,6 +108,7 @@ class Generate:
         data = json.loads(raw["body_text"])
         if (
             task["kind"] != KIND
+            or task["requested_by"] != az.p.member_id
             or task["max_external_calls"] != 1
             or task["max_attempts"] != 1
             or raw["submitted_by"] != task["requested_by"]

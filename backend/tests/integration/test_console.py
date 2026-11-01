@@ -13,6 +13,21 @@ pytest_plugins = ("tests.integration.test_security",)
 pytestmark = pytest.mark.database
 
 
+def scheduled_capture_clock(monkeypatch, runner, now):
+    """The synthetic provider must use the same future clock as schedule(now=...)."""
+    for handler in runner.handlers.values():
+        if not hasattr(handler, "connector"):
+            continue
+        fetch = handler.connector.fetch
+
+        def at_slot(*args, _fetch=fetch, **kwargs):
+            reply = _fetch(*args, **kwargs)
+            reply.captured_at = now
+            return reply
+
+        monkeypatch.setattr(handler.connector, "fetch", at_slot)
+
+
 def test_console_new_source_is_paused_with_plan_and_idempotent(engine, setup):
     from app.collection.console import create_source, list_sources
     from app.contracts.models import ConsoleSourceCreate
@@ -71,7 +86,7 @@ def test_console_source_toggle_enforces_versions_scope_and_paid_plan(engine, set
         )
 
 
-def test_console_schedule_latest_slot_no_catchup_storm_and_no_duplicate(engine, setup):
+def test_console_schedule_latest_slot_no_catchup_storm_and_no_duplicate(engine, setup, monkeypatch):
     from app.collection.console import create_source, patch_source
     from app.collection.schedule import due_slot, schedule
     from app.contracts.models import ConsoleSourceCreate, SourcePatch
@@ -101,6 +116,7 @@ def test_console_schedule_latest_slot_no_catchup_storm_and_no_duplicate(engine, 
             "SELECT created_at FROM collection_plans WHERE id=%s", (source["plan"]["id"],)
         ).scalar_one()
     now = created + timedelta(hours=2)
+    scheduled_capture_clock(monkeypatch, runner, now)
     # Pure slot arithmetic explicitly uses Shanghai regardless of worker timezone.
     assert (
         due_slot("daily_0900", datetime(2026, 10, 17, 2, tzinfo=UTC)).isoformat()
@@ -144,7 +160,9 @@ def test_console_task_list_detail_retry_and_raw_visibility(engine, setup):
     assert len(calls) == 1
 
 
-def test_console_same_evidence_dispatches_knowledge_without_another_paid_call(engine, setup):
+def test_console_same_evidence_dispatches_knowledge_without_another_paid_call(
+    engine, setup, monkeypatch
+):
     from app.collection.console import create_source, patch_source
     from app.collection.schedule import KnowledgeIntake, schedule
     from app.contracts.models import ConsoleSourceCreate, SourcePatch
@@ -177,6 +195,7 @@ def test_console_same_evidence_dispatches_knowledge_without_another_paid_call(en
         created = c.exec_driver_sql(
             "SELECT created_at FROM collection_plans WHERE id=%s", (source["plan"]["id"],)
         ).scalar_one()
+    scheduled_capture_clock(monkeypatch, runner, created + timedelta(hours=2))
     assert schedule(runner, now=created + timedelta(hours=2)) == 1
     with engine.connect() as c:
         tid = c.exec_driver_sql(
@@ -383,7 +402,7 @@ def test_console_paused_or_revoked_plan_never_creates_paid_work(engine, setup):
 
 @pytest.mark.parametrize("before_reservation", [False, True])
 def test_console_same_connection_plans_wait_without_consuming_attempts(
-    engine, setup, before_reservation
+    engine, setup, before_reservation, monkeypatch
 ):
     from app.collection.console import create_source, patch_source
     from app.collection.schedule import schedule
@@ -416,6 +435,7 @@ def test_console_same_connection_plans_wait_without_consuming_attempts(
         created = c.exec_driver_sql(
             "SELECT max(created_at) FROM collection_plans WHERE org_id=%s", (org,)
         ).scalar_one()
+    scheduled_capture_clock(monkeypatch, runner, created + timedelta(hours=2))
     assert schedule(runner, now=created + timedelta(hours=2)) == 2
     with engine.connect() as c:
         ids = list(
@@ -498,3 +518,38 @@ def test_console_business_task_grant_reads_state_without_source_outputs(engine, 
         grant(c, org, member, member, ["task.read"], "business", "motion_comic")
         state = task_view(c, authenticate(c, token), task_id(job))
         assert state["state"] == "succeeded" and state["outputs"] == []
+
+
+def test_task_paging_keeps_authorization_totals_cursor_and_selected_output_checks(
+    engine, setup, monkeypatch
+):
+    from app.collection import console
+
+    _, start, _, _, _, _, _, _, token = prepared(engine, setup)
+    ids = {task_id(start()) for _ in range(3)}
+    with engine.begin() as c:
+        p = authenticate(c, token)
+        expected = console.list_tasks(c, p, "motion_comic")
+        original = console.task_view
+        viewed = []
+
+        def tracked(c, p, ident, **kwargs):
+            viewed.append(ident)
+            return original(c, p, ident, **kwargs)
+
+        monkeypatch.setattr(console, "task_view", tracked)
+        first = console.list_tasks(c, p, "motion_comic", limit=2)
+        assert first["items"] == expected["items"][:2]
+        assert first["total"] == "3" and first["next_cursor"]
+        assert len(viewed) == 2
+        second = console.list_tasks(c, p, "motion_comic", limit=2, cursor=first["next_cursor"])
+        assert second["items"] == expected["items"][2:]
+        assert second["next_cursor"] is None and second["total"] == "3"
+        assert set(viewed) == ids and len(viewed) == 3
+        viewed.clear()
+        empty = console.list_tasks(c, p, "motion_comic", limit=2, q="no-match")
+        assert empty == {"items": [], "next_cursor": None, "total": "0"}
+        assert viewed == []
+        with pytest.raises(Denied, match="CURSOR_EXPIRED"):
+            console.list_tasks(c, p, "story_short", limit=2, cursor=first["next_cursor"])
+        assert viewed == []

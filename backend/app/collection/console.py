@@ -4,6 +4,7 @@ from uuid import UUID
 
 from sqlalchemy import select
 
+from app.collection.paging import page
 from app.collection.service import configure_connection, configure_source, get, insert
 from app.connectors.redfox import VERSION, AdapterError, identifier
 from app.contracts.models import ConsoleSource
@@ -11,6 +12,7 @@ from app.core.models import metadata
 from app.core.repository import compare_and_swap
 from app.security.authorization import Authorizer
 from app.security.errors import Denied
+from app.security.read_authorizer import ReadAuthorizer
 from app.security.sessions import refresh
 from app.security.storage import audit, receipt
 from app.tasks.service import cancel, external_calls, retry
@@ -223,12 +225,22 @@ SAFE_CODES = {
 }
 
 
-def task_view(c, p, ident):
-    refresh(c, p)
-    az = Authorizer(c, p)
-    row = get(c, "tasks", p.org_id, ident)
-    if not row:
-        raise Denied("NOT_FOUND")
+class TaskReadAuthorizer(ReadAuthorizer):
+    """Task list facts are local to the locked read transaction, never a global cache."""
+
+    def personal_dependencies(self, kind, ident):
+        if kind == "tasks":
+            row = self.row(kind, ident)
+            return (
+                (row["requested_by"],) if row["kind"] in {"topic.generate", "topic.score"} else ()
+            )
+        return super().personal_dependencies(kind, ident)
+
+
+def authorized_task(az, ident):
+    az._refresh()
+    row = az.row("tasks", ident)
+    az.personal("tasks", ident)
     scopes = az.scopes("tasks", row)
     # Inherit only verified parent scopes, never a caller-supplied business label.
     for field, kind in (
@@ -240,6 +252,14 @@ def task_view(c, p, ident):
             scopes |= az.scopes(kind, az.row(kind, row[field]))
     if not az.allowed("task.read", scopes):
         raise Denied("NOT_FOUND")
+    return row
+
+
+def task_view(c, p, ident, *, auth=None):
+    if auth is None:
+        refresh(c, p)
+    az = auth if auth is not None else Authorizer(c, p)
+    row = authorized_task(az, ident)
     fields = (
         "kind",
         "business_code",
@@ -292,23 +312,40 @@ def task_view(c, p, ident):
     return Task.model_validate(data).model_dump(mode="json")
 
 
-def list_tasks(c, p, business):
-    refresh(c, p)
+def list_tasks(c, p, business, *, limit=None, cursor=None, q=None):
+    az = TaskReadAuthorizer(c, p)
+    candidates = (
+        c.exec_driver_sql(
+            "SELECT * FROM tasks WHERE org_id=%s AND business_code=%s ORDER BY created_at DESC,id DESC",
+            (p.org_id, business),
+        )
+        .mappings()
+        .all()
+    )
+    # Check task visibility before totals/cursors, but traverse output provenance only
+    # for the selected page. Previously every page rebuilt every historical output.
+    az.rows.update({("tasks", row["id"]): dict(row) for row in candidates})
     rows = []
-    for ident in c.exec_driver_sql(
-        "SELECT id FROM tasks WHERE org_id=%s AND business_code=%s ORDER BY created_at DESC,id DESC",
-        (p.org_id, business),
-    ).scalars():
+    for row in candidates:
         try:
-            rows.append(task_view(c, p, ident))
+            visible = authorized_task(az, row["id"])
+            rows.append(
+                {
+                    "id": str(visible["id"]),
+                    "kind": visible["kind"],
+                    "created_at": visible["created_at"].isoformat(),
+                }
+            )
         except Denied as exc:
             if exc.code != "NOT_FOUND":
                 raise
-    if not rows and not Authorizer(c, p).allowed(
-        "task.read", {("org", str(p.org_id)), ("business", business)}
-    ):
+    if not rows and not az.allowed("task.read", {("org", str(p.org_id)), ("business", business)}):
         raise Denied("ACCESS_DENIED")
-    return {"items": rows, "next_cursor": None, "total": str(len(rows))}
+    data = {"items": rows, "next_cursor": None, "total": str(len(rows))}
+    if limit is not None:
+        data = page(c, p, data, kind="tasks", business=business, limit=limit, cursor=cursor, q=q)
+    data["items"] = [task_view(c, p, UUID(row["id"]), auth=az) for row in data["items"]]
+    return data
 
 
 def control_task(c, p, ident, body, runner, operation, key):

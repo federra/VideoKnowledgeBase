@@ -12,7 +12,7 @@ export function renderWorkspace(module: number, tab: number, renderers: PageRend
   if (module === 1 && (tab === 0 || tab === 2)) return "";
   if (module === 0 && tab === 0) return "";
   if (module === 2 && tab === 0) return "";
-  if (module === 3 && (tab === 0 || tab === 4)) return "";
+  if (module === 3 && (tab === 0 || (realTopics && tab === 3) || tab === 4)) return "";
   const page = getWorkspace(module)?.pages[tab];
   if (!page) throw new Error('Unknown workspace');
   return page.render(renderers);

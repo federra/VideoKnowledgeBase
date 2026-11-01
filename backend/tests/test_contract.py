@@ -35,6 +35,12 @@ def test_planned_operations_are_separate_from_runtime():
     actual = TestClient(app).get("/openapi.json").json()
     planned = contract_app.openapi()
     assert set(actual["paths"]) == {
+        "/api/v1/access",
+        "/api/v1/access/setup",
+        "/api/v1/access/register",
+        "/api/v1/users",
+        "/api/v1/users/{member_id}",
+        "/api/v1/users/{member_id}/space",
         "/api/health",
         "/api/v1/session",
         "/api/v1/model-config",
@@ -116,7 +122,7 @@ def test_planned_operations_are_separate_from_runtime():
             assert op["x-implementation-status"] == (
                 "implemented"
                 if path == "/api/v1/session"
-                or path.startswith(("/api/v1/files", "/api/v1/model-config", "/api/v1/topics", "/api/v1/sparks"))
+                or path.startswith(("/api/v1/files", "/api/v1/model-config", "/api/v1/topics", "/api/v1/sparks", "/api/v1/access", "/api/v1/users"))
                 or path
                 in {
                     "/api/v1/intelligence/feed",

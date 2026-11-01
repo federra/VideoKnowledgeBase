@@ -34,11 +34,26 @@ def row(c, p, kind, ident):
     return x
 
 
-def check_sources(c, p, refs):
+def require_owner(p, card):
+    if card["created_by"] != p.member_id:
+        raise Denied("NOT_FOUND")
+
+
+def can_read_personal(c, p, owner):
+    if owner == p.member_id:
+        return True
+    from app.accounts.policy import is_administrator
+
+    return is_administrator(c, p)
+
+
+def check_sources(c, p, refs, *, allow_admin=False):
     az = Authorizer(c, p)
     for x in refs.get("sparks", []):
         sp = row(c, p, "topic_sparks", UUID(x["id"]))
-        if sp["owner_member_id"] != p.member_id:
+        if sp["owner_member_id"] != p.member_id and not (
+            allow_admin and can_read_personal(c, p, sp["owner_member_id"])
+        ):
             raise Denied("NOT_FOUND")
         r = row(c, p, "topic_spark_revisions", UUID(x["revision_id"]))
         if r["spark_id"] != sp["id"]:
@@ -63,8 +78,12 @@ def check_sources(c, p, refs):
 def topic(c, p, ident):
     a = row(c, p, "topic_cards", ident)
     authorize(c, p, a["business_code"])
+    if not can_read_personal(c, p, a["created_by"]):
+        raise Denied("NOT_FOUND")
     r = row(c, p, "topic_revisions", a["current_revision_id"])
-    check_sources(c, p, r["source_refs"])
+    check_sources(c, p, r["source_refs"], allow_admin=True)
+    if a["created_by"] != p.member_id:
+        audit(c, p.org_id, p.member_id, "topic.personal.read", "topic", ident)
     history = c.exec_driver_sql(
         "SELECT version_no,fields,created_at FROM topic_revisions WHERE org_id=%s AND topic_id=%s ORDER BY version_no DESC",
         (p.org_id, ident),
@@ -114,8 +133,8 @@ def listing(c, p, business, pool, page, q=None, status="all"):
     authorize(c, p, business)
     ids = (
         c.exec_driver_sql(
-            "SELECT id FROM topic_cards WHERE org_id=%s AND business_code=%s AND status=%s ORDER BY created_at DESC,id DESC",
-            (p.org_id, business, "candidate" if pool == "candidate" else "production"),
+            "SELECT id FROM topic_cards WHERE org_id=%s AND created_by=%s AND business_code=%s AND status=%s ORDER BY created_at DESC,id DESC",
+            (p.org_id, p.member_id, business, "candidate" if pool == "candidate" else "production"),
         )
         .scalars()
         .all()
@@ -205,6 +224,7 @@ def create(c, p, key, request):
 
 def revise(c, p, key, ident, request):
     a = row(c, p, "topic_cards", ident)
+    require_owner(p, a)
     authorize(c, p, a["business_code"], "content.write")
 
     def perform():
@@ -258,6 +278,7 @@ def revise(c, p, key, ident, request):
 
 def choose(c, p, key, ident, request):
     a = row(c, p, "topic_cards", ident)
+    require_owner(p, a)
     authorize(c, p, a["business_code"], "content.write")
 
     def perform():
@@ -285,6 +306,7 @@ def choose(c, p, key, ident, request):
 
 def handoff(c, p, key, ident, request):
     a = row(c, p, "topic_cards", ident)
+    require_owner(p, a)
     authorize(c, p, a["business_code"], "content.export")
 
     def perform():
@@ -336,10 +358,12 @@ def handoff(c, p, key, ident, request):
     )
 
 
-def spark(c, p, ident):
+def spark(c, p, ident, *, allow_admin=False):
     authorize(c, p)
     a = row(c, p, "topic_sparks", ident)
-    if a["owner_member_id"] != p.member_id:
+    if a["owner_member_id"] != p.member_id and not (
+        allow_admin and can_read_personal(c, p, a["owner_member_id"])
+    ):
         raise Denied("NOT_FOUND")
     r = row(c, p, "topic_spark_revisions", a["current_revision_id"])
     return {

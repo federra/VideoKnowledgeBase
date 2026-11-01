@@ -65,6 +65,38 @@
         "title": "Accepted",
         "type": "object"
       },
+      "AccessView": {
+        "additionalProperties": false,
+        "properties": {
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "org_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Org Id"
+          },
+          "setup_required": {
+            "title": "Setup Required",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "enabled",
+          "setup_required",
+          "org_id"
+        ],
+        "title": "AccessView",
+        "type": "object"
+      },
       "AccountTarget": {
         "additionalProperties": false,
         "properties": {
@@ -1972,6 +2004,25 @@
         "title": "Envelope[Accepted]",
         "type": "object"
       },
+      "Envelope_AccessView_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AccessView"
+          },
+          "request_id": {
+            "format": "uuid",
+            "title": "Request Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_id",
+          "data"
+        ],
+        "title": "Envelope[AccessView]",
+        "type": "object"
+      },
       "Envelope_Acknowledged_": {
         "additionalProperties": false,
         "properties": {
@@ -2485,6 +2536,25 @@
         "title": "Envelope[Page[Task]]",
         "type": "object"
       },
+      "Envelope_PersonalSpaceView_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/PersonalSpaceView"
+          },
+          "request_id": {
+            "format": "uuid",
+            "title": "Request Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_id",
+          "data"
+        ],
+        "title": "Envelope[PersonalSpaceView]",
+        "type": "object"
+      },
       "Envelope_Publication_": {
         "additionalProperties": false,
         "properties": {
@@ -2768,6 +2838,44 @@
           "data"
         ],
         "title": "Envelope[TopicView]",
+        "type": "object"
+      },
+      "Envelope_UserList_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/UserList"
+          },
+          "request_id": {
+            "format": "uuid",
+            "title": "Request Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_id",
+          "data"
+        ],
+        "title": "Envelope[UserList]",
+        "type": "object"
+      },
+      "Envelope_UserView_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/UserView"
+          },
+          "request_id": {
+            "format": "uuid",
+            "title": "Request Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_id",
+          "data"
+        ],
+        "title": "Envelope[UserView]",
         "type": "object"
       },
       "Envelope_WorkDetail_": {
@@ -6971,6 +7079,35 @@
         "title": "Parsing",
         "type": "object"
       },
+      "PersonalSpaceView": {
+        "additionalProperties": false,
+        "properties": {
+          "member": {
+            "$ref": "#/components/schemas/UserView"
+          },
+          "sparks": {
+            "items": {
+              "$ref": "#/components/schemas/SparkView"
+            },
+            "title": "Sparks",
+            "type": "array"
+          },
+          "topics": {
+            "items": {
+              "$ref": "#/components/schemas/TopicView"
+            },
+            "title": "Topics",
+            "type": "array"
+          }
+        },
+        "required": [
+          "member",
+          "sparks",
+          "topics"
+        ],
+        "title": "PersonalSpaceView",
+        "type": "object"
+      },
       "PredictionAssessment": {
         "additionalProperties": false,
         "properties": {
@@ -7317,6 +7454,43 @@
           "channels"
         ],
         "title": "RefreshView",
+        "type": "object"
+      },
+      "RegisterRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "display_name": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          },
+          "email": {
+            "maxLength": 254,
+            "minLength": 3,
+            "title": "Email",
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 1024,
+            "minLength": 8,
+            "title": "Password",
+            "type": "string",
+            "writeOnly": true
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "RegisterRequest",
         "type": "object"
       },
       "ReportEvidence": {
@@ -8073,6 +8247,11 @@
             "format": "uuid",
             "title": "Org Id",
             "type": "string"
+          },
+          "user_accounts_enabled": {
+            "default": false,
+            "title": "User Accounts Enabled",
+            "type": "boolean"
           }
         },
         "required": [
@@ -8085,6 +8264,37 @@
           "actions"
         ],
         "title": "Session",
+        "type": "object"
+      },
+      "SetupRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "display_name": {
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Display Name",
+            "type": "string"
+          },
+          "login_name": {
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Login Name",
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 1024,
+            "minLength": 8,
+            "title": "Password",
+            "type": "string",
+            "writeOnly": true
+          }
+        },
+        "required": [
+          "login_name",
+          "display_name",
+          "password"
+        ],
+        "title": "SetupRequest",
         "type": "object"
       },
       "Snapshot": {
@@ -9327,6 +9537,182 @@
         "title": "UnitView",
         "type": "object"
       },
+      "UserCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "display_name": {
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Display Name",
+            "type": "string"
+          },
+          "login_name": {
+            "maxLength": 254,
+            "minLength": 1,
+            "title": "Login Name",
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 1024,
+            "minLength": 8,
+            "title": "Password",
+            "type": "string",
+            "writeOnly": true
+          },
+          "role": {
+            "enum": [
+              "administrator",
+              "user"
+            ],
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "login_name",
+          "display_name",
+          "password",
+          "role"
+        ],
+        "title": "UserCreate",
+        "type": "object"
+      },
+      "UserList": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/UserView"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "title": "UserList",
+        "type": "object"
+      },
+      "UserUpdate": {
+        "additionalProperties": false,
+        "properties": {
+          "display_name": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          },
+          "enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Enabled"
+          },
+          "expected_version": {
+            "pattern": "^[1-9][0-9]{0,18}$",
+            "title": "Expected Version",
+            "type": "string"
+          },
+          "password": {
+            "anyOf": [
+              {
+                "maxLength": 1024,
+                "minLength": 8,
+                "type": "string",
+                "writeOnly": true
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Password"
+          },
+          "role": {
+            "anyOf": [
+              {
+                "enum": [
+                  "administrator",
+                  "user"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Role"
+          }
+        },
+        "required": [
+          "expected_version"
+        ],
+        "title": "UserUpdate",
+        "type": "object"
+      },
+      "UserView": {
+        "additionalProperties": false,
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "lock_version": {
+            "pattern": "^[1-9][0-9]{0,18}$",
+            "title": "Lock Version",
+            "type": "string"
+          },
+          "login_name": {
+            "title": "Login Name",
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "administrator",
+              "user"
+            ],
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "login_name",
+          "display_name",
+          "role",
+          "enabled",
+          "lock_version",
+          "created_at"
+        ],
+        "title": "UserView",
+        "type": "object"
+      },
       "VersionView": {
         "additionalProperties": false,
         "properties": {
@@ -10002,6 +10388,704 @@
         "tags": [
           "system"
         ]
+      }
+    },
+    "/api/v1/access": {
+      "get": {
+        "description": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "operationId": "getAccess",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_AccessView_"
+                }
+              }
+            },
+            "description": "Successful Response",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "未登录或登录失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "动作或CSRF被拒绝",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "不存在或对象不可访问（同一响应）",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "版本、幂等、审核、预算或来源冲突",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "文件或请求体过大",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求不符合契约；不回显输入",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求限流",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "安全内部错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "外链素材获取失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "服务未就绪；设计预览只返回此状态或参数错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "summary": "getAccess",
+        "tags": [
+          "access"
+        ],
+        "x-idempotency": false,
+        "x-implementation-stage": "S08.6",
+        "x-implementation-status": "implemented",
+        "x-permission-rule": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "x-required-actions": []
+      }
+    },
+    "/api/v1/access/register": {
+      "post": {
+        "description": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "operationId": "registerAccess",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Session_"
+                }
+              }
+            },
+            "description": "Successful Response",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "未登录或登录失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "动作或CSRF被拒绝",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "不存在或对象不可访问（同一响应）",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "版本、幂等、审核、预算或来源冲突",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "文件或请求体过大",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求不符合契约；不回显输入",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求限流",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "安全内部错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "外链素材获取失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "服务未就绪；设计预览只返回此状态或参数错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "summary": "registerAccess",
+        "tags": [
+          "access"
+        ],
+        "x-idempotency": false,
+        "x-implementation-stage": "S08.6",
+        "x-implementation-status": "implemented",
+        "x-permission-rule": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "x-required-actions": []
+      }
+    },
+    "/api/v1/access/setup": {
+      "post": {
+        "description": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "operationId": "setupAccess",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetupRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Session_"
+                }
+              }
+            },
+            "description": "Successful Response",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "未登录或登录失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "动作或CSRF被拒绝",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "不存在或对象不可访问（同一响应）",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "版本、幂等、审核、预算或来源冲突",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "文件或请求体过大",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求不符合契约；不回显输入",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求限流",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "安全内部错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "外链素材获取失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "服务未就绪；设计预览只返回此状态或参数错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "summary": "setupAccess",
+        "tags": [
+          "access"
+        ],
+        "x-idempotency": false,
+        "x-implementation-stage": "S08.6",
+        "x-implementation-status": "implemented",
+        "x-permission-rule": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "x-required-actions": []
       }
     },
     "/api/v1/analysis-runs": {
@@ -30864,6 +31948,1037 @@
         "x-permission-rule": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
         "x-required-actions": [
           "content.write"
+        ]
+      }
+    },
+    "/api/v1/users": {
+      "get": {
+        "description": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "operationId": "listUsers",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_UserList_"
+                }
+              }
+            },
+            "description": "Successful Response",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "未登录或登录失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "动作或CSRF被拒绝",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "不存在或对象不可访问（同一响应）",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "版本、幂等、审核、预算或来源冲突",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "文件或请求体过大",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求不符合契约；不回显输入",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求限流",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "安全内部错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "外链素材获取失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "服务未就绪；设计预览只返回此状态或参数错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "summary": "listUsers",
+        "tags": [
+          "users"
+        ],
+        "x-idempotency": false,
+        "x-implementation-stage": "S08.6",
+        "x-implementation-status": "implemented",
+        "x-permission-rule": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "x-required-actions": [
+          "member.manage"
+        ]
+      },
+      "post": {
+        "description": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "maxLength": 256,
+              "minLength": 16,
+              "title": "X-Csrf-Token",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_UserView_"
+                }
+              }
+            },
+            "description": "Successful Response",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "未登录或登录失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "动作或CSRF被拒绝",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "不存在或对象不可访问（同一响应）",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "版本、幂等、审核、预算或来源冲突",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "文件或请求体过大",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求不符合契约；不回显输入",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求限流",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "安全内部错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "外链素材获取失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "服务未就绪；设计预览只返回此状态或参数错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "summary": "createUser",
+        "tags": [
+          "users"
+        ],
+        "x-idempotency": true,
+        "x-implementation-stage": "S08.6",
+        "x-implementation-status": "implemented",
+        "x-permission-rule": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "x-required-actions": [
+          "member.manage"
+        ]
+      }
+    },
+    "/api/v1/users/{member_id}": {
+      "patch": {
+        "description": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "member_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Member Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "maxLength": 256,
+              "minLength": 16,
+              "title": "X-Csrf-Token",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_UserView_"
+                }
+              }
+            },
+            "description": "Successful Response",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "未登录或登录失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "动作或CSRF被拒绝",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "不存在或对象不可访问（同一响应）",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "版本、幂等、审核、预算或来源冲突",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "文件或请求体过大",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求不符合契约；不回显输入",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求限流",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "安全内部错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "外链素材获取失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "服务未就绪；设计预览只返回此状态或参数错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "summary": "updateUser",
+        "tags": [
+          "users"
+        ],
+        "x-idempotency": true,
+        "x-implementation-stage": "S08.6",
+        "x-implementation-status": "implemented",
+        "x-permission-rule": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "x-required-actions": [
+          "member.manage"
+        ]
+      }
+    },
+    "/api/v1/users/{member_id}/space": {
+      "get": {
+        "description": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "operationId": "getUserSpace",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "member_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Member Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "business_code",
+            "required": true,
+            "schema": {
+              "enum": [
+                "motion_comic",
+                "story_short"
+              ],
+              "title": "Business Code",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_PersonalSpaceView_"
+                }
+              }
+            },
+            "description": "Successful Response",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "未登录或登录失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "动作或CSRF被拒绝",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "不存在或对象不可访问（同一响应）",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "版本、幂等、审核、预算或来源冲突",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "文件或请求体过大",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求不符合契约；不回显输入",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求限流",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "安全内部错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "外链素材获取失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "服务未就绪；设计预览只返回此状态或参数错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "summary": "getUserSpace",
+        "tags": [
+          "users"
+        ],
+        "x-idempotency": false,
+        "x-implementation-stage": "User spaces",
+        "x-implementation-status": "implemented",
+        "x-permission-rule": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "x-required-actions": [
+          "member.manage"
         ]
       }
     },

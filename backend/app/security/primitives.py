@@ -14,8 +14,8 @@ def _derive(password, salt):
 
 
 def hash_password(password):
-    if not 15 <= len(password) <= 1024:
-        raise ValueError("Password must contain 15 to 1024 characters.")
+    if not 8 <= len(password) <= 1024:
+        raise ValueError("Password must contain 8 to 1024 characters.")
     salt = secrets.token_bytes(16)
     return "scrypt17$" + salt.hex() + "$" + _derive(password, salt).hex()
 

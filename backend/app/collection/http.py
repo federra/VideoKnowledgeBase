@@ -69,12 +69,10 @@ def dispatch(
             case "startCollection":
                 data = submit(c, p, body, key, registry()[("collect.redfox", VERSION)])
             case "listTasks":
-                data = page(
+                data = list_tasks(
                     c,
                     p,
-                    list_tasks(c, p, filters.business_code),
-                    kind="tasks",
-                    business=filters.business_code,
+                    filters.business_code,
                     limit=filters.limit,
                     cursor=filters.cursor,
                     q=filters.q,
