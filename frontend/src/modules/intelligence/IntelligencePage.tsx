@@ -1,7 +1,7 @@
 import {CreatorConfigButton} from './CreatorConfig';
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import type { ReactNode } from 'react';
+import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import type { ConsoleCreate, FeedItem, Session } from '../../api/client';
 import { feedback, useApi, useApiQuery } from '../../api/provider';
 import { Icon } from '../../components/Icon';
@@ -60,13 +60,15 @@ export function IntelligencePage({business,date,onSession}:{business:string;date
  useEffect(()=>api.onBoundary(()=>{setReady(false);setError(api.accessError);onSession?.(undefined);}),[api,onSession]);
  return <><h1 className="sr-only">情报流</h1>{ready?<FeedBody business={business} date={date}/>:<div className="empty" role={error?'alert':'status'}><h2>{error?feedback(error).message:'正在连接本地工作区…'}</h2>{Boolean(error)&&<button className="btn" onClick={()=>setAttempt(x=>x+1)}>重试</button>}</div>}</>;
 }
-type OverviewState={scope:string;videos:string|null;creators:string|null};
+type MetricStatus='loading'|'ready'|'error';
+type OverviewState={scope:string;videos:string|null;creators:string|null;status:MetricStatus};
+function metricText(value:string|null|undefined,status:MetricStatus){return value!=null?compact(value):status==='loading'?'加载中':status==='error'?'加载失败':'未获取';}
 type FeedType='board'|'creator'|'novel';
 const feedLabels={board:'视频',creator:'博主',novel:'小说'};
-function FeedOverview({business,videos=null,creators=null,novels=null,selected,onSelect}:{business:string;videos?:string|null;creators?:string|null;novels?:string|null;selected:FeedType;onSelect:(type:FeedType)=>void}){
+function FeedOverview({business,videos=null,creators=null,novels=null,videoStatus='loading',novelStatus='loading',selected,onSelect}:{business:string;videos?:string|null;creators?:string|null;novels?:string|null;videoStatus?:MetricStatus;novelStatus?:MetricStatus;selected:FeedType;onSelect:(type:FeedType)=>void}){
  const metricsId=useId();
  const values={board:videos,creator:creators,novel:novels};
- return <div className="metric-grid feed-overview" role="group" aria-label={`${business}监测概览`}>{(['board','creator','novel'] as const).map(type=><button type="button" className={`metric-card feed-metric-switch${selected===type?' active':''}`} key={type} aria-label={feedLabels[type]} aria-describedby={`${metricsId}-${type}-count`} aria-pressed={selected===type} onClick={()=>onSelect(type)}><span>{feedLabels[type]}</span><strong id={`${metricsId}-${type}-count`}>{compact(values[type])}</strong></button>)}</div>;
+ return <div className="metric-grid feed-overview" role="group" aria-label={`${business}监测概览`}>{(['board','creator','novel'] as const).map(type=><button type="button" className={`metric-card feed-metric-switch${selected===type?' active':''}`} key={type} aria-label={feedLabels[type]} aria-describedby={`${metricsId}-${type}-count`} aria-pressed={selected===type} onClick={()=>onSelect(type)}><span>{feedLabels[type]}</span><strong id={`${metricsId}-${type}-count`}>{metricText(values[type],type==='novel'?novelStatus:videoStatus)}</strong></button>)}</div>;
 }
 function FeedBody({business,date}:{business:string;date:string}){
  const [lane,setLane]=useState<'board'|'creator'>('board');const [showNovel,setShowNovel]=useState(false);const [insight,setInsight]=useState(true);const [overview,setOverview]=useState<OverviewState|null>(null);
@@ -76,13 +78,13 @@ function FeedBody({business,date}:{business:string;date:string}){
  const selectType=(type:FeedType)=>{setShowNovel(type==='novel');if(type!=='novel')setLane(type);};
  // The same scoped counters and selection drive both the header and details.
  return <div className="feed-browser" data-feed-type={selected}>
- <FeedOverview business={business} videos={current?.videos} creators={current?.creators} novels={novels.data?.novel_count} selected={selected} onSelect={selectType}/>
+ <FeedOverview business={business} videos={current?.videos} creators={current?.creators} novels={novels.data?.novel_count} videoStatus={current?.status??'loading'} novelStatus={novels.isFetching?'loading':novels.error?'error':novels.data?'ready':'loading'} selected={selected} onSelect={selectType}/>
  <section className="feed-details-panel" aria-label={`${feedLabels[selected]}榜单明细`}>
  <FeedContents active={!showNovel} onOverview={setOverview} key={business} business={business} date={date} lane={lane} insight={insight} setInsight={setInsight}/>
  {showNovel&&<NovelFeed key={business+':'+date} business={business} code={codes[business]} date={date}/>}
  </section></div>;
 }
-function FeedContents({active,business,date,lane,insight,setInsight,onOverview}:{active:boolean;business:string;date:string;lane:'board'|'creator';insight:boolean;setInsight:(v:boolean)=>void;onOverview:(value:OverviewState)=>void}){
+function FeedContents({active,business,date,lane,insight,setInsight,onOverview}:{active:boolean;business:string;date:string;lane:'board'|'creator';insight:boolean;setInsight:(v:boolean)=>void;onOverview:Dispatch<SetStateAction<OverviewState|null>>}){
  const [hongguoBoard,setHongguoBoard]=useState(''),[hongguoGenre,setHongguoGenre]=useState(''),[hongguoSubgenre,setHongguoSubgenre]=useState('');
  const api=useApi();const [q,setQ]=useState(''),[source,setSource]=useState(business==='故事短片'?'microfilm':'hongguo'),[accounts,setAccounts]=useState<string[]>([]),[menu,setMenu]=useState(false),[notice,setNotice]=useState('');
  const [selectedFeedback,setSelectedFeedback]=useState<FeedItem|null>(null);
@@ -91,7 +93,11 @@ function FeedContents({active,business,date,lane,insight,setInsight,onOverview}:
  if(pageDate!==date){setPageDate(date);setHongguoGenre('');setHongguoSubgenre('');setSelectedFeedback(null);setPages({board:1,creator:1});setMenu(false);}
  const query=useApiQuery(['intelligence',codes[business],date,lane,pages[lane],q,source,accounts.join(','),hongguoBoard,hongguoGenre,hongguoSubgenre],signal=>api.intelligenceFeed(codes[business],date,{lane,page:pages[lane],q,source:lane==='board'&&!['hongguo','tikhub','microfilm'].includes(source)?source:undefined,videoCatalog:lane==='board'&&['hongguo','tikhub'].includes(source)?source as 'hongguo'|'tikhub':undefined,videoBoard:lane==='board'&&source==='hongguo'?hongguoBoard:undefined,videoGenre:lane==='board'&&source==='hongguo'?hongguoGenre:undefined,videoSubgenre:lane==='board'&&source==='hongguo'?hongguoSubgenre:undefined,accounts:lane==='creator'?accounts:undefined},signal),data=>data.items.length===0);
  const data=query.data;
- useEffect(()=>{if(data)onOverview({scope:business+':'+date,videos:data.metrics.videos,creators:data.metrics.creators});},[data,business,date,onOverview]);
+ useEffect(()=>{const scope=business+':'+date;onOverview(previous=>({scope,
+  videos:data?data.metrics.videos:previous?.scope===scope?previous.videos:null,
+  creators:data?data.metrics.creators:previous?.scope===scope?previous.creators:null,
+  status:query.isFetching?'loading':query.error?'error':data?'ready':'loading'
+ }));},[data,business,date,onOverview,query.isFetching,query.error]);
  const total=BigInt(data?.total??'0');const maxPages=total>0n?(total+9n)/10n:1n;
  useEffect(()=>{
   if(!data)return;

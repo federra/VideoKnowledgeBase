@@ -41,7 +41,7 @@ def space(c, p, member_id, business_code):
     )
     sparks = (
         c.exec_driver_sql(
-            "SELECT id FROM topic_sparks WHERE org_id=%s AND owner_member_id=%s ORDER BY updated_at DESC,id DESC",
+            "SELECT id FROM topic_sparks WHERE org_id=%s AND owner_member_id=%s AND deleted_at IS NULL ORDER BY updated_at DESC,id DESC",
             (p.org_id, member_id),
         )
         .scalars()

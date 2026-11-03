@@ -1432,9 +1432,10 @@ _topic_table(
     checks=("origin IN ('manual','batch','brainstorm')",),
     unique=('org_id topic_id version_no', 'org_id topic_id id'),
 )
-_topic_table('topic_sparks', 'owner_member_id:u current_revision_id:u',
-             mutable=('current_revision_id',))
-_topic_table('topic_spark_revisions', 'spark_id:u version_no:i text:t title:t created_by:u',
+_topic_table('topic_sparks', 'owner_member_id:u current_revision_id:u deleted_at:z?',
+             mutable=('current_revision_id', 'deleted_at'))
+_topic_table('topic_spark_revisions',  "spark_id:u version_no:i text:t title:t created_by:u color:t='violet'",
+             checks=("color IN ('violet','teal','amber')",),
              unique=('org_id spark_id version_no', 'org_id spark_id id'))
 _topic_table('topic_saved_generations', 'task_id:u topic_id:u created_by:u',
              unique=('org_id task_id',))

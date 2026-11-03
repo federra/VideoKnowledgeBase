@@ -56,6 +56,7 @@ def test_planned_operations_are_separate_from_runtime():
         "/api/v1/topics/{topic_id}/evaluate",
         "/api/v1/topics/evaluations/{evaluation_id}",
         "/api/v1/sparks",
+        "/api/v1/sparks/remove",
         "/api/v1/files",
         "/api/v1/files/from-url",
         "/api/v1/files/{file_id}/content",

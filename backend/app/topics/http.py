@@ -116,6 +116,16 @@ OPERATIONS = [
         request=t.SparkWrite,
         implementation="implemented",
     ),
+    Operation(
+        "POST",
+        "/sparks/remove",
+        "removeSpark",
+        t.SparkRemoved,
+        ("content.write",),
+        "S08.2",
+        request=t.SparkRemove,
+        implementation="implemented",
+    ),
 ]
 
 
@@ -154,6 +164,8 @@ def dispatch(
             data = service.sparks(c, p)
         elif name == "saveSpark":
             data = service.save_spark(c, p, key, body)
+        elif name == "removeSpark":
+            data = service.remove_spark(c, p, key, body)
         elif name == "generateTopics":
             data = generation.start(c, p, key, body)
         elif name == "getTopicGeneration":

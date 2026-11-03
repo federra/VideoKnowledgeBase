@@ -1256,6 +1256,26 @@ export interface paths {
         readonly patch?: never;
         readonly trace?: never;
     };
+    readonly "/api/v1/sparks/remove": {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header?: never;
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly get?: never;
+        readonly put?: never;
+        /**
+         * removeSpark
+         * @description 本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。
+         */
+        readonly post: operations["removeSpark"];
+        readonly delete?: never;
+        readonly options?: never;
+        readonly head?: never;
+        readonly patch?: never;
+        readonly trace?: never;
+    };
     readonly "/api/v1/tasks": {
         readonly parameters: {
             readonly query?: never;
@@ -2893,6 +2913,15 @@ export interface components {
         /** Envelope[SparkList] */
         readonly Envelope_SparkList_: {
             readonly data: components["schemas"]["SparkList"];
+            /**
+             * Request Id
+             * Format: uuid
+             */
+            readonly request_id: string;
+        };
+        /** Envelope[SparkRemoved] */
+        readonly Envelope_SparkRemoved_: {
+            readonly data: components["schemas"]["SparkRemoved"];
             /**
              * Request Id
              * Format: uuid
@@ -5098,8 +5127,31 @@ export interface components {
             /** Items */
             readonly items: readonly components["schemas"]["SparkView"][];
         };
+        /** SparkRemove */
+        readonly SparkRemove: {
+            /** Expected Version */
+            readonly expected_version: number;
+            /**
+             * Id
+             * Format: uuid
+             */
+            readonly id: string;
+        };
+        /** SparkRemoved */
+        readonly SparkRemoved: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            readonly id: string;
+        };
         /** SparkView */
         readonly SparkView: {
+            /**
+             * Color
+             * @enum {string}
+             */
+            readonly color: "violet" | "teal" | "amber";
             /**
              * Created At
              * Format: date-time
@@ -5124,6 +5176,8 @@ export interface components {
         };
         /** SparkWrite */
         readonly SparkWrite: {
+            /** Color */
+            readonly color?: ("violet" | "teal" | "amber") | null;
             /** Expected Version */
             readonly expected_version?: number | null;
             /** Id */
@@ -14965,6 +15019,145 @@ export interface operations {
                 };
                 content: {
                     readonly "application/json": components["schemas"]["Envelope_SparkView_"];
+                };
+            };
+            /** @description 未登录或登录失败 */
+            readonly 401: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 动作或CSRF被拒绝 */
+            readonly 403: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 不存在或对象不可访问（同一响应） */
+            readonly 404: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 版本、幂等、审核、预算或来源冲突 */
+            readonly 409: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 文件或请求体过大 */
+            readonly 413: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求不符合契约；不回显输入 */
+            readonly 422: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 请求限流 */
+            readonly 429: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 安全内部错误 */
+            readonly 500: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 外链素材获取失败 */
+            readonly 502: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+            /** @description 服务未就绪；设计预览只返回此状态或参数错误 */
+            readonly 503: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["ErrorEnvelope"];
+                };
+            };
+        };
+    };
+    readonly removeSpark: {
+        readonly parameters: {
+            readonly query?: never;
+            readonly header: {
+                readonly "X-CSRF-Token": string;
+                readonly "Idempotency-Key": string;
+            };
+            readonly path?: never;
+            readonly cookie?: never;
+        };
+        readonly requestBody: {
+            readonly content: {
+                readonly "application/json": components["schemas"]["SparkRemove"];
+            };
+        };
+        readonly responses: {
+            /** @description Successful Response */
+            readonly 200: {
+                headers: {
+                    /** @description 服务端关联ID */
+                    readonly "X-Request-ID"?: string;
+                    readonly [name: string]: unknown;
+                };
+                content: {
+                    readonly "application/json": components["schemas"]["Envelope_SparkRemoved_"];
                 };
             };
             /** @description 未登录或登录失败 */

@@ -6,17 +6,35 @@ this object in a service which mutates data before its next authorization check.
 """
 
 from copy import deepcopy
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime, time, timedelta
+from decimal import Decimal
+from uuid import UUID
 
 from app.security.authorization import Authorizer
 from app.security.errors import Denied
 from app.security.sessions import active_grants, refresh
+
+IMMUTABLE_SCALARS = {
+    type(None),
+    str,
+    int,
+    float,
+    bool,
+    bytes,
+    UUID,
+    date,
+    datetime,
+    time,
+    timedelta,
+    Decimal,
+}
 
 
 class ReadAuthorizer(Authorizer):
     def __init__(self, connection, principal):
         super().__init__(connection, principal)
         self.valid_until = None
+        self._check_depth = 0
         self._reload()
 
     def _reload(self):
@@ -71,9 +89,23 @@ class ReadAuthorizer(Authorizer):
         self._fresh()
         # Include the path: a cached success must never bypass cycle/depth checks.
         key = (kind, ident, action, path)
-        if key not in self.checks:
-            self.checks[key] = super().check(kind, ident, action, path)
-        return deepcopy(self.checks[key])
+        nested = self._check_depth > 0
+        self._check_depth += 1
+        try:
+            if key not in self.checks:
+                self.checks[key] = super().check(kind, ident, action, path)
+            result = self.checks[key]
+        finally:
+            self._check_depth -= 1
+        # Authorizer only reads recursive results; isolate every external caller,
+        # including callers supplying their own provenance path.
+        if nested:
+            return result
+        # Database identity rows contain only immutable scalar values. Their
+        # outer mapping must still be copied; JSON/unknown values need deep copy.
+        if all(type(value) in IMMUTABLE_SCALARS for value in result.values()):
+            return dict(result)
+        return deepcopy(result)
 
     def knowledge_businesses(self, rid):
         self._fresh()
@@ -176,3 +208,54 @@ class ReadAuthorizer(Authorizer):
             return links
 
         return self.memo("feedback-dependencies", load).get(("file" if file else "raw", ident), [])
+
+    def personal_dependencies(self, kind, ident):
+        if kind not in ("tasks", "raw_assets", "file_objects"):
+            return ()
+
+        def load():
+            links = {}
+
+            def add(kind, ident, owners):
+                if ident:
+                    links.setdefault((kind, ident), set()).update(owners)
+
+            tasks = list(
+                self.c.exec_driver_sql(
+                    "SELECT id,requested_by,raw_asset_id,file_id FROM tasks WHERE org_id=%s "
+                    "AND kind IN ('topic.generate','topic.score')",
+                    (self.p.org_id,),
+                ).mappings()
+            )
+            owners = {t["id"]: t["requested_by"] for t in tasks}
+            for task in tasks:
+                add("tasks", task["id"], [task["requested_by"]])
+                add("raw_assets", task["raw_asset_id"], [task["requested_by"]])
+                add("file_objects", task["file_id"], [task["requested_by"]])
+            if not tasks:
+                return links
+            for tid, raw in self.c.exec_driver_sql(
+                "SELECT task_id,raw_asset_id FROM task_outputs WHERE org_id=%s "
+                "AND task_id=ANY(%s) AND raw_asset_id IS NOT NULL",
+                (self.p.org_id, list(owners)),
+            ):
+                add("raw_assets", raw, [owners[tid]])
+            raw_ids = [ident for (kind, ident) in links if kind == "raw_assets"]
+            for raw, tid, fid in self.c.exec_driver_sql(
+                "SELECT id,processing_task_id,file_id FROM raw_assets WHERE org_id=%s "
+                "AND (processing_task_id=ANY(%s) OR id=ANY(%s))",
+                (self.p.org_id, list(owners), raw_ids),
+            ):
+                if tid in owners:
+                    add("raw_assets", raw, [owners[tid]])
+                add("file_objects", fid, links.get(("raw_assets", raw), ()))
+            for tid, incoming, outgoing in self.c.exec_driver_sql(
+                "SELECT task_id,input_manifest_file_id,output_file_id FROM ai_executions "
+                "WHERE org_id=%s AND task_id=ANY(%s)",
+                (self.p.org_id, list(owners)),
+            ):
+                for fid in (incoming, outgoing):
+                    add("file_objects", fid, [owners[tid]])
+            return links
+
+        return tuple(self.memo("personal-dependencies", load).get((kind, ident), ()))

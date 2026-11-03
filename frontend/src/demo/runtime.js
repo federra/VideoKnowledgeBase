@@ -1,4 +1,4 @@
-// Generated from approved Demo. SHA-256: 31b46dbeb54b3d64866663590aad5a5add80b3a65a54a8b176d56323175dc3a9
+// Generated from approved Demo. SHA-256: 84c80258a2d14d342d3e0f5ef10a3b40afb9e65162bae01165871ee135f655c9
 // Transitional DOM renderer: no real API, authentication or server-side writes.
 // Run pnpm demo:sync after explicitly approving a changed Demo baseline.
 export function createDemoRuntime({onChange, renderWorkspace}) {
@@ -1009,7 +1009,7 @@ function render(){
  });
  hydrateWorkThumbnails();
 }
-function stateView(){if(state.mode==='加载中')return `<div class="card state-panel" role="status"><span class="muted">正在获取内容…</span><div class="skeleton"></div><div class="skeleton"></div>${btn('结束加载预览','normal')}</div>`;const messages={'空数据':['还没有内容','添加第一份资料，开始积累。'],'失败':['暂时无法获取内容','连接已中断；可以重试，不会显示伪造的成功结果。'],'无权限':['当前账号没有访问权限','请联系管理员申请当前对象的访问范围。'],'证据不足':['材料不足，暂不能判断','缺少正文或必要参考资料，请先补充。'],'评价过期':['内容版本已变化','旧评价仍保留，但不能作为新版内容的评价。']};let m=messages[state.mode];return `<div class="empty">${icon('info')}<h2>${m[0]}</h2><p>${m[1]}</p>${btn(state.mode==='失败'?'重试（恢复演示）':'返回正常页面','normal')}</div>`}
+function stateView(){const overview=state.module===0&&state.tab===0&&['加载中','失败'].includes(state.mode)?'':'';if(state.mode==='加载中')return `${overview}<div class="card state-panel" role="status"><span class="muted">正在获取内容…</span><div class="skeleton"></div><div class="skeleton"></div>${btn('结束加载预览','normal')}</div>`;const messages={'空数据':['还没有内容','添加第一份资料，开始积累。'],'失败':['暂时无法获取内容','连接已中断；可以重试，不会显示伪造的成功结果。'],'无权限':['当前账号没有访问权限','请联系管理员申请当前对象的访问范围。'],'证据不足':['材料不足，暂不能判断','缺少正文或必要参考资料，请先补充。'],'评价过期':['内容版本已变化','旧评价仍保留，但不能作为新版内容的评价。']};let m=messages[state.mode];return `${overview}<div class="empty">${icon('info')}<h2>${m[0]}</h2><p>${m[1]}</p>${btn(state.mode==='失败'?'重试（恢复演示）':'返回正常页面','normal')}</div>`}
 function navigate(m,t=0){knowledgeSelection={scope:'',ids:[]};state.workId='';state.workTaskId='';state.workUnit='';state.workReportId='';state.module=m;state.tab=t;state.query='';state.workGenre='全部题材';state.knowledgeCategory='题材库';resetKnowledgeGenre();state.status='全部状态';state.stage='全部环节';state.mode='正常';location.hash=`${m}/${t}`;render()}
 function openDialog(title,body,foot='',drawer=false){intakeWorkContext=null;sparkCapture=null;brainstormContext=null;topicEditContext=null;lastFocus=document.activeElement;draftDirty=false;dialog.className=drawer?'drawer':'';dialog.innerHTML=`<div class="dialog-head"><h2 id="dialogTitle">${title}</h2><button class="iconbtn" data-action="close" aria-label="关闭">${icon('close')}</button></div><div class="dialog-body">${body}</div>${foot?`<div class="dialog-foot">${foot}</div>`:''}`;if(!dialog.open)dialog.showModal()}
 function closeDialog(){if(draftDirty&&!confirm('有尚未保存的修改，确定放弃吗？'))return;const wasSpark=!!sparkCapture;draftDirty=false;sparkCapture=null;brainstormContext=null;intakeWorkContext=null;topicEditContext=null;dialog.close();if(wasSpark)render();if(lastFocus?.isConnected)lastFocus.focus()}
@@ -1281,13 +1281,17 @@ function publicationDetail(id){const x=db.publications.find(p=>p.id===id);openDi
 let sparkCapture=null,brainstormContext=null;
 function persistIdeas(){try{localStorage.setItem(storageKey,JSON.stringify(db));draftDirty=false;return true}catch{draftDirty=true;toast('浏览器存储不可用，请先复制文本；本次修改仅保留在当前页面');return false}}
 function sparkCapsules(actionName,selected=[]){return db.sparks.map(note=>`<button class="idea-capsule ${selected.includes(note.id)?'selected':''}" draggable="true" data-spark-drag="${esc(note.id)}" data-action="${actionName}" data-id="${esc(note.id)}" title="${esc(note.text)}"><span>${esc(note.title)}</span><small>${esc(topicTime(note.updatedAt||note.createdAt))}</small></button>`).join('')||'<p class="small muted">还没有闪念，随手记下第一条。</p>'}
-function refreshSparkHistory(){document.getElementById('sparkHistory').innerHTML=sparkCapsules('spark-edit',[sparkCapture?.id])}
+const demoSparkColors={violet:'紫色',teal:'青绿',amber:'琥珀'};
+function sparkHistoryCards(){
+ return db.sparks.map(note=>`<div class="spark-history-item" data-color="${Object.hasOwn(demoSparkColors,note.color)?note.color:'violet'}"><button class="idea-capsule spark-compact ${note.id===sparkCapture?.id?'selected':''}" data-action="spark-edit" data-id="${esc(note.id)}" title="${esc(topicTime(note.updatedAt||note.createdAt))}"><span class="spark-text"><span>${esc(note.text.replace(/\s+/g,' '))}</span></span></button><button class="spark-remove" data-action="spark-remove" data-id="${esc(note.id)}" aria-label="删除闪念：${esc(note.title)}">×</button></div>`).join('')||'<p class="small muted">还没有闪念，随手记下第一条。</p>';
+}
+function refreshSparkHistory(){document.getElementById('sparkHistory').innerHTML=sparkHistoryCards()}
 function saveSparkText(text){
  if(!sparkCapture)return;
  let note=db.sparks.find(t=>t.id===sparkCapture.id);
  if(!note&&!text.trim()){draftDirty=false;return}
  if(note&&text===sparkCapture.lastText&&!draftDirty)return;
- if(!note){note={id:'S-'+Date.now()+'-'+db.sparks.length,text:'',version:1,createdAt:new Date().toISOString(),versions:[]};db.sparks.unshift(note);sparkCapture.id=note.id}
+ if(!note){note={id:'S-'+Date.now()+'-'+db.sparks.length,text:'',color:document.getElementById('sparkColor').value,version:1,createdAt:new Date().toISOString(),versions:[]};db.sparks.unshift(note);sparkCapture.id=note.id}
  else if(!sparkCapture.revised){(note.versions??=[]).push({version:note.version,text:note.text,title:note.title});note.version++;sparkCapture.revised=true}
  note.text=text;note.title=text.split(/\r?\n/).find(line=>line.trim())?.trim().slice(0,90)||'未命名灵感';note.updatedAt=new Date().toISOString();sparkCapture.lastText=text;
  if(persistIdeas()&&!sparkCapture.saved){toast('闪念已自动保存');sparkCapture.saved=true}
@@ -1296,9 +1300,26 @@ function saveSparkText(text){
 function sparkDialog(id=''){
  if(draftDirty&&!confirm('当前修改尚未保存，确定切换吗？'))return;
  const note=db.sparks.find(t=>t.id===id),text=note?.text||'';
- openDialog('闪念胶囊',`<div class="spark-layout"><section><div class="idea-heading"><h3>随手记录</h3>${btn('新记录','spark-new')}</div><textarea class="spark-capture" id="sparkBody" aria-label="记录灵感，输入后自动保存" placeholder="任何想法，都可以先放在这里…">${esc(text)}</textarea><p class="small muted">输入后自动保存</p></section><aside><h3>之前的闪念</h3><div class="idea-capsules" id="sparkHistory">${sparkCapsules('spark-edit',[id])}</div></aside></div>`);
- dialog.className='spark-dialog';sparkCapture={id:note?.id||'',lastText:text,revised:!note,saved:false};document.getElementById('sparkBody').focus();
+ openDialog('闪念胶囊',`<div class="spark-layout"><section><div class="idea-heading"><h3>随手记录</h3>${btn('新记录','spark-new')}</div><textarea class="spark-capture" id="sparkBody" aria-label="记录灵感，输入后自动保存" placeholder="任何想法，都可以先放在这里…">${esc(text)}</textarea><label class="spark-color-control">胶囊颜色 <select id="sparkColor">${Object.entries(demoSparkColors).map(([key,label])=>`<option value="${key}" ${key===(note?.color||'violet')?'selected':''}>${label}</option>`).join('')}</select></label><p class="small muted">输入后自动保存</p></section><aside><h3>之前的闪念</h3><div class="idea-capsules" id="sparkHistory">${''}</div></aside></div>`);
+ dialog.className='spark-dialog';sparkCapture={id:note?.id||'',lastText:text,revised:!note,saved:false};refreshSparkHistory();document.getElementById('sparkBody').focus();
 }
+listen(dialog,'change',e=>{
+ if(e.target.id!=='sparkColor'||!sparkCapture)return;
+ const note=db.sparks.find(x=>x.id===sparkCapture.id);
+ if(note){note.color=e.target.value;persistIdeas();refreshSparkHistory();}
+});
+listen(dialog,'pointerover',e=>{
+ const item=e.target.closest?.('.spark-history-item');
+ if(!item||item.contains(e.relatedTarget))return;
+ const text=item.querySelector('.spark-text'),distance=text.scrollWidth-text.clientWidth;
+ if(distance>0&&!matchMedia('(prefers-reduced-motion: reduce)').matches)text.firstElementChild.animate(
+  [{transform:'translateX(0)'},{transform:`translateX(-${distance}px)`}],
+  {duration:Math.max(1000,distance*22),delay:350,fill:'forwards'});
+});
+listen(dialog,'pointerout',e=>{
+ const item=e.target.closest?.('.spark-history-item');
+ if(item&&!item.contains(e.relatedTarget))item.querySelector('.spark-text span').getAnimations().forEach(a=>a.cancel());
+});
 function brainstormSignature(context){return JSON.stringify([context.selectedIds.map(id=>{const x=db.sparks.find(n=>n.id===id);return [id,x?.version,x?.text]}),context.instructions])}
 function saveBrainstorm(){db.brainstorms[state.biz[0]]=structuredClone(brainstormContext);return persistIdeas()}
 function brainstormDialog(){
@@ -1346,7 +1367,7 @@ case 'unit-evidence':focusUnitEvidence();break;
 case 'submit-unit-knowledge':submitWorkKnowledge('unit',id);break;
 case 'submit-work-knowledge':submitWorkKnowledge('work',id);break;
 case 'open-work-knowledge':{const work=selectedWork();if(work&&relatedKnowledge(work).some(item=>item.id===id))knowledgeDetail(id);break}
-case 'retry-work-task':retryWorkTask(id);break;case 'review-work-select':chooseIntakeWork(id);break;case 'clear':state.topicPage=1;state.query='';state.workGenre='全部题材';state.knowledgeCategory='题材库';resetKnowledgeGenre();state.hongguoBoard='';state.hongguoGenre='';state.hongguoSubgenre='';state.status='全部状态';state.stage='全部环节';render();break;case 'close':closeDialog();break;case 'guide':guide();break;case 'theme':theme=theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;try{localStorage.setItem('cip-demo-theme',theme)}catch{}render();toast(`已切换为${theme==='dark'?'深色':'浅色'}主题`);break;case 'brainstorm':brainstormDialog();break;case 'brainstorm-add':selectBrainstorm(id);break;case 'brainstorm-remove':selectBrainstorm(id,true);break;case 'brainstorm-generate':generateBrainstorm();break;case 'brainstorm-save':saveBrainstormTopic();break;case 'brainstorm-view':{const topicId=brainstormContext.savedTopicId;closeDialog();topicDetail(topicId);break}case 'spark':sparkDialog();break;case 'spark-edit':sparkDialog(id);break;case 'spark-new':sparkDialog();break;case 'spark-topics':draftDirty=false;closeDialog();navigate(0,1);break;case 'preview-state':state.mode=id;closeDialog();render();break;case 'normal':state.mode='正常';render();break;case 'reset':if(confirm('重置后将清除本原型的本地修改，恢复演示样例。确定重置吗？')){db=structuredClone(seed);db.rankBoards=structuredClone(defaultRankBoards);db.creators=structuredClone(defaultCreators);prepareIntel();initializeFeedArchive();state.biz=['故事短片'];try{localStorage.setItem(workspaceStorageKey,state.biz[0])}catch{}state.topicPage=1;state.hongguoBoard='';state.hongguoGenre='';state.hongguoSubgenre='';save();closeDialog();navigate(0);toast('已恢复初始演示数据')}break;
+case 'retry-work-task':retryWorkTask(id);break;case 'review-work-select':chooseIntakeWork(id);break;case 'clear':state.topicPage=1;state.query='';state.workGenre='全部题材';state.knowledgeCategory='题材库';resetKnowledgeGenre();state.hongguoBoard='';state.hongguoGenre='';state.hongguoSubgenre='';state.status='全部状态';state.stage='全部环节';render();break;case 'close':closeDialog();break;case 'guide':guide();break;case 'theme':theme=theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;try{localStorage.setItem('cip-demo-theme',theme)}catch{}render();toast(`已切换为${theme==='dark'?'深色':'浅色'}主题`);break;case 'brainstorm':brainstormDialog();break;case 'brainstorm-add':selectBrainstorm(id);break;case 'brainstorm-remove':selectBrainstorm(id,true);break;case 'brainstorm-generate':generateBrainstorm();break;case 'brainstorm-save':saveBrainstormTopic();break;case 'brainstorm-view':{const topicId=brainstormContext.savedTopicId;closeDialog();topicDetail(topicId);break}case 'spark':sparkDialog();break;case 'spark-edit':sparkDialog(id);break;case 'spark-new':sparkDialog();break;case 'spark-remove':if(confirm('确认删除这条闪念？')){db.sparks=db.sparks.filter(note=>note.id!==id);persistIdeas();if(sparkCapture?.id===id)sparkDialog();else refreshSparkHistory();publish();}break;case 'spark-topics':draftDirty=false;closeDialog();navigate(0,1);break;case 'preview-state':state.mode=id;closeDialog();render();break;case 'normal':state.mode='正常';render();break;case 'reset':if(confirm('重置后将清除本原型的本地修改，恢复演示样例。确定重置吗？')){db=structuredClone(seed);db.rankBoards=structuredClone(defaultRankBoards);db.creators=structuredClone(defaultCreators);prepareIntel();initializeFeedArchive();state.biz=['故事短片'];try{localStorage.setItem(workspaceStorageKey,state.biz[0])}catch{}state.topicPage=1;state.hongguoBoard='';state.hongguoGenre='';state.hongguoSubgenre='';save();closeDialog();navigate(0);toast('已恢复初始演示数据')}break;
 case 'intel-detail':{const x=db.intel.find(i=>i.id===id);openDialog('情报详情',detailIntro(x)+`<div class="detail-block"><h3>情报摘要</h3><p>${x.summary}</p></div>`+sourceEvidence(id)+notice(x.failed?'原文获取不完整，请补充资料；不能仅凭标题做完整分析。':'适用业务由AI初标（样例），正式交互可人工修正；研究意图不等于质量结论。'),btn('转为选题','derive-topic',id)+btn('查看 / 发起研判','research-send',id,true),true);break}
 case 'derive-topic':topicForm('',id);break;case 'new-topic':topicForm();break;case 'edit-topic':topicForm(id);break;case 'topic-detail':topicDetail(id);break;
 case 'topic-page':if(state.module===0&&state.tab===1){state.topicPage=Math.max(1,state.topicPage+Number(id));render()}break;case 'topic-more':{if(state.module!==0||state.tab!==1||state.biz[0]!==id||!topicIdeas[id])break;state.topicPage=1;const round=(db.topicBatchCounts[id]||1)+1;db.topicBatchCounts[id]=round;db.topics.unshift(...topicBatch(id,round));save();render();toast(`已新增5张${id}演示选题卡；未调用AI`);break}

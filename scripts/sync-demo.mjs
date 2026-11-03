@@ -53,6 +53,8 @@ js = js.replace('URL.createObjectURL(new Blob([text]', 'createDownloadUrl(new Bl
   .replace('setTimeout(()=>URL.revokeObjectURL(url),1000)', 'setTimeout(()=>revokeDownloadUrl(url),1000)');
 // Limit all runtime listener lifetimes to its mount, including dialog listeners.
 js = js.replace(/\b(document|window|dialog)\.addEventListener\(/g, 'listen($1,');
+// Real feed metrics belong to React; the standalone prototype alone previews them.
+js = js.replace('feedOverview(null)', "''");
 js = pruneMigratedDemo(js);
 const header = `// Generated from approved Demo. SHA-256: ${hash}
 // Transitional DOM renderer: no real API, authentication or server-side writes.

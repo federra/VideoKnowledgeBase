@@ -15,18 +15,21 @@ from app.security.storage import audit, lock_org, receipt
 from app.topics.contracts import TopicFields
 
 
-def authorize(c, p, business=None, action="content.read"):
-    refresh(c, p)
+def authorize(c, p, business=None, action="content.read", *, auth=None):
+    if auth is None:
+        refresh(c, p)
     if business is not None and business not in ("motion_comic", "story_short"):
         raise Denied("VALIDATION_FAILED")
     scopes = {("org", str(p.org_id))}
     if business:
         scopes.add(("business", business))
-    if not Authorizer(c, p).allowed(action, scopes):
+    if not (auth or Authorizer(c, p)).allowed(action, scopes):
         raise Denied("ACCESS_DENIED")
 
 
-def row(c, p, kind, ident):
+def row(c, p, kind, ident, *, auth=None):
+    if auth is not None:
+        return auth.memo(("topic.row", kind, ident), lambda: row(c, p, kind, ident))
     t = metadata.tables[kind]
     x = c.execute(select(t).where(t.c.org_id == p.org_id, t.c.id == ident)).mappings().one_or_none()
     if x is None:
@@ -47,15 +50,18 @@ def can_read_personal(c, p, owner):
     return is_administrator(c, p)
 
 
-def check_sources(c, p, refs, *, allow_admin=False):
-    az = Authorizer(c, p)
+def check_sources(c, p, refs, *, allow_admin=False, az=None):
+    az = az or Authorizer(c, p)
+    from app.security.read_authorizer import ReadAuthorizer
+
+    read_auth = az if isinstance(az, ReadAuthorizer) else None
     for x in refs.get("sparks", []):
-        sp = row(c, p, "topic_sparks", UUID(x["id"]))
+        sp = row(c, p, "topic_sparks", UUID(x["id"]), auth=read_auth)
         if sp["owner_member_id"] != p.member_id and not (
             allow_admin and can_read_personal(c, p, sp["owner_member_id"])
         ):
             raise Denied("NOT_FOUND")
-        r = row(c, p, "topic_spark_revisions", UUID(x["revision_id"]))
+        r = row(c, p, "topic_spark_revisions", UUID(x["revision_id"]), auth=read_auth)
         if r["spark_id"] != sp["id"]:
             raise Denied("SOURCE_UNAVAILABLE")
     for x in refs.get("knowledge", []):
@@ -63,25 +69,37 @@ def check_sources(c, p, refs, *, allow_admin=False):
     for x in refs.get("intelligence", []):
         from app.intelligence.service import authorized
 
-        snap = row(c, p, "intelligence_snapshots", UUID(x["snapshot_id"]))
-        authorized(c, p, snap)
-        from app.intelligence.refresh_visibility import visible_snapshots
+        sid = UUID(x["snapshot_id"])
 
-        t = metadata.tables["intelligence_snapshots"]
-        if not c.execute(
-            select(t.c.id).where(t.c.org_id == p.org_id, t.c.id == snap["id"], visible_snapshots())
-        ).first():
-            raise Denied("SOURCE_UNAVAILABLE")
+        def verify_snapshot(sid=sid):
+            snap = row(c, p, "intelligence_snapshots", sid, auth=read_auth)
+            authorized(c, p, snap, auth=read_auth)
+            from app.intelligence.refresh_visibility import visible_snapshots
+
+            t = metadata.tables["intelligence_snapshots"]
+            if not c.execute(
+                select(t.c.id).where(t.c.org_id == p.org_id, t.c.id == sid, visible_snapshots())
+            ).first():
+                raise Denied("SOURCE_UNAVAILABLE")
+            return True
+
+        if read_auth is not None:
+            read_auth.memo(("topic.source.snapshot", sid), verify_snapshot)
+        else:
+            verify_snapshot()
         az.read("raw_assets", UUID(x["raw_asset_id"]))
 
 
-def topic(c, p, ident):
-    a = row(c, p, "topic_cards", ident)
-    authorize(c, p, a["business_code"])
+def topic(c, p, ident, *, auth=None):
+    from app.security.read_authorizer import ReadAuthorizer
+
+    auth = auth or ReadAuthorizer(c, p)
+    a = row(c, p, "topic_cards", ident, auth=auth)
+    authorize(c, p, a["business_code"], auth=auth)
     if not can_read_personal(c, p, a["created_by"]):
         raise Denied("NOT_FOUND")
-    r = row(c, p, "topic_revisions", a["current_revision_id"])
-    check_sources(c, p, r["source_refs"], allow_admin=True)
+    r = row(c, p, "topic_revisions", a["current_revision_id"], auth=auth)
+    check_sources(c, p, r["source_refs"], allow_admin=True, az=auth)
     if a["created_by"] != p.member_id:
         audit(c, p.org_id, p.member_id, "topic.personal.read", "topic", ident)
     history = c.exec_driver_sql(
@@ -98,7 +116,7 @@ def topic(c, p, ident):
         "source_refs": r["source_refs"],
         "created_at": a["created_at"],
         "updated_at": a["updated_at"],
-        **_quality_projection(c, p, a, r),
+        **_quality_projection(c, p, a, r, auth=auth),
         "handed_off": bool(
             c.exec_driver_sql(
                 "SELECT 1 FROM topic_handoffs WHERE org_id=%s AND topic_id=%s AND topic_revision_id=%s LIMIT 1",
@@ -112,13 +130,13 @@ def topic(c, p, ident):
     }
 
 
-def _quality_projection(c, p, card, revision):
+def _quality_projection(c, p, card, revision, *, auth=None):
     from app.topics.quality import screen
     from app.topics.scoring import projection
 
     return {
         "originality": screen(revision["fields"], revision["source_refs"]),
-        **projection(c, p, card, revision),
+        **projection(c, p, card, revision, auth=auth),
     }
 
 
@@ -130,7 +148,10 @@ def _guard_edit(fields, refs):
 
 
 def listing(c, p, business, pool, page, q=None, status="all"):
-    authorize(c, p, business)
+    from app.security.read_authorizer import ReadAuthorizer
+
+    auth = ReadAuthorizer(c, p)
+    authorize(c, p, business, auth=auth)
     ids = (
         c.exec_driver_sql(
             "SELECT id FROM topic_cards WHERE org_id=%s AND created_by=%s AND business_code=%s AND status=%s ORDER BY created_at DESC,id DESC",
@@ -142,7 +163,7 @@ def listing(c, p, business, pool, page, q=None, status="all"):
     items = []
     for ident in ids:
         try:
-            item = topic(c, p, ident)
+            item = topic(c, p, ident, auth=auth)
             text = " ".join(item["fields"].values()).casefold()
             if q and q.strip().casefold() not in text:
                 continue
@@ -361,8 +382,10 @@ def handoff(c, p, key, ident, request):
 def spark(c, p, ident, *, allow_admin=False):
     authorize(c, p)
     a = row(c, p, "topic_sparks", ident)
-    if a["owner_member_id"] != p.member_id and not (
-        allow_admin and can_read_personal(c, p, a["owner_member_id"])
+    if (
+        a["deleted_at"] is not None
+        or a["owner_member_id"] != p.member_id
+        and not (allow_admin and can_read_personal(c, p, a["owner_member_id"]))
     ):
         raise Denied("NOT_FOUND")
     r = row(c, p, "topic_spark_revisions", a["current_revision_id"])
@@ -371,6 +394,7 @@ def spark(c, p, ident, *, allow_admin=False):
         "version": r["version_no"],
         "text": r["text"],
         "title": r["title"],
+        "color": r["color"],
         "created_at": a["created_at"],
         "updated_at": a["updated_at"],
     }
@@ -379,7 +403,7 @@ def spark(c, p, ident, *, allow_admin=False):
 def sparks(c, p):
     authorize(c, p)
     ids = c.exec_driver_sql(
-        "SELECT id FROM topic_sparks WHERE org_id=%s AND owner_member_id=%s ORDER BY updated_at DESC,id DESC",
+        "SELECT id FROM topic_sparks WHERE org_id=%s AND owner_member_id=%s AND deleted_at IS NULL ORDER BY updated_at DESC,id DESC",
         (p.org_id, p.member_id),
     ).scalars()
     return {"items": [spark(c, p, x) for x in ids]}
@@ -396,7 +420,8 @@ def save_spark(c, p, key, request):
             a = row(c, p, "topic_sparks", request.id)
             if old["version"] != request.expected_version:
                 raise Denied("VERSION_CONFLICT")
-            if old["text"] != text:
+            color = request.color or old["color"]
+            if old["text"] != text or old["color"] != color:
                 rid = insert(
                     c,
                     "topic_spark_revisions",
@@ -405,6 +430,7 @@ def save_spark(c, p, key, request):
                     version_no=old["version"] + 1,
                     text=text,
                     title=title,
+                    color=color,
                     created_by=p.member_id,
                 )
                 compare_and_swap(
@@ -434,10 +460,41 @@ def save_spark(c, p, key, request):
             version_no=1,
             text=text,
             title=title,
+            color=request.color or "violet",
             created_by=p.member_id,
         )
         audit(c, p.org_id, p.member_id, "spark.created", "spark", sid)
         return {"id": str(sid)}
 
-    result = receipt(c, p, "saveSpark", key, request.model_dump(mode="json"), perform)
+    result = receipt(
+        c,
+        p,
+        "saveSpark",
+        key,
+        request.model_dump(mode="json", exclude={"color"} if request.color is None else None),
+        perform,
+    )
     return spark(c, p, UUID(result["id"]))
+
+
+def remove_spark(c, p, key, request):
+    authorize(c, p, action="content.write")
+
+    def perform():
+        note = spark(c, p, request.id)
+        if note["version"] != request.expected_version:
+            raise Denied("VERSION_CONFLICT")
+        identity = row(c, p, "topic_sparks", request.id)
+        deleted_at = c.exec_driver_sql("SELECT now()").scalar_one()
+        compare_and_swap(
+            c,
+            "topic_sparks",
+            p.org_id,
+            request.id,
+            identity["lock_version"],
+            {"deleted_at": deleted_at},
+        )
+        audit(c, p.org_id, p.member_id, "spark.deleted", "spark", request.id)
+        return {"id": str(request.id)}
+
+    return receipt(c, p, "removeSpark", key, request.model_dump(mode="json"), perform)

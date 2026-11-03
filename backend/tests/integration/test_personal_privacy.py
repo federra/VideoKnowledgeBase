@@ -6,9 +6,10 @@ import pytest
 
 from app.security.authorization import Authorizer
 from app.security.errors import Denied
+from app.security.read_authorizer import ReadAuthorizer
 from app.security.sessions import MemberPrincipal
 from app.topics import generation, scoring, service
-from app.topics.contracts import SparkWrite, TopicHandoff, TopicSelect, TopicUpdate
+from app.topics.contracts import SparkRemove, SparkWrite, TopicHandoff, TopicSelect, TopicUpdate
 from app.topics.score_contracts import EvaluateRequest
 from tests.integration.test_security import grant
 from tests.integration.test_topics import create, fields, principal
@@ -92,7 +93,8 @@ def test_other_user_and_admin_cannot_mutate(engine, setup, operation):
                 scoring.start(c, actor, str(uuid4()), a["id"], EvaluateRequest(expected_version=1))
 
 
-def test_personal_task_raw_file_closure(engine, setup, monkeypatch, tmp_path):
+@pytest.mark.parametrize("authorization_class", [Authorizer, ReadAuthorizer])
+def test_personal_task_raw_file_closure(engine, setup, monkeypatch, tmp_path, authorization_class):
     from app.tasks.service import manage
     from tests.integration.test_topic_scoring import setup_score
 
@@ -116,7 +118,7 @@ def test_personal_task_raw_file_closure(engine, setup, monkeypatch, tmp_path):
             (owner.org_id, task["id"]),
         ).scalar_one()
         for actor in (alice, bob):
-            az = Authorizer(c, actor)
+            az = authorization_class(c, actor)
             for kind, ident in [
                 ("tasks", task["id"]),
                 ("raw_assets", task["raw_asset_id"]),
@@ -276,3 +278,37 @@ def test_generation_private_manifest_output_file_and_admin_cannot_control(
         with pytest.raises(Denied, match="NOT_FOUND"):
             Authorizer(c, alice).require("tasks", task["id"], "task.manage")
     assert len(calls) == 1
+
+
+def test_spark_color_and_delete_preserve_private_history(engine, setup):
+    admin, alice, bob = people(engine, setup)
+    with engine.begin() as c:
+        note = service.save_spark(c, alice, str(uuid4()), SparkWrite(text="An idea"))
+        assert note["color"] == "violet"
+        note = service.save_spark(
+            c,
+            alice,
+            str(uuid4()),
+            SparkWrite(id=note["id"], expected_version=1, text=note["text"], color="teal"),
+        )
+        assert (note["version"], note["color"]) == (2, "teal")
+        command = SparkRemove(id=note["id"], expected_version=2)
+        for actor in (admin, bob):
+            with pytest.raises(Denied, match="NOT_FOUND"):
+                service.remove_spark(c, actor, str(uuid4()), command)
+        with pytest.raises(Denied, match="VERSION_CONFLICT"):
+            service.remove_spark(
+                c, alice, str(uuid4()), SparkRemove(id=note["id"], expected_version=1)
+            )
+        key = str(uuid4())
+        assert service.remove_spark(c, alice, key, command) == {"id": str(note["id"])}
+        assert service.remove_spark(c, alice, key, command) == {"id": str(note["id"])}
+        assert service.sparks(c, alice)["items"] == []
+        with pytest.raises(Denied, match="NOT_FOUND"):
+            service.spark(c, alice, note["id"])
+        assert (
+            c.exec_driver_sql(
+                "SELECT count(*) FROM topic_spark_revisions WHERE spark_id=%s", (note["id"],)
+            ).scalar_one()
+            == 2
+        )

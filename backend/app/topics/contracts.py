@@ -62,7 +62,20 @@ class GenerationSave(Contract):
     fields: TopicFields
 
 
+SparkColor = Literal["violet", "teal", "amber"]
+
+
+class SparkRemove(Contract):
+    id: UUID
+    expected_version: int = Field(ge=1)
+
+
+class SparkRemoved(Contract):
+    id: UUID
+
+
 class SparkWrite(Contract):
+    color: SparkColor | None = None
     id: UUID | None = None
     expected_version: int | None = Field(default=None, ge=1)
     text: str = Field(min_length=1, max_length=20000)
@@ -159,6 +172,7 @@ class GenerationView(Contract):
 
 
 class SparkView(Contract):
+    color: SparkColor
     id: UUID
     version: int
     text: str

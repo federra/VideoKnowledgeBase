@@ -31,7 +31,7 @@ def test_topics_are_independent_versioned_objects():
         "updated_at",
         "lock_version",
     }
-    assert set(MUTABLE["topic_sparks"]) == {"current_revision_id", "updated_at", "lock_version"}
+    assert set(MUTABLE["topic_sparks"]) == {"current_revision_id", "updated_at", "lock_version", "deleted_at"}
     assert all(name not in MUTABLE for name in NAMES if name not in ("topic_cards", "topic_sparks"))
 
 

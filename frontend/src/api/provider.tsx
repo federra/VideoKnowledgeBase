@@ -51,7 +51,7 @@ export function useApiQuery<T>(key: readonly unknown[], load: (signal: AbortSign
     } = error ? feedback(error)
         : data === undefined ? { status: 'loading', message: '正在加载' }
             : isEmpty(data) ? { status: 'empty', message: '暂无数据' } : { status: 'success', message: '' };
-    return { ...state, data, error, requestId: error instanceof ApiError ? error.requestId : undefined,
+    return { ...state, data, error, isFetching: query.isFetching, requestId: error instanceof ApiError ? error.requestId : undefined,
         // Explicit retry is for reads only; writes use methods retaining caller-owned keys.
         refetch: query.refetch };
 }

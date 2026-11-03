@@ -3016,6 +3016,25 @@
         "title": "Envelope[SparkList]",
         "type": "object"
       },
+      "Envelope_SparkRemoved_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/SparkRemoved"
+          },
+          "request_id": {
+            "format": "uuid",
+            "title": "Request Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_id",
+          "data"
+        ],
+        "title": "Envelope[SparkRemoved]",
+        "type": "object"
+      },
       "Envelope_SparkView_": {
         "additionalProperties": false,
         "properties": {
@@ -9081,9 +9100,54 @@
         "title": "SparkList",
         "type": "object"
       },
+      "SparkRemove": {
+        "additionalProperties": false,
+        "properties": {
+          "expected_version": {
+            "minimum": 1.0,
+            "title": "Expected Version",
+            "type": "integer"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "expected_version"
+        ],
+        "title": "SparkRemove",
+        "type": "object"
+      },
+      "SparkRemoved": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "SparkRemoved",
+        "type": "object"
+      },
       "SparkView": {
         "additionalProperties": false,
         "properties": {
+          "color": {
+            "enum": [
+              "violet",
+              "teal",
+              "amber"
+            ],
+            "title": "Color",
+            "type": "string"
+          },
           "created_at": {
             "format": "date-time",
             "title": "Created At",
@@ -9113,6 +9177,7 @@
           }
         },
         "required": [
+          "color",
           "id",
           "version",
           "text",
@@ -9126,6 +9191,22 @@
       "SparkWrite": {
         "additionalProperties": false,
         "properties": {
+          "color": {
+            "anyOf": [
+              {
+                "enum": [
+                  "violet",
+                  "teal",
+                  "amber"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Color"
+          },
           "expected_version": {
             "anyOf": [
               {
@@ -29112,6 +29193,272 @@
           }
         ],
         "summary": "saveSpark",
+        "tags": [
+          "sparks"
+        ],
+        "x-idempotency": true,
+        "x-implementation-stage": "S08.2",
+        "x-implementation-status": "implemented",
+        "x-permission-rule": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "x-required-actions": [
+          "content.write"
+        ]
+      }
+    },
+    "/api/v1/sparks/remove": {
+      "post": {
+        "description": "本体、全部输入证据及文件依赖分别授权后取交集；组织来自会话。",
+        "operationId": "removeSpark",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "maxLength": 256,
+              "minLength": 16,
+              "title": "X-Csrf-Token",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Idempotency-Key",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SparkRemove"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_SparkRemoved_"
+                }
+              }
+            },
+            "description": "Successful Response",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "未登录或登录失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "动作或CSRF被拒绝",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "不存在或对象不可访问（同一响应）",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "版本、幂等、审核、预算或来源冲突",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "文件或请求体过大",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求不符合契约；不回显输入",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "请求限流",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "安全内部错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "外链素材获取失败",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "服务未就绪；设计预览只返回此状态或参数错误",
+            "headers": {
+              "X-Request-ID": {
+                "description": "服务端关联ID",
+                "schema": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "summary": "removeSpark",
         "tags": [
           "sparks"
         ],

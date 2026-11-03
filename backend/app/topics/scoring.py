@@ -250,15 +250,16 @@ def assessment_view(c, p, assessment):
     )
 
 
-def read(c, p, ident):
-    task = service.row(c, p, "tasks", ident)
+def read(c, p, ident, *, auth=None):
+    from app.security.read_authorizer import ReadAuthorizer
+
+    auth = auth or ReadAuthorizer(c, p)
+    task = service.row(c, p, "tasks", ident, auth=auth)
     if task["kind"] != KIND or not service.can_read_personal(c, p, task["requested_by"]):
         raise Denied("NOT_FOUND")
-    service.authorize(c, p, task["business_code"])
-    data = json.loads(
-        Authorizer(c, p).check("raw_assets", task["raw_asset_id"], "content.read")["body_text"]
-    )
-    service.check_sources(c, p, data["source_refs"], allow_admin=True)
+    service.authorize(c, p, task["business_code"], auth=auth)
+    data = json.loads(auth.check("raw_assets", task["raw_asset_id"], "content.read")["body_text"])
+    service.check_sources(c, p, data["source_refs"], allow_admin=True, az=auth)
     a = (
         c.exec_driver_sql(
             "SELECT * FROM topic_assessments WHERE org_id=%s AND task_id=%s", (p.org_id, ident)
@@ -277,12 +278,12 @@ def read(c, p, ident):
     }
 
 
-def projection(c, p, card, revision):
+def projection(c, p, card, revision, *, auth=None):
     task = c.exec_driver_sql(
         "SELECT t.id FROM tasks t JOIN raw_assets r ON r.org_id=t.org_id AND r.id=t.raw_asset_id WHERE t.org_id=%s AND t.kind=%s AND r.body_text::jsonb->>'revision_id'=%s ORDER BY t.created_at DESC,t.id DESC LIMIT 1",
         (p.org_id, KIND, str(revision["id"])),
     ).scalar_one_or_none()
-    view = read(c, p, task) if task else None
+    view = read(c, p, task, auth=auth) if task else None
     assessment = view["assessment"] if view else None
     status = "needs_review" if revision["version_no"] > 1 else "not_evaluated"
     if view:
@@ -300,5 +301,9 @@ def projection(c, p, card, revision):
         "evaluation_status": status,
         "assessment": assessment,
         "evaluation_task": view,
-        "score_model_ready": ready(c, p, card["business_code"]),
+        "score_model_ready": auth.memo(
+            ("topic.score.ready", card["business_code"]), lambda: ready(c, p, card["business_code"])
+        )
+        if auth
+        else ready(c, p, card["business_code"]),
     }
