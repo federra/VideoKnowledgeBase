@@ -21,6 +21,7 @@ it('refresh reads never collect; one explicit click uses only business and calle
  render(<QueryClientProvider client={new QueryClient({defaultOptions:{queries:{retry:false}}})}><ApiProvider client={api}><RefreshControl business="motion_comic" allowed onDateChange={date}/></ApiProvider></QueryClientProvider>);
  const button=await screen.findByRole('button',{name:'重新采集'});await waitFor(()=>expect(fetcher).toHaveBeenCalledTimes(2));expect(posts).toHaveLength(0);
  fireEvent.click(button);fireEvent.click(button);
+ fireEvent.click(await screen.findByRole('button',{name:'正在重新采集'}));
  await screen.findByText('正在采集');expect(posts).toHaveLength(1);expect(JSON.parse(String(posts[0].body))).toEqual({business_code:'motion_comic'});
  expect(new Headers(posts[0].headers).get('Idempotency-Key')).toMatch(/^[\da-f-]{36}$/);expect(date).toHaveBeenCalledWith('2026-10-22');expect((screen.getByRole('button',{name:'采集中…'}) as HTMLButtonElement).disabled).toBe(true);
 });
@@ -36,18 +37,28 @@ it('a transient status read failure keeps the active batch disabled and polling 
  const api=new ApiClient({fetcher:fetcher as typeof fetch});await api.getSession();
  render(<QueryClientProvider client={queries}><ApiProvider client={api}><RefreshControl business="motion_comic" allowed onDateChange={()=>{}}/></ApiProvider></QueryClientProvider>);
  await screen.findByRole('button',{name:'采集中…'});
+ fireEvent.click(screen.getByRole('button',{name:'正在重新采集'}));
  failed=true;await queries.invalidateQueries({queryKey:['api']});
  await screen.findByText(/将继续核验，不会重复采集/);
  expect((screen.getByRole('button',{name:'采集中…'}) as HTMLButtonElement).disabled).toBe(true);
  failed=false;finished=true;await queries.invalidateQueries({queryKey:['api']});
- await screen.findByText('采集完成');expect(posts).toBe(0);
+ await screen.findByRole('button',{name:'采集完成'});expect(posts).toBe(0);
 });
 it('story refresh displays all six runtime channels including microfilm without starting collection',async()=>{
  const codes=['hongguo','tikhub','fanqie','qidian','creators','microfilm'];
  const view={...idle,business_code:'story_short',task_id:id,state:'partial',channels:codes.map(code=>({code,name:code==='microfilm'?'抖音微电影':code,state:code==='microfilm'?'succeeded':'unavailable',completed:code==='microfilm'?1:0,total:code==='microfilm'?1:0,message:code==='microfilm'?'今日50条视频已保存':'当前不可采集'}))};
  const fetcher=vi.fn(async()=>reply(view));const api=new ApiClient({fetcher:fetcher as typeof fetch});
  render(<QueryClientProvider client={new QueryClient({defaultOptions:{queries:{retry:false}}})}><ApiProvider client={api}><RefreshControl business="story_short" allowed onDateChange={()=>{}}/></ApiProvider></QueryClientProvider>);
+ const summary=await screen.findByRole('button',{name:'采集结果'});
+ expect(summary.getAttribute('aria-expanded')).toBe('false');
+ expect(screen.queryByText(/抖音微电影/)).toBeNull();
+ expect(summary.compareDocumentPosition(screen.getByRole('button',{name:'重新采集'}))&Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+ fireEvent.click(summary);
  await screen.findByText(/抖音微电影/);
+ fireEvent.click(screen.getByRole('button',{name:'收起采集结果'}));
+ expect(screen.queryByText(/抖音微电影/)).toBeNull();
+ expect(document.activeElement).toBe(summary);
+ fireEvent.click(summary);
  expect(screen.getByText('今日50条视频已保存')).toBeTruthy();
  expect(screen.queryByText(/服务响应格式异常/)).toBeNull();
  expect(fetcher.mock.calls.every(call=>(call as unknown as [unknown,RequestInit?])[1]?.method!=='POST')).toBe(true);

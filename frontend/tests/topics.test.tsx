@@ -54,7 +54,11 @@ it('闪念默认紫色，取消删除无写入，确认后携带版本并从列�
  fireEvent.click(await screen.findByRole('button',{name:'打开闪念胶囊'}));
  const remove=await screen.findByRole('button',{name:'删除闪念：影子先回家'});
  expect(remove.parentElement?.dataset.color).toBe('violet');
- expect(screen.getByRole('combobox',{name:'胶囊颜色'})).toHaveProperty('value','violet');
+ const colors=screen.getByRole('radiogroup',{name:'胶囊颜色'});
+ expect(colors.textContent).toBe('');
+ expect(screen.getByRole('radio',{name:'紫色'})).toHaveProperty('checked',true);
+ fireEvent.click(screen.getByRole('radio',{name:'青绿'}));
+ expect(screen.getByRole('radio',{name:'青绿'})).toHaveProperty('checked',true);
  fireEvent.click(remove);
  await screen.findByRole('dialog',{name:'确认删除这条闪念？'});
  fireEvent.click(screen.getByRole('button',{name:'取消'}));
